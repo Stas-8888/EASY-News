@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">NewsApppp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="АмереканскиеНовости">Амереканские Новости</string>
+    <string name="РусскиеНовости">Русские Новости</string>
+    <string name="НемецкиеНовости">Немецкие Новости</string>
+    <string name="ЕгипетскиеНовости">Египетские Новости</string>
+    <string name="Дневная_тема">Дневная тема</string>
+    <string name="Ночная_тема">Ночная тема</string>
+    <string name="СтатьяДобавлена">Статья Добавлена</string>
+    <string name="СтатьяУдалена">Статья Удалена</string>
+    <string name="Update">Update</string>
+    <string name="Удалить">Удалить</string>
+    <string name="Отменить">Отменить</string>
+    <string name="Хотите_удалить">Хотите удалить ?</string>
+    <string name="dealy_news">Dealy News</string>
+    <string name="news">News</string>
+    <string name="Мои_новости">Мои новости</string>
+    <string name="Главные">Главные</string>
+    <string name="Спорт">Спорт</string>
+    <string name="Наука">Наука</string>
+    <string name="Развлечение">Развлечение</string>
+    <string name="Мои_Новости">Мои Новости</string>
+    <string name="Поиск">Поиск</string>
+    <string name="Настройки">Настройки</string>
+    <string name="Стас_Павленко">Стас Павленко</string>
+    <string name="Редоктировать">Редоктировать</string>
+    <string name="Профиль">Профиль</string>
+    <string name="Тема_профиля">Тема профиля</string>
+    <string name="Обьявления">Обьявления.</string>
+    <string name="welcome">welcome</string>
+    <string name="Author">Author</string>
+    <string name="_1_2022">1 Августа 2022</string>
+    <string name="title">TITLE</string>
+    <string name="description">Description</string>
+    <string name="Измена_Имени">Измена Имени</string>
+    <string name="Ваше_имя">Ваше имя ?</string>
+    <string name="Сохранить">Сохранить</string>
+</resources>

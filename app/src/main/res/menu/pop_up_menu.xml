@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/us"
+        android:title="1.   США                    US"
+        android:icon="@drawable/ic_date"/>
+
+    <item android:id="@+id/ru"
+        android:title="2.   Русские              RU"
+        android:icon="@drawable/ic_date"/>
+
+    <item android:id="@+id/germany"
+        android:title="3.   Немецкие          DE"
+        android:icon="@drawable/ic_date"/>
+
+    <item android:id="@+id/egipt"
+        android:title="4.   Египетксие        EG"
+        android:icon="@drawable/ic_date"/>
+
+</menu>
