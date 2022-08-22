@@ -1,8 +1,8 @@
 package com.example.newsapppp.domain.usecase
 
-import com.example.newsapppp.domain.repository.ArticleRepository
+import com.example.newsapppp.domain.repository.DbRepository
 
-class DeleteAllUseCase(private val repo: ArticleRepository) {
+class DeleteAllUseCase(private val repo: DbRepository) {
 
     suspend fun deleteAll() {
         repo.deleteAll()

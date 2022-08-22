@@ -38,7 +38,7 @@ class NewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showWebView()
-        checkFavorite()
+        checkFavoriteIcon()
         onClick()
     }
 
@@ -51,7 +51,7 @@ class NewsFragment : Fragment() {
         }
     }
 
-    private fun checkFavorite() {
+    private fun checkFavoriteIcon() {
         isFavorite = viewModel.getFavorite()
         if (isFavorite) {
             binding.btFavorite.setImageResource(R.drawable.ic_favorite)

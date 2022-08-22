@@ -5,5 +5,4 @@ interface SharedPrefRepository {
     suspend fun saveFavorite(value: Boolean)
 
     fun getFavorite(): Boolean
-
 }

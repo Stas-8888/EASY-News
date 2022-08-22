@@ -16,7 +16,6 @@ data class ArticleDbModel(
     val description: String?,
     @ColumnInfo
     val publishedAt: String?,
-//    val source: Source?,
     @ColumnInfo
     val title: String?,
     @ColumnInfo

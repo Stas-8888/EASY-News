@@ -16,7 +16,7 @@ class NewsResponseMapper(private val articleMapper: ArticleMapper) {
         )
     }
 
-    fun articleToModelArticle(article: List<ArticleDto>): List<ArticleModel> {
+    private fun articleToModelArticle(article: List<ArticleDto>): List<ArticleModel> {
         return article.map { articleMapper.convertToModel(it) }
     }
 

@@ -8,8 +8,10 @@ import com.example.newsapppp.data.mapper.ArticleMapper
 import com.example.newsapppp.data.mapper.NewsResponseMapper
 import com.example.newsapppp.data.network.ApiService
 import com.example.newsapppp.data.repository.ArticleRepositoryImpl
+import com.example.newsapppp.data.repository.DbRepositoryImpl
 import com.example.newsapppp.data.repository.SharedPrefRepositoryImpl
 import com.example.newsapppp.domain.repository.ArticleRepository
+import com.example.newsapppp.domain.repository.DbRepository
 import com.example.newsapppp.domain.repository.SharedPrefRepository
 import com.example.newsapppp.domain.usecase.*
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
@@ -22,7 +24,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-const val BASE_URL = "https://newsapi.org"
+private const val BASE_URL = "https://newsapi.org"
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -67,17 +69,17 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideDeleteAllUseCase(repo: ArticleRepository): DeleteAllUseCase =
+    fun provideDeleteAllUseCase(repo: DbRepository): DeleteAllUseCase =
         DeleteAllUseCase(repo)
 
     @Provides
     @Singleton
-    fun provideDeleteArticleUseCase(repo: ArticleRepository): DeleteArticleUseCase =
+    fun provideDeleteArticleUseCase(repo: DbRepository): DeleteArticleUseCase =
         DeleteArticleUseCase(repo)
 
     @Provides
     @Singleton
-    fun provideRoomGetArticleUseCase(repo: ArticleRepository): GetRoomArticleUseCase =
+    fun provideRoomGetArticleUseCase(repo: DbRepository): GetRoomArticleUseCase =
         GetRoomArticleUseCase(repo)
 
     @Provides
@@ -104,11 +106,19 @@ object AppModule {
     @Singleton
     fun provideArticleRepository(
         apiService: ApiService,
+        newsResponseMapper: NewsResponseMapper
+    ): ArticleRepository {
+        return ArticleRepositoryImpl(apiService, newsResponseMapper)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDbRepository(
         newsDao: NewsDao,
         mapper: ArticleMapper,
         newsResponseMapper: NewsResponseMapper
-    ): ArticleRepository {
-        return ArticleRepositoryImpl(apiService, newsDao, mapper, newsResponseMapper)
+    ): DbRepository {
+        return DbRepositoryImpl(newsDao, mapper, newsResponseMapper)
     }
 
     @Provides
@@ -116,9 +126,4 @@ object AppModule {
     fun provideSharedPrefRepository(@ApplicationContext context: Context): SharedPrefRepository {
         return SharedPrefRepositoryImpl(context)
     }
-
-//    @Provides
-//    @Singleton
-//    fun provideSharedPrefStorage(context: Context): SharedPrefStorage =
-//        SharedPrefStorage(context)
 }
