@@ -10,7 +10,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.domain.usecase.GetNewsUseCase
 import com.example.newsapppp.presentation.App
-import com.example.newsapppp.presentation.fragments.save.SaveState
+import com.example.newsapppp.presentation.fragments.SaveState
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -67,19 +67,3 @@ class MainFragmentViewModel @Inject constructor(
         return false
     }
 }
-
-//        viewModelScope.launch {
-//            try {
-//                if (checkInternetConnections()) {
-//                    val data =
-//                        getNewsUseCase.getNews(
-//                            countryCode = countryCode, category = category).articlesModel
-//                        _state.emit(SaveState.ShowArticles(data))
-//                } else {
-//                    _state.emit(SaveState.HideLoading)
-//                }
-//            } catch (e: Exception) {
-//                _state.emit(SaveState.ShowErrorScreen)
-//            }
-//        }
-//    }

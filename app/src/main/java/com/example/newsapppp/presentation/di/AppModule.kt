@@ -8,7 +8,9 @@ import com.example.newsapppp.data.mapper.ArticleMapper
 import com.example.newsapppp.data.mapper.NewsResponseMapper
 import com.example.newsapppp.data.network.ApiService
 import com.example.newsapppp.data.repository.ArticleRepositoryImpl
+import com.example.newsapppp.data.repository.SharedPrefRepositoryImpl
 import com.example.newsapppp.domain.repository.ArticleRepository
+import com.example.newsapppp.domain.repository.SharedPrefRepository
 import com.example.newsapppp.domain.usecase.*
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import dagger.Module
@@ -81,12 +83,22 @@ object AppModule {
     @Provides
     @Singleton
     fun provideGetNewsUseCase(repo: ArticleRepository): GetNewsUseCase =
-    GetNewsUseCase(repo)
+        GetNewsUseCase(repo)
 
     @Provides
     @Singleton
     fun provideSearchNewsUseCase(repo: ArticleRepository): SearchNewsUseCase =
         SearchNewsUseCase(repo)
+
+    @Provides
+    @Singleton
+    fun provideSaveFavoriteUseCase(repo: SharedPrefRepository): SaveFavoriteUseCase =
+        SaveFavoriteUseCase(repo)
+
+    @Provides
+    @Singleton
+    fun provideGetFavoriteUseCase(repo: SharedPrefRepository): GetFavoriteUseCase =
+        GetFavoriteUseCase(repo)
 
     @Provides
     @Singleton
@@ -98,4 +110,15 @@ object AppModule {
     ): ArticleRepository {
         return ArticleRepositoryImpl(apiService, newsDao, mapper, newsResponseMapper)
     }
+
+    @Provides
+    @Singleton
+    fun provideSharedPrefRepository(@ApplicationContext context: Context): SharedPrefRepository {
+        return SharedPrefRepositoryImpl(context)
+    }
+
+//    @Provides
+//    @Singleton
+//    fun provideSharedPrefStorage(context: Context): SharedPrefStorage =
+//        SharedPrefStorage(context)
 }

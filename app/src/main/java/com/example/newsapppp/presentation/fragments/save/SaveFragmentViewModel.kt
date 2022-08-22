@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.domain.usecase.DeleteAllUseCase
 import com.example.newsapppp.domain.usecase.DeleteArticleUseCase
 import com.example.newsapppp.domain.usecase.GetRoomArticleUseCase
+import com.example.newsapppp.presentation.fragments.SaveState
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import com.example.newsapppp.presentation.model.Article
 import dagger.hilt.android.lifecycle.HiltViewModel

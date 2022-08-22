@@ -1,4 +1,4 @@
-package com.example.newsapppp.presentation.fragments.save
+package com.example.newsapppp.presentation.fragments
 
 import com.example.newsapppp.presentation.model.Article
 
@@ -11,4 +11,8 @@ sealed class SaveState {
     object ShowErrorScreen : SaveState()
 
     data class ShowArticles(val articles: List<Article>) : SaveState()
+
+    object isTrue : SaveState()
+
+    object isFalse : SaveState()
 }

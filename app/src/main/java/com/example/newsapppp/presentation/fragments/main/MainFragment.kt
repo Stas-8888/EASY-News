@@ -21,7 +21,7 @@ import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentMainBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
 import com.example.newsapppp.presentation.fragments.base.BaseFragment
-import com.example.newsapppp.presentation.fragments.save.SaveState
+import com.example.newsapppp.presentation.fragments.SaveState
 import com.example.newsapppp.presentation.utils.USA
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
