@@ -58,10 +58,10 @@ class NewsFragment : Fragment() {
     private fun checkFavoriteIcon() = lifecycleScope.launch {
         viewModel.state.collect() {
             when (it) {
-                is SaveState.ShowAsSavedFalse -> {
+                is NewsSaveState.ShowAsSavedFalse -> {
                     binding.btFavorite.setImageResource(R.drawable.ic_favorite)
                 }
-                is SaveState.ShowAsSavedTrue -> {
+                is NewsSaveState.ShowAsSavedTrue -> {
                     binding.btFavorite.setImageResource(R.drawable.ic_favorite_border)
                 }
             }
@@ -72,11 +72,11 @@ class NewsFragment : Fragment() {
         viewModel.saveDeleteFavorite(article)
         viewModel.state.collect() {
             when (it) {
-                is SaveState.ShowDelete -> {
+                is NewsSaveState.ShowDelete -> {
                     binding.btFavorite.setImageResource(R.drawable.ic_favorite_border)
                     showAlertUpDialog(getString(R.string.СтатьяУдалена))
                 }
-                is SaveState.ShowInsert -> {
+                is NewsSaveState.ShowInsert -> {
                     binding.btFavorite.setImageResource(R.drawable.ic_favorite)
                     showAlertUpDialog(getString(R.string.СтатьяДобавлена))
                 }

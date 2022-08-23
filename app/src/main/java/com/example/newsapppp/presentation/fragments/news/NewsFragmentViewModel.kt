@@ -27,8 +27,8 @@ class NewsFragmentViewModel @Inject constructor(
 ) : AndroidViewModel(application) {
     var  isFavorite = getFavorite()
 
-    private val _state = MutableStateFlow<SaveState>(SaveState.ShowLoading)
-    val state: StateFlow<SaveState> = _state
+    private val _state = MutableStateFlow<NewsSaveState>(NewsSaveState.ShowDelete)
+    val state: StateFlow<NewsSaveState> = _state
 
     private fun insertArticle(article: Article) = viewModelScope.launch {
         insertArticleUseCase.insertArticle(articleMapperToModel.convertToModel(article))
@@ -49,9 +49,9 @@ class NewsFragmentViewModel @Inject constructor(
     fun checkFavoriteIcon() = viewModelScope.launch {
         isFavorite = getFavorite()
         if (isFavorite) {
-            _state.emit(SaveState.ShowAsSavedFalse)
+            _state.emit(NewsSaveState.ShowAsSavedFalse)
         } else {
-            _state.emit(SaveState.ShowAsSavedTrue)
+            _state.emit(NewsSaveState.ShowAsSavedTrue)
         }
     }
 
@@ -59,12 +59,12 @@ class NewsFragmentViewModel @Inject constructor(
         if (isFavorite) {
             saveFavorite(false)
             deleteArticle(article)
-            _state.emit(SaveState.ShowDelete)
+            _state.emit(NewsSaveState.ShowDelete)
 
         } else {
             saveFavorite(true)
             insertArticle(article)
-            _state.emit(SaveState.ShowInsert)
+            _state.emit(NewsSaveState.ShowInsert)
         }
     }
 }

@@ -11,12 +11,4 @@ sealed class SaveState {
     object ShowErrorScreen : SaveState()
 
     data class ShowArticles(val articles: List<Article>) : SaveState()
-
-    object ShowAsSavedTrue: SaveState()
-
-    object ShowAsSavedFalse: SaveState()
-
-    object ShowDelete: SaveState()
-
-    object ShowInsert: SaveState()
 }
