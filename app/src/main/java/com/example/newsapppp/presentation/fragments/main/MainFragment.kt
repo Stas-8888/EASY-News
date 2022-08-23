@@ -1,8 +1,6 @@
 package com.example.newsapppp.presentation.fragments.main
 
 import android.app.Dialog
-import android.content.Context
-import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -10,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat.recreate
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -22,7 +21,6 @@ import com.example.newsapppp.databinding.FragmentMainBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
 import com.example.newsapppp.presentation.fragments.base.BaseFragment
 import com.example.newsapppp.presentation.fragments.save.SaveState
-import com.example.newsapppp.presentation.utils.USA
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -32,18 +30,18 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() {
     private val newsAdapter by lazy { NewsAdapter() }
-    private lateinit var sharedPref: SharedPreferences
     override val viewModel by viewModels<MainFragmentViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView()
+        sharedPreferencesGetDayNight()
         getCountryAndCategoryTabLayout()
+        setupRecyclerView()
         showNewsList()
-        onClickListener()
+        setClickListeners()
     }
 
-    private fun onClickListener() {
+    private fun setClickListeners() {
         tvCountry.setOnClickListener {
             rvNews.smoothScrollToPosition(0)
         }
@@ -121,8 +119,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
     }
 
     private fun getCountryAndCategoryTabLayout() {
-        sharedPref = requireActivity().getSharedPreferences("Table", Context.MODE_PRIVATE)
-        val country = sharedPref.getString("country", USA)!!
+        val country = viewModel.getCountryFlag()
         viewModel.getNewsRetrofit(countryCode = country, category = categories[0])
         tvCountry.text = country
 
@@ -149,4 +146,15 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
         "Business",
         "Health",
     )
+
+    private fun sharedPreferencesGetDayNight() {
+        val nightMode = viewModel.getSwitchPosition()
+        if (nightMode) {
+            AppCompatDelegate
+                .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        } else {
+            AppCompatDelegate
+                .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+    }
 }

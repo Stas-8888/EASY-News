@@ -41,10 +41,10 @@ class NewsFragment : Fragment() {
         showWebView()
         viewModel.checkFavoriteIcon()
         checkFavoriteIcon()
-        onClick()
+        setClickListeners()
     }
 
-    private fun onClick() {
+    private fun setClickListeners() {
         binding.btFavorite.setOnClickListener {
             saveDeleteFavorite()
         }

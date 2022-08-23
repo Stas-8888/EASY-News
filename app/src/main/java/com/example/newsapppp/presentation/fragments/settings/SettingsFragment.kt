@@ -1,8 +1,6 @@
 package com.example.newsapppp.presentation.fragments.settings
 
 import android.app.AlertDialog
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -27,9 +25,7 @@ import kotlinx.android.synthetic.main.fragment_settings.*
 @AndroidEntryPoint
 class SettingsFragment : Fragment() {
     private lateinit var binding: FragmentSettingsBinding
-    private lateinit var sharedPref: SharedPreferences
     private val viewModel by viewModels<SettingsFragmentViewModel>()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,14 +37,13 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sharedPref = requireActivity().getSharedPreferences("Table", Context.MODE_PRIVATE)
         setCountryFlag()
         switchDayNight()
         receiveSwitchPosition()
-        onClickListener()
+        setClickListeners()
     }
 
-    private fun onClickListener(){
+    private fun setClickListeners() {
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
@@ -64,33 +59,18 @@ class SettingsFragment : Fragment() {
 
     private fun switchDayNight() = switchDayNight.setOnCheckedChangeListener { _, trueOrFalse ->
         if (trueOrFalse) {
-            saveSwitch(0)
-            saveSwitchPosition(false)
+            viewModel.saveSwitchPosition(false)
             AppCompatDelegate
                 .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {
-            saveSwitch(1)
-            saveSwitchPosition(true)
+            viewModel.saveSwitchPosition(true)
             AppCompatDelegate
                 .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         }
     }
 
-    private fun saveSwitch(switch: Int) {
-        val editor = sharedPref.edit()
-        editor.putInt("SWITCH_KEY", switch)
-        editor.apply()
-    }
-
-    private fun saveSwitchPosition(position: Boolean) {
-        val editor = sharedPref.edit()
-        editor.putBoolean("SWITCH_POSITION_KEY", position)
-        editor.apply()
-    }
-
     private fun receiveSwitchPosition() {
-        sharedPref = requireActivity().getSharedPreferences("Table", Context.MODE_PRIVATE)
-        val switchPosition = sharedPref.getBoolean("SWITCH_POSITION_KEY", false)
+        val switchPosition = viewModel.getSwitchPosition()
         if (switchPosition) {
             switchDayNight.isChecked = false
             Toast.makeText(requireContext(), getString(R.string.Дневная_тема), Toast.LENGTH_SHORT)
@@ -102,20 +82,13 @@ class SettingsFragment : Fragment() {
         }
     }
 
-    private fun saveCountry(res: String) {
-        val editor = sharedPref.edit()
-        editor.putString("country", res)
-        editor.apply()
-    }
-
     private fun showPopup(view: View) {
         val popup = PopupMenu(requireContext(), view)
         popup.inflate(R.menu.pop_up_menu)
         popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item: MenuItem? ->
-
             when (item!!.itemId) {
                 R.id.us -> {
-                    saveCountry(USA)
+                    viewModel.saveCountryFlag(USA)
                     binding.imCountry.setImageResource(R.drawable.usa)
                     Toast.makeText(
                         requireContext(),
@@ -124,7 +97,7 @@ class SettingsFragment : Fragment() {
                     ).show()
                 }
                 R.id.ru -> {
-                    saveCountry(RUSSIA)
+                    viewModel.saveCountryFlag(RUSSIA)
                     binding.imCountry.setImageResource(R.drawable.russia)
                     Toast.makeText(
                         requireContext(),
@@ -133,7 +106,7 @@ class SettingsFragment : Fragment() {
                     ).show()
                 }
                 R.id.germany -> {
-                    saveCountry(GERMANY)
+                    viewModel.saveCountryFlag(GERMANY)
                     binding.imCountry.setImageResource(R.drawable.germany)
                     Toast.makeText(
                         requireContext(),
@@ -142,7 +115,7 @@ class SettingsFragment : Fragment() {
                     ).show()
                 }
                 R.id.egipt -> {
-                    saveCountry(EGYPT)
+                    viewModel.saveCountryFlag(EGYPT)
                     binding.imCountry.setImageResource(R.drawable.egypt)
                     Toast.makeText(
                         requireContext(),
@@ -157,10 +130,7 @@ class SettingsFragment : Fragment() {
     }
 
     private fun setCountryFlag() {
-        val countryCode =
-            requireActivity().getSharedPreferences("Table", Context.MODE_PRIVATE)
-                .getString("country", "")
-        when (countryCode) {
+        when (viewModel.getCountryFlag()) {
             USA -> {
                 binding.imCountry.setImageResource(R.drawable.usa)
             }

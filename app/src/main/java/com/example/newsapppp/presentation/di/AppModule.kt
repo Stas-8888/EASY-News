@@ -13,7 +13,6 @@ import com.example.newsapppp.data.repository.SharedPrefRepositoryImpl
 import com.example.newsapppp.domain.repository.ArticleRepository
 import com.example.newsapppp.domain.repository.DbRepository
 import com.example.newsapppp.domain.repository.SharedPrefRepository
-import com.example.newsapppp.domain.usecase.*
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import dagger.Module
 import dagger.Provides
@@ -66,41 +65,6 @@ object AppModule {
     @Singleton
     fun provideNewsResponseMapper(articleMapper: ArticleMapper): NewsResponseMapper =
         NewsResponseMapper(articleMapper)
-
-    @Provides
-    @Singleton
-    fun provideDeleteAllUseCase(repo: DbRepository): DeleteAllUseCase =
-        DeleteAllUseCase(repo)
-
-    @Provides
-    @Singleton
-    fun provideDeleteArticleUseCase(repo: DbRepository): DeleteArticleUseCase =
-        DeleteArticleUseCase(repo)
-
-    @Provides
-    @Singleton
-    fun provideRoomGetArticleUseCase(repo: DbRepository): GetRoomArticleUseCase =
-        GetRoomArticleUseCase(repo)
-
-    @Provides
-    @Singleton
-    fun provideGetNewsUseCase(repo: ArticleRepository): GetNewsUseCase =
-        GetNewsUseCase(repo)
-
-    @Provides
-    @Singleton
-    fun provideSearchNewsUseCase(repo: ArticleRepository): SearchNewsUseCase =
-        SearchNewsUseCase(repo)
-
-    @Provides
-    @Singleton
-    fun provideSaveFavoriteUseCase(repo: SharedPrefRepository): SaveFavoriteUseCase =
-        SaveFavoriteUseCase(repo)
-
-    @Provides
-    @Singleton
-    fun provideGetFavoriteUseCase(repo: SharedPrefRepository): GetFavoriteUseCase =
-        GetFavoriteUseCase(repo)
 
     @Provides
     @Singleton

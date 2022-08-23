@@ -1,13 +1,9 @@
 package com.example.newsapppp.presentation
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +16,6 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
-    private lateinit var sharedPref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,24 +27,6 @@ class MainActivity : AppCompatActivity() {
             setContentView(binding.root)
             setBottomNavListener()
             navController = Navigation.findNavController(this@MainActivity, R.id.nav_fragment)
-            sharedPreferencesGetDayNight()
-        }
-    }
-
-    private fun sharedPreferencesGetDayNight() {
-        sharedPref = getSharedPreferences("Table", Context.MODE_PRIVATE)
-        val nightMode = sharedPref.getInt("SWITCH_KEY", 0)
-
-        if (nightMode == 0) {
-            AppCompatDelegate
-                .setDefaultNightMode(
-                    AppCompatDelegate.MODE_NIGHT_YES
-                )
-        } else {
-            AppCompatDelegate
-                .setDefaultNightMode(
-                    AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-                )
         }
     }
 

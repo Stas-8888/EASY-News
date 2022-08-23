@@ -8,7 +8,9 @@ import android.os.Build
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.newsapppp.domain.usecase.GetCountryFlagUseCase
 import com.example.newsapppp.domain.usecase.GetNewsUseCase
+import com.example.newsapppp.domain.usecase.GetSwitchPositionUseCase
 import com.example.newsapppp.presentation.App
 import com.example.newsapppp.presentation.fragments.save.SaveState
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
@@ -22,7 +24,9 @@ import javax.inject.Inject
 class MainFragmentViewModel @Inject constructor(
     app: Application,
     private val getNewsUseCase: GetNewsUseCase,
-    private val articleMapperToModel: ArticleMapperToModel
+    private val articleMapperToModel: ArticleMapperToModel,
+    private val getCountryFlagUseCase: GetCountryFlagUseCase,
+    private val getSwitchPositionUseCase: GetSwitchPositionUseCase
 ) : AndroidViewModel(app) {
 
     private val _state = MutableStateFlow<SaveState>(SaveState.ShowLoading)
@@ -37,6 +41,14 @@ class MainFragmentViewModel @Inject constructor(
         } else {
             _state.emit(SaveState.HideLoading)
         }
+    }
+
+    fun getCountryFlag(): String {
+        return getCountryFlagUseCase.getCountryFlag()
+    }
+
+    fun getSwitchPosition(): Boolean {
+        return getSwitchPositionUseCase.getSwitchPosition()
     }
 
     private fun checkInternetConnections(): Boolean {

@@ -2,24 +2,33 @@ package com.example.newsapppp.presentation.fragments.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.newsapppp.domain.usecase.GetFavoriteUseCase
-import com.example.newsapppp.domain.usecase.SaveFavoriteUseCase
+import com.example.newsapppp.domain.usecase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingsFragmentViewModel @Inject constructor(
-    private val saveFavoriteUseCase: SaveFavoriteUseCase,
-    private val getFavoriteUseCase: GetFavoriteUseCase
+    private val saveCountryFlagUseCase: SaveCountryFlagUseCase,
+    private val getCountryFlagUseCase: GetCountryFlagUseCase,
+    private val saveSwitchPositionUseCase: SaveSwitchPositionUseCase,
+    private val getSwitchPositionUseCase: GetSwitchPositionUseCase
 ) : ViewModel() {
 
-    fun saveFavorite(value: Boolean)= viewModelScope.launch {
-        saveFavoriteUseCase.saveFavorite(value)
+    fun saveCountryFlag(value: String) = viewModelScope.launch {
+        saveCountryFlagUseCase.saveCountryFlag(value)
     }
 
-    fun getFavorite(): Boolean  {
-        return getFavoriteUseCase.getFavorite()
+    fun getCountryFlag(): String {
+        return getCountryFlagUseCase.getCountryFlag()
+    }
+
+    fun saveSwitchPosition(value: Boolean) = viewModelScope.launch {
+        saveSwitchPositionUseCase.saveSwitchPosition(value)
+    }
+
+    fun getSwitchPosition(): Boolean {
+        return getSwitchPositionUseCase.getSwitchPosition()
     }
 
 }
