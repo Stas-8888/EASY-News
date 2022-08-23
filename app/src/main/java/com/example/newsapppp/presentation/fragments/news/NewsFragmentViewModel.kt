@@ -7,7 +7,6 @@ import com.example.newsapppp.domain.usecase.DeleteArticleUseCase
 import com.example.newsapppp.domain.usecase.GetFavoriteUseCase
 import com.example.newsapppp.domain.usecase.InsertArticleUseCase
 import com.example.newsapppp.domain.usecase.SaveFavoriteUseCase
-import com.example.newsapppp.presentation.fragments.SaveState
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import com.example.newsapppp.presentation.model.Article
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,8 +26,8 @@ class NewsFragmentViewModel @Inject constructor(
 ) : AndroidViewModel(application) {
     var  isFavorite = getFavorite()
 
-    private val _state = MutableStateFlow<NewsSaveState>(NewsSaveState.ShowDelete)
-    val state: StateFlow<NewsSaveState> = _state
+    private val _state = MutableStateFlow<NewsState>(NewsState.ShowDelete)
+    val state: StateFlow<NewsState> = _state
 
     private fun insertArticle(article: Article) = viewModelScope.launch {
         insertArticleUseCase.insertArticle(articleMapperToModel.convertToModel(article))
@@ -49,9 +48,9 @@ class NewsFragmentViewModel @Inject constructor(
     fun checkFavoriteIcon() = viewModelScope.launch {
         isFavorite = getFavorite()
         if (isFavorite) {
-            _state.emit(NewsSaveState.ShowAsSavedFalse)
+            _state.emit(NewsState.ShowAsSavedFalse)
         } else {
-            _state.emit(NewsSaveState.ShowAsSavedTrue)
+            _state.emit(NewsState.ShowAsSavedTrue)
         }
     }
 
@@ -59,12 +58,12 @@ class NewsFragmentViewModel @Inject constructor(
         if (isFavorite) {
             saveFavorite(false)
             deleteArticle(article)
-            _state.emit(NewsSaveState.ShowDelete)
+            _state.emit(NewsState.ShowDelete)
 
         } else {
             saveFavorite(true)
             insertArticle(article)
-            _state.emit(NewsSaveState.ShowInsert)
+            _state.emit(NewsState.ShowInsert)
         }
     }
 }

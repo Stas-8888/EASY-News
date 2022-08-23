@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,7 +16,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentNewsBinding
 import com.example.newsapppp.presentation.extensions.showAlertUpDialog
-import com.example.newsapppp.presentation.fragments.SaveState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_news.*
 import kotlinx.coroutines.launch
@@ -58,10 +56,10 @@ class NewsFragment : Fragment() {
     private fun checkFavoriteIcon() = lifecycleScope.launch {
         viewModel.state.collect() {
             when (it) {
-                is NewsSaveState.ShowAsSavedFalse -> {
+                is NewsState.ShowAsSavedFalse -> {
                     binding.btFavorite.setImageResource(R.drawable.ic_favorite)
                 }
-                is NewsSaveState.ShowAsSavedTrue -> {
+                is NewsState.ShowAsSavedTrue -> {
                     binding.btFavorite.setImageResource(R.drawable.ic_favorite_border)
                 }
             }
@@ -72,11 +70,11 @@ class NewsFragment : Fragment() {
         viewModel.saveDeleteFavorite(article)
         viewModel.state.collect() {
             when (it) {
-                is NewsSaveState.ShowDelete -> {
+                is NewsState.ShowDelete -> {
                     binding.btFavorite.setImageResource(R.drawable.ic_favorite_border)
                     showAlertUpDialog(getString(R.string.СтатьяУдалена))
                 }
-                is NewsSaveState.ShowInsert -> {
+                is NewsState.ShowInsert -> {
                     binding.btFavorite.setImageResource(R.drawable.ic_favorite)
                     showAlertUpDialog(getString(R.string.СтатьяДобавлена))
                 }

@@ -1,4 +1,4 @@
-package com.example.newsapppp.presentation.fragments
+package com.example.newsapppp.presentation.fragments.save
 
 import com.example.newsapppp.presentation.model.Article
 

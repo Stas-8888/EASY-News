@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.domain.usecase.DeleteAllUseCase
 import com.example.newsapppp.domain.usecase.DeleteArticleUseCase
 import com.example.newsapppp.domain.usecase.GetRoomArticleUseCase
-import com.example.newsapppp.presentation.fragments.SaveState
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import com.example.newsapppp.presentation.model.Article
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,11 +31,11 @@ class SaveFragmentViewModel @Inject constructor(
         }
     }
 
-    fun delete(article: Article) = viewModelScope.launch {
+    fun deleteArticle(article: Article) = viewModelScope.launch {
         deleteArticleUseCase.deleteArticle(articleMapperToModel.convertToModel(article))
     }
 
-    fun deleteAll() = viewModelScope.launch {
+    fun deleteAllArticle() = viewModelScope.launch {
         deleteAllUseCase.deleteAll()
     }
 }

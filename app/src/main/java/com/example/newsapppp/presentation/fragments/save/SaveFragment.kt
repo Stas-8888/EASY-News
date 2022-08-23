@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapppp.databinding.FragmentSaveBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
 import com.example.newsapppp.presentation.extensions.showDeleteDialog
-import com.example.newsapppp.presentation.fragments.SaveState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_save.*
 import kotlinx.coroutines.launch
@@ -44,7 +43,7 @@ class SaveFragment : Fragment() {
         viewModel.getAllNews()
 
         btDeleteAll.setOnClickListener {
-            showDeleteDialog({ viewModel.deleteAll() }, { })
+            showDeleteDialog({ viewModel.deleteAllArticle() }, { })
         }
         newsAdapter.setOnItemClickListener {
             findNavController().navigate(SaveFragmentDirections.actionSaveFragmentToNewsFragment(it))
@@ -94,7 +93,7 @@ class SaveFragment : Fragment() {
                 val position = viewHolder.adapterPosition
                 val article = newsAdapter.currentList[position]
                 showDeleteDialog(
-                    { viewModel.delete(article) },
+                    { viewModel.deleteArticle(article) },
                     { newsAdapter.notifyItemChanged(position) })
             }
         }
