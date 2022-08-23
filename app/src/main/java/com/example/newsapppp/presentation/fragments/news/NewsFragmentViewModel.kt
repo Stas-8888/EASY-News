@@ -25,23 +25,46 @@ class NewsFragmentViewModel @Inject constructor(
     private val saveFavoriteUseCase: SaveFavoriteUseCase,
     private val getFavoriteUseCase: GetFavoriteUseCase
 ) : AndroidViewModel(application) {
+    var  isFavorite = getFavorite()
 
     private val _state = MutableStateFlow<SaveState>(SaveState.ShowLoading)
     val state: StateFlow<SaveState> = _state
 
-    fun insert(article: Article) = viewModelScope.launch {
-        insertArticleUseCase.insert(articleMapperToModel.convertToModel(article))
+    private fun insertArticle(article: Article) = viewModelScope.launch {
+        insertArticleUseCase.insertArticle(articleMapperToModel.convertToModel(article))
     }
 
-    fun delete(article: Article) = viewModelScope.launch {
-        deleteArticleUseCase.delete(articleMapperToModel.convertToModel(article))
+    private fun deleteArticle(article: Article) = viewModelScope.launch {
+        deleteArticleUseCase.deleteArticle(articleMapperToModel.convertToModel(article))
     }
 
-    fun saveFavorite(value: Boolean)= viewModelScope.launch {
+    private fun saveFavorite(value: Boolean) = viewModelScope.launch {
         saveFavoriteUseCase.saveFavorite(value)
     }
 
-    fun getFavorite(): Boolean  {
+    private fun getFavorite(): Boolean {
         return getFavoriteUseCase.getFavorite()
+    }
+
+    fun checkFavoriteIcon() = viewModelScope.launch {
+        isFavorite = getFavorite()
+        if (isFavorite) {
+            _state.emit(SaveState.ShowAsSavedFalse)
+        } else {
+            _state.emit(SaveState.ShowAsSavedTrue)
+        }
+    }
+
+    fun saveDeleteFavorite(article: Article) = viewModelScope.launch  {
+        if (isFavorite) {
+            saveFavorite(false)
+            deleteArticle(article)
+            _state.emit(SaveState.ShowDelete)
+
+        } else {
+            saveFavorite(true)
+            insertArticle(article)
+            _state.emit(SaveState.ShowInsert)
+        }
     }
 }

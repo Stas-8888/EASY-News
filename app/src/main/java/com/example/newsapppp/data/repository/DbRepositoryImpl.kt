@@ -17,16 +17,16 @@ class DbRepositoryImpl @Inject constructor(
     private val newsResponseMapper: NewsResponseMapper
 ) : DbRepository {
 
-    override suspend fun insert(article: ArticleModel) = withContext(Dispatchers.IO) {
-        newsDao.insert(mapper.mapArticleModelToArticleDb(article))
+    override suspend fun insertArticle(article: ArticleModel) = withContext(Dispatchers.IO) {
+        newsDao.insertArticle(mapper.mapArticleModelToArticleDb(article))
     }
 
-    override suspend fun delete(article: ArticleModel) = withContext(Dispatchers.IO) {
+    override suspend fun deleteArticle(article: ArticleModel) = withContext(Dispatchers.IO) {
         newsDao.deleteArticle(mapper.mapArticleModelToArticleDb(article))
     }
 
-    override suspend fun deleteAll() = withContext(Dispatchers.IO) {
-        newsDao.deleteAll()
+    override suspend fun deleteAllArticle() = withContext(Dispatchers.IO) {
+        newsDao.deleteAllArticle()
     }
 
     override fun getAllArticles(): Flow<List<ArticleModel>> {

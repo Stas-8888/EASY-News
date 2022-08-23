@@ -5,7 +5,7 @@ import com.example.newsapppp.domain.repository.DbRepository
 
 class DeleteArticleUseCase(private val repo: DbRepository) {
 
-    suspend fun delete(article: ArticleModel) {
-        repo.delete(article)
+    suspend fun deleteArticle(article: ArticleModel) {
+        repo.deleteArticle(article)
     }
 }

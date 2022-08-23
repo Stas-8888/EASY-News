@@ -5,11 +5,11 @@ import kotlinx.coroutines.flow.Flow
 
 interface DbRepository {
 
-    suspend fun insert(article: ArticleModel)
+    suspend fun insertArticle(article: ArticleModel)
 
-    suspend fun delete(article: ArticleModel)
+    suspend fun deleteArticle(article: ArticleModel)
 
-    suspend fun deleteAll()
+    suspend fun deleteAllArticle()
 
     fun getAllArticles(): Flow<List<ArticleModel>>
 

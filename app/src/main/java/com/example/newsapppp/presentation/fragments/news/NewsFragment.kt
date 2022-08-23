@@ -7,23 +7,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentNewsBinding
 import com.example.newsapppp.presentation.extensions.showAlertUpDialog
+import com.example.newsapppp.presentation.fragments.SaveState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_news.*
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class NewsFragment : Fragment() {
     private lateinit var binding: FragmentNewsBinding
     private val args: NewsFragmentArgs by navArgs()
     private val viewModel by viewModels<NewsFragmentViewModel>()
-    var isFavorite = false
     val article by lazy { args.article }
 
     override fun onCreateView(
@@ -38,6 +41,7 @@ class NewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showWebView()
+        viewModel.checkFavoriteIcon()
         checkFavoriteIcon()
         onClick()
     }
@@ -51,26 +55,32 @@ class NewsFragment : Fragment() {
         }
     }
 
-    private fun checkFavoriteIcon() {
-        isFavorite = viewModel.getFavorite()
-        if (isFavorite) {
-            binding.btFavorite.setImageResource(R.drawable.ic_favorite)
-        } else {
-            binding.btFavorite.setImageResource(R.drawable.ic_favorite_border)
+    private fun checkFavoriteIcon() = lifecycleScope.launch {
+        viewModel.state.collect() {
+            when (it) {
+                is SaveState.ShowAsSavedFalse -> {
+                    binding.btFavorite.setImageResource(R.drawable.ic_favorite)
+                }
+                is SaveState.ShowAsSavedTrue -> {
+                    binding.btFavorite.setImageResource(R.drawable.ic_favorite_border)
+                }
+            }
         }
     }
 
-    private fun saveDeleteFavorite() {
-        if (isFavorite) {
-            viewModel.saveFavorite(false)
-            binding.btFavorite.setImageResource(R.drawable.ic_favorite_border)
-            viewModel.delete(article)
-            showAlertUpDialog(getString(R.string.СтатьяУдалена))
-        } else {
-            binding.btFavorite.setImageResource(R.drawable.ic_favorite)
-            viewModel.saveFavorite(true)
-            viewModel.insert(article)
-            showAlertUpDialog(getString(R.string.СтатьяДобавлена))
+    private fun saveDeleteFavorite() = lifecycleScope.launch {
+        viewModel.saveDeleteFavorite(article)
+        viewModel.state.collect() {
+            when (it) {
+                is SaveState.ShowDelete -> {
+                    binding.btFavorite.setImageResource(R.drawable.ic_favorite_border)
+                    showAlertUpDialog(getString(R.string.СтатьяУдалена))
+                }
+                is SaveState.ShowInsert -> {
+                    binding.btFavorite.setImageResource(R.drawable.ic_favorite)
+                    showAlertUpDialog(getString(R.string.СтатьяДобавлена))
+                }
+            }
         }
     }
 

@@ -12,7 +12,11 @@ sealed class SaveState {
 
     data class ShowArticles(val articles: List<Article>) : SaveState()
 
-    object isTrue : SaveState()
+    object ShowAsSavedTrue: SaveState()
 
-    object isFalse : SaveState()
+    object ShowAsSavedFalse: SaveState()
+
+    object ShowDelete: SaveState()
+
+    object ShowInsert: SaveState()
 }

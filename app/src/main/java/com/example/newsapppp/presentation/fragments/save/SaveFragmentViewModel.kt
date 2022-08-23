@@ -33,7 +33,7 @@ class SaveFragmentViewModel @Inject constructor(
     }
 
     fun delete(article: Article) = viewModelScope.launch {
-        deleteArticleUseCase.delete(articleMapperToModel.convertToModel(article))
+        deleteArticleUseCase.deleteArticle(articleMapperToModel.convertToModel(article))
     }
 
     fun deleteAll() = viewModelScope.launch {

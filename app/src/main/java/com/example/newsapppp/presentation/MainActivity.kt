@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,12 +61,12 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.mainFragment)
                 }
 
-                R.id.saveFragment -> {
-                    navController.navigate(R.id.saveFragment)
-                }
-
                 R.id.searchNewsFragment -> {
                     navController.navigate(R.id.searchFragment)
+                }
+
+                R.id.saveFragment -> {
+                    navController.navigate(R.id.saveFragment)
                 }
             }
             true

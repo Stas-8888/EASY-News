@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class InsertArticleUseCase @Inject constructor(private val repo: DbRepository) {
 
-    suspend fun insert(article: ArticleModel) {
-        repo.insert(article)
+    suspend fun insertArticle(article: ArticleModel) {
+        repo.insertArticle(article)
     }
 }

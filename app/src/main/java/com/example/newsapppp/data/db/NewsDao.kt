@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface NewsDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(article: ArticleDbModel)
+    suspend fun insertArticle(article: ArticleDbModel)
 
     @Delete
     suspend fun deleteArticle(article: ArticleDbModel)
@@ -16,5 +16,5 @@ interface NewsDao {
     fun getAllArticles(): Flow<List<ArticleDbModel>>
 
     @Query("DELETE FROM articles")
-    suspend fun deleteAll()
+    suspend fun deleteAllArticle()
 }
