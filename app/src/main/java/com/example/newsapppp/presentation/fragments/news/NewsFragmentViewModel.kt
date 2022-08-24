@@ -48,9 +48,9 @@ class NewsFragmentViewModel @Inject constructor(
     fun checkFavoriteIcon() = viewModelScope.launch {
         isFavorite = getFavorite()
         if (isFavorite) {
-            _state.emit(NewsState.ShowAsSavedFalse)
+            _state.emit(NewsState.ShowUnSaved)
         } else {
-            _state.emit(NewsState.ShowAsSavedTrue)
+            _state.emit(NewsState.ShowAsSaved)
         }
     }
 

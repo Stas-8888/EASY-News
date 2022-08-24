@@ -6,13 +6,13 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.util.Log
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.domain.usecase.GetCountryFlagUseCase
 import com.example.newsapppp.domain.usecase.GetNewsUseCase
 import com.example.newsapppp.domain.usecase.GetSwitchPositionUseCase
 import com.example.newsapppp.presentation.App
-import com.example.newsapppp.presentation.fragments.save.SaveState
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,25 +29,29 @@ class MainFragmentViewModel @Inject constructor(
     private val getSwitchPositionUseCase: GetSwitchPositionUseCase
 ) : AndroidViewModel(app) {
 
-    private val _state = MutableStateFlow<SaveState>(SaveState.ShowLoading)
-    val state: StateFlow<SaveState> = _state
+    private val _state = MutableStateFlow<MainState>(MainState.ShowLoading)
+    val state: StateFlow<MainState> = _state
 
     fun getNewsRetrofit(countryCode: String, category: String) = viewModelScope.launch {
         if (checkInternetConnections()) {
-            val data = getNewsUseCase.getNews(
-                countryCode = countryCode, category = category
-            ).articlesModel.filter { it.urlToImage != null && it.url != null }
-            _state.emit(SaveState.ShowArticles(articleMapperToModel.articleToModelArticle(data)))
+            getNews(countryCode, category)
         } else {
-            _state.emit(SaveState.HideLoading)
+            _state.emit(MainState.HideLoading)
         }
+    }
+
+    private suspend fun getNews(countryCode: String, category: String) {
+        val data = getNewsUseCase.getNews(
+            countryCode = countryCode, category = category
+        ).articlesModel.filter { it.urlToImage != null && it.url != null }
+        _state.emit(MainState.ShowArticles(articleMapperToModel.articleToModelArticle(data)))
     }
 
     fun getCountryFlag(): String {
         return getCountryFlagUseCase.getCountryFlag()
     }
 
-    fun getSwitchPosition(): Boolean {
+    private fun getSwitchPosition(): Boolean {
         return getSwitchPositionUseCase.getSwitchPosition()
     }
 
@@ -77,5 +81,16 @@ class MainFragmentViewModel @Inject constructor(
             }
         }
         return false
+    }
+
+    fun setupDayNight() {
+        val nightMode = getSwitchPosition()
+        if (nightMode) {
+            AppCompatDelegate
+                .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        } else {
+            AppCompatDelegate
+                .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
     }
 }

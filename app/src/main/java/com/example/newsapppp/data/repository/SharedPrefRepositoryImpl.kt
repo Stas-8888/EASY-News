@@ -28,21 +28,19 @@ class SharedPrefRepositoryImpl @Inject constructor(
         return favoriteShared.getBoolean(SHARED_KEY, DEFAULT_BOOLEAN)
     }
 
-    override suspend fun saveCountryFlag(value: String)  = withContext(Dispatchers.IO) {
+    override suspend fun saveCountryFlag(value: String) = withContext(Dispatchers.IO) {
         favoriteShared.edit().putString(SHARED_KEY_COUNTRY, value).apply()
     }
 
     override fun getCountryFlag(): String {
         return favoriteShared.getString(SHARED_KEY_COUNTRY, "") ?: ""
-
     }
 
-    override suspend fun saveSwitchPosition(value: Boolean) {
+    override suspend fun saveSwitchPosition(value: Boolean) = withContext(Dispatchers.IO) {
         favoriteShared.edit().putBoolean(SHARED_KEY_SWITCH_POSITION, value).apply()
     }
 
     override fun getSwitchPosition(): Boolean {
         return favoriteShared.getBoolean(SHARED_KEY_SWITCH_POSITION, DEFAULT_BOOLEAN)
-
     }
 }

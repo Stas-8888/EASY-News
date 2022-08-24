@@ -1,6 +1,6 @@
 package com.example.newsapppp.data.mapper
 
-import com.example.newsapppp.data.db.ArticleDbModel
+import com.example.newsapppp.data.db.models.ArticleDbModel
 import com.example.newsapppp.data.network.model.ArticleDto
 import com.example.newsapppp.domain.model.ArticleModel
 

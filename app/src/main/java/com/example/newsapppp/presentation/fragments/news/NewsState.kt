@@ -2,9 +2,9 @@ package com.example.newsapppp.presentation.fragments.news
 
 sealed class NewsState {
 
-    object ShowAsSavedTrue : NewsState()
+    object ShowAsSaved : NewsState()
 
-    object ShowAsSavedFalse : NewsState()
+    object ShowUnSaved : NewsState()
 
     object ShowDelete : NewsState()
 

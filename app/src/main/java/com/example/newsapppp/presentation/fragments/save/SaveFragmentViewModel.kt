@@ -36,6 +36,6 @@ class SaveFragmentViewModel @Inject constructor(
     }
 
     fun deleteAllArticle() = viewModelScope.launch {
-        deleteAllUseCase.deleteAll()
+        deleteAllUseCase.deleteAllArticle()
     }
 }

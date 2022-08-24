@@ -1,6 +1,7 @@
 package com.example.newsapppp.data.db
 
 import androidx.room.*
+import com.example.newsapppp.data.db.models.ArticleDbModel
 import kotlinx.coroutines.flow.Flow
 
 @Dao

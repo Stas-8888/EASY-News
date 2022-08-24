@@ -30,7 +30,6 @@ class NewsAdapter : ListAdapter<Article, NewsAdapter.ArticleViewHolder>(NewsItem
     private var onItemClickListener: ((Article) -> Unit)? = null
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-//        Log.d("NewsAdapter", "onBindViewHolder, count: ${++count}")
         val article = getItem(position)
         holder.itemView.apply {
             Glide.with(this).load(article.urlToImage).into(imArticleImage)

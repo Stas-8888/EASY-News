@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat.recreate
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -34,10 +33,11 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sharedPreferencesGetDayNight()
-        getCountryAndCategoryTabLayout()
-        setupRecyclerView()
         showNewsList()
+        viewModel.setupDayNight()
+        setupRecyclerView()
+
+        getCountryAndCategoryTabLayout()
         setClickListeners()
     }
 
@@ -56,19 +56,19 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
     private fun showNewsList() = lifecycleScope.launch {
         viewModel.state.collect {
             when (it) {
-                is SaveState.ShowLoading -> {
+                is MainState.ShowLoading -> {
                     binding.progressBar.isVisible = true
                 }
-                is SaveState.HideLoading -> {
+                is MainState.HideLoading -> {
                     noInternetConnectionDialog()
                     binding.progressBar.isVisible = true
                 }
-                is SaveState.ShowArticles -> {
+                is MainState.ShowArticles -> {
                     binding.tvCenterText.isVisible = false
                     binding.progressBar.isVisible = false
                     newsAdapter.submitList(it.articles)
                 }
-                is SaveState.ShowErrorScreen -> {
+                is MainState.ShowErrorScreen -> {
                     noInternetConnectionDialog()
                 }
             }
@@ -146,15 +146,4 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
         "Business",
         "Health",
     )
-
-    private fun sharedPreferencesGetDayNight() {
-        val nightMode = viewModel.getSwitchPosition()
-        if (nightMode) {
-            AppCompatDelegate
-                .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        } else {
-            AppCompatDelegate
-                .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        }
-    }
 }

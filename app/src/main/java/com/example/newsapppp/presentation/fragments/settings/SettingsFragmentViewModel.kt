@@ -30,5 +30,4 @@ class SettingsFragmentViewModel @Inject constructor(
     fun getSwitchPosition(): Boolean {
         return getSwitchPositionUseCase.getSwitchPosition()
     }
-
 }

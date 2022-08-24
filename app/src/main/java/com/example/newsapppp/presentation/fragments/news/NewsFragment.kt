@@ -56,10 +56,10 @@ class NewsFragment : Fragment() {
     private fun checkFavoriteIcon() = lifecycleScope.launch {
         viewModel.state.collect() {
             when (it) {
-                is NewsState.ShowAsSavedFalse -> {
+                is NewsState.ShowUnSaved -> {
                     binding.btFavorite.setImageResource(R.drawable.ic_favorite)
                 }
-                is NewsState.ShowAsSavedTrue -> {
+                is NewsState.ShowAsSaved -> {
                     binding.btFavorite.setImageResource(R.drawable.ic_favorite_border)
                 }
             }
