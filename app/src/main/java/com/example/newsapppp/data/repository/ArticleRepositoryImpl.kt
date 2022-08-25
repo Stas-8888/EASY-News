@@ -20,7 +20,7 @@ class ArticleRepositoryImpl @Inject constructor(
                     apiService.getBreakingNews(countryCode = countryCode, category = category)
                 newsResponseMapper.converterToNewsResponseModel(data)
             } catch (ex: Exception) {
-                TODO()
+                throw ex
             }
         }
 
@@ -30,7 +30,7 @@ class ArticleRepositoryImpl @Inject constructor(
                 val data = apiService.searchForNews(searchQuery, pageNumber)
                 newsResponseMapper.converterToNewsResponseModel(data)
             } catch (ex: Exception) {
-                TODO()
+                throw ex
             }
         }
 }
