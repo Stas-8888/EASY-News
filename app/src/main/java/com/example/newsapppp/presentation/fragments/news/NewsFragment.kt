@@ -48,10 +48,10 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsFragmentViewModel>() 
         viewModel.state.collect() {
             when (it) {
                 is NewsState.ShowUnSaved -> {
-                    binding.btFavorite.setImageResource(R.drawable.ic_favorite)
+                    setImageResource(R.drawable.ic_favorite)
                 }
                 is NewsState.ShowAsSaved -> {
-                    binding.btFavorite.setImageResource(R.drawable.ic_favorite_border)
+                    setImageResource(R.drawable.ic_favorite_border)
                 }
             }
         }
@@ -62,15 +62,19 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsFragmentViewModel>() 
         viewModel.state.collect() {
             when (it) {
                 is NewsState.ShowDelete -> {
-                    binding.btFavorite.setImageResource(R.drawable.ic_favorite_border)
+                    setImageResource(R.drawable.ic_favorite_border)
                     showAlertUpDialog(getString(R.string.СтатьяУдалена))
                 }
                 is NewsState.ShowInsert -> {
-                    binding.btFavorite.setImageResource(R.drawable.ic_favorite)
+                    setImageResource(R.drawable.ic_favorite)
                     showAlertUpDialog(getString(R.string.СтатьяДобавлена))
                 }
             }
         }
+    }
+
+    private fun setImageResource(data: Int){
+        binding.btFavorite.setImageResource(data)
     }
 
     @SuppressLint("SetJavaScriptEnabled")
