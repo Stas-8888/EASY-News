@@ -5,6 +5,7 @@ import com.example.newsapppp.data.network.ApiService
 import com.example.newsapppp.domain.model.NewsResponseModel
 import com.example.newsapppp.domain.repository.ArticleRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.invoke
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 

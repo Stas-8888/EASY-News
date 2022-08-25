@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.core.app.ActivityCompat.recreate
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -19,7 +18,6 @@ import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentMainBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
 import com.example.newsapppp.presentation.fragments.base.BaseFragment
-import com.example.newsapppp.presentation.fragments.save.SaveState
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -60,7 +58,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
                     binding.progressBar.isVisible = true
                 }
                 is MainState.HideLoading -> {
-                    noInternetConnectionDialog()
+                    internetConnectionDialog()
                     binding.progressBar.isVisible = true
                 }
                 is MainState.ShowArticles -> {
@@ -69,22 +67,17 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
                     newsAdapter.submitList(it.articles)
                 }
                 is MainState.ShowErrorScreen -> {
-                    noInternetConnectionDialog()
+                    internetConnectionDialog()
                 }
             }
         }
     }
 
-    private fun noInternetConnectionDialog() {
+    private fun internetConnectionDialog() {
         val dialog = Dialog(requireContext())
         dialog.setContentView(R.layout.no_internet_connections)
-        dialog.setCanceledOnTouchOutside(false)
-
-        dialog.window!!.setLayout(
-            WindowManager.LayoutParams.WRAP_CONTENT,
-            WindowManager.LayoutParams.WRAP_CONTENT
-        )
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.setCanceledOnTouchOutside(false)
         dialog.bt_try_again.setOnClickListener {
             recreate(requireActivity())
         }

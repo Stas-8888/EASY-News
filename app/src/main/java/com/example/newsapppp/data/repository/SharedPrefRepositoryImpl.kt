@@ -20,20 +20,20 @@ class SharedPrefRepositoryImpl @Inject constructor(
 
     private val favoriteShared = PreferenceManager.getDefaultSharedPreferences(context)
 
-    override suspend fun saveFavorite(value: Boolean) = withContext(Dispatchers.IO) {
-        putBoolean(SHARED_KEY, value)
-    }
-
-    override fun getFavorite(): Boolean {
-        return getBoolean(SHARED_KEY)
-    }
-
     override suspend fun saveCountryFlag(value: String) = withContext(Dispatchers.IO) {
         favoriteShared.edit().putString(SHARED_KEY_COUNTRY, value).apply()
     }
 
     override fun getCountryFlag(): String {
         return favoriteShared.getString(SHARED_KEY_COUNTRY, "") ?: ""
+    }
+
+    override suspend fun saveFavorite(value: Boolean) = withContext(Dispatchers.IO) {
+        putBoolean(SHARED_KEY, value)
+    }
+
+    override fun getFavorite(): Boolean {
+        return getBoolean(SHARED_KEY)
     }
 
     override suspend fun saveSwitchPosition(value: Boolean) = withContext(Dispatchers.IO) {
