@@ -7,7 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSettingsBinding
 import com.example.newsapppp.databinding.NewNameDialogBinding
+import com.example.newsapppp.presentation.extensions.toast
 import com.example.newsapppp.presentation.utils.EGYPT
 import com.example.newsapppp.presentation.utils.GERMANY
 import com.example.newsapppp.presentation.utils.RUSSIA
@@ -73,12 +73,10 @@ class SettingsFragment : Fragment() {
         val switchPosition = viewModel.getSwitchPosition()
         if (switchPosition) {
             switchDayNight.isChecked = false
-            Toast.makeText(requireContext(), getString(R.string.Дневная_тема), Toast.LENGTH_SHORT)
-                .show()
+            toast(getString(R.string.Дневная_тема))
         } else {
             switchDayNight.isChecked = true
-            Toast.makeText(requireContext(), getString(R.string.Ночная_тема), Toast.LENGTH_SHORT)
-                .show()
+            toast(getString(R.string.Ночная_тема))
         }
     }
 
@@ -89,39 +87,23 @@ class SettingsFragment : Fragment() {
             when (item!!.itemId) {
                 R.id.us -> {
                     viewModel.saveCountryFlag(USA)
-                    binding.imCountry.setImageResource(R.drawable.usa)
-                    Toast.makeText(
-                        requireContext(),
-                        getString(R.string.АмереканскиеНовости),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    setImageResource(R.drawable.usa)
+                    toast(getString(R.string.АмереканскиеНовости))
                 }
                 R.id.ru -> {
                     viewModel.saveCountryFlag(RUSSIA)
-                    binding.imCountry.setImageResource(R.drawable.russia)
-                    Toast.makeText(
-                        requireContext(),
-                        getString(R.string.РусскиеНовости),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    setImageResource(R.drawable.russia)
+                    toast(getString(R.string.РусскиеНовости))
                 }
                 R.id.germany -> {
                     viewModel.saveCountryFlag(GERMANY)
-                    binding.imCountry.setImageResource(R.drawable.germany)
-                    Toast.makeText(
-                        requireContext(),
-                        getString(R.string.НемецкиеНовости),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    setImageResource(R.drawable.germany)
+                    toast(getString(R.string.НемецкиеНовости))
                 }
                 R.id.egipt -> {
                     viewModel.saveCountryFlag(EGYPT)
-                    binding.imCountry.setImageResource(R.drawable.egypt)
-                    Toast.makeText(
-                        requireContext(),
-                        getString(R.string.ЕгипетскиеНовости),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    setImageResource(R.drawable.egypt)
+                    toast(getString(R.string.ЕгипетскиеНовости))
                 }
             }
             true
@@ -129,21 +111,25 @@ class SettingsFragment : Fragment() {
         popup.show()
     }
 
+    private fun setImageResource(res: Int) {
+        binding.imCountry.setImageResource(res)
+    }
+
     private fun setCountryFlag() {
         when (viewModel.getCountryFlag()) {
             USA -> {
-                binding.imCountry.setImageResource(R.drawable.usa)
+                setImageResource(R.drawable.usa)
             }
             GERMANY -> {
-                binding.imCountry.setImageResource(R.drawable.germany)
+                setImageResource(R.drawable.germany)
             }
 
             RUSSIA -> {
-                binding.imCountry.setImageResource(R.drawable.russia)
+                setImageResource(R.drawable.russia)
             }
 
             EGYPT -> {
-                binding.imCountry.setImageResource(R.drawable.egypt)
+                setImageResource(R.drawable.egypt)
             }
         }
     }

@@ -34,7 +34,6 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
         showNewsList()
         viewModel.setupDayNight()
         setupRecyclerView()
-
         getCountryAndCategoryTabLayout()
         setClickListeners()
     }
