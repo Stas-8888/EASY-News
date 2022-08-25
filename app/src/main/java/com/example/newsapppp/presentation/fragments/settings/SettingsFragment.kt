@@ -28,8 +28,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsFragmentV
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setCountryFlag()
-        switchDayNight()
-        receiveSwitchPosition()
+        setupSwitchPosition()
         setupOnClickListeners()
     }
 
@@ -43,25 +42,20 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsFragmentV
         tvEdit.setOnClickListener {
             showChangeNameDialog("")
         }
-    }
-
-    private fun switchDayNight() = switchDayNight.setOnCheckedChangeListener { _, trueOrFalse ->
-        if (trueOrFalse) {
-            viewModel.nightMode()
-        } else {
-            viewModel.dayMode()
+        switchDayNight.setOnCheckedChangeListener { _, trueOrFalse ->
+            if (trueOrFalse) {
+                viewModel.nightMode()
+                toast(getString(R.string.Ночная_тема))
+            } else {
+                viewModel.dayMode()
+                toast(getString(R.string.Дневная_тема))
+            }
         }
     }
 
-    private fun receiveSwitchPosition() {
+    private fun setupSwitchPosition() {
         val switchPosition = viewModel.getSwitchPosition()
-        if (switchPosition) {
-            switchDayNight.isChecked = false
-            toast(getString(R.string.Дневная_тема))
-        } else {
-            switchDayNight.isChecked = true
-            toast(getString(R.string.Ночная_тема))
-        }
+        switchDayNight.isChecked = !switchPosition
     }
 
     private fun showPopup(view: View) {
