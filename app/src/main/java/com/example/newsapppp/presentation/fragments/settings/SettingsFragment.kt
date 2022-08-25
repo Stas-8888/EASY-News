@@ -8,13 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSettingsBinding
 import com.example.newsapppp.databinding.NewNameDialogBinding
-import com.example.newsapppp.presentation.extensions.toast
+import com.example.newsapppp.presentation.fragments.base.BaseFragment
 import com.example.newsapppp.presentation.utils.EGYPT
 import com.example.newsapppp.presentation.utils.GERMANY
 import com.example.newsapppp.presentation.utils.RUSSIA
@@ -23,27 +22,18 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 @AndroidEntryPoint
-class SettingsFragment : Fragment() {
-    private lateinit var binding: FragmentSettingsBinding
-    private val viewModel by viewModels<SettingsFragmentViewModel>()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentSettingsBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
+class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsFragmentViewModel>() {
+    override val viewModel by viewModels<SettingsFragmentViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setCountryFlag()
         switchDayNight()
         receiveSwitchPosition()
-        setClickListeners()
+        setupOnClickListeners()
     }
 
-    private fun setClickListeners() {
+    private fun setupOnClickListeners() {
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
@@ -123,11 +113,9 @@ class SettingsFragment : Fragment() {
             GERMANY -> {
                 setImageResource(R.drawable.germany)
             }
-
             RUSSIA -> {
                 setImageResource(R.drawable.russia)
             }
-
             EGYPT -> {
                 setImageResource(R.drawable.egypt)
             }
@@ -155,4 +143,9 @@ class SettingsFragment : Fragment() {
         dialog.window?.setBackgroundDrawable(null)
         dialog.show()
     }
+
+    override fun getViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = FragmentSettingsBinding.inflate(inflater, container, false)
 }

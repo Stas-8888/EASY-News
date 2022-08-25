@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -16,24 +14,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapppp.databinding.FragmentSaveBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
 import com.example.newsapppp.presentation.extensions.showDeleteDialog
+import com.example.newsapppp.presentation.fragments.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_save.*
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SaveFragment : Fragment() {
-    private lateinit var binding: FragmentSaveBinding
+class SaveFragment : BaseFragment<FragmentSaveBinding, SaveFragmentViewModel>() {
     private val newsAdapter by lazy { NewsAdapter() }
-    private val viewModel by viewModels<SaveFragmentViewModel>()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentSaveBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
+    override val viewModel by viewModels<SaveFragmentViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,7 +51,8 @@ class SaveFragment : Fragment() {
                     newsAdapter.submitList(it.articles)
                 }
                 else -> {
-                    Toast.makeText(requireContext(),"Mistake = $it",Toast.LENGTH_LONG).show()}
+                    toast("Mistake = $it")
+                }
             }
         }
     }
@@ -101,4 +91,9 @@ class SaveFragment : Fragment() {
             attachToRecyclerView(rvSavedNews)
         }
     }
+
+    override fun getViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = FragmentSaveBinding.inflate(inflater, container, false)
 }

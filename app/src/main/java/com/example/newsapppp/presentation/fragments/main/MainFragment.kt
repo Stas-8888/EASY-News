@@ -35,10 +35,10 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
         viewModel.setupDayNight()
         setupRecyclerView()
         getCountryAndCategoryTabLayout()
-        setClickListeners()
+        setupOnClickListeners()
     }
 
-    private fun setClickListeners() {
+    private fun setupOnClickListeners() {
         tvCountry.setOnClickListener {
             rvNews.smoothScrollToPosition(0)
         }

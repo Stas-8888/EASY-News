@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -16,24 +15,16 @@ import androidx.navigation.fragment.navArgs
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentNewsBinding
 import com.example.newsapppp.presentation.extensions.showAlertUpDialog
+import com.example.newsapppp.presentation.fragments.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_news.*
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class NewsFragment : Fragment() {
-    private lateinit var binding: FragmentNewsBinding
+class NewsFragment : BaseFragment<FragmentNewsBinding, NewsFragmentViewModel>() {
     private val args: NewsFragmentArgs by navArgs()
-    private val viewModel by viewModels<NewsFragmentViewModel>()
+    override val viewModel by viewModels<NewsFragmentViewModel>()
     val article by lazy { args.article }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentNewsBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,10 +32,10 @@ class NewsFragment : Fragment() {
         showWebView()
         viewModel.checkFavoriteIcon()
         checkFavoriteIcon()
-        setClickListeners()
+        setupOnClickListeners()
     }
 
-    private fun setClickListeners() {
+    private fun setupOnClickListeners() {
         binding.btFavorite.setOnClickListener {
             saveDeleteFavorite()
         }
@@ -92,4 +83,9 @@ class NewsFragment : Fragment() {
             settings.safeBrowsingEnabled = true
         }
     }
+
+    override fun getViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = FragmentNewsBinding.inflate(inflater, container, false)
 }
