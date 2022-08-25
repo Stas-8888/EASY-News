@@ -30,7 +30,10 @@ class SaveFragment : BaseFragment<FragmentSaveBinding, SaveFragmentViewModel>() 
         swipeToDelete()
         showSaveList()
         viewModel.getAllNews()
+        setupOnClickListeners()
+    }
 
+    private fun setupOnClickListeners() {
         btDeleteAll.setOnClickListener {
             showDeleteDialog({ viewModel.deleteAllArticle() }, { })
         }

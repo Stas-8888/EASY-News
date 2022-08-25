@@ -1,9 +1,11 @@
 package com.example.newsapppp.presentation.fragments.settings
 
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.domain.usecase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,5 +31,17 @@ class SettingsFragmentViewModel @Inject constructor(
 
     fun getSwitchPosition(): Boolean {
         return getSwitchPositionUseCase.getSwitchPosition()
+    }
+
+    fun nightMode(){
+        saveSwitchPosition(false)
+        AppCompatDelegate
+            .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+    }
+
+    fun dayMode(){
+        saveSwitchPosition(true)
+        AppCompatDelegate
+            .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
     }
 }

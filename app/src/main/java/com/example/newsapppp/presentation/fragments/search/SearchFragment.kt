@@ -35,7 +35,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchFragmentViewMod
                 SearchFragmentDirections.actionSearchFragmentToNewsFragment(it)
             )
         }
-
         etSearch.addTextChangedListener { editable ->
             editable?.let {
                 if (editable.toString().isNotEmpty()) {

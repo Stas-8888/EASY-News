@@ -37,11 +37,9 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsFragmentV
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
-
         binding.imCountry.setOnClickListener {
             showPopup(im_country)
         }
-
         tvEdit.setOnClickListener {
             showChangeNameDialog("")
         }
@@ -49,13 +47,9 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsFragmentV
 
     private fun switchDayNight() = switchDayNight.setOnCheckedChangeListener { _, trueOrFalse ->
         if (trueOrFalse) {
-            viewModel.saveSwitchPosition(false)
-            AppCompatDelegate
-                .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            viewModel.nightMode()
         } else {
-            viewModel.saveSwitchPosition(true)
-            AppCompatDelegate
-                .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            viewModel.dayMode()
         }
     }
 
