@@ -25,7 +25,7 @@ class SettingsFragmentViewModel @Inject constructor(
         return getCountryFlagUseCase.getCountryFlag()
     }
 
-    fun saveSwitchPosition(value: Boolean) = viewModelScope.launch {
+    private fun saveSwitchPosition(value: Boolean) = viewModelScope.launch {
         saveSwitchPositionUseCase.saveSwitchPosition(value)
     }
 

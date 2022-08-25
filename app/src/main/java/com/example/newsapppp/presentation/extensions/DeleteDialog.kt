@@ -22,6 +22,7 @@ fun Fragment.showDeleteDialog(onSuccess: () -> Unit, noteSuccess: () -> Unit) {
         }
     }
     dialog = builder.create()
+    dialog.setCanceledOnTouchOutside(false)
     dialog.window?.setBackgroundDrawable(null)
     dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
     dialog.show()

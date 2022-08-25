@@ -7,19 +7,19 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSettingsBinding
 import com.example.newsapppp.databinding.NewNameDialogBinding
 import com.example.newsapppp.presentation.fragments.base.BaseFragment
-import com.example.newsapppp.presentation.utils.EGYPT
-import com.example.newsapppp.presentation.utils.GERMANY
-import com.example.newsapppp.presentation.utils.RUSSIA
-import com.example.newsapppp.presentation.utils.USA
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_settings.*
+
+private const val USA = "us"
+private const val GERMANY = "de"
+private const val RUSSIA = "ru"
+private const val EGYPT = "eg"
 
 @AndroidEntryPoint
 class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsFragmentViewModel>() {

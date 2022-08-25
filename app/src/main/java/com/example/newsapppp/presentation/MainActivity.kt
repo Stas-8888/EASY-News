@@ -33,15 +33,12 @@ class MainActivity : AppCompatActivity() {
     private fun setBottomNavListener() {
         binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
-
                 R.id.mainFragment -> {
                     navController.navigate(R.id.mainFragment)
                 }
-
                 R.id.searchNewsFragment -> {
                     navController.navigate(R.id.searchFragment)
                 }
-
                 R.id.saveFragment -> {
                     navController.navigate(R.id.saveFragment)
                 }
