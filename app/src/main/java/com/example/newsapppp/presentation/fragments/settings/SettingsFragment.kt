@@ -27,7 +27,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsFragmentV
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setCountryFlag()
+        setupCountryFlag()
         setupSwitchPosition()
         setupOnClickListeners()
     }
@@ -44,10 +44,10 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsFragmentV
         }
         switchDayNight.setOnCheckedChangeListener { _, trueOrFalse ->
             if (trueOrFalse) {
-                viewModel.nightMode()
+                viewModel.isNightMode()
                 toast(getString(R.string.Ночная_тема))
             } else {
-                viewModel.dayMode()
+                viewModel.isDayMode()
                 toast(getString(R.string.Дневная_тема))
             }
         }
@@ -61,27 +61,35 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsFragmentV
     private fun showPopup(view: View) {
         val popup = PopupMenu(requireContext(), view)
         popup.inflate(R.menu.pop_up_menu)
-        popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item: MenuItem? ->
-            when (item!!.itemId) {
+        popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item: MenuItem ->
+            when (item.itemId) {
                 R.id.us -> {
-                    viewModel.saveCountryFlag(USA)
-                    setImageResource(R.drawable.usa)
-                    toast(getString(R.string.АмереканскиеНовости))
+                    setCurrentCountry(
+                        countryFlag = USA,
+                        imageResource = R.drawable.usa,
+                        countryName = getString(R.string.АмереканскиеНовости)
+                    )
                 }
                 R.id.ru -> {
-                    viewModel.saveCountryFlag(RUSSIA)
-                    setImageResource(R.drawable.russia)
-                    toast(getString(R.string.РусскиеНовости))
+                    setCurrentCountry(
+                        countryFlag = RUSSIA,
+                        imageResource = R.drawable.russia,
+                        countryName = getString(R.string.РусскиеНовости)
+                    )
                 }
                 R.id.germany -> {
-                    viewModel.saveCountryFlag(GERMANY)
-                    setImageResource(R.drawable.germany)
-                    toast(getString(R.string.НемецкиеНовости))
+                    setCurrentCountry(
+                        countryFlag = GERMANY,
+                        imageResource = R.drawable.germany,
+                        countryName = getString(R.string.НемецкиеНовости)
+                    )
                 }
                 R.id.egipt -> {
-                    viewModel.saveCountryFlag(EGYPT)
-                    setImageResource(R.drawable.egypt)
-                    toast(getString(R.string.ЕгипетскиеНовости))
+                    setCurrentCountry(
+                        countryFlag = EGYPT,
+                        imageResource = R.drawable.egypt,
+                        countryName = getString(R.string.ЕгипетскиеНовости)
+                    )
                 }
             }
             true
@@ -89,11 +97,17 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsFragmentV
         popup.show()
     }
 
+    private fun setCurrentCountry(countryFlag: String, imageResource: Int, countryName: String) {
+        viewModel.saveCountryFlag(countryFlag)
+        setImageResource(imageResource)
+        toast(countryName)
+    }
+
     private fun setImageResource(res: Int) {
         binding.imCountry.setImageResource(res)
     }
 
-    private fun setCountryFlag() {
+    private fun setupCountryFlag() {
         when (viewModel.getCountryFlag()) {
             USA -> {
                 setImageResource(R.drawable.usa)

@@ -33,13 +33,13 @@ class SettingsFragmentViewModel @Inject constructor(
         return getSwitchPositionUseCase.getSwitchPosition()
     }
 
-    fun nightMode(){
+    fun isNightMode(){
         saveSwitchPosition(false)
         AppCompatDelegate
             .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }
 
-    fun dayMode(){
+    fun isDayMode(){
         saveSwitchPosition(true)
         AppCompatDelegate
             .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
