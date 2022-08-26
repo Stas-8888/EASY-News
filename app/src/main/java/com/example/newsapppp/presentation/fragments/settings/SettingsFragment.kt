@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSettingsBinding
@@ -15,6 +16,7 @@ import com.example.newsapppp.databinding.NewNameDialogBinding
 import com.example.newsapppp.presentation.fragments.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_settings.*
+import kotlinx.coroutines.launch
 
 private const val USA = "us"
 private const val GERMANY = "de"
@@ -28,6 +30,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsFragmentV
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupCountryFlag()
+        viewModel.getSwitchPosition()
         setupSwitchPosition()
         setupOnClickListeners()
     }
@@ -42,20 +45,28 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsFragmentV
         tvEdit.setOnClickListener {
             showChangeNameDialog("")
         }
-        switchDayNight.setOnCheckedChangeListener { _, trueOrFalse ->
-            if (trueOrFalse) {
-                viewModel.isNightMode()
+        switchDayNight.setOnCheckedChangeListener { _, isNightMode ->
+            if (isNightMode) {
+                viewModel.onNightModeSelected()
                 toast(getString(R.string.Ночная_тема))
             } else {
-                viewModel.isDayMode()
+                viewModel.onDayModeSelected()
                 toast(getString(R.string.Дневная_тема))
             }
         }
     }
 
-    private fun setupSwitchPosition() {
-        val switchPosition = viewModel.getSwitchPosition()
-        switchDayNight.isChecked = !switchPosition
+    private fun setupSwitchPosition() = lifecycleScope.launch {
+        viewModel.state.collect() {
+            when (it) {
+                is SettingsState.SwitchPosition -> {
+                    switchDayNight.isChecked = false
+                }
+                is SettingsState.UnSwitchPosition -> {
+                    switchDayNight.isChecked = true
+                }
+            }
+        }
     }
 
     private fun showPopup(view: View) {

@@ -3,9 +3,13 @@ package com.example.newsapppp.presentation.fragments.settings
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.newsapppp.domain.usecase.*
+import com.example.newsapppp.domain.usecase.GetCountryFlagUseCase
+import com.example.newsapppp.domain.usecase.GetSwitchPositionUseCase
+import com.example.newsapppp.domain.usecase.SaveCountryFlagUseCase
+import com.example.newsapppp.domain.usecase.SaveSwitchPositionUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.android.synthetic.main.fragment_settings.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,6 +20,9 @@ class SettingsFragmentViewModel @Inject constructor(
     private val saveSwitchPositionUseCase: SaveSwitchPositionUseCase,
     private val getSwitchPositionUseCase: GetSwitchPositionUseCase
 ) : ViewModel() {
+
+    private val _state = MutableStateFlow<SettingsState>(SettingsState.SwitchPosition)
+    val state: StateFlow<SettingsState> = _state
 
     fun saveCountryFlag(value: String) = viewModelScope.launch {
         saveCountryFlagUseCase.saveCountryFlag(value)
@@ -29,17 +36,22 @@ class SettingsFragmentViewModel @Inject constructor(
         saveSwitchPositionUseCase.saveSwitchPosition(value)
     }
 
-    fun getSwitchPosition(): Boolean {
-        return getSwitchPositionUseCase.getSwitchPosition()
+    fun getSwitchPosition() = viewModelScope.launch {
+        val switchPosition = getSwitchPositionUseCase.getSwitchPosition()
+        if (switchPosition) {
+            _state.emit(SettingsState.SwitchPosition)
+        } else {
+            _state.emit(SettingsState.UnSwitchPosition)
+        }
     }
 
-    fun isNightMode(){
+    fun onNightModeSelected() {
         saveSwitchPosition(false)
         AppCompatDelegate
             .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }
 
-    fun isDayMode(){
+    fun onDayModeSelected() {
         saveSwitchPosition(true)
         AppCompatDelegate
             .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
