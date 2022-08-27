@@ -53,9 +53,6 @@ class SaveFragment : BaseFragment<FragmentSaveBinding, SaveFragmentViewModel>() 
                     binding.progressBar.isVisible = false
                     newsAdapter.submitList(it.articles)
                 }
-                else -> {
-                    toast("Mistake = $it")
-                }
             }
         }
     }

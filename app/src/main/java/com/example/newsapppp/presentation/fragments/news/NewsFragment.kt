@@ -29,7 +29,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsFragmentViewModel>() 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showWebView()
+        setupWebView()
         viewModel.checkFavoriteIcon()
         checkFavoriteIcon()
         setupOnClickListeners()
@@ -79,10 +79,10 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsFragmentViewModel>() 
 
     @SuppressLint("SetJavaScriptEnabled")
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun showWebView() {
+    private fun setupWebView() {
         webView.apply {
             webView.webViewClient = WebViewClient()
-            loadUrl(article.url!!)
+            article.url?.let { loadUrl(it) }
             settings.javaScriptEnabled = true
             settings.safeBrowsingEnabled = true
         }

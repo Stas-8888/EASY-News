@@ -32,7 +32,7 @@ class SharedPrefRepositoryImpl @Inject constructor(
         putBoolean(SHARED_KEY, value)
     }
 
-    override fun getFavorite(): Boolean {
+    override suspend fun getFavorite(): Boolean {
         return getBoolean(SHARED_KEY)
     }
 

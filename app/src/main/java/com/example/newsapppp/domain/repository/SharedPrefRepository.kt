@@ -4,7 +4,7 @@ interface SharedPrefRepository {
 
     suspend fun saveFavorite(value: Boolean)
 
-    fun getFavorite(): Boolean
+    suspend fun getFavorite(): Boolean
 
     suspend fun saveCountryFlag(value: String)
 
