@@ -3,10 +3,12 @@ package com.example.newsapppp.presentation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -19,31 +21,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_splash)
+
 
         CoroutineScope(Dispatchers.Main).launch {
-            delay(1200)
+            setContentView(R.layout.fragment_splash)
+            delay(1000)
             binding = ActivityMainBinding.inflate(layoutInflater)
             setContentView(binding.root)
-            setBottomNavListener()
-            navController = Navigation.findNavController(this@MainActivity, R.id.nav_fragment)
-        }
-    }
 
-    private fun setBottomNavListener() {
-        binding.bottomNavigationView.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.mainFragment -> {
-                    navController.navigate(R.id.mainFragment)
-                }
-                R.id.searchNewsFragment -> {
-                    navController.navigate(R.id.searchFragment)
-                }
-                R.id.saveFragment -> {
-                    navController.navigate(R.id.saveFragment)
-                }
-            }
-            true
+            val navHostFragment =
+                supportFragmentManager.findFragmentById(R.id.nav_fragment) as NavHostFragment
+            navController = navHostFragment.navController
+            NavigationUI.setupWithNavController(bottomNavigationView, navController)
         }
     }
 }

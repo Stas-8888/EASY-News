@@ -1,6 +1,7 @@
 package com.example.newsapppp.presentation.fragments.main
 
 import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -29,11 +30,12 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
     private val newsAdapter by lazy { NewsAdapter() }
     override val viewModel by viewModels<MainFragmentViewModel>()
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showNewsList()
         viewModel.setupDayNight()
         setupRecyclerView()
+        showNewsList()
         getCountryAndCategoryTabLayout()
         setupOnClickListeners()
     }
@@ -57,13 +59,12 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
                     binding.progressBar.isVisible = true
                 }
                 is MainState.HideLoading -> {
-                    internetConnectionDialog()
                     binding.progressBar.isVisible = true
                 }
                 is MainState.ShowArticles -> {
+                    newsAdapter.submitList(it.articles)
                     binding.tvCenterText.isVisible = false
                     binding.progressBar.isVisible = false
-                    newsAdapter.submitList(it.articles)
                 }
                 is MainState.ShowErrorScreen -> {
                     internetConnectionDialog()

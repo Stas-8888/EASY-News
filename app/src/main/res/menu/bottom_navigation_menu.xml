@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/mainFragment"
-        android:title="Основное"
+        android:title="@string/main"
         android:icon="@drawable/ic_breaking_news" />
 
-    <item android:id="@+id/searchNewsFragment"
-        android:title="Поиск"
+    <item android:id="@+id/searchFragment"
+        android:title="@string/find"
         android:icon="@drawable/ic_all_news" />
 
     <item android:id="@+id/saveFragment"
-        android:title="Сохраненное"
+        android:title="@string/Save"
         android:icon="@drawable/ic_favorite_border" />
 
 </menu>

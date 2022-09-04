@@ -38,4 +38,7 @@
     <string name="Ваше_имя">Ваше имя ?</string>
     <string name="Сохранить">Сохранить</string>
     <string name="Mistake">Mistake</string>
+    <string name="Save">Сохраненное</string>
+    <string name="find">Поиск</string>
+    <string name="main">Основное</string>
 </resources>

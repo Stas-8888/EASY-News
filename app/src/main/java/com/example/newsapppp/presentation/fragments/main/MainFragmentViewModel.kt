@@ -36,11 +36,12 @@ class MainFragmentViewModel @Inject constructor(
         if (checkInternetConnections()) {
             getNews(countryCode, category)
         } else {
-            _state.emit(MainState.HideLoading)
+            _state.emit(MainState.ShowErrorScreen)
         }
     }
 
     private suspend fun getNews(countryCode: String, category: String) {
+        _state.emit(MainState.ShowLoading)
         val data = getNewsUseCase.getNews(
             countryCode = countryCode, category = category
         ).articlesModel.filter { it.urlToImage != null && it.url != null }
