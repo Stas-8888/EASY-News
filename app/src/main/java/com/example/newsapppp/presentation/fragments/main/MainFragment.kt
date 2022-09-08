@@ -1,14 +1,9 @@
 package com.example.newsapppp.presentation.fragments.main
 
-import android.app.Dialog
-import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat.recreate
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -22,7 +17,6 @@ import com.example.newsapppp.presentation.fragments.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.no_internet_connections.*
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -30,10 +24,8 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
     private val newsAdapter by lazy { NewsAdapter() }
     override val viewModel by viewModels<MainFragmentViewModel>()
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.setupDayNight()
         setupRecyclerView()
         showNewsList()
         getCountryAndCategoryTabLayout()
@@ -52,36 +44,36 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
         }
     }
 
-    private fun showNewsList() = lifecycleScope.launch {
+    private fun showNewsList() = lifecycleScope.launchWhenStarted {
         viewModel.state.collect {
             when (it) {
                 is MainState.ShowLoading -> {
                     binding.progressBar.isVisible = true
                 }
-                is MainState.HideLoading -> {
-                    binding.progressBar.isVisible = true
-                }
                 is MainState.ShowArticles -> {
                     newsAdapter.submitList(it.articles)
-                    binding.tvCenterText.isVisible = false
-                    binding.progressBar.isVisible = false
                 }
-                is MainState.ShowErrorScreen -> {
-                    internetConnectionDialog()
+                is MainState.HideLoading -> {
+                    binding.progressBar.isVisible = false
+                    binding.tvCenterText.isVisible = false
                 }
             }
         }
     }
 
-    private fun internetConnectionDialog() {
-        val dialog = Dialog(requireContext())
-        dialog.setContentView(R.layout.no_internet_connections)
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.setCanceledOnTouchOutside(false)
-        dialog.bt_try_again.setOnClickListener {
-            recreate(requireActivity())
-        }
-        dialog.show()
+    private fun getCountryAndCategoryTabLayout() {
+        val country = viewModel.getCountryFlag()
+        viewModel.getNewsRetrofit(countryCode = country, category = categories[0])
+        tvCountry.text = country
+
+        binding.tabMain.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                viewModel.getNewsRetrofit(countryCode = country, categories[tab.position])
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
     }
 
     private fun setupRecyclerView() = with(binding) {
@@ -109,21 +101,6 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
             }
         })
         fabUp.setOnClickListener { rvNews.smoothScrollToPosition(0) }
-    }
-
-    private fun getCountryAndCategoryTabLayout() {
-        val country = viewModel.getCountryFlag()
-        viewModel.getNewsRetrofit(countryCode = country, category = categories[0])
-        tvCountry.text = country
-
-        binding.tabMain.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                viewModel.getNewsRetrofit(countryCode = country, categories[tab!!.position])
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
-        })
     }
 
     override fun getViewBinding(

@@ -24,10 +24,10 @@ class ArticleRepositoryImpl @Inject constructor(
             }
         }
 
-    override suspend fun searchNews(searchQuery: String, pageNumber: Int): NewsResponseModel =
+    override suspend fun searchNews(searchQuery: String): NewsResponseModel =
         withContext(Dispatchers.IO) {
             try {
-                val data = apiService.searchForNews(searchQuery, pageNumber)
+                val data = apiService.searchForNews(searchQuery)
                 newsResponseMapper.converterToNewsResponseModel(data)
             } catch (ex: Exception) {
                 throw ex

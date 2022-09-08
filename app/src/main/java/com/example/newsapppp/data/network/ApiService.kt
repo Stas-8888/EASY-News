@@ -13,8 +13,6 @@ interface ApiService {
         countryCode: String = "us",
         @Query("category")
         category: String = "",
-        @Query("page")
-        page: Int = 1,
         @Query("apiKey")
         apiKey: String = API_KEY
     ): NewsResponseDto
@@ -23,8 +21,6 @@ interface ApiService {
     suspend fun searchForNews(
         @Query("q")
         searchQuery: String,
-        @Query("page")
-        pageNumber: Int = 1,
         @Query("apiKey")
         apiKey: String = API_KEY
     ): NewsResponseDto

@@ -17,10 +17,9 @@ class SearchFragmentViewModel @Inject constructor(
 ) : ViewModel() {
 
     val searchNews: MutableLiveData<List<Article>> = MutableLiveData()
-    var searchNewsPage = 1
 
     fun getSearchRetrofit(searchQuery: String) = viewModelScope.launch {
-        val data = searchNewsUseCase.searchNews(searchQuery, searchNewsPage).articlesModel
+        val data = searchNewsUseCase.searchNews(searchQuery).articlesModel
         searchNews.value = articleMapperToModel.articleToModelArticle(data)
     }
 }

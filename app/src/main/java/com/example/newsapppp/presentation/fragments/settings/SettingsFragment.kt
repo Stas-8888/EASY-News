@@ -56,7 +56,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsFragmentV
         }
     }
 
-    private fun setupSwitchPosition() = lifecycleScope.launch {
+    private fun setupSwitchPosition() = lifecycleScope.launchWhenStarted {
         viewModel.state.collect() {
             when (it) {
                 is SettingsState.SwitchPosition -> {

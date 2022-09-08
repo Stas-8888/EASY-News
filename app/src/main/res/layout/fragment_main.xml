@@ -7,19 +7,14 @@
     android:background="@color/colorBackground"
     tools:context=".presentation.fragments.main.MainFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.appbar.AppBarLayout
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             style="@style/Toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -53,8 +48,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.appbar.AppBarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+        </androidx.appcompat.widget.Toolbar>
 
     <TextView
         android:id="@+id/tvCenterText"
@@ -129,7 +123,7 @@
         android:background="@color/colorTabLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appbar"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:tabIndicatorColor="@color/tabIndicatorColor"
         app:tabIndicatorFullWidth="true"
         app:tabMode="auto"

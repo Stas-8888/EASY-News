@@ -18,13 +18,12 @@ import com.example.newsapppp.presentation.extensions.showAlertUpDialog
 import com.example.newsapppp.presentation.fragments.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_news.*
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class NewsFragment : BaseFragment<FragmentNewsBinding, NewsFragmentViewModel>() {
     private val args: NewsFragmentArgs by navArgs()
     override val viewModel by viewModels<NewsFragmentViewModel>()
-    val article by lazy { args.article }
+    private val article by lazy { args.article }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,7 +43,12 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsFragmentViewModel>() 
         }
     }
 
-    private fun checkFavoriteIcon() = lifecycleScope.launch {
+    override fun onStop() {
+        super.onStop()
+        findNavController().navigate(R.id.mainFragment)
+    }
+
+    private fun checkFavoriteIcon() = lifecycleScope.launchWhenStarted {
         viewModel.state.collect() {
             when (it) {
                 is NewsState.ShowUnSaved -> {
@@ -53,11 +57,14 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsFragmentViewModel>() 
                 is NewsState.ShowAsSaved -> {
                     setImageResource(R.drawable.ic_favorite_border)
                 }
+                else -> {
+                    setImageResource(R.drawable.ic_favorite_border)
+                }
             }
         }
     }
 
-    private fun saveDeleteFavorite() = lifecycleScope.launch {
+    private fun saveDeleteFavorite() = lifecycleScope.launchWhenStarted {
         viewModel.saveDeleteFavorite(article)
         viewModel.state.collect() {
             when (it) {
@@ -69,11 +76,12 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsFragmentViewModel>() 
                     setImageResource(R.drawable.ic_favorite)
                     showAlertUpDialog(getString(R.string.СтатьяДобавлена))
                 }
+                else -> setImageResource(R.drawable.ic_favorite_border)
             }
         }
     }
 
-    private fun setImageResource(data: Int){
+    private fun setImageResource(data: Int) {
         binding.btFavorite.setImageResource(data)
     }
 

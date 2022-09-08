@@ -6,5 +6,5 @@ interface ArticleRepository {
 
     suspend fun getNews(countryCode: String, category: String): NewsResponseModel
 
-    suspend fun searchNews(searchQuery: String, pageNumber: Int): NewsResponseModel
+    suspend fun searchNews(searchQuery: String): NewsResponseModel
 }

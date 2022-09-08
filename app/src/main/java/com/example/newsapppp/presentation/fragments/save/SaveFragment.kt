@@ -42,7 +42,7 @@ class SaveFragment : BaseFragment<FragmentSaveBinding, SaveFragmentViewModel>() 
         }
     }
 
-    private fun showSaveList() = lifecycleScope.launch {
+    private fun showSaveList() = lifecycleScope.launchWhenStarted {
         viewModel.state.collect {
             when (it) {
                 is SaveState.ShowLoading -> {

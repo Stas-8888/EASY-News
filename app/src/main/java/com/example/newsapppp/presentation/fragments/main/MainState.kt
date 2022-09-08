@@ -8,7 +8,5 @@ sealed class MainState {
 
     object HideLoading : MainState()
 
-    object ShowErrorScreen : MainState()
-
     data class ShowArticles(val articles: List<Article>) : MainState()
 }
