@@ -45,13 +45,15 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
     }
 
     private fun showNewsList() = lifecycleScope.launchWhenStarted {
-        viewModel.state.collect {
-            when (it) {
+        viewModel.state.collect { showArticle ->
+            when (showArticle) {
                 is MainState.ShowLoading -> {
                     binding.progressBar.isVisible = true
                 }
                 is MainState.ShowArticles -> {
-                    newsAdapter.submitList(it.articles)
+                    if (showArticle.articles.isNotEmpty()) {
+                        newsAdapter.submitList(showArticle.articles)
+                    }
                 }
                 is MainState.HideLoading -> {
                     binding.progressBar.isVisible = false
@@ -70,7 +72,6 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewModel.getNewsRetrofit(countryCode = country, categories[tab.position])
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
@@ -80,6 +81,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
         rvNews.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(requireContext())
+            rvNews.setHasFixedSize(true)
             toFirstRecyclerPosition()
         }
     }

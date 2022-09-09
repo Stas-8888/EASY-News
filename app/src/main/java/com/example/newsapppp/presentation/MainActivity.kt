@@ -8,38 +8,40 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.ActivityMainBinding
 import com.example.newsapppp.presentation.utils.ConnectionType
 import com.example.newsapppp.presentation.utils.NetworkMonitorUtil
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.no_internet_connections.*
-import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
     val viewModel by viewModels<MainActivityViewModel>()
     private val networkMonitor = NetworkMonitorUtil(this)
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.setupDayNightMode()
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        checkInternetConnections()
+        setBottomNavListener()
+        navController = Navigation.findNavController(this, R.id.nav_fragment)
+    }
 
-        lifecycleScope.launchWhenResumed {
-            viewModel.setupDayNightMode()
-            checkInternetConnections()
-            setContentView(R.layout.fragment_splash)
-            delay(1000)
-            val binding = ActivityMainBinding.inflate(layoutInflater)
-            setContentView(binding.root)
-
-            val navHostFragment =
-                supportFragmentManager.findFragmentById(R.id.nav_fragment) as NavHostFragment
-            val navController = navHostFragment.navController
-            NavigationUI.setupWithNavController(bottomNavigationView, navController)
+    private fun setBottomNavListener() {
+        binding.bottomNavigationView.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.mainFragment -> navController.navigate(R.id.mainFragment)
+                R.id.saveFragment -> navController.navigate(R.id.saveFragment)
+                R.id.searchFragment -> navController.navigate(R.id.searchFragment)
+            }
+            true
         }
     }
 

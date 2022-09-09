@@ -43,11 +43,6 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsFragmentViewModel>() 
         }
     }
 
-    override fun onStop() {
-        super.onStop()
-        findNavController().navigate(R.id.mainFragment)
-    }
-
     private fun checkFavoriteIcon() = lifecycleScope.launchWhenStarted {
         viewModel.state.collect() {
             when (it) {
