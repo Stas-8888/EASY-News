@@ -1,15 +1,18 @@
 package com.example.newsapppp.presentation.fragments.main
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentMainBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
@@ -41,6 +44,10 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
         }
         newsAdapter.setOnItemClickListener {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToNewsFragment(it))
+        }
+        swipeToRefresh.setOnRefreshListener {
+            binding.rvNews.adapter = newsAdapter
+            swipeToRefresh.isRefreshing = false
         }
     }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -87,19 +88,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabMain" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvNews"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="35dp"
-        android:clipToPadding="false"
-        android:layoutAnimation="@anim/item_layout_animation"
-        android:paddingBottom="150dp"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeToRefresh"
+        android:layout_width="wrap_content"
+        android:layout_height="0px"
+        android:layout_weight="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tabMain" />
+        app:layout_constraintTop_toBottomOf="@+id/tabMain">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvNews"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="35dp"
+            android:clipToPadding="false"
+            android:layoutAnimation="@anim/item_layout_animation"
+            android:paddingBottom="150dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tabMain" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_bar1"
@@ -162,7 +174,7 @@
         app:indicatorColor="#FFC107"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/rvNews"
+        app:layout_constraintTop_toTopOf="@+id/swipeToRefresh"
         app:trackColor="@color/colorRed"
         app:trackCornerRadius="5dp"
         app:trackThickness="4dp" />
