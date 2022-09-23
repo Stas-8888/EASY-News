@@ -107,5 +107,12 @@
                 android:text="@string/description" />
 
         </RelativeLayout>
+        <!-- Used for the ripple effect on touch -->
+        <LinearLayout
+            android:id="@+id/movieHolder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/ripple_effect"
+            android:orientation="horizontal" />
     </androidx.cardview.widget.CardView>
 </FrameLayout>

@@ -2,9 +2,9 @@ package com.example.newsapppp.domain.repository
 
 interface SharedPrefRepository {
 
-    suspend fun saveFavorite(value: Boolean)
+    suspend fun saveFavorite(key: String, value: Boolean)
 
-    suspend fun getFavorite(): Boolean
+    suspend fun getFavorite(key: String): Boolean
 
     suspend fun saveCountryFlag(value: String)
 

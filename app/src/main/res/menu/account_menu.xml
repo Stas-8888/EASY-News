@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/menu_account"
-        android:title="Account ?"
+    <item
+        android:id="@+id/menu_account"
         android:icon="@drawable/ic_account"
         android:iconTint="@color/black"
-        app:showAsAction="ifRoom"/>
+        android:title="Account ?"
+        app:showAsAction="ifRoom" />
 
 </menu>

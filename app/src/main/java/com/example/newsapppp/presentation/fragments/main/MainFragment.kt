@@ -1,18 +1,15 @@
 package com.example.newsapppp.presentation.fragments.main
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentMainBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
@@ -20,6 +17,7 @@ import com.example.newsapppp.presentation.fragments.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -36,15 +34,13 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
     }
 
     private fun setupOnClickListeners() {
-        tvCountry.setOnClickListener {
-            rvNews.smoothScrollToPosition(0)
-        }
         btProfile.setOnClickListener {
             findNavController().navigate(R.id.settingsFragment)
         }
         newsAdapter.setOnItemClickListener {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToNewsFragment(it))
         }
+        // Swipe to refresh
         swipeToRefresh.setOnRefreshListener {
             binding.rvNews.adapter = newsAdapter
             swipeToRefresh.isRefreshing = false
@@ -52,19 +48,19 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
     }
 
     private fun showNewsList() = lifecycleScope.launchWhenStarted {
-        viewModel.state.collect { showArticle ->
-            when (showArticle) {
-                is MainState.ShowLoading -> {
-                    binding.progressBar.isVisible = true
-                }
-                is MainState.ShowArticles -> {
-                    if (showArticle.articles.isNotEmpty()) {
+        viewModel.state.collectLatest { showArticle ->
+            binding.apply {
+                when (showArticle) {
+                    is MainState.ShowLoading -> {
+                        progressBar.isVisible = true
+                    }
+                    is MainState.ShowArticles -> {
                         newsAdapter.submitList(showArticle.articles)
                     }
-                }
-                is MainState.HideLoading -> {
-                    binding.progressBar.isVisible = false
-                    binding.tvCenterText.isVisible = false
+                    is MainState.HideLoading -> {
+                        progressBar.isVisible = false
+                        tvCenterText.isVisible = false
+                    }
                 }
             }
         }

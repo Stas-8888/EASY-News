@@ -15,9 +15,10 @@ import com.example.newsapppp.databinding.FragmentSaveBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
 import com.example.newsapppp.presentation.extensions.showDeleteDialog
 import com.example.newsapppp.presentation.fragments.base.BaseFragment
+import com.example.newsapppp.presentation.model.Article
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_save.*
-import kotlinx.coroutines.launch
+import java.util.*
 
 @AndroidEntryPoint
 class SaveFragment : BaseFragment<FragmentSaveBinding, SaveFragmentViewModel>() {
@@ -74,7 +75,11 @@ class SaveFragment : BaseFragment<FragmentSaveBinding, SaveFragmentViewModel>() 
                 viewHolder: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
             ): Boolean {
-                return false
+                val initial = viewHolder.adapterPosition
+                val final = target.adapterPosition
+//                Collections.swap(list,initial,final)
+                newsAdapter.notifyItemMoved(initial,final)
+                return true
             }
 
             override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder) = 0.3f

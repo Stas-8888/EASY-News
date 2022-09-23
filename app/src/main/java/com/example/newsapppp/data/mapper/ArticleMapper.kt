@@ -7,7 +7,6 @@ import com.example.newsapppp.domain.model.ArticleModel
 class ArticleMapper {
 
     fun convertToModel(data: ArticleDto) = ArticleModel(
-        id = (0..Int.MAX_VALUE).random(),
         author = data.author,
         content = data.content,
         description = data.description,
@@ -18,7 +17,6 @@ class ArticleMapper {
     )
 
     fun mapArticleModelToArticleDb(data: ArticleModel) = ArticleDbModel(
-        id = data.id,
         author = data.author,
         content = data.content,
         description = data.description,
@@ -29,7 +27,6 @@ class ArticleMapper {
     )
 
     fun mapArticleModelFromArticleDb(data: ArticleDbModel) = ArticleModel(
-        id = data.id,
         author = data.author,
         content = data.content,
         description = data.description,

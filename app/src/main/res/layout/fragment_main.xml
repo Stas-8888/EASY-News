@@ -8,6 +8,21 @@
     android:background="@color/colorBackground"
     tools:context=".presentation.fragments.main.MainFragment">
 
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progress_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:indeterminate="true"
+        android:visibility="visible"
+        app:indicatorColor="#FFC107"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/swipeToRefresh"
+        app:trackColor="@color/colorRed"
+        app:trackCornerRadius="5dp"
+        app:trackThickness="4dp" />
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             style="@style/Toolbar"
@@ -139,6 +154,7 @@
         app:tabIndicatorColor="@color/tabIndicatorColor"
         app:tabIndicatorFullWidth="true"
         app:tabMode="auto"
+        app:tabGravity="fill"
         app:tabSelectedTextColor="@color/colorPrimaryDark"
         app:tabTextColor="@color/tabTextColor">
 
@@ -163,21 +179,6 @@
             android:text="@string/Развлечение" />
 
     </com.google.android.material.tabs.TabLayout>
-
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/progress_bar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:indeterminate="true"
-        android:visibility="visible"
-        app:indicatorColor="#FFC107"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/swipeToRefresh"
-        app:trackColor="@color/colorRed"
-        app:trackCornerRadius="5dp"
-        app:trackThickness="4dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabUp"

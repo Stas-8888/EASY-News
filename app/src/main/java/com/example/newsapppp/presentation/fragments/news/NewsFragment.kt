@@ -29,7 +29,6 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsFragmentViewModel>() 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupWebView()
-        viewModel.checkFavoriteIcon()
         checkFavoriteIcon()
         setupOnClickListeners()
     }
@@ -44,17 +43,11 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsFragmentViewModel>() 
     }
 
     private fun checkFavoriteIcon() = lifecycleScope.launchWhenStarted {
+        viewModel.checkFavoriteIcon(article)
         viewModel.state.collect() {
             when (it) {
-                is NewsState.ShowUnSaved -> {
-                    setImageResource(R.drawable.ic_favorite)
-                }
-                is NewsState.ShowAsSaved -> {
-                    setImageResource(R.drawable.ic_favorite_border)
-                }
-                else -> {
-                    setImageResource(R.drawable.ic_favorite_border)
-                }
+                is NewsState.ShowUnSaved -> setImageResource(R.drawable.ic_favorite)
+                is NewsState.ShowAsSaved -> setImageResource(R.drawable.ic_favorite_border)
             }
         }
     }
@@ -63,15 +56,14 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsFragmentViewModel>() 
         viewModel.saveDeleteFavorite(article)
         viewModel.state.collect() {
             when (it) {
-                is NewsState.ShowDelete -> {
-                    setImageResource(R.drawable.ic_favorite_border)
-                    showAlertUpDialog(getString(R.string.СтатьяУдалена))
-                }
-                is NewsState.ShowInsert -> {
+                is NewsState.ShowAsSaved -> {
                     setImageResource(R.drawable.ic_favorite)
                     showAlertUpDialog(getString(R.string.СтатьяДобавлена))
                 }
-                else -> setImageResource(R.drawable.ic_favorite_border)
+                is NewsState.ShowUnSaved -> {
+                    setImageResource(R.drawable.ic_favorite_border)
+                    showAlertUpDialog(getString(R.string.СтатьяУдалена))
+                }
             }
         }
     }
@@ -85,7 +77,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsFragmentViewModel>() 
     private fun setupWebView() {
         webView.apply {
             webView.webViewClient = WebViewClient()
-            article.url?.let { loadUrl(it) }
+            article.url.let { loadUrl(it) }
             settings.javaScriptEnabled = true
             settings.safeBrowsingEnabled = true
         }

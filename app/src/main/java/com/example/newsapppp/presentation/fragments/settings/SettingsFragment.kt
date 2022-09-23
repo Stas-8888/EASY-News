@@ -48,10 +48,8 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsFragmentV
         switchDayNight.setOnCheckedChangeListener { _, isNightMode ->
             if (isNightMode) {
                 viewModel.onNightModeSelected()
-                toast(getString(R.string.Ночная_тема))
             } else {
                 viewModel.onDayModeSelected()
-                toast(getString(R.string.Дневная_тема))
             }
         }
     }

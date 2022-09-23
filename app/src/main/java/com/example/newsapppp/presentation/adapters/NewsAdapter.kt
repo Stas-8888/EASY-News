@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsapppp.R
+import com.example.newsapppp.databinding.ItemLayoutBinding
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.utils.DateFormat.dateFormat
 import kotlinx.android.synthetic.main.item_layout.view.*
@@ -14,17 +15,14 @@ import kotlinx.android.synthetic.main.item_layout.view.*
 class NewsAdapter : ListAdapter<Article, NewsAdapter.ArticleViewHolder>(NewsItemDiffCallback()) {
     var count = 0
 
-    class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    class ArticleViewHolder(val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
 //        Log.d("NewsAdapter", "onCreateViewHolder, count: ${++count}")
-        return ArticleViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.item_layout,
-                parent,
-                false
-            )
-        )
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemLayoutBinding.inflate(inflater, parent, false)
+
+        return ArticleViewHolder(binding)
     }
 
     private var onItemClickListener: ((Article) -> Unit)? = null

@@ -43,7 +43,9 @@ object AppModuleRepository {
 
     @Provides
     @Singleton
-    fun provideSharedPrefRepository(@ApplicationContext context: Context): SharedPrefRepository {
+    fun provideSharedPrefRepository(
+        @ApplicationContext context: Context
+    ): SharedPrefRepository {
         return SharedPrefRepositoryImpl(context)
     }
 }

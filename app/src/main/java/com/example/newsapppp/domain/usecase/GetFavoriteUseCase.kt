@@ -4,7 +4,7 @@ import com.example.newsapppp.domain.repository.SharedPrefRepository
 
 class GetFavoriteUseCase(private val repo: SharedPrefRepository) {
 
-     suspend fun getFavorite(): Boolean {
-        return repo.getFavorite()
+    suspend fun getFavorite(key: String): Boolean {
+        return repo.getFavorite(key)
     }
 }

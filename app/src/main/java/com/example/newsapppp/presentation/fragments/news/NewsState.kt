@@ -6,7 +6,4 @@ sealed class NewsState {
 
     object ShowUnSaved : NewsState()
 
-    object ShowDelete : NewsState()
-
-    object ShowInsert : NewsState()
 }

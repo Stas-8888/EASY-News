@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -17,16 +18,18 @@ import com.example.newsapppp.presentation.utils.NetworkMonitorUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.no_internet_connections.*
 
+/**
+ * Representation of SingleActivity. Set Activity UI and navigation
+ */
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
-    val viewModel by viewModels<MainActivityViewModel>()
     private val networkMonitor = NetworkMonitorUtil(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.setupDayNightMode()
+        Log.e("AAA","activityMain")
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         checkInternetConnections()

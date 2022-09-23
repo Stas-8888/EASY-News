@@ -3,7 +3,7 @@ package com.example.newsapppp.data.network
 import com.example.newsapppp.data.network.model.NewsResponseDto
 import retrofit2.http.GET
 import retrofit2.http.Query
-
+//https://newsapi.org/v2/top-headlines?country=us&apiKey=a0e436b60013442b85ed2ab11d93dbfb
 private const val API_KEY = "a0e436b60013442b85ed2ab11d93dbfb"
 
 interface ApiService {

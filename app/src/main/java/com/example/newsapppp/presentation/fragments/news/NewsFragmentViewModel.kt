@@ -22,10 +22,11 @@ class NewsFragmentViewModel @Inject constructor(
     private val deleteArticleUseCase: DeleteArticleUseCase,
     private val articleMapperToModel: ArticleMapperToModel,
     private val saveFavoriteUseCase: SaveFavoriteUseCase,
-    private val getFavoriteUseCase: GetFavoriteUseCase
+    private val getFavoriteUseCase: GetFavoriteUseCase,
 ) : AndroidViewModel(application) {
+    private var isFavorite = false
 
-    private val _state = MutableStateFlow<NewsState>(NewsState.ShowDelete)
+    private val _state = MutableStateFlow<NewsState>(NewsState.ShowAsSaved)
     val state: StateFlow<NewsState> = _state
 
     private fun insertArticle(article: Article) = viewModelScope.launch {
@@ -36,16 +37,16 @@ class NewsFragmentViewModel @Inject constructor(
         deleteArticleUseCase.deleteArticle(articleMapperToModel.convertToModel(article))
     }
 
-    private fun saveFavorite(value: Boolean) = viewModelScope.launch {
-        saveFavoriteUseCase.saveFavorite(value)
+    private fun saveFavorite(key: String, value: Boolean) = viewModelScope.launch {
+        saveFavoriteUseCase.saveFavorite(key, value)
     }
 
-    private suspend fun getFavorite(): Boolean {
-        return getFavoriteUseCase.getFavorite()
+    private suspend fun getFavorite(key: String): Boolean {
+        return getFavoriteUseCase.getFavorite(key)
     }
 
-    fun checkFavoriteIcon() = viewModelScope.launch {
-        if (getFavorite()) {
+    fun checkFavoriteIcon(article: Article) = viewModelScope.launch {
+        if (isFavorite != getFavorite(article.url)) {
             _state.emit(NewsState.ShowUnSaved)
         } else {
             _state.emit(NewsState.ShowAsSaved)
@@ -53,15 +54,15 @@ class NewsFragmentViewModel @Inject constructor(
     }
 
     fun saveDeleteFavorite(article: Article) = viewModelScope.launch {
-        if (getFavorite()) {
-            saveFavorite(false)
-            deleteArticle(article)
-            _state.emit(NewsState.ShowDelete)
+        if (isFavorite == getFavorite(article.url)) {
+            insertArticle(article)
+            saveFavorite(article.url, true)
+            _state.emit(NewsState.ShowAsSaved)
 
         } else {
-            saveFavorite(true)
-            insertArticle(article)
-            _state.emit(NewsState.ShowInsert)
+            deleteArticle(article)
+            saveFavorite(article.url, false)
+            _state.emit(NewsState.ShowUnSaved)
         }
     }
 }

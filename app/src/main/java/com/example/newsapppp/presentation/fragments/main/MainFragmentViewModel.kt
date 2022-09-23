@@ -8,7 +8,7 @@ import com.example.newsapppp.domain.usecase.GetNewsUseCase
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,7 +21,7 @@ class MainFragmentViewModel @Inject constructor(
 ) : AndroidViewModel(app) {
 
     private val _state = MutableStateFlow<MainState>(MainState.ShowLoading)
-    val state: StateFlow<MainState> = _state
+    val state = _state.asStateFlow()
 
     fun getNewsRetrofit(countryCode: String, category: String) = viewModelScope.launch {
         getNews(countryCode, category)
@@ -30,8 +30,9 @@ class MainFragmentViewModel @Inject constructor(
     private suspend fun getNews(countryCode: String, category: String) {
         _state.emit(MainState.ShowLoading)
         val data = getNewsUseCase.getNews(
-            countryCode = countryCode, category = category
-        ).articlesModel.filter { it.urlToImage != null && it.url != null }
+            countryCode = countryCode,
+            category = category
+        ).articlesModel.filter { it.urlToImage != null }
         _state.emit(MainState.ShowArticles(articleMapperToModel.articleToModelArticle(data)))
         _state.emit(MainState.HideLoading)
     }

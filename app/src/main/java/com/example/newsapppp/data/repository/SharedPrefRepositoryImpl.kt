@@ -8,7 +8,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-private const val SHARED_KEY = "qw"
 private const val SHARED_KEY_COUNTRY = "qww"
 private const val SHARED_KEY_SWITCH_POSITION = "yes"
 private const val DEFAULT_BOOLEAN = false
@@ -25,15 +24,15 @@ class SharedPrefRepositoryImpl @Inject constructor(
     }
 
     override fun getCountryFlag(): String {
-        return favoriteShared.getString(SHARED_KEY_COUNTRY, "") ?: ""
+        return favoriteShared.getString(SHARED_KEY_COUNTRY, "us") ?: "us"
     }
 
-    override suspend fun saveFavorite(value: Boolean) = withContext(Dispatchers.IO) {
-        putBoolean(SHARED_KEY, value)
+    override suspend fun saveFavorite(key: String, value: Boolean) = withContext(Dispatchers.IO) {
+        putBoolean(key, value)
     }
 
-    override suspend fun getFavorite(): Boolean {
-        return getBoolean(SHARED_KEY)
+    override suspend fun getFavorite(key: String): Boolean {
+        return getBoolean(key)
     }
 
     override suspend fun saveSwitchPosition(value: Boolean) = withContext(Dispatchers.IO) {

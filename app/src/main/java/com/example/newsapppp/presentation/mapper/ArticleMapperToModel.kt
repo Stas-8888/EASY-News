@@ -3,10 +3,12 @@ package com.example.newsapppp.presentation.mapper
 import com.example.newsapppp.domain.model.ArticleModel
 import com.example.newsapppp.presentation.model.Article
 
+/**
+ * Mapper class used to : transformationModels.
+ */
 class ArticleMapperToModel {
 
     fun convertToModel(data: Article) = ArticleModel(
-        id = data.id,
         author = data.author,
         content = data.content,
         description = data.description,
@@ -17,7 +19,6 @@ class ArticleMapperToModel {
     )
 
     private fun convertFromModel(data: ArticleModel) = Article(
-        id = data.id,
         author = data.author,
         content = data.content,
         description = data.description,
