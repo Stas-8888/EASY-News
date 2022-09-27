@@ -24,6 +24,7 @@ class NewsFragmentViewModel @Inject constructor(
     private val saveFavoriteUseCase: SaveFavoriteUseCase,
     private val getFavoriteUseCase: GetFavoriteUseCase,
 ) : AndroidViewModel(application) {
+
     private var isFavorite = false
 
     private val _state = MutableStateFlow<NewsState>(NewsState.ShowAsSaved)

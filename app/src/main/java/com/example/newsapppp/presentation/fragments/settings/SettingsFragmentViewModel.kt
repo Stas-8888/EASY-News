@@ -45,15 +45,17 @@ class SettingsFragmentViewModel @Inject constructor(
         }
     }
 
-    fun onNightModeSelected() {
-        saveSwitchPosition(false)
-        AppCompatDelegate
-            .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+    fun saveChangeNightMode(value: Boolean) {
+        if (value) {
+            checkNightModeState(value = false, state = AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            checkNightModeState(value = true, state = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        }
     }
 
-    fun onDayModeSelected() {
-        saveSwitchPosition(true)
+    private fun checkNightModeState(value: Boolean, state: Int) {
+        saveSwitchPosition(value)
         AppCompatDelegate
-            .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            .setDefaultNightMode(state)
     }
 }

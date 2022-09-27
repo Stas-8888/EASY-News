@@ -16,7 +16,6 @@ import com.example.newsapppp.databinding.NewNameDialogBinding
 import com.example.newsapppp.presentation.fragments.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_settings.*
-import kotlinx.coroutines.launch
 
 private const val USA = "us"
 private const val GERMANY = "de"
@@ -46,25 +45,21 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsFragmentV
             showChangeNameDialog("")
         }
         switchDayNight.setOnCheckedChangeListener { _, isNightMode ->
-            if (isNightMode) {
-                viewModel.onNightModeSelected()
-            } else {
-                viewModel.onDayModeSelected()
-            }
+            viewModel.saveChangeNightMode(isNightMode)
         }
     }
 
     private fun setupSwitchPosition() = lifecycleScope.launchWhenStarted {
         viewModel.state.collect() {
             when (it) {
-                is SettingsState.SwitchPosition -> {
-                    switchDayNight.isChecked = false
-                }
-                is SettingsState.UnSwitchPosition -> {
-                    switchDayNight.isChecked = true
-                }
+                is SettingsState.SwitchPosition -> isChecked(false)
+                is SettingsState.UnSwitchPosition -> isChecked(true)
             }
         }
+    }
+
+    private fun isChecked(value: Boolean) {
+        switchDayNight.isChecked = value
     }
 
     private fun showPopup(view: View) {

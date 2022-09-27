@@ -33,6 +33,7 @@ class MainFragmentViewModel @Inject constructor(
             countryCode = countryCode,
             category = category
         ).articlesModel.filter { it.urlToImage != null }
+
         _state.emit(MainState.ShowArticles(articleMapperToModel.articleToModelArticle(data)))
         _state.emit(MainState.HideLoading)
     }
