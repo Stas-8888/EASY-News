@@ -17,20 +17,31 @@ import com.example.newsapppp.presentation.fragments.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() {
+class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentViewModel>() {
     private val newsAdapter by lazy { NewsAdapter() }
     override val viewModel by viewModels<MainFragmentViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        showNewsList()
         getCountryAndCategoryTabLayout()
         setupOnClickListeners()
+    }
+
+    override fun renderState(state: MainState) {
+        binding.apply {
+            when (state) {
+                is MainState.ShowLoading -> progressBar.isVisible = true
+                is MainState.ShowArticles -> newsAdapter.submitList(state.articles)
+                is MainState.HideLoading -> {
+                    progressBar.isVisible = false
+                    tvCenterText.isVisible = false
+                }
+            }
+        }
     }
 
     private fun setupOnClickListeners() {
@@ -47,25 +58,6 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
         }
     }
 
-    private fun showNewsList() = lifecycleScope.launchWhenStarted {
-        viewModel.state.collectLatest { showArticle ->
-            binding.apply {
-                when (showArticle) {
-                    is MainState.ShowLoading -> {
-                        progressBar.isVisible = true
-                    }
-                    is MainState.ShowArticles -> {
-                        newsAdapter.submitList(showArticle.articles)
-                    }
-                    is MainState.HideLoading -> {
-                        progressBar.isVisible = false
-                        tvCenterText.isVisible = false
-                    }
-                }
-            }
-        }
-    }
-
     private fun getCountryAndCategoryTabLayout() {
         val country = viewModel.getCountryFlag()
         viewModel.getNewsRetrofit(countryCode = country, category = categories[0])
@@ -75,6 +67,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewModel.getNewsRetrofit(countryCode = country, categories[tab.position])
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })

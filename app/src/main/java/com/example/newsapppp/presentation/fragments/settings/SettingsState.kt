@@ -1,6 +1,8 @@
 package com.example.newsapppp.presentation.fragments.settings
 
-sealed class SettingsState {
+import com.example.newsapppp.presentation.fragments.base.State
+
+sealed class SettingsState: State {
 
     object SwitchPosition : SettingsState()
 

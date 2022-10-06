@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSettingsBinding
@@ -23,15 +22,22 @@ private const val RUSSIA = "ru"
 private const val EGYPT = "eg"
 
 @AndroidEntryPoint
-class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsFragmentViewModel>() {
+class SettingsFragment :
+    BaseFragment<SettingsState, FragmentSettingsBinding, SettingsFragmentViewModel>() {
     override val viewModel by viewModels<SettingsFragmentViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupCountryFlag()
         viewModel.getSwitchPosition()
-        setupSwitchPosition()
         setupOnClickListeners()
+    }
+
+    override fun renderState(state: SettingsState) {
+        when (state) {
+            is SettingsState.SwitchPosition -> isChecked(false)
+            is SettingsState.UnSwitchPosition -> isChecked(true)
+        }
     }
 
     private fun setupOnClickListeners() {
@@ -46,15 +52,6 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsFragmentV
         }
         switchDayNight.setOnCheckedChangeListener { _, isNightMode ->
             viewModel.saveChangeNightMode(isNightMode)
-        }
-    }
-
-    private fun setupSwitchPosition() = lifecycleScope.launchWhenStarted {
-        viewModel.state.collect() {
-            when (it) {
-                is SettingsState.SwitchPosition -> isChecked(false)
-                is SettingsState.UnSwitchPosition -> isChecked(true)
-            }
         }
     }
 

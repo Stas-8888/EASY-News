@@ -6,11 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
+import com.example.newsapppp.presentation.fragments.main.MainState
+import kotlinx.coroutines.flow.collectLatest
 
-abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
+abstract class BaseFragment<S: State, VB : ViewBinding, VM : BaseViewModel<S>> : Fragment() {
 
     private var _binding: VB? = null
     protected val binding get() = _binding!!
@@ -36,4 +40,18 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observeOnState()
+    }
+
+    private fun observeOnState() = lifecycleScope.launchWhenStarted {
+        viewModel.state.collectLatest { state ->
+            renderState(state)
+        }
+    }
+
+    abstract fun renderState(state: S)
+
 }

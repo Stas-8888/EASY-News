@@ -7,6 +7,7 @@ import com.example.newsapppp.domain.usecase.GetCountryFlagUseCase
 import com.example.newsapppp.domain.usecase.GetSwitchPositionUseCase
 import com.example.newsapppp.domain.usecase.SaveCountryFlagUseCase
 import com.example.newsapppp.domain.usecase.SaveSwitchPositionUseCase
+import com.example.newsapppp.presentation.fragments.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,10 +20,10 @@ class SettingsFragmentViewModel @Inject constructor(
     private val getCountryFlagUseCase: GetCountryFlagUseCase,
     private val saveSwitchPositionUseCase: SaveSwitchPositionUseCase,
     private val getSwitchPositionUseCase: GetSwitchPositionUseCase
-) : ViewModel() {
+) : BaseViewModel<SettingsState>() {
 
-    private val _state = MutableStateFlow<SettingsState>(SettingsState.SwitchPosition)
-    val state: StateFlow<SettingsState> = _state
+    override val _state = MutableStateFlow<SettingsState>(SettingsState.SwitchPosition)
+    override val state: StateFlow<SettingsState> = _state
 
     fun saveCountryFlag(value: String) = viewModelScope.launch {
         saveCountryFlagUseCase.saveCountryFlag(value)
@@ -30,10 +31,6 @@ class SettingsFragmentViewModel @Inject constructor(
 
     fun getCountryFlag(): String {
         return getCountryFlagUseCase.getCountryFlag()
-    }
-
-    private fun saveSwitchPosition(value: Boolean) = viewModelScope.launch {
-        saveSwitchPositionUseCase.saveSwitchPosition(value)
     }
 
     fun getSwitchPosition() = viewModelScope.launch {
@@ -45,17 +42,16 @@ class SettingsFragmentViewModel @Inject constructor(
         }
     }
 
-    fun saveChangeNightMode(value: Boolean) {
-        if (value) {
-            checkNightModeState(value = false, state = AppCompatDelegate.MODE_NIGHT_YES)
+    fun saveChangeNightMode(enabled: Boolean) = viewModelScope.launch {
+        if (enabled) {
+            saveNightModeState(enabled = false, state = AppCompatDelegate.MODE_NIGHT_YES)
         } else {
-            checkNightModeState(value = true, state = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            saveNightModeState(enabled = true, state = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         }
     }
 
-    private fun checkNightModeState(value: Boolean, state: Int) {
-        saveSwitchPosition(value)
-        AppCompatDelegate
-            .setDefaultNightMode(state)
+    private suspend fun saveNightModeState(enabled: Boolean, state: Int) {
+        saveSwitchPositionUseCase.saveSwitchPosition(enabled)
+        AppCompatDelegate.setDefaultNightMode(state)
     }
 }

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,13 +14,11 @@ import com.example.newsapppp.databinding.FragmentSaveBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
 import com.example.newsapppp.presentation.extensions.showDeleteDialog
 import com.example.newsapppp.presentation.fragments.base.BaseFragment
-import com.example.newsapppp.presentation.model.Article
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_save.*
-import java.util.*
 
 @AndroidEntryPoint
-class SaveFragment : BaseFragment<FragmentSaveBinding, SaveFragmentViewModel>() {
+class SaveFragment : BaseFragment<SaveState, FragmentSaveBinding, SaveFragmentViewModel>() {
     private val newsAdapter by lazy { NewsAdapter() }
     override val viewModel by viewModels<SaveFragmentViewModel>()
 
@@ -29,9 +26,21 @@ class SaveFragment : BaseFragment<FragmentSaveBinding, SaveFragmentViewModel>() 
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         swipeToDelete()
-        showSaveList()
         viewModel.getAllNews()
         setupOnClickListeners()
+    }
+
+    override fun renderState(state: SaveState) {
+        when (state) {
+            is SaveState.ShowLoading -> {
+                binding.progressBar.isVisible = true
+            }
+            is SaveState.ShowArticles -> {
+                binding.tvBackgroundText.isVisible = false
+                binding.progressBar.isVisible = false
+                newsAdapter.submitList(state.articles)
+            }
+        }
     }
 
     private fun setupOnClickListeners() {
@@ -40,21 +49,6 @@ class SaveFragment : BaseFragment<FragmentSaveBinding, SaveFragmentViewModel>() 
         }
         newsAdapter.setOnItemClickListener {
             findNavController().navigate(SaveFragmentDirections.actionSaveFragmentToNewsFragment(it))
-        }
-    }
-
-    private fun showSaveList() = lifecycleScope.launchWhenStarted {
-        viewModel.state.collect {
-            when (it) {
-                is SaveState.ShowLoading -> {
-                    binding.progressBar.isVisible = true
-                }
-                is SaveState.ShowArticles -> {
-                    binding.tvBackgroundText.isVisible = false
-                    binding.progressBar.isVisible = false
-                    newsAdapter.submitList(it.articles)
-                }
-            }
         }
     }
 
@@ -78,7 +72,7 @@ class SaveFragment : BaseFragment<FragmentSaveBinding, SaveFragmentViewModel>() 
                 val initial = viewHolder.adapterPosition
                 val final = target.adapterPosition
 //                Collections.swap(list,initial,final)
-                newsAdapter.notifyItemMoved(initial,final)
+                newsAdapter.notifyItemMoved(initial, final)
                 return true
             }
 

@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_news.*
 
 @AndroidEntryPoint
-class NewsFragment : BaseFragment<FragmentNewsBinding, NewsFragmentViewModel>() {
+class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentViewModel>() {
     private val args: NewsFragmentArgs by navArgs()
     override val viewModel by viewModels<NewsFragmentViewModel>()
     private val article by lazy { args.article }
@@ -29,8 +29,15 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsFragmentViewModel>() 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupWebView()
-        checkFavoriteIcon()
         setupOnClickListeners()
+    }
+
+    override fun renderState(state: NewsState) {
+        viewModel.checkFavoriteIcon(article)
+        when (state) {
+            is NewsState.ShowUnSaved -> setImageResource(R.drawable.ic_favorite)
+            is NewsState.ShowAsSaved -> setImageResource(R.drawable.ic_favorite_border)
+        }
     }
 
     private fun setupOnClickListeners() {
@@ -39,16 +46,6 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsFragmentViewModel>() 
         }
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
-        }
-    }
-
-    private fun checkFavoriteIcon() = lifecycleScope.launchWhenStarted {
-        viewModel.checkFavoriteIcon(article)
-        viewModel.state.collect() {
-            when (it) {
-                is NewsState.ShowUnSaved -> setImageResource(R.drawable.ic_favorite)
-                is NewsState.ShowAsSaved -> setImageResource(R.drawable.ic_favorite_border)
-            }
         }
     }
 

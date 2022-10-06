@@ -1,12 +1,12 @@
 package com.example.newsapppp.presentation.fragments.search
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.domain.usecase.SearchNewsUseCase
+import com.example.newsapppp.presentation.fragments.base.BaseViewModel
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
-import com.example.newsapppp.presentation.model.Article
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -14,12 +14,13 @@ import javax.inject.Inject
 class SearchFragmentViewModel @Inject constructor(
     private val searchNewsUseCase: SearchNewsUseCase,
     private val articleMapperToModel: ArticleMapperToModel
-) : ViewModel() {
+) : BaseViewModel<SearchState>() {
 
-    val searchNews: MutableLiveData<List<Article>> = MutableLiveData()
+    override val _state = MutableStateFlow<SearchState>(SearchState.ShowLoading)
+    override val state = _state.asStateFlow()
 
     fun getSearchRetrofit(searchQuery: String) = viewModelScope.launch {
         val data = searchNewsUseCase.searchNews(searchQuery).articlesModel
-        searchNews.value = articleMapperToModel.articleToModelArticle(data)
+        _state.emit(SearchState.ShowArticles(articleMapperToModel.articleToModelArticle(data)))
     }
 }

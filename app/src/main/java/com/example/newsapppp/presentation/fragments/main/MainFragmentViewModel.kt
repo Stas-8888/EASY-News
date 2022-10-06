@@ -1,27 +1,26 @@
 package com.example.newsapppp.presentation.fragments.main
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.domain.usecase.GetCountryFlagUseCase
 import com.example.newsapppp.domain.usecase.GetNewsUseCase
+import com.example.newsapppp.presentation.fragments.base.BaseViewModel
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainFragmentViewModel @Inject constructor(
-    app: Application,
     private val getNewsUseCase: GetNewsUseCase,
     private val articleMapperToModel: ArticleMapperToModel,
     private val getCountryFlagUseCase: GetCountryFlagUseCase,
-) : AndroidViewModel(app) {
+) : BaseViewModel<MainState>() {
 
-    private val _state = MutableStateFlow<MainState>(MainState.ShowLoading)
-    val state = _state.asStateFlow()
+    override val _state=  MutableStateFlow<MainState>(MainState.ShowLoading)
+    override val state = _state.asStateFlow()
 
     fun getNewsRetrofit(countryCode: String, category: String) = viewModelScope.launch {
         getNews(countryCode, category)

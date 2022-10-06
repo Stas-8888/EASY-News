@@ -1,6 +1,8 @@
 package com.example.newsapppp.presentation.fragments.news
 
-sealed class NewsState {
+import com.example.newsapppp.presentation.fragments.base.State
+
+sealed class NewsState: State {
 
     object ShowAsSaved : NewsState()
 

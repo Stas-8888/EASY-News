@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_search.*
 
 @AndroidEntryPoint
-class SearchFragment : BaseFragment<FragmentSearchBinding, SearchFragmentViewModel>() {
+class SearchFragment : BaseFragment<SearchState, FragmentSearchBinding, SearchFragmentViewModel>() {
     private val newsAdapter by lazy { NewsAdapter() }
     override val viewModel by viewModels<SearchFragmentViewModel>()
 
@@ -24,8 +24,15 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchFragmentViewMod
         binding.etSearch.requestFocus()
         setupRecyclerView()
         setupOnClickListeners()
-        viewModel.searchNews.observe(viewLifecycleOwner) { response ->
-            newsAdapter.submitList(response)
+    }
+
+    override fun renderState(state: SearchState) {
+        binding.apply {
+            when (state) {
+                is SearchState.ShowArticles -> {
+                    newsAdapter.submitList(state.articles)
+                }
+            }
         }
     }
 
