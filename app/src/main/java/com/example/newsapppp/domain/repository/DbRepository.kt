@@ -12,5 +12,4 @@ interface DbRepository {
     suspend fun deleteAllArticle()
 
     fun getAllArticles(): Flow<List<ArticleModel>>
-
 }

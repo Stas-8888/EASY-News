@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.newsapppp.presentation.fragments.main.MainFragment"
+        android:name="com.example.newsapppp.presentation.ui.main.MainFragment"
         android:label="Daily News"
         tools:layout="@layout/fragment_main">
         <action
@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.example.newsapppp.presentation.fragments.news.NewsFragment"
+        android:name="com.example.newsapppp.presentation.ui.news.NewsFragment"
         android:label="Daily News"
         tools:layout="@layout/fragment_news">
         <argument
@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/saveFragment"
-        android:name="com.example.newsapppp.presentation.fragments.save.SaveFragment"
+        android:name="com.example.newsapppp.presentation.ui.save.SaveFragment"
         android:label="Мои Новости"
         tools:layout="@layout/fragment_save">
         <action
@@ -45,7 +45,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.newsapppp.presentation.fragments.search.SearchFragment"
+        android:name="com.example.newsapppp.presentation.ui.search.SearchFragment"
         android:label="Поиск Новостей"
         tools:layout="@layout/fragment_search">
         <action
@@ -58,7 +58,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.newsapppp.presentation.fragments.settings.SettingsFragment"
+        android:name="com.example.newsapppp.presentation.ui.settings.SettingsFragment"
         android:label="Настройки">
         <action
             android:id="@+id/action_settingsFragment_to_mainFragment"

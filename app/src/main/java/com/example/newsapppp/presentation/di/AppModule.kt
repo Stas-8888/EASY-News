@@ -4,16 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.newsapppp.data.db.NewsDao
 import com.example.newsapppp.data.db.NewsRoomDatabase
-import com.example.newsapppp.data.mapper.ArticleMapper
-import com.example.newsapppp.data.mapper.NewsResponseMapper
 import com.example.newsapppp.data.network.ApiService
-import com.example.newsapppp.data.repository.ArticleRepositoryImpl
-import com.example.newsapppp.data.repository.DbRepositoryImpl
-import com.example.newsapppp.data.repository.SharedPrefRepositoryImpl
-import com.example.newsapppp.domain.repository.ArticleRepository
-import com.example.newsapppp.domain.repository.DbRepository
-import com.example.newsapppp.domain.repository.SharedPrefRepository
-import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,10 +26,10 @@ object AppModule {
     @Provides
     @Singleton
     fun retrofitInstance(): ApiService = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ApiService::class.java)
+        .baseUrl(BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+        .create(ApiService::class.java)
 
     @Provides
     @Singleton

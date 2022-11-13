@@ -21,6 +21,6 @@ class NewsResponseMapper(private val articleMapper: ArticleMapper) {
     }
 
     fun articleDbToArticleModel(article: List<ArticleDbModel>): List<ArticleModel> {
-        return article.map { articleMapper.mapArticleModelFromArticleDb(it) }
+        return article.map { articleMapper.mapToEntity(it) }
     }
 }

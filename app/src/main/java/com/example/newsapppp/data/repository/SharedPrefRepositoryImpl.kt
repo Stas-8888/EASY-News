@@ -1,25 +1,25 @@
 package com.example.newsapppp.data.repository
 
 import android.content.Context
-import android.preference.PreferenceManager
+import android.content.Context.MODE_PRIVATE
+import com.example.newsapppp.core.DispatchersList
 import com.example.newsapppp.domain.repository.SharedPrefRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-private const val SHARED_KEY_COUNTRY = "qww"
-private const val SHARED_KEY_SWITCH_POSITION = "yes"
+private const val SHARED_KEY_COUNTRY = "country"
+private const val SHARED_KEY_SWITCH_POSITION = "switch"
 private const val DEFAULT_BOOLEAN = false
 
-@Suppress("DEPRECATION")
 class SharedPrefRepositoryImpl @Inject constructor(
-    @ApplicationContext var context: Context
+    @ApplicationContext var context: Context,
+    private val dispatchers: DispatchersList.Base
 ) : SharedPrefRepository {
 
-    private val favoriteShared = PreferenceManager.getDefaultSharedPreferences(context)
+    private val favoriteShared = context.getSharedPreferences("shared", MODE_PRIVATE)
 
-    override suspend fun saveCountryFlag(value: String) = withContext(Dispatchers.IO) {
+    override suspend fun saveCountryFlag(value: String) = withContext(dispatchers.io()) {
         favoriteShared.edit().putString(SHARED_KEY_COUNTRY, value).apply()
     }
 
@@ -27,7 +27,7 @@ class SharedPrefRepositoryImpl @Inject constructor(
         return favoriteShared.getString(SHARED_KEY_COUNTRY, "us") ?: "us"
     }
 
-    override suspend fun saveFavorite(key: String, value: Boolean) = withContext(Dispatchers.IO) {
+    override suspend fun saveFavorite(key: String, value: Boolean) = withContext(dispatchers.io()) {
         putBoolean(key, value)
     }
 
@@ -35,7 +35,7 @@ class SharedPrefRepositoryImpl @Inject constructor(
         return getBoolean(key)
     }
 
-    override suspend fun saveSwitchPosition(value: Boolean) = withContext(Dispatchers.IO) {
+    override suspend fun saveSwitchPosition(value: Boolean) = withContext(dispatchers.io()) {
         putBoolean(SHARED_KEY_SWITCH_POSITION, value)
     }
 

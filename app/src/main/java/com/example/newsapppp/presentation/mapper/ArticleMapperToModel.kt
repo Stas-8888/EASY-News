@@ -1,14 +1,15 @@
 package com.example.newsapppp.presentation.mapper
 
+import com.example.newsapppp.core.EntityMapper
 import com.example.newsapppp.domain.model.ArticleModel
 import com.example.newsapppp.presentation.model.Article
 
 /**
  * Mapper class used to : transformationModels.
  */
-class ArticleMapperToModel {
+class ArticleMapperToModel : EntityMapper<Article, ArticleModel> {
 
-    fun convertToModel(data: Article) = ArticleModel(
+    override fun mapFromEntity(data: Article) = ArticleModel(
         author = data.author,
         content = data.content,
         description = data.description,
@@ -18,7 +19,7 @@ class ArticleMapperToModel {
         urlToImage = data.urlToImage
     )
 
-    private fun convertFromModel(data: ArticleModel) = Article(
+    override fun mapToEntity(data: ArticleModel) = Article(
         author = data.author,
         content = data.content,
         description = data.description,
@@ -29,6 +30,6 @@ class ArticleMapperToModel {
     )
 
     fun articleToModelArticle(article: List<ArticleModel>): List<Article> {
-        return article.map { convertFromModel(it) }
+        return article.map { mapToEntity(it) }
     }
 }

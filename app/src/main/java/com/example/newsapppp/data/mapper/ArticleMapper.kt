@@ -1,10 +1,11 @@
 package com.example.newsapppp.data.mapper
 
+import com.example.newsapppp.core.EntityMapper
 import com.example.newsapppp.data.db.models.ArticleDbModel
 import com.example.newsapppp.data.network.model.ArticleDto
 import com.example.newsapppp.domain.model.ArticleModel
 
-class ArticleMapper {
+class ArticleMapper : EntityMapper<ArticleModel, ArticleDbModel> {
 
     fun convertToModel(data: ArticleDto) = ArticleModel(
         author = data.author,
@@ -16,7 +17,7 @@ class ArticleMapper {
         urlToImage = data.urlToImage
     )
 
-    fun mapArticleModelToArticleDb(data: ArticleModel) = ArticleDbModel(
+    override fun mapFromEntity(data: ArticleModel) = ArticleDbModel(
         author = data.author,
         content = data.content,
         description = data.description,
@@ -26,7 +27,7 @@ class ArticleMapper {
         urlToImage = data.urlToImage
     )
 
-    fun mapArticleModelFromArticleDb(data: ArticleDbModel) = ArticleModel(
+    override fun mapToEntity(data: ArticleDbModel) = ArticleModel(
         author = data.author,
         content = data.content,
         description = data.description,

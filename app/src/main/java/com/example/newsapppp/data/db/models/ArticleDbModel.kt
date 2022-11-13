@@ -2,8 +2,9 @@ package com.example.newsapppp.data.db.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.newsapppp.data.db.NewsDao.Companion.TABLE_NAME
 
-@Entity(tableName = "articles")
+@Entity(tableName = TABLE_NAME)
 data class ArticleDbModel(
     @PrimaryKey
     val url: String,

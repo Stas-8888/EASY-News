@@ -7,6 +7,7 @@ import com.example.newsapppp.data.mapper.NewsResponseMapper
 import com.example.newsapppp.data.network.ApiService
 import com.example.newsapppp.data.repository.ArticleRepositoryImpl
 import com.example.newsapppp.data.repository.DbRepositoryImpl
+import com.example.newsapppp.core.DispatchersList
 import com.example.newsapppp.data.repository.SharedPrefRepositoryImpl
 import com.example.newsapppp.domain.repository.ArticleRepository
 import com.example.newsapppp.domain.repository.DbRepository
@@ -36,16 +37,18 @@ object AppModuleRepository {
     fun provideDbRepository(
         newsDao: NewsDao,
         mapper: ArticleMapper,
-        newsResponseMapper: NewsResponseMapper
+        newsResponseMapper: NewsResponseMapper,
+        dispatchers: DispatchersList.Base
     ): DbRepository {
-        return DbRepositoryImpl(newsDao, mapper, newsResponseMapper)
+        return DbRepositoryImpl(newsDao, mapper, newsResponseMapper, dispatchers)
     }
 
     @Provides
     @Singleton
     fun provideSharedPrefRepository(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
+        dispatchers: DispatchersList.Base
     ): SharedPrefRepository {
-        return SharedPrefRepositoryImpl(context)
+        return SharedPrefRepositoryImpl(context, dispatchers)
     }
 }

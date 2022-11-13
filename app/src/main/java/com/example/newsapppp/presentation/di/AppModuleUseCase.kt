@@ -3,7 +3,7 @@ package com.example.newsapppp.presentation.di
 import com.example.newsapppp.domain.repository.ArticleRepository
 import com.example.newsapppp.domain.repository.DbRepository
 import com.example.newsapppp.domain.repository.SharedPrefRepository
-import com.example.newsapppp.domain.usecase.*
+import com.example.newsapppp.domain.interactors.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
