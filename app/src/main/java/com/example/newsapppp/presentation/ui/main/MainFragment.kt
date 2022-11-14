@@ -1,9 +1,7 @@
 package com.example.newsapppp.presentation.ui.main
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -19,7 +17,9 @@ import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentViewModel>() {
+class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentViewModel>(
+    FragmentMainBinding::inflate
+) {
     private val newsAdapter by lazy { NewsAdapter() }
     override val viewModel by viewModels<MainFragmentViewModel>()
 
@@ -99,11 +99,6 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
         })
         fabUp.setOnClickListener { rvNews.smoothScrollToPosition(0) }
     }
-
-    override fun getViewBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ) = FragmentMainBinding.inflate(inflater, container, false)
 
     private val categories = listOf(
         "Technology",

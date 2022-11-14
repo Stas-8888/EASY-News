@@ -28,7 +28,7 @@ class SplashScreenActivity : AppCompatActivity() {
         setContentView(binding.root)
         viewModel.setupDayNightMode()
         window.statusBarColor = ContextCompat.getColor(this, R.color.colorRed)
-        Log.e("AAA","activitySplash")
+        Log.e("AAA", "activitySplash")
         val animationBounce = AnimationUtils.loadAnimation(this, R.anim.bounce)
         binding.tvNews.startAnimation(animationBounce)
         binding.tvWelcome.startAnimation(animationBounce)

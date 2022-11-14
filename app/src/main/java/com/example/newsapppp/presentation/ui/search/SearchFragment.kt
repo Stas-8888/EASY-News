@@ -1,12 +1,9 @@
 package com.example.newsapppp.presentation.ui.search
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapppp.databinding.FragmentSearchBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
@@ -15,7 +12,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_search.*
 
 @AndroidEntryPoint
-class SearchFragment : BaseFragment<SearchState, FragmentSearchBinding, SearchFragmentViewModel>() {
+class SearchFragment : BaseFragment<SearchState, FragmentSearchBinding, SearchFragmentViewModel>(
+    FragmentSearchBinding::inflate
+) {
     private val newsAdapter by lazy { NewsAdapter() }
     override val viewModel by viewModels<SearchFragmentViewModel>()
 
@@ -55,9 +54,4 @@ class SearchFragment : BaseFragment<SearchState, FragmentSearchBinding, SearchFr
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
-
-    override fun getViewBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ) = FragmentSearchBinding.inflate(inflater, container, false)
 }

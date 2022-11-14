@@ -1,4 +1,4 @@
-package com.example.newsapppp.presentation.extensions
+package com.example.newsapppp.presentation.utils.extensions
 
 import android.app.AlertDialog
 import android.view.LayoutInflater

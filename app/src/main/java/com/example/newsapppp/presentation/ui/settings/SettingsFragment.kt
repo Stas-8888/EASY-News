@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -16,14 +15,11 @@ import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_settings.*
 
-private const val USA = "us"
-private const val GERMANY = "de"
-private const val RUSSIA = "ru"
-private const val EGYPT = "eg"
-
 @AndroidEntryPoint
 class SettingsFragment :
-    BaseFragment<SettingsState, FragmentSettingsBinding, SettingsFragmentViewModel>() {
+    BaseFragment<SettingsState, FragmentSettingsBinding, SettingsFragmentViewModel>(
+        FragmentSettingsBinding::inflate
+    ) {
     override val viewModel by viewModels<SettingsFragmentViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -147,8 +143,10 @@ class SettingsFragment :
         dialog.show()
     }
 
-    override fun getViewBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ) = FragmentSettingsBinding.inflate(inflater, container, false)
+    companion object {
+        private const val USA = "us"
+        private const val GERMANY = "de"
+        private const val RUSSIA = "ru"
+        private const val EGYPT = "eg"
+    }
 }

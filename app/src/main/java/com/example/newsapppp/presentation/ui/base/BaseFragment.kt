@@ -14,9 +14,9 @@ import androidx.viewbinding.ViewBinding
 import com.example.newsapppp.core.State
 import kotlinx.coroutines.flow.collectLatest
 
-abstract class BaseFragment<S : State, VB : ViewBinding, VM : BaseViewModel<S>>
-//    (private val bindingInflater: (inflater: LayoutInflater) -> VB)
-    : Fragment() {
+abstract class BaseFragment<S : State, VB : ViewBinding, VM : BaseViewModel<S>>(
+    private val bindingInflater: (inflater: LayoutInflater) -> VB
+) : Fragment() {
 
     private var _binding: VB? = null
     protected val binding get() = _binding!!
@@ -27,12 +27,9 @@ abstract class BaseFragment<S : State, VB : ViewBinding, VM : BaseViewModel<S>>
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = getViewBinding(inflater, container)
-//        _binding = bindingInflater.invoke(inflater)
+        _binding = bindingInflater.invoke(inflater)
         return binding.root
     }
-
-    protected abstract fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?): VB
 
     fun toast(message: String) {
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()

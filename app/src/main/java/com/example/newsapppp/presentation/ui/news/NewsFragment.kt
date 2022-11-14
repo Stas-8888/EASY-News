@@ -3,9 +3,7 @@ package com.example.newsapppp.presentation.ui.news
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
@@ -14,13 +12,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentNewsBinding
-import com.example.newsapppp.presentation.extensions.showAlertUpDialog
+import com.example.newsapppp.presentation.utils.extensions.showAlertUpDialog
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_news.*
 
 @AndroidEntryPoint
-class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentViewModel>() {
+class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentViewModel>(
+    FragmentNewsBinding::inflate
+) {
     private val args: NewsFragmentArgs by navArgs()
     override val viewModel by viewModels<NewsFragmentViewModel>()
     private val article by lazy { args.article }
@@ -79,9 +79,4 @@ class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentVi
     private fun setImageResource(data: Int) {
         binding.btFavorite.setImageResource(data)
     }
-
-    override fun getViewBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ) = FragmentNewsBinding.inflate(inflater, container, false)
 }

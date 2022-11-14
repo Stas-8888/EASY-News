@@ -1,4 +1,4 @@
-package com.example.newsapppp.presentation.extensions
+package com.example.newsapppp.presentation.utils.extensions
 
 import androidx.fragment.app.Fragment
 import com.example.newsapppp.R

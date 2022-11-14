@@ -1,24 +1,23 @@
 package com.example.newsapppp.presentation.ui.save
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapppp.databinding.FragmentSaveBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
-import com.example.newsapppp.presentation.extensions.showDeleteDialog
+import com.example.newsapppp.presentation.utils.extensions.showDeleteDialog
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_save.*
 
 @AndroidEntryPoint
-class SaveFragment : BaseFragment<SaveState, FragmentSaveBinding, SaveFragmentViewModel>() {
+class SaveFragment : BaseFragment<SaveState, FragmentSaveBinding, SaveFragmentViewModel>(
+    FragmentSaveBinding::inflate
+) {
     private val newsAdapter by lazy { NewsAdapter() }
     override val viewModel by viewModels<SaveFragmentViewModel>()
 
@@ -89,9 +88,4 @@ class SaveFragment : BaseFragment<SaveState, FragmentSaveBinding, SaveFragmentVi
             attachToRecyclerView(rvSavedNews)
         }
     }
-
-    override fun getViewBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ) = FragmentSaveBinding.inflate(inflater, container, false)
 }
