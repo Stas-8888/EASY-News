@@ -16,7 +16,7 @@ class SearchFragmentViewModel @Inject constructor(
     private val articleMapperToModel: ArticleMapperToModel
 ) : BaseViewModel<SearchState>() {
 
-    override val _state = MutableStateFlow<SearchState>(SearchState.ShowLoading)
+    override val _state = MutableStateFlow<SearchState>(SearchState.Error)
     override val state = _state.asStateFlow()
 
     fun getSearchRetrofit(searchQuery: String) = viewModelScope.launch {

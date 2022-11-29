@@ -5,9 +5,7 @@ import com.example.newsapppp.presentation.model.Article
 
 sealed class SearchState : State {
 
-    object ShowLoading : SearchState()
-
-    object HideLoading : SearchState()
+    object Error : SearchState()
 
     data class ShowArticles(val articles: List<Article>) : SearchState()
 

@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.e("AAA","activityMain")
+        Log.e("AAA", "activityMain")
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         checkInternetConnections()
@@ -65,11 +65,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun internetConnectionDialog() {
-        val dialog = Dialog(this)
-        dialog.setContentView(R.layout.no_internet_connections)
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.setCanceledOnTouchOutside(false)
-        dialog.bt_try_again.setOnClickListener {
+        val dialog = Dialog(this).apply {
+            setContentView(R.layout.no_internet_connections)
+            window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            setCanceledOnTouchOutside(false)
+        }
+        bt_try_again.setOnClickListener {
             ActivityCompat.recreate(this)
         }
         dialog.show()

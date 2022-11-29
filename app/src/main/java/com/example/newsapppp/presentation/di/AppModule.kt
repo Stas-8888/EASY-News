@@ -30,19 +30,4 @@ object AppModule {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
         .create(ApiService::class.java)
-
-    @Provides
-    @Singleton
-    fun provideArticleDatabase(@ApplicationContext context: Context) =
-        Room.databaseBuilder(
-            context,
-            NewsRoomDatabase::class.java,
-            "article_database"
-        ).build()
-
-    @Provides
-    @Singleton
-    fun provideArticleDao(appDatabase: NewsRoomDatabase): NewsDao {
-        return appDatabase.getNewsDao()
-    }
 }

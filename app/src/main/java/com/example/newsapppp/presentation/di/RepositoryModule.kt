@@ -21,15 +21,16 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModuleRepository {
+object RepositoryModule {
 
     @Provides
     @Singleton
     fun provideArticleRepository(
         apiService: ApiService,
-        newsResponseMapper: NewsResponseMapper
+        newsResponseMapper: NewsResponseMapper,
+        dispatchers: DispatchersList.Base
     ): ArticleRepository {
-        return ArticleRepositoryImpl(apiService, newsResponseMapper)
+        return ArticleRepositoryImpl(apiService, newsResponseMapper,dispatchers)
     }
 
     @Provides

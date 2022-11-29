@@ -5,7 +5,7 @@ import com.example.newsapppp.data.db.NewsDao
 import com.example.newsapppp.data.mapper.ArticleMapper
 import com.example.newsapppp.data.mapper.NewsResponseMapper
 import com.example.newsapppp.domain.model.ArticleModel
-import com.example.newsapppp.domain.repository.*
+import com.example.newsapppp.domain.repository.DbRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext

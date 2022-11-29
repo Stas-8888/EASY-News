@@ -12,6 +12,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.example.newsapppp.core.State
+import com.example.newsapppp.presentation.utils.extensions.launchWhenStarted
 import kotlinx.coroutines.flow.collectLatest
 
 abstract class BaseFragment<S : State, VB : ViewBinding, VM : BaseViewModel<S>>(
@@ -51,7 +52,7 @@ abstract class BaseFragment<S : State, VB : ViewBinding, VM : BaseViewModel<S>>(
         observeOnState()
     }
 
-    private fun observeOnState() = lifecycleScope.launchWhenStarted {
+    private fun observeOnState() = launchWhenStarted {
         viewModel.state.collectLatest { state ->
             renderState(state)
         }

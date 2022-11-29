@@ -11,6 +11,7 @@ import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentMainBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
 import com.example.newsapppp.presentation.ui.base.BaseFragment
+import com.example.newsapppp.presentation.utils.extensions.launchWhenStarted
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -30,15 +31,15 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
         setupOnClickListeners()
     }
 
-    override fun renderState(state: MainState) {
-        binding.apply {
-            when (state) {
-                is MainState.ShowLoading -> progressBar.isVisible = true
-                is MainState.ShowArticles -> newsAdapter.submitList(state.articles)
-                is MainState.HideLoading -> {
-                    progressBar.isVisible = false
-                    tvCenterText.isVisible = false
-                }
+    override fun renderState(state: MainState) = with(binding) {
+        when (state) {
+            is MainState.ShowLoading -> progressBar.isVisible = true
+            is MainState.ShowArticles -> newsAdapter.submitList(state.articles)
+            is MainState.HideLoading -> {
+//                shimmerViewContainer
+//                shimmerViewContainer.visibility = View.GONE
+                progressBar.isVisible = false
+                tvCenterText.isVisible = false
             }
         }
     }
@@ -66,7 +67,6 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewModel.getNews(countryCode = country, categories[tab.position])
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
@@ -81,7 +81,7 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
         }
     }
 
-    private fun showOrHideFloatButton() = lifecycleScope.launch {
+    private fun showOrHideFloatButton() = launchWhenStarted {
         if (getFirstNewsPosition() < 1) {
             fabUp?.visibility = View.GONE
         } else fabUp?.visibility = View.VISIBLE

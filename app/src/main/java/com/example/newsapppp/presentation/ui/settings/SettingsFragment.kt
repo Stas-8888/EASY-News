@@ -138,9 +138,10 @@ class SettingsFragment :
                 dialog?.dismiss()
             }
         }
-        dialog = builder.create()
-        dialog.window?.setBackgroundDrawable(null)
-        dialog.show()
+        dialog = builder.create().apply {
+            window?.setBackgroundDrawable(null)
+            show()
+        }
     }
 
     companion object {

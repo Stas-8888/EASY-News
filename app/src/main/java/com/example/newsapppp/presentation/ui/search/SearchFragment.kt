@@ -26,12 +26,9 @@ class SearchFragment : BaseFragment<SearchState, FragmentSearchBinding, SearchFr
     }
 
     override fun renderState(state: SearchState) {
-        binding.apply {
-            when (state) {
-                is SearchState.ShowArticles -> {
-                    newsAdapter.submitList(state.articles)
-                }
-            }
+        when (state) {
+            is SearchState.ShowArticles -> newsAdapter.submitList(state.articles)
+            is SearchState.Error -> {}
         }
     }
 

@@ -14,6 +14,7 @@ import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentNewsBinding
 import com.example.newsapppp.presentation.utils.extensions.showAlertUpDialog
 import com.example.newsapppp.presentation.ui.base.BaseFragment
+import com.example.newsapppp.presentation.utils.extensions.launchWhenStarted
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_news.*
 
@@ -60,7 +61,7 @@ class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentVi
         }
     }
 
-    private fun saveDeleteFavorite() = lifecycleScope.launchWhenStarted {
+    private fun saveDeleteFavorite() = launchWhenStarted {
         viewModel.saveDeleteFavorite(article)
         viewModel.state.collect() {
             when (it) {
