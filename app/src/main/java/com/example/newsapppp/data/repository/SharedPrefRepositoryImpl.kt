@@ -14,12 +14,12 @@ private const val DEFAULT_BOOLEAN = false
 
 class SharedPrefRepositoryImpl @Inject constructor(
     @ApplicationContext var context: Context,
-    private val dispatchers: DispatchersList.Base
+    private val dispatchers: DispatchersList
 ) : SharedPrefRepository {
 
     private val favoriteShared = context.getSharedPreferences("shared", MODE_PRIVATE)
 
-    override suspend fun saveCountryFlag(value: String) = withContext(dispatchers.io()) {
+    override suspend fun saveCountryFlag(value: String) = dispatchers.withContextIO {
         favoriteShared.edit().putString(SHARED_KEY_COUNTRY, value).apply()
     }
 
@@ -27,7 +27,7 @@ class SharedPrefRepositoryImpl @Inject constructor(
         return favoriteShared.getString(SHARED_KEY_COUNTRY, "us") ?: "us"
     }
 
-    override suspend fun saveFavorite(key: String, value: Boolean) = withContext(dispatchers.io()) {
+    override suspend fun saveFavorite(key: String, value: Boolean) = dispatchers.withContextIO {
         putBoolean(key, value)
     }
 
@@ -35,7 +35,7 @@ class SharedPrefRepositoryImpl @Inject constructor(
         return getBoolean(key)
     }
 
-    override suspend fun saveSwitchPosition(value: Boolean) = withContext(dispatchers.io()) {
+    override suspend fun saveSwitchPosition(value: Boolean) = dispatchers.withContextIO {
         putBoolean(SHARED_KEY_SWITCH_POSITION, value)
     }
 

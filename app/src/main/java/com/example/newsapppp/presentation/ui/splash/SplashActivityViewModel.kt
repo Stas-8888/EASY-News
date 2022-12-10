@@ -3,7 +3,7 @@ package com.example.newsapppp.presentation.ui.splash
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.newsapppp.domain.interactors.GetSwitchPositionUseCase
+import com.example.newsapppp.domain.interactors.preference.GetSwitchPositionUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

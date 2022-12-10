@@ -12,6 +12,8 @@ import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSettingsBinding
 import com.example.newsapppp.databinding.NewNameDialogBinding
 import com.example.newsapppp.presentation.ui.base.BaseFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_settings.*
 
@@ -27,6 +29,10 @@ class SettingsFragment :
         setupCountryFlag()
         viewModel.getSwitchPosition()
         setupOnClickListeners()
+//        tvEmail.text = firebaseAuth.currentUser?.email
+        binding.profileCircleImageView.setOnClickListener {
+//            firebaseAuth.signOut()
+        }
     }
 
     override fun renderState(state: SettingsState) {

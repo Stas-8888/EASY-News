@@ -8,25 +8,24 @@ import com.example.newsapppp.domain.model.ArticleModel
 import com.example.newsapppp.domain.repository.DbRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class DbRepositoryImpl @Inject constructor(
     private val newsDao: NewsDao,
     private val mapper: ArticleMapper,
     private val newsResponseMapper: NewsResponseMapper,
-    private val dispatchers: DispatchersList.Base
+    private val dispatchers: DispatchersList
 ) : DbRepository {
 
-    override suspend fun insertArticle(article: ArticleModel) = withContext(dispatchers.io()) {
+    override suspend fun insertArticle(article: ArticleModel) = dispatchers.withContextIO {
         newsDao.insertArticle(mapper.mapFromEntity(article))
     }
 
-    override suspend fun deleteArticle(article: ArticleModel) = withContext(dispatchers.io()) {
+    override suspend fun deleteArticle(article: ArticleModel) = dispatchers.withContextIO {
         newsDao.deleteArticle(mapper.mapFromEntity(article))
     }
 
-    override suspend fun deleteAllArticle() = withContext(dispatchers.io()) {
+    override suspend fun deleteAllArticle() = dispatchers.withContextIO {
         newsDao.deleteAllArticle()
     }
 

@@ -2,20 +2,17 @@ package com.example.newsapppp.presentation.ui.main
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentMainBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
 import com.example.newsapppp.presentation.ui.base.BaseFragment
-import com.example.newsapppp.presentation.utils.extensions.launchWhenStarted
+import com.example.newsapppp.presentation.utils.extensions.*
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentViewModel>(
@@ -33,14 +30,13 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
 
     override fun renderState(state: MainState) = with(binding) {
         when (state) {
-            is MainState.ShowLoading -> progressBar.isVisible = true
-            is MainState.ShowArticles -> newsAdapter.submitList(state.articles)
-            is MainState.HideLoading -> {
-//                shimmerViewContainer
-//                shimmerViewContainer.visibility = View.GONE
-                progressBar.isVisible = false
-                tvCenterText.isVisible = false
+            is MainState.ShowLoading -> progressBar.visible()
+            is MainState.ShowArticles -> {
+                newsAdapter.submitList(state.articles)
+                progressBar.invisible()
+                tvCenterText.invisible()
             }
+            is MainState.HideLoading -> {}
         }
     }
 
@@ -67,6 +63,7 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewModel.getNews(countryCode = country, categories[tab.position])
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
@@ -83,8 +80,8 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
 
     private fun showOrHideFloatButton() = launchWhenStarted {
         if (getFirstNewsPosition() < 1) {
-            fabUp?.visibility = View.GONE
-        } else fabUp?.visibility = View.VISIBLE
+            fabUp?.invisible()
+        } else fabUp?.visible()
     }
 
     private fun getFirstNewsPosition(): Int =

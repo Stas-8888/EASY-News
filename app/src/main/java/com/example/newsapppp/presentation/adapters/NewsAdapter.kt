@@ -10,7 +10,7 @@ import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.utils.DateFormat.dateFormat
 import kotlinx.android.synthetic.main.item_layout.view.*
 
-class NewsAdapter() : ListAdapter<Article, NewsAdapter.ArticleViewHolder>(NewsItemDiffCallback()) {
+class NewsAdapter: ListAdapter<Article, NewsAdapter.ArticleViewHolder>(NewsItemDiffCallback()) {
     var count = 0
 
     class ArticleViewHolder(val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root)

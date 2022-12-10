@@ -8,4 +8,6 @@ sealed class NewsState: State {
 
     object ShowUnSaved : NewsState()
 
+    object Error : NewsState()
+
 }

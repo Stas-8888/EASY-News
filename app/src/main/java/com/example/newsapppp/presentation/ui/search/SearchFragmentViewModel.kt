@@ -1,7 +1,7 @@
 package com.example.newsapppp.presentation.ui.search
 
 import androidx.lifecycle.viewModelScope
-import com.example.newsapppp.domain.interactors.SearchNewsUseCase
+import com.example.newsapppp.domain.interactors.retrofit.SearchNewsUseCase
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -1,8 +1,8 @@
 package com.example.newsapppp.presentation.ui.main
 
 import androidx.lifecycle.viewModelScope
-import com.example.newsapppp.domain.interactors.GetCountryFlagUseCase
-import com.example.newsapppp.domain.interactors.GetNewsUseCase
+import com.example.newsapppp.domain.interactors.preference.GetCountryFlagUseCase
+import com.example.newsapppp.domain.interactors.retrofit.GetNewsUseCase
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,7 +29,6 @@ class MainFragmentViewModel @Inject constructor(
         ).articlesModel.filter { it.urlToImage != null }
 
         _state.emit(MainState.ShowArticles(articleMapperToModel.articleToModelArticle(data)))
-        _state.emit(MainState.HideLoading)
     }
 
     fun getCountryFlag(): String {

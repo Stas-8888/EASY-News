@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapppp.databinding.FragmentSaveBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
-import com.example.newsapppp.presentation.utils.extensions.showDeleteDialog
 import com.example.newsapppp.presentation.ui.base.BaseFragment
+import com.example.newsapppp.presentation.utils.extensions.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_save.*
 
@@ -32,11 +32,11 @@ class SaveFragment : BaseFragment<SaveState, FragmentSaveBinding, SaveFragmentVi
     override fun renderState(state: SaveState) {
         when (state) {
             is SaveState.ShowLoading -> {
-                binding.progressBar.isVisible = true
+                binding.progressBar.visible()
             }
             is SaveState.ShowArticles -> {
-                binding.tvBackgroundText.isVisible = false
-                binding.progressBar.isVisible = false
+                binding.tvBackgroundText.invisible()
+                binding.progressBar.invisible()
                 newsAdapter.submitList(state.articles)
             }
         }

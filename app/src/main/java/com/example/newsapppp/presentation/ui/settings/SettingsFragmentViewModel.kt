@@ -2,10 +2,10 @@ package com.example.newsapppp.presentation.ui.settings
 
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.viewModelScope
-import com.example.newsapppp.domain.interactors.GetCountryFlagUseCase
-import com.example.newsapppp.domain.interactors.GetSwitchPositionUseCase
-import com.example.newsapppp.domain.interactors.SaveCountryFlagUseCase
-import com.example.newsapppp.domain.interactors.SaveSwitchPositionUseCase
+import com.example.newsapppp.domain.interactors.preference.GetCountryFlagUseCase
+import com.example.newsapppp.domain.interactors.preference.GetSwitchPositionUseCase
+import com.example.newsapppp.domain.interactors.preference.SaveCountryFlagUseCase
+import com.example.newsapppp.domain.interactors.preference.SaveSwitchPositionUseCase
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

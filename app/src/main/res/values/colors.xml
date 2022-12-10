@@ -12,7 +12,7 @@
     <color name="colorPrimaryDark">#E30105</color>
     <color name="colorRed">#E30105</color>
     <color name="colorAccent">#1e344b</color>
-<!--    #f9f9fa -->
+    <!--    #f9f9fa -->
     <color name="colorBackground">@color/white</color>
     <color name="colorcardview">#FFFFFFFF</color>
     <color name="colorTabLayout">@color/colorBackground</color>
@@ -30,4 +30,13 @@
     <color name="reply_blue_700">#344955</color>
     <color name="reply_blue_800">#232f34</color>
 
-    </resources>
+
+    <color name="green">#0ACF83</color>
+    <color name="accent">#FFC120</color>
+    <color name="grey_one">#7F7F7F</color>
+    <color name="grey">#BABABA</color>
+    <color name="grey_light_one">#F3F3F3</color>
+    <color name="grey_light_two">#F6F6F6</color>
+
+
+</resources>

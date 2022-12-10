@@ -1,9 +1,9 @@
 package com.example.newsapppp.presentation.ui.save
 
 import androidx.lifecycle.viewModelScope
-import com.example.newsapppp.domain.interactors.DeleteAllUseCase
-import com.example.newsapppp.domain.interactors.DeleteArticleUseCase
-import com.example.newsapppp.domain.interactors.GetRoomArticleUseCase
+import com.example.newsapppp.domain.interactors.room.DeleteAllUseCase
+import com.example.newsapppp.domain.interactors.room.DeleteArticleUseCase
+import com.example.newsapppp.domain.interactors.room.GetRoomArticleUseCase
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.ui.base.BaseViewModel

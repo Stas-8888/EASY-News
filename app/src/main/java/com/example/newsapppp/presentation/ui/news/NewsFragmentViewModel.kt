@@ -1,13 +1,14 @@
 package com.example.newsapppp.presentation.ui.news
 
 import androidx.lifecycle.viewModelScope
-import com.example.newsapppp.domain.interactors.DeleteArticleUseCase
-import com.example.newsapppp.domain.interactors.GetFavoriteUseCase
-import com.example.newsapppp.domain.interactors.InsertArticleUseCase
-import com.example.newsapppp.domain.interactors.SaveFavoriteUseCase
+import com.example.newsapppp.domain.interactors.room.DeleteArticleUseCase
+import com.example.newsapppp.domain.interactors.preference.GetFavoriteUseCase
+import com.example.newsapppp.domain.interactors.room.InsertArticleUseCase
+import com.example.newsapppp.domain.interactors.preference.SaveFavoriteUseCase
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,6 +25,8 @@ class NewsFragmentViewModel @Inject constructor(
 ) : BaseViewModel<NewsState>() {
 
     private var isFavorite = false
+    private lateinit var firebaseAuth: FirebaseAuth
+
 
     override val _state = MutableStateFlow<NewsState>(NewsState.ShowAsSaved)
     override val state = _state.asStateFlow()
@@ -53,15 +56,21 @@ class NewsFragmentViewModel @Inject constructor(
     }
 
     fun saveDeleteFavorite(article: Article) = viewModelScope.launch {
-        if (isFavorite == getFavorite(article.url)) {
-            insertArticle(article)
-            saveFavorite(article.url, true)
-            _state.emit(NewsState.ShowAsSaved)
+        firebaseAuth = FirebaseAuth.getInstance()
+        if (firebaseAuth.currentUser != null) {
+            if (isFavorite == getFavorite(article.url)) {
+                insertArticle(article)
+                saveFavorite(article.url, true)
+                _state.emit(NewsState.ShowAsSaved)
 
+            } else {
+                deleteArticle(article)
+                saveFavorite(article.url, false)
+                _state.emit(NewsState.ShowUnSaved)
+            }
         } else {
-            deleteArticle(article)
-            saveFavorite(article.url, false)
-            _state.emit(NewsState.ShowUnSaved)
+            _state.emit(NewsState.Error)
         }
+
     }
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NewsApppp</string>
+    <string name="app_name">NewsApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="АмереканскиеНовости">Амереканские Новости</string>
@@ -41,4 +41,20 @@
     <string name="Save">Сохраненное</string>
     <string name="find">Поиск</string>
     <string name="main">Основное</string>
+
+
+    <string name="sign_in">Sign In</string>
+    <string name="no_acc">Don’t have any account?</string>
+    <string name="no_account">Sign Up here</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="password">Password</string>
+    <string name="username">Email</string>
+    <string name="rationale_camera">This app needs access to your camera so you can take pictures.</string>
+    <string name="successful">successful</string>
+    <string name="MinimumCharacter">Minimum 6 Character Password</string>
+    <string name="Uppercase">Must Contain 1 Upper-case Character</string>
+    <string name="Lowercase">Must Contain 1 Lower-case Character</string>
+    <string name="InvalidEmail">Invalid Email Address</string>
+    <string name="email">Email</string>
+    <string name="required">required</string>
 </resources>
