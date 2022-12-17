@@ -1,6 +1,6 @@
 package com.example.newsapppp.domain.repository
 
-interface BaseUseCase<S, B> {
+interface BaseUseCase<in Parameter, out Result> {
 
-    operator fun invoke(data: S): B
+    operator fun invoke(data: Parameter): Result
 }

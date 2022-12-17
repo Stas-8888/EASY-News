@@ -7,7 +7,12 @@ sealed class MainState : State {
 
     object ShowLoading : MainState()
 
-    object HideLoading : MainState()
-
     data class ShowArticles(val articles: List<Article>) : MainState()
+
+    object ShowBottom : MainState()
+
+    object HideBottom : MainState()
+
+    data class GetCountryFlag(val getCountryFlag: String) : MainState()
+
 }

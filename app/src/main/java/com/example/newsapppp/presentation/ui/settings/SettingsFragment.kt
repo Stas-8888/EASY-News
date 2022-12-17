@@ -9,11 +9,12 @@ import android.widget.PopupMenu
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.newsapppp.R
+import com.example.newsapppp.core.extensions.showSnackbar
+import com.example.newsapppp.core.extensions.snackBar
 import com.example.newsapppp.databinding.FragmentSettingsBinding
 import com.example.newsapppp.databinding.NewNameDialogBinding
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_settings.*
 
@@ -23,16 +24,15 @@ class SettingsFragment :
         FragmentSettingsBinding::inflate
     ) {
     override val viewModel by viewModels<SettingsFragmentViewModel>()
+    lateinit var firebaseAuth: FirebaseAuth
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        firebaseAuth = FirebaseAuth.getInstance()
+        tvEmail.text = firebaseAuth.currentUser?.email
         setupCountryFlag()
         viewModel.getSwitchPosition()
         setupOnClickListeners()
-//        tvEmail.text = firebaseAuth.currentUser?.email
-        binding.profileCircleImageView.setOnClickListener {
-//            firebaseAuth.signOut()
-        }
     }
 
     override fun renderState(state: SettingsState) {
@@ -42,11 +42,14 @@ class SettingsFragment :
         }
     }
 
-    private fun setupOnClickListeners() {
+    private fun setupOnClickListeners() = with(binding) {
+        account.setOnClickListener {
+            showSnackbar(it, "Successful Sign Out", true) { firebaseAuth.signOut() }
+        }
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
-        binding.imCountry.setOnClickListener {
+        imCountry.setOnClickListener {
             showPopup(im_country)
         }
         tvEdit.setOnClickListener {
@@ -67,28 +70,32 @@ class SettingsFragment :
         popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item: MenuItem ->
             when (item.itemId) {
                 R.id.us -> {
-                    setCurrentCountry(
+                    saveCurrentCountry(
+                        view,
                         countryFlag = USA,
                         imageResource = R.drawable.usa,
                         countryName = getString(R.string.АмереканскиеНовости)
                     )
                 }
                 R.id.ru -> {
-                    setCurrentCountry(
+                    saveCurrentCountry(
+                        view,
                         countryFlag = RUSSIA,
                         imageResource = R.drawable.russia,
                         countryName = getString(R.string.РусскиеНовости)
                     )
                 }
                 R.id.germany -> {
-                    setCurrentCountry(
+                    saveCurrentCountry(
+                        view,
                         countryFlag = GERMANY,
                         imageResource = R.drawable.germany,
                         countryName = getString(R.string.НемецкиеНовости)
                     )
                 }
                 R.id.egipt -> {
-                    setCurrentCountry(
+                    saveCurrentCountry(
+                        view,
                         countryFlag = EGYPT,
                         imageResource = R.drawable.egypt,
                         countryName = getString(R.string.ЕгипетскиеНовости)
@@ -100,10 +107,15 @@ class SettingsFragment :
         popup.show()
     }
 
-    private fun setCurrentCountry(countryFlag: String, imageResource: Int, countryName: String) {
+    private fun saveCurrentCountry(
+        view: View,
+        countryFlag: String,
+        imageResource: Int,
+        countryName: String
+    ) {
         viewModel.saveCountryFlag(countryFlag)
         setImageResource(imageResource)
-        toast(countryName)
+        snackBar(view, countryName)
     }
 
     private fun setImageResource(res: Int) {

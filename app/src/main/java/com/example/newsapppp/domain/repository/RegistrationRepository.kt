@@ -1,11 +1,6 @@
 package com.example.newsapppp.domain.repository
 
-import com.example.newsapppp.data.repository.Resource
-import com.google.firebase.auth.FirebaseUser
-
 interface RegistrationRepository {
-
-    val currentUser: FirebaseUser?
 
     suspend fun login(email: String, password: String, navigateTo: () -> Unit)
 
@@ -14,7 +9,7 @@ interface RegistrationRepository {
         email: String,
         password: String,
         navigateTo: Unit
-    ): Resource<FirebaseUser>
+    )
 
     fun logout()
 

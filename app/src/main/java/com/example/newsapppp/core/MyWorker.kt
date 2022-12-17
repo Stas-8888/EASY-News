@@ -1,4 +1,4 @@
-package com.example.newsapppp.presentation.utils
+package com.example.newsapppp.core
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -16,12 +16,6 @@ import com.example.newsapppp.presentation.ui.MainActivity
 
 class MyWorker(context: Context, workerParameters: WorkerParameters) : Worker(context, workerParameters) {
 
-
-    companion object {
-        const val CHANNEL_ID = "channel_id"
-        const val NOTIFICATION_ID = 1
-    }
-
     override fun doWork(): Result {
         Log.d("success",
             "doWork: Success function called")
@@ -29,10 +23,7 @@ class MyWorker(context: Context, workerParameters: WorkerParameters) : Worker(co
         return Result.success()
     }
 
-
-
     private fun showNotification() {
-
         val intent = Intent(applicationContext, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
@@ -41,7 +32,6 @@ class MyWorker(context: Context, workerParameters: WorkerParameters) : Worker(co
             applicationContext,
             0, intent, 0
         )
-
 
         val notification = NotificationCompat.Builder(
             applicationContext,
@@ -54,12 +44,10 @@ class MyWorker(context: Context, workerParameters: WorkerParameters) : Worker(co
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             val channelName = "Channel Name"
             val channelDescription = "Channel Description"
             val channelImportance = NotificationManager.IMPORTANCE_HIGH
-
             val channel = NotificationChannel(CHANNEL_ID, channelName, channelImportance).apply {
                 description = channelDescription
             }
@@ -71,11 +59,13 @@ class MyWorker(context: Context, workerParameters: WorkerParameters) : Worker(co
             notificationManager.createNotificationChannel(channel)
         }
 
-
         with(NotificationManagerCompat.from(applicationContext)) {
             notify(NOTIFICATION_ID, notification.build())
         }
-
     }
 
+    companion object {
+        const val CHANNEL_ID = "channel_id"
+        const val NOTIFICATION_ID = 1
+    }
 }

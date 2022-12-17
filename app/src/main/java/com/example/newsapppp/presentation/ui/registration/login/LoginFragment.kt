@@ -6,7 +6,8 @@ import androidx.fragment.app.viewModels
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentLoginBinding
 import com.example.newsapppp.presentation.ui.base.BaseFragment
-import com.example.newsapppp.presentation.utils.extensions.listenChanges
+import com.example.newsapppp.core.extensions.listenChanges
+import com.example.newsapppp.core.extensions.navigateTo
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -57,7 +58,6 @@ class LoginFragment : BaseFragment<LoginState, FragmentLoginBinding, LoginViewMo
                 binding.loginPasswordContainer.helperText = state.data
             }
             is LoginState.Error -> {
-                toast("Enter correct Email and Password")
             }
         }
     }

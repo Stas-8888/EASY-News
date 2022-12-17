@@ -2,15 +2,17 @@ package com.example.newsapppp.presentation.ui.save
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newsapppp.core.extensions.invisible
+import com.example.newsapppp.core.extensions.navigateDirections
+import com.example.newsapppp.core.extensions.showDeleteDialog
+import com.example.newsapppp.core.extensions.visible
 import com.example.newsapppp.databinding.FragmentSaveBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
 import com.example.newsapppp.presentation.ui.base.BaseFragment
-import com.example.newsapppp.presentation.utils.extensions.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_save.*
 

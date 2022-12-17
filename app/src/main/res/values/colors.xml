@@ -38,5 +38,8 @@
     <color name="grey_light_one">#F3F3F3</color>
     <color name="grey_light_two">#F6F6F6</color>
 
+    <color name="colorError">#d32f2f</color>
+    <color name="colorSecondary">#ffd600</color>
+
 
 </resources>

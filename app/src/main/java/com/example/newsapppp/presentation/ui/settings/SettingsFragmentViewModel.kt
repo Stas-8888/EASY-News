@@ -1,7 +1,7 @@
 package com.example.newsapppp.presentation.ui.settings
 
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.viewModelScope
+import com.example.newsapppp.core.extensions.launchCoroutine
 import com.example.newsapppp.domain.interactors.preference.GetCountryFlagUseCase
 import com.example.newsapppp.domain.interactors.preference.GetSwitchPositionUseCase
 import com.example.newsapppp.domain.interactors.preference.SaveCountryFlagUseCase
@@ -10,7 +10,6 @@ import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,7 +23,7 @@ class SettingsFragmentViewModel @Inject constructor(
     override val _state = MutableStateFlow<SettingsState>(SettingsState.SwitchPosition)
     override val state: StateFlow<SettingsState> = _state
 
-    fun saveCountryFlag(value: String) = viewModelScope.launch {
+    fun saveCountryFlag(value: String) = launchCoroutine {
         saveCountryFlagUseCase(value)
     }
 
@@ -32,7 +31,7 @@ class SettingsFragmentViewModel @Inject constructor(
         return getCountryFlagUseCase(Unit)
     }
 
-    fun getSwitchPosition() = viewModelScope.launch {
+    fun getSwitchPosition() = launchCoroutine {
         val switchPosition = getSwitchPositionUseCase(Unit)
         if (switchPosition) {
             _state.emit(SettingsState.SwitchPosition)
@@ -41,7 +40,7 @@ class SettingsFragmentViewModel @Inject constructor(
         }
     }
 
-    fun saveChangeNightMode(enabled: Boolean) = viewModelScope.launch {
+    fun saveChangeNightMode(enabled: Boolean) = launchCoroutine {
         if (enabled) {
             saveNightModeState(enabled = false, state = AppCompatDelegate.MODE_NIGHT_YES)
         } else {

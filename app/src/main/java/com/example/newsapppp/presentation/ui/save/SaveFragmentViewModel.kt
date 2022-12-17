@@ -1,6 +1,6 @@
 package com.example.newsapppp.presentation.ui.save
 
-import androidx.lifecycle.viewModelScope
+import com.example.newsapppp.core.extensions.launchCoroutine
 import com.example.newsapppp.domain.interactors.room.DeleteAllUseCase
 import com.example.newsapppp.domain.interactors.room.DeleteArticleUseCase
 import com.example.newsapppp.domain.interactors.room.GetRoomArticleUseCase
@@ -10,7 +10,6 @@ import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,18 +23,18 @@ class SaveFragmentViewModel @Inject constructor(
     override val _state = MutableStateFlow<SaveState>(SaveState.ShowLoading)
     override val state = _state.asStateFlow()
 
-    fun getAllNews() = viewModelScope.launch {
+    fun getAllNews() = launchCoroutine {
         _state.emit(SaveState.ShowLoading)
         getRoomArticleUseCase(Unit).collect {
             _state.emit(SaveState.ShowArticles(articleMapperToModel.articleToModelArticle(it)))
         }
     }
 
-    fun deleteArticle(article: Article) = viewModelScope.launch {
+    fun deleteArticle(article: Article) = launchCoroutine {
         deleteArticleUseCase(articleMapperToModel.mapFromEntity(article))
     }
 
-    fun deleteAllArticle() = viewModelScope.launch {
+    fun deleteAllArticle() = launchCoroutine {
         deleteAllUseCase(Unit)
     }
 }

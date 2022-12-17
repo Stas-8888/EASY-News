@@ -1,18 +1,17 @@
 package com.example.newsapppp.presentation.ui.news
 
-import androidx.lifecycle.viewModelScope
-import com.example.newsapppp.domain.interactors.room.DeleteArticleUseCase
 import com.example.newsapppp.domain.interactors.preference.GetFavoriteUseCase
-import com.example.newsapppp.domain.interactors.room.InsertArticleUseCase
 import com.example.newsapppp.domain.interactors.preference.SaveFavoriteUseCase
+import com.example.newsapppp.domain.interactors.room.DeleteArticleUseCase
+import com.example.newsapppp.domain.interactors.room.InsertArticleUseCase
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
+import com.example.newsapppp.core.extensions.launchCoroutine
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,9 +25,7 @@ class NewsFragmentViewModel @Inject constructor(
 
     private var isFavorite = false
     private lateinit var firebaseAuth: FirebaseAuth
-
-
-    override val _state = MutableStateFlow<NewsState>(NewsState.ShowAsSaved)
+    override val _state = MutableStateFlow<NewsState>(NewsState.ShowUnSaved)
     override val state = _state.asStateFlow()
 
     private suspend fun insertArticle(article: Article) {
@@ -39,7 +36,7 @@ class NewsFragmentViewModel @Inject constructor(
         deleteArticleUseCase(articleMapperToModel.mapFromEntity(article))
     }
 
-    private fun saveFavorite(key: String, value: Boolean) = viewModelScope.launch {
+    private fun saveFavorite(key: String, value: Boolean) = launchCoroutine{
         saveFavoriteUseCase.saveFavorite(key, value)
     }
 
@@ -47,7 +44,7 @@ class NewsFragmentViewModel @Inject constructor(
         return getFavoriteUseCase(key)
     }
 
-    fun checkFavoriteIcon(article: Article) = viewModelScope.launch {
+    fun checkFavoriteIcon(article: Article) = launchCoroutine {
         if (isFavorite != getFavorite(article.url)) {
             _state.emit(NewsState.ShowUnSaved)
         } else {
@@ -55,7 +52,7 @@ class NewsFragmentViewModel @Inject constructor(
         }
     }
 
-    fun saveDeleteFavorite(article: Article) = viewModelScope.launch {
+    fun saveDeleteFavorite(article: Article) = launchCoroutine {
         firebaseAuth = FirebaseAuth.getInstance()
         if (firebaseAuth.currentUser != null) {
             if (isFavorite == getFavorite(article.url)) {
@@ -71,6 +68,5 @@ class NewsFragmentViewModel @Inject constructor(
         } else {
             _state.emit(NewsState.Error)
         }
-
     }
 }

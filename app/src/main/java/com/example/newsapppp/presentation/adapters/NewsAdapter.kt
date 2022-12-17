@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsapppp.databinding.ItemLayoutBinding
 import com.example.newsapppp.presentation.model.Article
-import com.example.newsapppp.presentation.utils.DateFormat.dateFormat
+import com.example.newsapppp.core.DateFormat.dateFormat
 import kotlinx.android.synthetic.main.item_layout.view.*
 
 class NewsAdapter: ListAdapter<Article, NewsAdapter.ArticleViewHolder>(NewsItemDiffCallback()) {

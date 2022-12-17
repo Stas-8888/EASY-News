@@ -5,6 +5,7 @@ import com.example.newsapppp.domain.interactors.registration.LoginUseCase
 import com.example.newsapppp.domain.interactors.registration.ValidateEmailUseCase
 import com.example.newsapppp.domain.interactors.registration.ValidatePasswordUseCase
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
+import com.example.newsapppp.core.extensions.launchCoroutine
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -26,20 +27,12 @@ class LoginViewModel @Inject constructor(
             login.signIn(email, password, navigateTo)
         }
 
-    fun isValidEmail(data: String) = viewModelScope.launch{
+    fun isValidEmail(data: String) = launchCoroutine{
         _state.emit(LoginState.CheckState(validateEmail(data)))
     }
 
-    fun isValidPassword(data: String) = viewModelScope.launch{
+    fun isValidPassword(data: String) = launchCoroutine{
         _state.emit(LoginState.CheckState(validatePassword(data)))
-    }
-
-    fun emailText(email: String) = viewModelScope.launch {
-        _state.emit(LoginState.CheckState(email))
-    }
-
-    fun passwordText(password: String) = viewModelScope.launch {
-        _state.emit(LoginState.CheckState(password))
     }
 
     fun isValidate(

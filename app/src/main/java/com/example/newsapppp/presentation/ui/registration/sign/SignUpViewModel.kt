@@ -1,12 +1,11 @@
 package com.example.newsapppp.presentation.ui.registration.sign
 
-import androidx.lifecycle.viewModelScope
+import com.example.newsapppp.core.extensions.launchCoroutine
 import com.example.newsapppp.domain.interactors.registration.*
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,24 +20,41 @@ class SignUpViewModel @Inject constructor(
     override val _state = MutableStateFlow<SignUpState>(SignUpState.Success)
     override val state = _state.asStateFlow()
 
-    fun signUpUser(name: String, email: String, password: String, navigateTo: Unit) =
-        viewModelScope.launch {
+    fun isValidate(
+        name: String,
+        email: String,
+        password: String,
+        repeatedPassword: String
+    ) = launchCoroutine {
+        _state.emit(
+            SignUpState.CheckState(
+                fullName(name),
+                validateEmail(email),
+                validatePassword(password),
+                validateRepeatedPassword.validateRepeatedPassword(password, repeatedPassword)
+            )
+        )
+    }
+
+    fun signUpUser(
+        name: String,
+        email: String,
+        password: String,
+        repeatedPassword: String,
+        navigateTo: Unit
+    ) = launchCoroutine {
+        val result = fullName(name) == "successful"
+                && validateEmail(email) == "successful"
+                && validatePassword(password) == "successful"
+                && validateRepeatedPassword.validateRepeatedPassword(
+            password,
+            repeatedPassword
+        ) == "successful"
+
+        if (result) {
             signUpUseCase.signUp(name, email, password, navigateTo)
+        } else {
+            _state.emit(SignUpState.Error)
         }
-
-    fun checkEmail(data: String): String {
-        return validateEmail(data)
-    }
-
-    fun checkPassword(data: String): String {
-        return validatePassword(data)
-    }
-
-    fun checkFullName(data: String): String {
-        return fullName(data)
-    }
-
-    fun checkRepeatedPassword(password: String, repeatedPassword: String): String {
-        return validateRepeatedPassword.validateRepeatedPassword(password, repeatedPassword)
     }
 }

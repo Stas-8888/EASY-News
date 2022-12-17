@@ -202,4 +202,14 @@
         app:layout_constraintTop_toTopOf="@+id/tvCountry"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
+    <TextView
+        android:id="@+id/account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:text="SignIn/SignOut"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileCircleImageView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

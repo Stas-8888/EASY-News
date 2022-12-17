@@ -6,17 +6,16 @@ import android.os.Bundle
 import android.view.View
 import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.newsapppp.R
+import com.example.newsapppp.core.extensions.invisible
+import com.example.newsapppp.core.extensions.launchWhenStarted
+import com.example.newsapppp.core.extensions.showAlertUpDialog
+import com.example.newsapppp.core.extensions.snackBar
 import com.example.newsapppp.databinding.FragmentNewsBinding
 import com.example.newsapppp.presentation.ui.base.BaseFragment
-import com.example.newsapppp.presentation.utils.extensions.disable
-import com.example.newsapppp.presentation.utils.extensions.invisible
-import com.example.newsapppp.presentation.utils.extensions.launchWhenStarted
-import com.example.newsapppp.presentation.utils.extensions.showAlertUpDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_news.*
 
@@ -27,13 +26,10 @@ class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentVi
     private val args: NewsFragmentArgs by navArgs()
     override val viewModel by viewModels<NewsFragmentViewModel>()
     private val article by lazy { args.article }
-//    private lateinit var firebaseAuth: FirebaseAuth
-
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        firebaseAuth = FirebaseAuth.getInstance()
         setupWebView()
         setupOnClickListeners()
     }
@@ -69,8 +65,8 @@ class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentVi
 
     private fun saveDeleteFavorite() = launchWhenStarted {
         viewModel.saveDeleteFavorite(article)
-        viewModel.state.collect() {
-            when (it) {
+        viewModel.state.collect() { state ->
+            when (state) {
                 is NewsState.ShowAsSaved -> {
                     setImageResource(R.drawable.ic_favorite)
                     showAlertUpDialog(getString(R.string.СтатьяДобавлена))
@@ -81,8 +77,7 @@ class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentVi
                 }
                 is NewsState.Error -> {
                     binding.btFavorite.invisible()
-                    toast("If you want to use this functions, please registered")
-
+                    snackBar(binding.btFavorite,"If you want to use this functions, please registered")
                 }
             }
         }
@@ -91,9 +86,5 @@ class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentVi
     private fun setImageResource(data: Int) {
         binding.btFavorite.setImageResource(data)
     }
-
-//    override fun onStart() {
-//        super.onStart()
-//        binding.btFavorite.isEnabled = firebaseAuth.currentUser != null
-//    }
+//    abstract val rootViewGroup: ViewGroup
 }

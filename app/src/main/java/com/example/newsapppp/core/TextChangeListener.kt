@@ -3,7 +3,7 @@ package com.example.newsapppp.core
 import android.text.Editable
 import android.text.TextWatcher
 
-abstract class SimpleTextChangeListener : TextWatcher {
+abstract class TextChangeListener : TextWatcher {
     override fun afterTextChanged(s: Editable?) {
     }
 

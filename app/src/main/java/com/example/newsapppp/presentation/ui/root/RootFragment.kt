@@ -1,16 +1,8 @@
 package com.example.newsapppp.presentation.ui.root
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import com.example.newsapppp.R
-import com.example.newsapppp.databinding.FragmentLoginBinding
 import com.example.newsapppp.databinding.FragmentRootBinding
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import com.example.newsapppp.presentation.ui.registration.login.LoginState
@@ -23,22 +15,24 @@ class RootFragment : BaseFragment<LoginState, FragmentRootBinding, LoginViewMode
 ) {
     override val viewModel by viewModels<LoginViewModel>()
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setBottomNavListener()
+//        setBottomNavListener()
 //        binding.navFragment.findNavController().navigate(R.id.nav_fragment)
+        
     }
 
-    private fun setBottomNavListener() {
-        binding.bottomNavigationView.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.mainFragment -> navigateTo(R.id.mainFragment)
-                R.id.saveFragment -> navigateTo(R.id.saveFragment)
-                R.id.searchFragment -> navigateTo(R.id.searchFragment)
-            }
-            true
-        }
-    }
+//    private fun setBottomNavListener() {
+//        binding.bottomNavigationView.setOnItemSelectedListener {
+//            when (it.itemId) {
+//                R.id.mainFragment -> navigateTo(R.id.mainFragment)
+//                R.id.saveFragment -> navigateTo(R.id.saveFragment)
+//                R.id.searchFragment -> navigateTo(R.id.searchFragment)
+//            }
+//            true
+//        }
+//    }
 
     override fun renderState(state: LoginState) {
         when (state) {

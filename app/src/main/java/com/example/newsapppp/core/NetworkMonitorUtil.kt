@@ -1,4 +1,4 @@
-package com.example.newsapppp.presentation.utils
+package com.example.newsapppp.core
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -20,7 +20,7 @@ class NetworkMonitorUtil(context: Context) {
 
     @Suppress("DEPRECATION")
     fun register() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             // Use NetworkCallback for Android 9 and above
             val connectivityManager =
                 mContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -65,7 +65,7 @@ class NetworkMonitorUtil(context: Context) {
     }
 
     fun unregister() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             val connectivityManager =
                 mContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             connectivityManager.unregisterNetworkCallback(networkCallback)

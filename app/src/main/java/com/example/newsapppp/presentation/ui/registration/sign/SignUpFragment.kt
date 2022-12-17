@@ -6,7 +6,8 @@ import androidx.fragment.app.viewModels
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSignUpBinding
 import com.example.newsapppp.presentation.ui.base.BaseFragment
-import com.example.newsapppp.presentation.utils.extensions.listenChanges
+import com.example.newsapppp.core.extensions.listenChanges
+import com.example.newsapppp.core.extensions.navigateTo
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,63 +18,36 @@ class SignUpFragment : BaseFragment<SignUpState, FragmentSignUpBinding, SignUpVi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        emailFocusListener()
-        passwordFocusListener()
-        fullNameFocusListener()
-        repeatPasswordFocusListener()
-
-        binding.registerButton.setOnClickListener {
-            createNewUser()
-        }
+        setupOnClickListeners()
     }
 
-    private fun fullNameFocusListener() {
-        binding.fullName.listenChanges {
-            binding.fullNameContainer.helperText = viewModel.checkFullName(fullNameText())
-        }
-    }
-
-    private fun emailFocusListener() {
-        binding.email.listenChanges {
-            binding.emailContainer.helperText = viewModel.checkEmail(emailText())
-        }
-    }
-
-    private fun passwordFocusListener() {
-        binding.edPassword.listenChanges {
-            binding.passwordContainer.helperText = viewModel.checkPassword(passwordText())
-        }
-    }
-
-    private fun repeatPasswordFocusListener() {
-        binding.confirmPassword.listenChanges {
-            binding.loginPasswordContainer.helperText =
-                viewModel.checkRepeatedPassword(passwordText(), repeatPasswordText())
-        }
-    }
-
-    private fun createNewUser() = with(binding) {
-        emailContainer.helperText = viewModel.checkEmail(emailText())
-        fullNameContainer.helperText = viewModel.checkFullName(fullNameText())
-        passwordContainer.helperText = viewModel.checkPassword(passwordText())
-        loginPasswordContainer.helperText =
-            viewModel.checkRepeatedPassword(passwordText(), repeatPasswordText())
-
-        val validFullName = fullNameContainer.helperText == getString(R.string.successful)
-        val validEmail = emailContainer.helperText == getString(R.string.successful)
-        val validPassword = passwordContainer.helperText == getString(R.string.successful)
-        val validRepeatPassword = viewModel.checkRepeatedPassword(
-            passwordText(), repeatPasswordText()
-        ) == getString(R.string.successful)
-
-        if (validFullName && validEmail && validPassword && validRepeatPassword) {
+    private fun setupOnClickListeners() = with(binding) {
+        registerButton.setOnClickListener {
             viewModel.signUpUser(
                 fullNameText(),
                 emailText(),
                 passwordText(),
+                repeatPasswordText(),
                 navigateTo(R.id.loginFragment)
             )
         }
+
+        binding.fullName.listenChanges {
+            isValid()
+        }
+        binding.email.listenChanges {
+            isValid()
+        }
+        binding.edPassword.listenChanges {
+            isValid()
+        }
+        binding.confirmPassword.listenChanges {
+            isValid()
+        }
+    }
+
+    private fun isValid() {
+        viewModel.isValidate(fullNameText(), emailText(), passwordText(), repeatPasswordText())
     }
 
     private fun fullNameText(): String {
@@ -95,6 +69,12 @@ class SignUpFragment : BaseFragment<SignUpState, FragmentSignUpBinding, SignUpVi
     override fun renderState(state: SignUpState) = with(binding) {
         when (state) {
             is SignUpState.Success -> {}
+            is SignUpState.CheckState -> {
+                fullNameContainer.helperText = state.name
+                emailContainer.helperText = state.email
+                passwordContainer.helperText = state.password
+                loginPasswordContainer.helperText = state.repeatPassword
+            }
             is SignUpState.Error -> {}
         }
     }

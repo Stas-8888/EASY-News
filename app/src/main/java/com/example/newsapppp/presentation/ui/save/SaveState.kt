@@ -8,4 +8,6 @@ sealed class SaveState : State {
     object ShowLoading : SaveState()
 
     data class ShowArticles(val articles: List<Article>) : SaveState()
+
+//    data class Apply(val showDialog: AlertDialog, val newsAdapter: NewsAdapter, val rvSavedNews: RecyclerView)
 }

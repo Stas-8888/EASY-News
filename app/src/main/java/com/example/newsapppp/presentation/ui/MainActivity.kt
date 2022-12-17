@@ -12,11 +12,10 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.work.*
 import com.example.newsapppp.R
+import com.example.newsapppp.core.ConnectionType
 import com.example.newsapppp.databinding.ActivityMainBinding
-import com.example.newsapppp.presentation.ui.root.RootFragment
-import com.example.newsapppp.presentation.utils.ConnectionType
-import com.example.newsapppp.presentation.utils.MyWorker
-import com.example.newsapppp.presentation.utils.NetworkMonitorUtil
+import com.example.newsapppp.core.MyWorker
+import com.example.newsapppp.core.NetworkMonitorUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.no_internet_connections.*
 import java.util.concurrent.TimeUnit
@@ -33,13 +32,21 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         checkInternetConnections()
-//        setBottomNavListener()
-//        navController = findNavController(R.id.nav_fragment)
-//        navController.navigate(R.id.rootFragment)
-
-        supportFragmentManager.beginTransaction().replace(R.id.nav_fragment,RootFragment()).commit()
-
+        setBottomNavListener()
+        navController = findNavController(R.id.nav_fragment1)
+//        supportFragmentManager.beginTransaction().replace(R.id.container, RootFragment()).commit()
         myPeriodicWork()
+    }
+
+    private fun setBottomNavListener() {
+        binding.bottomNavigationView.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.mainFragment -> navController.navigate(R.id.mainFragment)
+                R.id.saveFragment -> navController.navigate(R.id.saveFragment)
+                R.id.searchFragment -> navController.navigate(R.id.searchFragment)
+            }
+            true
+        }
     }
 
     private fun checkInternetConnections() {
@@ -60,12 +67,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun internetConnectionDialog() {
-        val dialog = Dialog(this).apply {
-            setContentView(R.layout.no_internet_connections)
-            window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            setCanceledOnTouchOutside(false)
-        }
-        bt_try_again.setOnClickListener {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.no_internet_connections)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.bt_try_again.setOnClickListener {
             ActivityCompat.recreate(this)
         }
         dialog.show()
@@ -97,7 +103,6 @@ class MainActivity : AppCompatActivity() {
                 myRequest
             )
     }
-
 
     private fun myOneTimeWork() {
         val constraints: Constraints = Constraints.Builder()
