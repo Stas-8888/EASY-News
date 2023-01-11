@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.R
+import com.example.newsapppp.presentation.utils.extensions.hideBottomNavigation
+import com.example.newsapppp.presentation.utils.extensions.listenChanges
+import com.example.newsapppp.presentation.utils.extensions.navigateTo
 import com.example.newsapppp.databinding.FragmentSignUpBinding
 import com.example.newsapppp.presentation.ui.base.BaseFragment
-import com.example.newsapppp.core.extensions.listenChanges
-import com.example.newsapppp.core.extensions.navigateTo
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,6 +19,7 @@ class SignUpFragment : BaseFragment<SignUpState, FragmentSignUpBinding, SignUpVi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        hideBottomNavigation()
         setupOnClickListeners()
     }
 
@@ -32,17 +34,20 @@ class SignUpFragment : BaseFragment<SignUpState, FragmentSignUpBinding, SignUpVi
             )
         }
 
-        binding.fullName.listenChanges {
+        fullName.listenChanges {
             isValid()
         }
-        binding.email.listenChanges {
+        email.listenChanges {
             isValid()
         }
-        binding.edPassword.listenChanges {
+        edPassword.listenChanges {
             isValid()
         }
-        binding.confirmPassword.listenChanges {
+        confirmPassword.listenChanges {
             isValid()
+        }
+        registerSignin.setOnClickListener {
+            navigateTo(R.id.loginFragment)
         }
     }
 

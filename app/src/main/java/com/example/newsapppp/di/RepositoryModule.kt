@@ -2,6 +2,7 @@ package com.example.newsapppp.di
 
 import com.example.newsapppp.core.Base
 import com.example.newsapppp.core.DispatchersList
+import com.example.newsapppp.core.ManageResources
 import com.example.newsapppp.data.repository.ArticleRepositoryImpl
 import com.example.newsapppp.data.repository.DbRepositoryImpl
 import com.example.newsapppp.data.repository.RegistrationRepositoryImpl
@@ -20,6 +21,9 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object RepositoryModule {
+    @Provides
+    @Singleton
+    fun providesManageResources(impl: ManageResources.Base): ManageResources = impl
 
     @Provides
     @Singleton

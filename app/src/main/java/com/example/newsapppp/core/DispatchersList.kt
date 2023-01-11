@@ -14,5 +14,4 @@ class Base @Inject constructor() : DispatchersList {
 
     override suspend fun <T> withContextIO(block: suspend CoroutineScope.() -> T): T =
         withContext(Dispatchers.IO, block)
-
 }

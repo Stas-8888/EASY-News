@@ -1,8 +1,15 @@
 package com.example.newsapppp.domain.repository
 
+import com.example.newsapppp.presentation.ui.registration.login.LoginState
+
 interface RegistrationRepository {
 
-    suspend fun login(email: String, password: String, navigateTo: () -> Unit)
+    suspend fun login(
+        email: String,
+        password: String,
+        navigateTo: () -> Unit,
+        result: (LoginState) -> Unit
+    )
 
     suspend fun signup(
         user: String,

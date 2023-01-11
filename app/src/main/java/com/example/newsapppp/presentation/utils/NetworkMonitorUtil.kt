@@ -1,4 +1,4 @@
-package com.example.newsapppp.core
+package com.example.newsapppp.presentation.utils
 
 import android.content.BroadcastReceiver
 import android.content.Context

@@ -1,10 +1,10 @@
 package com.example.newsapppp.presentation.ui.main
 
-import com.example.newsapppp.core.extensions.launchCoroutine
 import com.example.newsapppp.domain.interactors.preference.GetCountryFlagUseCase
 import com.example.newsapppp.domain.interactors.retrofit.GetNewsUseCase
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
+import com.example.newsapppp.presentation.utils.extensions.launchCoroutine
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,22 +21,17 @@ class MainFragmentViewModel @Inject constructor(
     override val state = _state.asStateFlow()
 
     fun getNews(category: String) = launchCoroutine {
-        _state.emit(MainState.ShowLoading)
-        val country = getCountryFlag()
-        val data = getNewsUseCase.getNews(
-            countryCode = country,
-            category = category
-        ).articlesModel.filter { it.urlToImage != null }
-
-        _state.emit(MainState.ShowArticles(articleMapperToModel.articleToModelArticle(data)))
+        emit(MainState.ShowLoading)
+        val data = getNewsUseCase.getNews(category).articlesModel.filter { it.urlToImage != null }
+        emit(MainState.ShowArticles(articleMapperToModel.articleToModelArticle(data)))
     }
-
+//Fix
     fun getCountryFlag(): String {
         return getCountryFlagUseCase(Unit)
     }
 
     fun showOrHideFloatButton(getFirstNewsPosition: Int) = launchCoroutine {
         if (getFirstNewsPosition < 1)
-            _state.emit(MainState.ShowBottom) else _state.emit(MainState.HideBottom)
+            emit(MainState.ShowBottom) else emit(MainState.HideBottom)
     }
 }

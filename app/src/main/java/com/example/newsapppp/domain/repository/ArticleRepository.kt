@@ -4,7 +4,7 @@ import com.example.newsapppp.domain.model.NewsResponseModel
 
 interface ArticleRepository {
 
-    suspend fun getNews(countryCode: String, category: String): NewsResponseModel
+    suspend fun getNews(category: String): NewsResponseModel
 
     suspend fun searchNews(searchQuery: String): NewsResponseModel
 }

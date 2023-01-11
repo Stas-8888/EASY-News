@@ -1,25 +1,15 @@
 package com.example.newsapppp.presentation.ui.base
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.newsapppp.core.State
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
-import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 
-abstract class BaseViewModel<S : State> : ViewModel() {
+abstract class BaseViewModel<State> : ViewModel() {
 
-    protected abstract val _state: MutableStateFlow<S>
-    abstract val state: StateFlow<S>
+    protected abstract val _state: MutableSharedFlow<State>
+    abstract val state: SharedFlow<State>
 
-//    protected fun launchCoroutine(block: suspend CoroutineScope.() -> Unit): Job {
-//        return viewModelScope.launch() {
-//            block()
-//        }
-//    }
-
+    suspend fun emit(action: State) {
+        _state.emit(action)
+    }
 }

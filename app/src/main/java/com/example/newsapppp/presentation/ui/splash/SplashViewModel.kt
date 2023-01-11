@@ -1,17 +1,22 @@
 package com.example.newsapppp.presentation.ui.splash
 
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.domain.interactors.preference.GetSwitchPositionUseCase
+import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SplashActivityViewModel @Inject constructor(
+class SplashViewModel @Inject constructor(
     private val getSwitchPositionUseCase: GetSwitchPositionUseCase
-) : ViewModel() {
+) : BaseViewModel<SplashState>() {
+
+    override val _state = MutableStateFlow<SplashState>(SplashState.Success)
+    override val state = _state.asStateFlow()
 
     private fun getSwitchPosition(): Boolean {
         return getSwitchPositionUseCase(Unit)

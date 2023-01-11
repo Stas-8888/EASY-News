@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorRed">
+    android:background="@color/colorRed"
+    tools:context=".presentation.ui.splash.SplashFragment">
 
     <TextView
         android:id="@+id/tvNews"
@@ -12,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="80dp"
         android:fontFamily="@font/worksansextrabold"
-        android:text="@string/dealy_news"
+        android:text="@string/Dealy_News"
         android:textColor="@color/white"
         android:textSize="54sp"
         android:textStyle="bold"
@@ -27,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="-14dp"
         android:fontFamily="@font/worksansextrabold"
-        android:text="@string/welcome"
+        android:text="@string/Welcome"
         android:textColor="@color/white"
         android:textSize="32.2sp"
         android:textStyle="bold"

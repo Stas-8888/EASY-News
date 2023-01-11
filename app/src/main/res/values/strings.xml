@@ -1,45 +1,41 @@
 <resources>
     <string name="app_name">NewsApp</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="АмереканскиеНовости">Амереканские Новости</string>
-    <string name="РусскиеНовости">Русские Новости</string>
-    <string name="НемецкиеНовости">Немецкие Новости</string>
-    <string name="ЕгипетскиеНовости">Египетские Новости</string>
-    <string name="Дневная_тема">Дневная тема</string>
-    <string name="Ночная_тема">Ночная тема</string>
-    <string name="СтатьяДобавлена">Статья Добавлена</string>
-    <string name="СтатьяУдалена">Статья Удалена</string>
+    <string name="American_News">Амереканские Новости</string>
+    <string name="Russia_News">Русские Новости</string>
+    <string name="Germany_News">Немецкие Новости</string>
+    <string name="Egypt_News">Египетские Новости</string>
+    <string name="Day_Tem">Дневная тема</string>
+    <string name="Night_Tem">Ночная тема</string>
+    <string name="Add_Article">Статья Добавлена</string>
+    <string name="Delete_Article">Статья Удалена</string>
     <string name="Update">Update</string>
-    <string name="Удалить">Удалить</string>
-    <string name="Отменить">Отменить</string>
-    <string name="Хотите_удалить">Хотите удалить ?</string>
-    <string name="dealy_news">Dealy News</string>
+    <string name="Delete">Удалить</string>
+    <string name="Cansel">Отменить</string>
+    <string name="Want_Delete">Хотите удалить ?</string>
+    <string name="Dealy_News">Dealy News</string>
     <string name="news">News</string>
-    <string name="Мои_новости">Мои новости</string>
-    <string name="Главные">Главные</string>
-    <string name="Спорт">Спорт</string>
-    <string name="Наука">Наука</string>
-    <string name="Развлечение">Развлечение</string>
-    <string name="Мои_Новости">Мои Новости</string>
-    <string name="Поиск">Поиск</string>
-    <string name="Настройки">Настройки</string>
-    <string name="Стас_Павленко">Стас Павленко</string>
-    <string name="Редоктировать">Редоктировать</string>
-    <string name="Профиль">Профиль</string>
-    <string name="Тема_профиля">Тема профиля</string>
+    <string name="My_News">Мои новости</string>
+    <string name="Main_news">Главные</string>
+    <string name="Sport">Спорт</string>
+    <string name="Science">Наука</string>
+    <string name="Entertainment">Развлечение</string>
+    <string name="Find">Поиск</string>
+    <string name="Settings">Настройки</string>
+    <string name="Name">Стас Павленко</string>
+    <string name="Edit">Редоктировать</string>
+    <string name="Profile">Профиль</string>
+    <string name="Profile_Tem">Тема профиля</string>
     <string name="Обьявления">Обьявления.</string>
-    <string name="welcome">welcome</string>
+    <string name="Welcome">welcome</string>
     <string name="Author">Author</string>
     <string name="_1_2022">1 Августа 2022</string>
-    <string name="title">TITLE</string>
-    <string name="description">Description</string>
-    <string name="Измена_Имени">Измена Имени</string>
+    <string name="Title">TITLE</string>
+    <string name="Description">Description</string>
+    <string name="Change_name">Измена Имени</string>
     <string name="Ваше_имя">Ваше имя ?</string>
-    <string name="Сохранить">Сохранить</string>
+    <string name="Save">Сохранить</string>
     <string name="Mistake">Mistake</string>
-    <string name="Save">Сохраненное</string>
-    <string name="find">Поиск</string>
+    <string name="Saved">Сохраненное</string>
     <string name="main">Основное</string>
 
 
@@ -61,4 +57,6 @@
     <!-- Error Strings -->
     <string name="error_check_internet_connection">Check Internet Connection</string>
     <string name="error_oops_error_occured">Oops!! An Error Occurred</string>
+    <string name="unregistered">If you want to use this functions, please registered</string>
+    <string name="ErrorRegistered">ERROR, If you want to use this functions, please registered</string>
 </resources>

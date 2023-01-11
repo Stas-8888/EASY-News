@@ -1,5 +1,6 @@
 package com.example.newsapppp.presentation.ui.news
 
+import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.preference.GetFavoriteUseCase
 import com.example.newsapppp.domain.interactors.preference.SaveFavoriteUseCase
 import com.example.newsapppp.domain.interactors.room.DeleteArticleUseCase
@@ -7,7 +8,7 @@ import com.example.newsapppp.domain.interactors.room.InsertArticleUseCase
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
-import com.example.newsapppp.core.extensions.launchCoroutine
+import com.example.newsapppp.presentation.utils.extensions.launchCoroutine
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,55 +19,50 @@ import javax.inject.Inject
 class NewsFragmentViewModel @Inject constructor(
     private val insertArticleUseCase: InsertArticleUseCase,
     private val deleteArticleUseCase: DeleteArticleUseCase,
-    private val articleMapperToModel: ArticleMapperToModel,
     private val saveFavoriteUseCase: SaveFavoriteUseCase,
-    private val getFavoriteUseCase: GetFavoriteUseCase
+    private val articleMapperToModel: ArticleMapperToModel,
+    private val getFavoriteUseCase: GetFavoriteUseCase,
+    private var firebaseAuth: FirebaseAuth
 ) : BaseViewModel<NewsState>() {
 
     private var isFavorite = false
-    private lateinit var firebaseAuth: FirebaseAuth
-    override val _state = MutableStateFlow<NewsState>(NewsState.ShowUnSaved)
+    private val favoriteIconTrue = R.drawable.ic_favorite
+    private val favoriteIconFalse = R.drawable.ic_favorite_border
+    override val _state = MutableStateFlow<NewsState>(NewsState.HideFavoriteIcon(favoriteIconFalse))
     override val state = _state.asStateFlow()
 
-    private suspend fun insertArticle(article: Article) {
-        insertArticleUseCase(articleMapperToModel.mapFromEntity(article))
-    }
-
-    private suspend fun deleteArticle(article: Article) {
-        deleteArticleUseCase(articleMapperToModel.mapFromEntity(article))
-    }
-
-    private fun saveFavorite(key: String, value: Boolean) = launchCoroutine{
-        saveFavoriteUseCase.saveFavorite(key, value)
-    }
-
-    private suspend fun getFavorite(key: String): Boolean {
-        return getFavoriteUseCase(key)
-    }
-
     fun checkFavoriteIcon(article: Article) = launchCoroutine {
-        if (isFavorite != getFavorite(article.url)) {
-            _state.emit(NewsState.ShowUnSaved)
+        if (isFavorite != getFavoriteUseCase(article.url)) {
+            _state.emit(NewsState.ShowFavoriteIcon(favoriteIconTrue))
         } else {
-            _state.emit(NewsState.ShowAsSaved)
+            _state.emit(NewsState.HideFavoriteIcon(favoriteIconFalse))
         }
     }
 
-    fun saveDeleteFavorite(article: Article) = launchCoroutine {
+    fun onFavoriteIconClicked(article: Article) = launchCoroutine {
         firebaseAuth = FirebaseAuth.getInstance()
         if (firebaseAuth.currentUser != null) {
-            if (isFavorite == getFavorite(article.url)) {
-                insertArticle(article)
-                saveFavorite(article.url, true)
-                _state.emit(NewsState.ShowAsSaved)
-
+            if (isFavorite == getFavoriteUseCase(article.url)) {
+                emit(
+                    NewsState.SaveFavoriteArticle(
+                        insertArticleUseCase(articleMapperToModel.mapFromEntity(article)),
+                        saveFavoriteUseCase.saveFavorite(article.url, true),
+                        R.string.Add_Article,
+                        favoriteIconTrue
+                    )
+                )
             } else {
-                deleteArticle(article)
-                saveFavorite(article.url, false)
-                _state.emit(NewsState.ShowUnSaved)
+                emit(
+                    NewsState.DeleteFavoriteArticle(
+                        deleteArticleUseCase(articleMapperToModel.mapFromEntity(article)),
+                        saveFavoriteUseCase.saveFavorite(article.url, false),
+                        R.string.Delete_Article,
+                        favoriteIconFalse
+                    )
+                )
             }
         } else {
-            _state.emit(NewsState.Error)
+            emit(NewsState.Error(R.string.ErrorRegistered))
         }
     }
 }

@@ -12,4 +12,6 @@ interface DbRepository {
     suspend fun deleteAllArticle()
 
     fun getAllArticles(): Flow<List<ArticleModel>>
+
+//    suspend fun saveDeleteArticleFavorite(article: ArticleModel)
 }

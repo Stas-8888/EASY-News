@@ -5,10 +5,10 @@ import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.newsapppp.presentation.utils.extensions.navigateDirections
 import com.example.newsapppp.databinding.FragmentSearchBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
 import com.example.newsapppp.presentation.ui.base.BaseFragment
-import com.example.newsapppp.core.extensions.navigateDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_search.*
 
@@ -28,9 +28,21 @@ class SearchFragment : BaseFragment<SearchState, FragmentSearchBinding, SearchFr
 
     override fun renderState(state: SearchState) {
         when (state) {
+            is SearchState.Loading -> {}
             is SearchState.ShowArticles -> newsAdapter.submitList(state.articles)
-            is SearchState.Error -> {}
+            is SearchState.Error -> {
+                showErrorMessage(state.message)
+            }
         }
+    }
+
+    private fun showErrorMessage(message: String) {
+        binding.itemErrorMessage.errorCard.visibility = View.VISIBLE
+        binding.itemErrorMessage.tvErrorMessage.text = message
+    }
+
+    private fun hideErrorMessage() {
+        binding.itemErrorMessage.errorCard.visibility = View.GONE
     }
 
     private fun setupOnClickListeners() {
@@ -39,9 +51,7 @@ class SearchFragment : BaseFragment<SearchState, FragmentSearchBinding, SearchFr
         }
         etSearch.addTextChangedListener { editable ->
             editable?.let {
-                if (editable.toString().isNotEmpty()) {
-                    viewModel.getSearchRetrofit(editable.toString())
-                }
+                viewModel.searchTextListener(editable.toString())
             }
         }
     }

@@ -1,6 +1,6 @@
 package com.example.newsapppp.presentation.ui.registration.sign
 
-import com.example.newsapppp.core.extensions.launchCoroutine
+import com.example.newsapppp.presentation.utils.extensions.launchCoroutine
 import com.example.newsapppp.domain.interactors.registration.*
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

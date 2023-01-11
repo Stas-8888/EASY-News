@@ -11,7 +11,7 @@
  * the License.
  *
  **/
-package com.example.newsapppp.core
+package com.example.newsapppp.presentation.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -20,7 +20,7 @@ import android.net.NetworkRequest
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
-internal object NetworkUtils {
+object NetworkUtils {
 
     fun getNetworkStatus(context: Context): LiveData<Boolean> {
         val isAvailableLiveData = MutableLiveData<Boolean>()

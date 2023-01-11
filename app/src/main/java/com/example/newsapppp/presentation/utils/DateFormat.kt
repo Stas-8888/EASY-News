@@ -1,10 +1,10 @@
-package com.example.newsapppp.core
+package com.example.newsapppp.presentation.utils
 
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-object DateFormat {
+object DateFormat{
 
     fun dateFormat(dateNews: String?): String? {
         val isDate: String?

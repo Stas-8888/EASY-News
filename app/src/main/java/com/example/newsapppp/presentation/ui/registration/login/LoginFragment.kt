@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.R
+import com.example.newsapppp.presentation.utils.extensions.hideBottomNavigation
+import com.example.newsapppp.presentation.utils.extensions.listenChanges
+import com.example.newsapppp.presentation.utils.extensions.navigateTo
+import com.example.newsapppp.presentation.utils.extensions.snackBar
 import com.example.newsapppp.databinding.FragmentLoginBinding
 import com.example.newsapppp.presentation.ui.base.BaseFragment
-import com.example.newsapppp.core.extensions.listenChanges
-import com.example.newsapppp.core.extensions.navigateTo
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,6 +20,7 @@ class LoginFragment : BaseFragment<LoginState, FragmentLoginBinding, LoginViewMo
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        hideBottomNavigation()
         setupOnClickListeners()
     }
 
@@ -35,7 +38,7 @@ class LoginFragment : BaseFragment<LoginState, FragmentLoginBinding, LoginViewMo
             viewModel.isValidPassword(passwordText())
         }
         btLogin.setOnClickListener {
-            viewModel.isValidate(
+            viewModel.signInClicked(
                 emailText(),
                 passwordText()
             ) { navigateTo(R.id.mainFragment) }
@@ -52,13 +55,11 @@ class LoginFragment : BaseFragment<LoginState, FragmentLoginBinding, LoginViewMo
 
     override fun renderState(state: LoginState) {
         when (state) {
-            is LoginState.Success -> {}
-            is LoginState.CheckState -> {
-                binding.emailContainer.helperText = state.data
-                binding.loginPasswordContainer.helperText = state.data
-            }
-            is LoginState.Error -> {
-            }
+            is LoginState.Loading -> {}
+            is LoginState.Success -> snackBar(requireView(), state.success)
+            is LoginState.CheckEmail -> binding.emailContainer.helperText = state.data
+            is LoginState.CheckPassword -> binding.loginPasswordContainer.helperText = state.data
+            is LoginState.Error -> snackBar(requireView(), state.message)
         }
     }
 

@@ -2,19 +2,14 @@ package com.example.newsapppp.presentation.ui.main
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapppp.R
-import com.example.newsapppp.core.extensions.invisible
-import com.example.newsapppp.core.extensions.navigateDirections
-import com.example.newsapppp.core.extensions.navigateTo
-import com.example.newsapppp.core.extensions.visible
 import com.example.newsapppp.databinding.FragmentMainBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
 import com.example.newsapppp.presentation.ui.base.BaseFragment
+import com.example.newsapppp.presentation.utils.extensions.*
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -28,15 +23,40 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        var isTrue = true
+        showBottomNavigation()
         setupRecyclerView()
         getCountryAndCategoryTabLayout()
         viewModel.getNews(category = categories[0])
         setupOnClickListeners()
         viewModel.getCountryFlag()
-        requireActivity().onBackPressedDispatcher.addCallback(this) {
-            Toast.makeText(requireContext(), "Disabled Back Press", Toast.LENGTH_SHORT).show()
+//        requireActivity().onBackPressedDispatcher.addCallback(this) {
+//            Toast.makeText(requireContext(), "Disabled Back Press", Toast.LENGTH_SHORT).show()
+//        }
+        tvCountry.setOnClickListener {
+            if (isTrue) {
+                hideBottomNavigation()
+                showErrorMessage("something going wrong")
+                isTrue = false
+            } else {
+                hideErrorMessage()
+                showBottomNavigation()
+                isTrue = true
+            }
         }
     }
+
+    private fun showErrorMessage(message: String) {
+        binding.itemErrorMessage.errorCard.visibility = View.VISIBLE
+        binding.itemErrorMessage.tvErrorMessage.text = message
+//        onScrollListener.isError = true
+    }
+
+    private fun hideErrorMessage() {
+        binding.itemErrorMessage.errorCard.visibility = View.GONE
+//        onScrollListener.isError = false
+    }
+
 
     override fun renderState(state: MainState) = with(binding) {
         when (state) {
@@ -73,6 +93,7 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewModel.getNews(categories[tab.position])
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })

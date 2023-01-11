@@ -1,4 +1,4 @@
-package com.example.newsapppp.core.extensions
+package com.example.newsapppp.presentation.utils.extensions
 
 import android.view.View
 

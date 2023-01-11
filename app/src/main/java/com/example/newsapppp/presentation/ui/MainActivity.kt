@@ -4,18 +4,16 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.work.*
 import com.example.newsapppp.R
-import com.example.newsapppp.core.ConnectionType
+import com.example.newsapppp.presentation.utils.ConnectionType
 import com.example.newsapppp.databinding.ActivityMainBinding
-import com.example.newsapppp.core.MyWorker
-import com.example.newsapppp.core.NetworkMonitorUtil
+import com.example.newsapppp.presentation.utils.MyWorker
+import com.example.newsapppp.presentation.utils.NetworkMonitorUtil
+import com.example.newsapppp.presentation.ui.root.RootFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.no_internet_connections.*
 import java.util.concurrent.TimeUnit
@@ -23,30 +21,15 @@ import java.util.concurrent.TimeUnit
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var navController: NavController
     private val networkMonitor = NetworkMonitorUtil(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.e("AAA", "activityMain")
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         checkInternetConnections()
-        setBottomNavListener()
-        navController = findNavController(R.id.nav_fragment1)
-//        supportFragmentManager.beginTransaction().replace(R.id.container, RootFragment()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.container, RootFragment()).commit()
         myPeriodicWork()
-    }
-
-    private fun setBottomNavListener() {
-        binding.bottomNavigationView.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.mainFragment -> navController.navigate(R.id.mainFragment)
-                R.id.saveFragment -> navController.navigate(R.id.saveFragment)
-                R.id.searchFragment -> navController.navigate(R.id.searchFragment)
-            }
-            true
-        }
     }
 
     private fun checkInternetConnections() {

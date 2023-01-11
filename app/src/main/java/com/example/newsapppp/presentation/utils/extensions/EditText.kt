@@ -1,8 +1,8 @@
-package com.example.newsapppp.core.extensions
+package com.example.newsapppp.presentation.utils.extensions
 
 import android.text.Editable
 import android.widget.EditText
-import com.example.newsapppp.core.TextChangeListener
+import com.example.newsapppp.presentation.utils.TextChangeListener
 
 fun EditText.listenChanges(action: () -> Unit) {
 

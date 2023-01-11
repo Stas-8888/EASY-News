@@ -26,7 +26,7 @@
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/dealy_news"
+                android:text="@string/Dealy_News"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -58,7 +58,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="62dp"
+        android:layout_marginBottom="32dp"
+        android:contentDescription="Favorite Button"
         android:src="@drawable/ic_favorite_border"
         app:backgroundTint="@color/colorRed"
         app:fabSize="normal"
@@ -67,7 +68,6 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:tint="@color/white"
-        android:contentDescription="Favorite Button"
         tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,23 +7,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsapppp.databinding.ItemLayoutBinding
 import com.example.newsapppp.presentation.model.Article
-import com.example.newsapppp.core.DateFormat.dateFormat
+import com.example.newsapppp.presentation.utils.DateFormat.dateFormat
 import kotlinx.android.synthetic.main.item_layout.view.*
 
 class NewsAdapter: ListAdapter<Article, NewsAdapter.ArticleViewHolder>(NewsItemDiffCallback()) {
-    var count = 0
 
     class ArticleViewHolder(val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
-//        Log.d("NewsAdapter", "onCreateViewHolder, count: ${++count}")
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemLayoutBinding.inflate(inflater, parent, false)
-
         return ArticleViewHolder(binding)
     }
 
     private var onItemClickListener: ((Article) -> Unit)? = null
+    private var onFavoriteIconClicked: ((Article) -> Unit)? = null
+
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         val article = getItem(position)
@@ -36,7 +35,6 @@ class NewsAdapter: ListAdapter<Article, NewsAdapter.ArticleViewHolder>(NewsItemD
             author.text = article.author
             tvDescription.text = article.description
             tvPublishedAt.text = dateFormat(article.publishedAt)
-
             setOnClickListener {
                 onItemClickListener?.invoke(article)
             }
@@ -45,5 +43,9 @@ class NewsAdapter: ListAdapter<Article, NewsAdapter.ArticleViewHolder>(NewsItemD
 
     fun setOnItemClickListener(listener: (Article) -> Unit) {
         onItemClickListener = listener
+    }
+
+    fun setOnFavoriteClickListener(listener: (Article) -> Unit) {
+        onFavoriteIconClicked = listener
     }
 }

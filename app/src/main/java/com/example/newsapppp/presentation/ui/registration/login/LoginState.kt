@@ -1,9 +1,9 @@
 package com.example.newsapppp.presentation.ui.registration.login
 
-import com.example.newsapppp.core.State
-
-sealed class LoginState: State {
-    object Success : LoginState()
-    data class CheckState(val data: String): LoginState()
-    object Error : LoginState()
+sealed class LoginState {
+    object Loading : LoginState()
+    data class Success(val navigateTo: Unit, val success: String) : LoginState()
+    data class Error(val message: String) : LoginState()
+    data class CheckEmail(val data: String) : LoginState()
+    data class CheckPassword(val data: String) : LoginState()
 }

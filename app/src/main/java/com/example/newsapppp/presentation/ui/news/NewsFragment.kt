@@ -9,14 +9,14 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.newsapppp.R
-import com.example.newsapppp.core.extensions.invisible
-import com.example.newsapppp.core.extensions.launchWhenStarted
-import com.example.newsapppp.core.extensions.showAlertUpDialog
-import com.example.newsapppp.core.extensions.snackBar
 import com.example.newsapppp.databinding.FragmentNewsBinding
 import com.example.newsapppp.presentation.ui.base.BaseFragment
+import com.example.newsapppp.presentation.utils.extensions.hideBottomNavigation
+import com.example.newsapppp.presentation.utils.extensions.invisible
+import com.example.newsapppp.presentation.utils.extensions.showAlertUpDialog
+import com.example.newsapppp.presentation.utils.extensions.snackBar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.delete_dialog3.view.*
 import kotlinx.android.synthetic.main.fragment_news.*
 
 @AndroidEntryPoint
@@ -27,15 +27,17 @@ class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentVi
     override val viewModel by viewModels<NewsFragmentViewModel>()
     private val article by lazy { args.article }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.checkFavoriteIcon(article)
         setupWebView()
         setupOnClickListeners()
+        hideBottomNavigation()
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    @RequiresApi(Build.VERSION_CODES.O)
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun setupWebView() {
         webView.apply {
             webView.webViewClient = WebViewClient()
@@ -47,44 +49,33 @@ class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentVi
 
     private fun setupOnClickListeners() = with(binding) {
         btFavorite.setOnClickListener {
-            saveDeleteFavorite()
+            viewModel.onFavoriteIconClicked(article)
         }
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
     }
 
-    override fun renderState(state: NewsState) {
-        viewModel.checkFavoriteIcon(article)
+    override fun renderState(state: NewsState) = with(binding) {
         when (state) {
-            is NewsState.ShowUnSaved -> setImageResource(R.drawable.ic_favorite)
-            is NewsState.ShowAsSaved -> setImageResource(R.drawable.ic_favorite_border)
-            is NewsState.Error -> setImageResource(R.drawable.ic_favorite)
-        }
-    }
-
-    private fun saveDeleteFavorite() = launchWhenStarted {
-        viewModel.saveDeleteFavorite(article)
-        viewModel.state.collect() { state ->
-            when (state) {
-                is NewsState.ShowAsSaved -> {
-                    setImageResource(R.drawable.ic_favorite)
-                    showAlertUpDialog(getString(R.string.СтатьяДобавлена))
-                }
-                is NewsState.ShowUnSaved -> {
-                    setImageResource(R.drawable.ic_favorite_border)
-                    showAlertUpDialog(getString(R.string.СтатьяУдалена))
-                }
-                is NewsState.Error -> {
-                    binding.btFavorite.invisible()
-                    snackBar(binding.btFavorite,"If you want to use this functions, please registered")
-                }
+            is NewsState.DeleteFavoriteArticle -> {
+                setImageResource(state.favoriteIcon)
+                showAlertUpDialog(state.status)
             }
+            is NewsState.SaveFavoriteArticle -> {
+                setImageResource(state.favoriteIcon)
+                showAlertUpDialog(state.status)
+            }
+            is NewsState.Error -> {
+                btFavorite.invisible()
+                snackBar(btFavorite, state.message.toString())
+            }
+            is NewsState.HideFavoriteIcon -> setImageResource(state.favoriteIcon)
+            is NewsState.ShowFavoriteIcon -> setImageResource(state.favoriteIcon)
         }
     }
 
     private fun setImageResource(data: Int) {
         binding.btFavorite.setImageResource(data)
     }
-//    abstract val rootViewGroup: ViewGroup
 }

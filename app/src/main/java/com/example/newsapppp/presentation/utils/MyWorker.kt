@@ -1,4 +1,4 @@
-package com.example.newsapppp.core
+package com.example.newsapppp.presentation.utils
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -44,7 +44,7 @@ class MyWorker(context: Context, workerParameters: WorkerParameters) : Worker(co
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val channelName = "Channel Name"
             val channelDescription = "Channel Description"
             val channelImportance = NotificationManager.IMPORTANCE_HIGH

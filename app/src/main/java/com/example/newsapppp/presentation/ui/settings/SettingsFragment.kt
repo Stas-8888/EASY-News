@@ -9,11 +9,13 @@ import android.widget.PopupMenu
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.newsapppp.R
-import com.example.newsapppp.core.extensions.showSnackbar
-import com.example.newsapppp.core.extensions.snackBar
 import com.example.newsapppp.databinding.FragmentSettingsBinding
 import com.example.newsapppp.databinding.NewNameDialogBinding
 import com.example.newsapppp.presentation.ui.base.BaseFragment
+import com.example.newsapppp.presentation.utils.extensions.hideBottomNavigation
+import com.example.newsapppp.presentation.utils.extensions.navigateTo
+import com.example.newsapppp.presentation.utils.extensions.showSnackbar
+import com.example.newsapppp.presentation.utils.extensions.snackBar
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_settings.*
@@ -28,23 +30,32 @@ class SettingsFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        hideBottomNavigation()
         firebaseAuth = FirebaseAuth.getInstance()
         tvEmail.text = firebaseAuth.currentUser?.email
         setupCountryFlag()
-        viewModel.getSwitchPosition()
+        viewModel.isSwitchDayNight()
         setupOnClickListeners()
     }
 
     override fun renderState(state: SettingsState) {
         when (state) {
-            is SettingsState.SwitchPosition -> isChecked(false)
-            is SettingsState.UnSwitchPosition -> isChecked(true)
+            is SettingsState.Account -> {
+                showSnackbar(requireView(), state.message, state.isError, state.action)
+            }
+            is SettingsState.Account2 -> navigateTo(state.navigation)
+            is SettingsState.GetCurrentEmail -> state.currentEmail
+            is SettingsState.IsSwitch -> isChecked(state.isSwitch)
         }
+    }
+
+    private fun isChecked(value: Boolean) {
+        switchDayNight.isChecked = value
     }
 
     private fun setupOnClickListeners() = with(binding) {
         account.setOnClickListener {
-            showSnackbar(it, "Successful Sign Out", true) { firebaseAuth.signOut() }
+            viewModel.checkAccount()
         }
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
@@ -60,21 +71,17 @@ class SettingsFragment :
         }
     }
 
-    private fun isChecked(value: Boolean) {
-        switchDayNight.isChecked = value
-    }
-
     private fun showPopup(view: View) {
         val popup = PopupMenu(requireContext(), view)
         popup.inflate(R.menu.pop_up_menu)
-        popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item: MenuItem ->
+        popup.setOnMenuItemClickListener { item: MenuItem ->
             when (item.itemId) {
                 R.id.us -> {
                     saveCurrentCountry(
                         view,
                         countryFlag = USA,
                         imageResource = R.drawable.usa,
-                        countryName = getString(R.string.АмереканскиеНовости)
+                        countryName = getString(R.string.American_News)
                     )
                 }
                 R.id.ru -> {
@@ -82,7 +89,7 @@ class SettingsFragment :
                         view,
                         countryFlag = RUSSIA,
                         imageResource = R.drawable.russia,
-                        countryName = getString(R.string.РусскиеНовости)
+                        countryName = getString(R.string.Russia_News)
                     )
                 }
                 R.id.germany -> {
@@ -90,7 +97,7 @@ class SettingsFragment :
                         view,
                         countryFlag = GERMANY,
                         imageResource = R.drawable.germany,
-                        countryName = getString(R.string.НемецкиеНовости)
+                        countryName = getString(R.string.Germany_News)
                     )
                 }
                 R.id.egipt -> {
@@ -98,12 +105,12 @@ class SettingsFragment :
                         view,
                         countryFlag = EGYPT,
                         imageResource = R.drawable.egypt,
-                        countryName = getString(R.string.ЕгипетскиеНовости)
+                        countryName = getString(R.string.Egypt_News)
                     )
                 }
             }
             true
-        })
+        }
         popup.show()
     }
 

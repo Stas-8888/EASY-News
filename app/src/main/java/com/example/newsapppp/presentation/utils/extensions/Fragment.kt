@@ -1,11 +1,9 @@
-package com.example.newsapppp.core.extensions
+package com.example.newsapppp.presentation.utils.extensions
 
 import android.app.AlertDialog
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -14,13 +12,12 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.DeleteDialog3Binding
-import com.example.newsapppp.databinding.SnackbarBinding
+import com.example.newsapppp.presentation.ui.root.RootFragment
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.tapadoo.alerter.Alerter
+import kotlinx.android.synthetic.main.fragment_root.*
 import kotlinx.coroutines.CoroutineScope
-
-fun Fragment.toast(message: String) = Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
 
 fun Fragment.navigateTo(where: Int) = findNavController().navigate(where)
 
@@ -34,26 +31,12 @@ fun Fragment.loadColor(@ColorRes colorRes: Int): Int {
     return ContextCompat.getColor(requireContext(), colorRes)
 }
 
-fun Fragment.showSnackBar(view: View, title: String, okFun: () -> Unit = {}) {
-    val snackView = View.inflate(view?.context, R.layout.snackbar, null)
-    val binding = SnackbarBinding.bind(snackView)
-    val snackbar = Snackbar.make(view, "", Snackbar.LENGTH_LONG)
-    (snackbar.view as ViewGroup).removeAllViews()
-    (snackbar.view as ViewGroup).addView(binding.root)
-//    snackbar.view.setPadding(0, 0, 0, 0)
-//    snackbar.view.elevation = 0f
-    snackbar.setBackgroundTint(
-        ContextCompat.getColor(
-            view.context,
-            android.R.color.transparent
-        )
-    )
-    binding.snackbarTitle.text = title
-    binding.snackbarAction.setOnClickListener {
-        okFun()
-        snackbar.dismiss()
-    }
-    snackbar.show()
+fun Fragment.showBottomNavigation(){
+    (requireParentFragment().parentFragment as RootFragment).bottomNavigationView?.visible()
+}
+
+fun Fragment.hideBottomNavigation(){
+    (requireParentFragment().parentFragment as RootFragment).bottomNavigationView?.invisible()
 }
 
 fun Fragment.showSnackbar(view: View, message: String, isError: Boolean = false, action: () -> Unit = {}) {
@@ -73,7 +56,7 @@ fun Fragment.showSnackbar(view: View, message: String, isError: Boolean = false,
 }
 
 fun Fragment.snackBar(view: View, title: String){
-    Snackbar.make(view,title, Snackbar.LENGTH_LONG)
+    Snackbar.make(view,title, 1500)
         .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
         .setBackgroundTint(Color.parseColor("#E30105"))
         .setTextColor(Color.WHITE)
@@ -105,7 +88,7 @@ fun Fragment.showDeleteDialog(onSuccess: () -> Unit, noteSuccess: () -> Unit) {
     }
 }
 
-fun Fragment.showAlertUpDialog(title:String) {
+fun Fragment.showAlertUpDialog(title:Int) {
     activity?.let {
         Alerter.create(it)
             .setTitle(title)
