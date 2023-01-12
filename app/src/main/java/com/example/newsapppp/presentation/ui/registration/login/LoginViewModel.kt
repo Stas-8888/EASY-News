@@ -23,17 +23,17 @@ class LoginViewModel @Inject constructor(
     fun signInClicked(email: String, password: String, navigateTo: () -> Unit) = launchCoroutine {
         login.signIn(email, password, navigateTo){
             launchCoroutine {
-                emit(it)
+                emitState(it)
             }
         }
     }
 
     fun isValidEmail(data: String) = launchCoroutine {
-        emit(LoginState.CheckEmail(validateEmail(data)))
+        emitState(LoginState.CheckEmail(validateEmail(data)))
     }
 
     fun isValidPassword(data: String) = launchCoroutine {
-        emit(LoginState.CheckPassword(validatePassword(data)))
+        emitState(LoginState.CheckPassword(validatePassword(data)))
     }
 
     fun isValidate(

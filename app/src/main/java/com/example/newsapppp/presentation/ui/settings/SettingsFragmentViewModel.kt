@@ -49,27 +49,27 @@ class SettingsFragmentViewModel @Inject constructor(
 
     fun isSwitchDayNight() = launchCoroutine {
         if (getSwitchPositionUseCase(Unit)) {
-            emit(SettingsState.IsSwitch(false))
+            emitState(SettingsState.IsSwitch(false))
         } else {
-            emit(SettingsState.IsSwitch(true))
+            emitState(SettingsState.IsSwitch(true))
         }
     }
 
     fun getCurrentEmail() = launchCoroutine {
         firebaseAuth = FirebaseAuth.getInstance()
         val email = firebaseAuth.currentUser?.email
-        emit(SettingsState.GetCurrentEmail(email))
+        emitState(SettingsState.GetCurrentEmail(email))
     }
 
     fun checkAccount() = launchCoroutine {
         firebaseAuth = FirebaseAuth.getInstance()
         if (firebaseAuth.currentUser != null) {
-            emit(SettingsState.Account(
+            emitState(SettingsState.Account(
                     "Successful Sign Out",
                     true
                 ) { firebaseAuth.signOut() })
         } else {
-            emit(SettingsState.Account2(R.id.loginFragment))
+            emitState(SettingsState.Account2(R.id.loginFragment))
         }
     }
 }

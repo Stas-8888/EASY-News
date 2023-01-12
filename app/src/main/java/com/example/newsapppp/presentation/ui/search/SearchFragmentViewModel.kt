@@ -21,9 +21,9 @@ class SearchFragmentViewModel @Inject constructor(
     fun searchTextListener(searchQuery: String) = launchCoroutine {
         if (searchQuery.isNotEmpty()) {
             val data = searchNewsUseCase(searchQuery).articlesModel
-            emit(SearchState.ShowArticles(articleMapperToModel.articleToModelArticle(data)))
+            emitState(SearchState.ShowArticles(articleMapperToModel.articleToModelArticle(data)))
         } else {
-            emit(SearchState.Error("Server error"))
+            emitState(SearchState.Error("Server error"))
         }
     }
 }

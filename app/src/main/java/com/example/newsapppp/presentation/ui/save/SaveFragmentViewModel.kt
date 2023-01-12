@@ -39,6 +39,6 @@ class SaveFragmentViewModel @Inject constructor(
     }
 
     fun onItemSwiped(article: Article, position: Int) = launchCoroutine {
-        emit(SaveState.ShowDeleteDialog(article, position))
+        emitState(SaveState.ShowDeleteDialog(article, position))
     }
 }

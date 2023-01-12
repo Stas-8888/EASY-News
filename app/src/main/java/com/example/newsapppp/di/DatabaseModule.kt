@@ -3,10 +3,7 @@ package com.example.newsapppp.di
 import android.content.Context
 import androidx.room.Room
 import com.example.newsapppp.data.db.NewsDao
-import com.example.newsapppp.data.db.NewsRoomDatabase
-import com.example.newsapppp.data.mapper.ArticleMapper
-import com.example.newsapppp.data.mapper.NewsResponseMapper
-import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
+import com.example.newsapppp.data.db.NewsDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,13 +20,13 @@ object DatabaseModule {
     fun provideArticleDatabase(@ApplicationContext context: Context) =
         Room.databaseBuilder(
             context,
-            NewsRoomDatabase::class.java,
+            NewsDatabase::class.java,
             "article_database"
         ).build()
 
     @Provides
     @Singleton
-    fun provideArticleDao(appDatabase: NewsRoomDatabase): NewsDao {
+    fun provideArticleDao(appDatabase: NewsDatabase): NewsDao {
         return appDatabase.getNewsDao()
     }
 }

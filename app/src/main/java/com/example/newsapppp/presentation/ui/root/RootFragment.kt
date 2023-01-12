@@ -9,6 +9,7 @@ import com.example.newsapppp.databinding.FragmentRootBinding
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import com.example.newsapppp.presentation.ui.registration.login.LoginState
 import com.example.newsapppp.presentation.ui.registration.login.LoginViewModel
+import com.example.newsapppp.presentation.utils.NetworkMonitorUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

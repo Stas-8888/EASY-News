@@ -9,7 +9,7 @@ abstract class BaseViewModel<State> : ViewModel() {
     protected abstract val _state: MutableSharedFlow<State>
     abstract val state: SharedFlow<State>
 
-    suspend fun emit(action: State) {
+    suspend fun emitState(action: State) {
         _state.emit(action)
     }
 }

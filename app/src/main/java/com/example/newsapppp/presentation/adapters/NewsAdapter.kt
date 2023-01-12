@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.bumptech.glide.Glide
 import com.example.newsapppp.databinding.ItemLayoutBinding
 import com.example.newsapppp.presentation.model.Article
@@ -28,9 +30,11 @@ class NewsAdapter: ListAdapter<Article, NewsAdapter.ArticleViewHolder>(NewsItemD
         val article = getItem(position)
 
         holder.itemView.apply {
-            Glide.with(this)
-                .load(article.urlToImage)
-                .into(imArticleImage)
+            imArticleImage.load(article.urlToImage) {
+                crossfade(true)
+                crossfade(1000)
+                transformations(RoundedCornersTransformation(30f))
+            }
             tvTitle.text = article.title
             author.text = article.author
             tvDescription.text = article.description
