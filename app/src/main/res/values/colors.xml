@@ -41,5 +41,6 @@
     <color name="colorError">#d32f2f</color>
     <color name="colorSecondary">#ffd600</color>
 
+    <color name="colorRedBackground">#E30105</color>
 
 </resources>

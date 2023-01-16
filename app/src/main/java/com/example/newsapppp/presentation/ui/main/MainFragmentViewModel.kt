@@ -21,10 +21,11 @@ class MainFragmentViewModel @Inject constructor(
     override val state = _state.asStateFlow()
 
     fun getNews(category: String) = launchCoroutine {
-        try {
-            val data = getNewsUseCase(category).articlesModel.filter { it.urlToImage != null }
+        val data = getNewsUseCase(category).articlesModel
+            .filter { it.urlToImage != null }
+        if (data.isNotEmpty()) {
             emitState(MainState.ShowArticles(articleMapperToModel.articleToModelArticle(data)))
-        } catch (e: Exception) {
+        } else {
             emitState(MainState.Error("No data"))
         }
     }
