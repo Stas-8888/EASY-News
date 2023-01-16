@@ -1,5 +1,6 @@
 package com.example.newsapppp.presentation.ui.registration.login
 
+import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.registration.LoginUseCase
 import com.example.newsapppp.domain.interactors.registration.ValidateEmailUseCase
 import com.example.newsapppp.domain.interactors.registration.ValidatePasswordUseCase
@@ -21,7 +22,7 @@ class LoginViewModel @Inject constructor(
     override val state = _state.asStateFlow()
 
     fun signInClicked(email: String, password: String, navigateTo: () -> Unit) = launchCoroutine {
-        login.signIn(email, password, navigateTo){
+        login.signIn(email, password, navigateTo) {
             launchCoroutine {
                 emitState(it)
             }
@@ -47,7 +48,7 @@ class LoginViewModel @Inject constructor(
         if (result) {
             signInClicked(email, password, navigateTo)
         } else {
-            _state.emit(LoginState.Error(""))
+            R.string.error
         }
     }
 }

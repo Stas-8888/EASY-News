@@ -81,7 +81,7 @@ class SettingsFragment :
                         view,
                         countryFlag = USA,
                         imageResource = R.drawable.usa,
-                        countryName = getString(R.string.American_News)
+                        countryName = R.string.American_News
                     )
                 }
                 R.id.ru -> {
@@ -89,7 +89,7 @@ class SettingsFragment :
                         view,
                         countryFlag = RUSSIA,
                         imageResource = R.drawable.russia,
-                        countryName = getString(R.string.Russia_News)
+                        countryName = R.string.Russia_News
                     )
                 }
                 R.id.germany -> {
@@ -97,7 +97,7 @@ class SettingsFragment :
                         view,
                         countryFlag = GERMANY,
                         imageResource = R.drawable.germany,
-                        countryName = getString(R.string.Germany_News)
+                        countryName = R.string.Germany_News
                     )
                 }
                 R.id.egipt -> {
@@ -105,7 +105,7 @@ class SettingsFragment :
                         view,
                         countryFlag = EGYPT,
                         imageResource = R.drawable.egypt,
-                        countryName = getString(R.string.Egypt_News)
+                        countryName = R.string.Egypt_News
                     )
                 }
             }
@@ -118,7 +118,7 @@ class SettingsFragment :
         view: View,
         countryFlag: String,
         imageResource: Int,
-        countryName: String
+        countryName: Int
     ) {
         viewModel.saveCountryFlag(countryFlag)
         setImageResource(imageResource)

@@ -66,7 +66,7 @@ fun Fragment.showSnackbar(view: View, message: String, isError: Boolean = false,
             }.show()
 }
 
-fun Fragment.snackBar(view: View, title: String){
+fun Fragment.snackBar(view: View, title: Int){
     Snackbar.make(view,title, 1500)
         .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
         .setBackgroundTint(Color.parseColor("#E30105"))

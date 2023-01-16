@@ -1,5 +1,6 @@
 package com.example.newsapppp.presentation.ui.main
 
+import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.preference.GetCountryFlagUseCase
 import com.example.newsapppp.domain.interactors.retrofit.GetNewsUseCase
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
@@ -26,7 +27,7 @@ class MainFragmentViewModel @Inject constructor(
         if (data.isNotEmpty()) {
             emitState(MainState.ShowArticles(articleMapperToModel.articleToModelArticle(data)))
         } else {
-            emitState(MainState.Error("No data"))
+            emitState(MainState.Error(R.string.error))
         }
     }
 

@@ -26,16 +26,21 @@ class RegistrationRepositoryImpl @Inject constructor(
         result: (LoginState) -> Unit
     ) {
         if (validateEmail(email) == "successful" && validatePassword(password) == "successful") {
-        firebaseAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                        result.invoke(LoginState.Success(navigateTo(), "Successes Registered"))
+            firebaseAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        result.invoke(
+                            LoginState.Success(
+                                navigateTo(),
+                                R.string.successes_registered
+                            )
+                        )
+                    }
+                }.addOnFailureListener {
+                    result.invoke(LoginState.Error(R.string.authentication_failed))
                 }
-            }.addOnFailureListener {
-                result.invoke(LoginState.Error("Authentication failed, Check email and password"))
-            }
         } else {
-            result.invoke(LoginState.Error("Wrong Email or Password"))
+            result.invoke(LoginState.Error(R.string.wrong_email_password))
         }
     }
 
