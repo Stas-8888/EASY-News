@@ -41,7 +41,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:textColor="@color/colorRedBackground"
         android:textColorHint="@color/grayDark"
         app:boxBackgroundColor="@color/white"
         app:boxBackgroundMode="outline"
