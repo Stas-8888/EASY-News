@@ -1,10 +1,12 @@
 package com.example.newsapppp.presentation.utils.extensions
 
 import android.app.AlertDialog
+import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import androidx.annotation.ColorRes
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -13,11 +15,20 @@ import androidx.navigation.fragment.findNavController
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.DeleteDialog3Binding
 import com.example.newsapppp.presentation.ui.root.RootFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.tapadoo.alerter.Alerter
 import kotlinx.android.synthetic.main.fragment_root.*
 import kotlinx.coroutines.CoroutineScope
+
+internal fun Fragment.showNoActionOkDialog(title: Int, content: CharSequence?) {
+    MaterialAlertDialogBuilder(requireContext())
+        .setTitle(title)
+        .setMessage(content)
+        .setPositiveButton(R.string.Cansel) { dialog, _ -> dialog.dismiss()
+        }.show()
+}
 
 fun Fragment.navigateTo(where: Int) = findNavController().navigate(where)
 

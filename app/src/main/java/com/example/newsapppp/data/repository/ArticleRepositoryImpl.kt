@@ -16,23 +16,14 @@ class ArticleRepositoryImpl @Inject constructor(
 
     override suspend fun getNews(category: String): NewsResponseModel =
         dispatchers.withContextIO {
-            try {
-                val country = sharedPref.getCountryFlag()
-                val data =
-                    apiService.getBreakingNews(countryCode = country, category = category)
-                newsResponseMapper.converterToNewsResponseModel(data)
-            } catch (ex: Exception) {
-                throw ex
-            }
+            val country = sharedPref.getCountryFlag()
+            val data = apiService.getBreakingNews(countryCode = country, category = category)
+            newsResponseMapper.converterToNewsResponseModel(data)
         }
 
     override suspend fun searchNews(searchQuery: String): NewsResponseModel =
         dispatchers.withContextIO {
-            try {
-                val data = apiService.searchForNews(searchQuery)
-                newsResponseMapper.converterToNewsResponseModel(data)
-            } catch (ex: Exception) {
-                throw IllegalStateException(ex)
-            }
+            val data = apiService.searchForNews(searchQuery)
+            newsResponseMapper.converterToNewsResponseModel(data)
         }
 }

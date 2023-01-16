@@ -95,6 +95,9 @@ dependencies {
     // Lottie
     implementation "com.airbnb.android:lottie:5.2.0"
 
+    //Paging
+    implementation "androidx.paging:paging-runtime-ktx:3.2.0-alpha03"
+
     //Test
     testImplementation 'org.robolectric:robolectric:4.6.1'
     testImplementation 'androidx.arch.core:core-testing:2.1.0'

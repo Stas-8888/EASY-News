@@ -9,6 +9,8 @@ sealed class MainState : State {
 
     data class ShowArticles(val articles: List<Article>) : MainState()
 
+    data class Error(val exception: String) : MainState()
+
     object ShowBottom : MainState()
 
     object HideBottom : MainState()

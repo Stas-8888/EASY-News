@@ -71,6 +71,7 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
             is MainState.ShowBottom -> fabUp.invisible()
             is MainState.HideBottom -> fabUp.visible()
             is MainState.GetCountryFlag -> tvCountry.text = state.getCountryFlag
+            is MainState.Error -> snackBar(requireView(), state.exception)
         }
     }
 
