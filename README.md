@@ -9,7 +9,7 @@
 - supports check internet connections by BroadcastReceiver
 
 # Preview
-![collect 2](https://user-images.githubusercontent.com/108537240/213318690-9f62f307-6310-43bf-891b-2f909f2842c1.jpg)
+![collect](https://user-images.githubusercontent.com/108537240/213318988-72368091-3a0c-4b4a-bbaa-6ed5ac82d9c9.jpg)
 ![5](https://user-images.githubusercontent.com/108537240/187301558-16fbb29f-9603-466e-825d-c6ae428f28f4.jpg)
 
 # Libraries And Technologies used
