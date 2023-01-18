@@ -7,11 +7,11 @@ import javax.inject.Inject
 
 interface DispatchersList {
 
-    suspend fun <T> withContextIO(block: suspend CoroutineScope.() -> T): T
+    suspend fun <T> iO(block: suspend CoroutineScope.() -> T): T
 }
 
 class Base @Inject constructor() : DispatchersList {
 
-    override suspend fun <T> withContextIO(block: suspend CoroutineScope.() -> T): T =
+    override suspend fun <T> iO(block: suspend CoroutineScope.() -> T): T =
         withContext(Dispatchers.IO, block)
 }

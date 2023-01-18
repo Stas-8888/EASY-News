@@ -23,44 +23,19 @@ class DbRepositoryImpl @Inject constructor(
     private var firebaseAuth: FirebaseAuth
 ) : DbRepository {
 
-    override suspend fun insertArticle(article: ArticleModel) = dispatchers.withContextIO {
+    override suspend fun insertArticle(article: ArticleModel) = dispatchers.iO {
         newsDao.insertArticle(mapper.mapFromEntity(article))
     }
 
-    override suspend fun deleteArticle(article: ArticleModel) = dispatchers.withContextIO {
+    override suspend fun deleteArticle(article: ArticleModel) = dispatchers.iO {
         newsDao.deleteArticle(mapper.mapFromEntity(article))
     }
 
-    override suspend fun deleteAllArticle() = dispatchers.withContextIO {
+    override suspend fun deleteAllArticle() = dispatchers.iO {
         newsDao.deleteAllArticle()
     }
 
     override fun getAllArticles(): Flow<List<ArticleModel>> {
         return newsDao.getAllArticles().map { newsResponseMapper.articleDbToArticleModel(it) }
     }
-
-//    override suspend fun saveDeleteArticleFavorite(article: ArticleModel): NewsState =
-//        dispatchers.withContextIO {
-//            val isFavorite = false
-//            firebaseAuth = FirebaseAuth.getInstance()
-//            if (firebaseAuth.currentUser != null) {
-//                if (isFavorite == sharedPreferences.getFavorite(mapper.mapFromEntity(article).url)) {
-//                    NewsState.ShowAsSaved(
-//                        insertArticle(article),
-//                        sharedPreferences.saveFavorite(mapper.mapFromEntity(article).url, true),
-//                        manageResources.string(R.string.СтатьяДобавлена),
-//                        R.drawable.ic_favorite
-//                    )
-//                } else {
-//                    NewsState.ShowUnSaved(
-//                        deleteArticle(article),
-//                        sharedPreferences.saveFavorite(mapper.mapFromEntity(article).url, false),
-//                        manageResources.string(R.string.СтатьяУдалена),
-//                        R.drawable.ic_favorite_border
-//                    )
-//                }
-//            } else {
-//                NewsState.Error(manageResources.string(R.string.ErrorRegistered))
-//            }
-//        }
 }

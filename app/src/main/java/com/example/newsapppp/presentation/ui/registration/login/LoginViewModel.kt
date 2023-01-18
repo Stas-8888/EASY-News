@@ -22,11 +22,31 @@ class LoginViewModel @Inject constructor(
     override val state = _state.asStateFlow()
 
     fun signInClicked(email: String, password: String, navigateTo: () -> Unit) = launchCoroutine {
-        login.signIn(email, password, navigateTo) {
-            launchCoroutine {
-                emitState(it)
+        if (validateEmail(email) == "successful" && validatePassword(password) == "successful") {
+            login.signIn(email, password).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    launchCoroutine {
+                        emitState(
+                            LoginState.Success(
+                                navigateTo(),
+                                R.string.successes_registered
+                            )
+                        )
+                    }
+                }
+            }.addOnFailureListener {
+                launchCoroutine {
+                    emitState(LoginState.Error(R.string.authentication_failed))
+                }
             }
+        } else {
+                emitState(LoginState.Error(R.string.wrong_email_password))
         }
+//        login.signIn(email, password, navigateTo) {
+//            launchCoroutine {
+//                emitState(it)
+//            }
+//        }
     }
 
     fun isValidEmail(data: String) = launchCoroutine {

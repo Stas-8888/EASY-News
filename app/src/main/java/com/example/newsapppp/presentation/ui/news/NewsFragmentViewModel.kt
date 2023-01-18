@@ -26,16 +26,16 @@ class NewsFragmentViewModel @Inject constructor(
 ) : BaseViewModel<NewsState>() {
 
     private var isFavorite = false
-    private val favoriteIconTrue = R.drawable.ic_favorite
-    private val favoriteIconFalse = R.drawable.ic_favorite_border
-    override val _state = MutableStateFlow<NewsState>(NewsState.HideFavoriteIcon(favoriteIconFalse))
+    private val favoritesIconSelected = R.drawable.ic_favorite
+    private val favoritesIconUnselected = R.drawable.ic_favorite_border
+    override val _state = MutableStateFlow<NewsState>(NewsState.HideFavoriteIcon(favoritesIconUnselected))
     override val state = _state.asStateFlow()
 
     fun checkFavoriteIcon(article: Article) = launchCoroutine {
         if (isFavorite != getFavoriteUseCase(article.url)) {
-            _state.emit(NewsState.ShowFavoriteIcon(favoriteIconTrue))
+            _state.emit(NewsState.ShowFavoriteIcon(favoritesIconSelected))
         } else {
-            _state.emit(NewsState.HideFavoriteIcon(favoriteIconFalse))
+            _state.emit(NewsState.HideFavoriteIcon(favoritesIconUnselected))
         }
     }
 
@@ -48,7 +48,7 @@ class NewsFragmentViewModel @Inject constructor(
                         insertArticleUseCase(articleMapperToModel.mapFromEntity(article)),
                         saveFavoriteUseCase.saveFavorite(article.url, true),
                         R.string.Add_Article,
-                        favoriteIconTrue
+                        favoritesIconSelected
                     )
                 )
             } else {
@@ -57,7 +57,7 @@ class NewsFragmentViewModel @Inject constructor(
                         deleteArticleUseCase(articleMapperToModel.mapFromEntity(article)),
                         saveFavoriteUseCase.saveFavorite(article.url, false),
                         R.string.Delete_Article,
-                        favoriteIconFalse
+                        favoritesIconUnselected
                     )
                 )
             }

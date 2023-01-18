@@ -53,6 +53,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <View
+        android:id="@+id/circleAnimeView"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:background="@drawable/circle"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/bt_favorite"
+        app:layout_constraintEnd_toEndOf="@id/bt_favorite"
+        app:layout_constraintStart_toStartOf="@id/bt_favorite"
+        app:layout_constraintTop_toTopOf="@id/bt_favorite" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/bt_favorite"
         android:layout_width="wrap_content"

@@ -5,7 +5,6 @@ import android.content.Context.MODE_PRIVATE
 import com.example.newsapppp.core.DispatchersList
 import com.example.newsapppp.domain.repository.SharedPrefRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 private const val SHARED_KEY_COUNTRY = "country"
@@ -19,7 +18,7 @@ class SharedPrefRepositoryImpl @Inject constructor(
 
     private val favoriteShared = context.getSharedPreferences("shared", MODE_PRIVATE)
 
-    override suspend fun saveCountryFlag(value: String) = dispatchers.withContextIO {
+    override suspend fun saveCountryFlag(value: String) = dispatchers.iO {
         favoriteShared.edit().putString(SHARED_KEY_COUNTRY, value).apply()
     }
 
@@ -27,7 +26,7 @@ class SharedPrefRepositoryImpl @Inject constructor(
         return favoriteShared.getString(SHARED_KEY_COUNTRY, "us") ?: "us"
     }
 
-    override suspend fun saveFavorite(key: String, value: Boolean) = dispatchers.withContextIO {
+    override suspend fun saveFavorite(key: String, value: Boolean) = dispatchers.iO {
         putBoolean(key, value)
     }
 
@@ -35,7 +34,7 @@ class SharedPrefRepositoryImpl @Inject constructor(
         return getBoolean(key)
     }
 
-    override suspend fun saveSwitchPosition(value: Boolean) = dispatchers.withContextIO {
+    override suspend fun saveSwitchPosition(value: Boolean) = dispatchers.iO {
         putBoolean(SHARED_KEY_SWITCH_POSITION, value)
     }
 

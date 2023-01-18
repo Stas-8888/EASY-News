@@ -7,7 +7,8 @@ import com.example.newsapppp.R
 import com.example.newsapppp.core.DispatchersList
 import com.example.newsapppp.core.ManageResources
 import com.example.newsapppp.domain.repository.RegistrationRepository
-import com.example.newsapppp.presentation.ui.registration.login.LoginState
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -22,26 +23,9 @@ class RegistrationRepositoryImpl @Inject constructor(
     override suspend fun login(
         email: String,
         password: String,
-        navigateTo: () -> Unit,
-        result: (LoginState) -> Unit
-    ) {
-        if (validateEmail(email) == "successful" && validatePassword(password) == "successful") {
-            firebaseAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        result.invoke(
-                            LoginState.Success(
-                                navigateTo(),
-                                R.string.successes_registered
-                            )
-                        )
-                    }
-                }.addOnFailureListener {
-                    result.invoke(LoginState.Error(R.string.authentication_failed))
-                }
-        } else {
-            result.invoke(LoginState.Error(R.string.wrong_email_password))
-        }
+    ): Task<AuthResult> = dispatchers.iO {
+
+        firebaseAuth.signInWithEmailAndPassword(email, password)
     }
 
     override suspend fun signup(

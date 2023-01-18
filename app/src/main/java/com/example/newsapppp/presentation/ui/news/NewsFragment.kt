@@ -4,17 +4,19 @@ import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.AnimationUtils
 import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentNewsBinding
 import com.example.newsapppp.presentation.ui.base.BaseFragment
-import com.example.newsapppp.presentation.utils.extensions.hideBottomNavigation
-import com.example.newsapppp.presentation.utils.extensions.invisible
-import com.example.newsapppp.presentation.utils.extensions.showAlertUpDialog
-import com.example.newsapppp.presentation.utils.extensions.snackBar
+import com.example.newsapppp.presentation.utils.extensions.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.delete_dialog3.view.*
 import kotlinx.android.synthetic.main.fragment_news.*
@@ -26,6 +28,11 @@ class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentVi
     private val args: NewsFragmentArgs by navArgs()
     override val viewModel by viewModels<NewsFragmentViewModel>()
     private val article by lazy { args.article }
+    private val anim by lazy {
+        AnimationUtils.loadAnimation(requireContext(), R.anim.fab_explode).apply {
+            interpolator = AccelerateDecelerateInterpolator()
+        }
+    }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,7 +56,16 @@ class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentVi
 
     private fun setupOnClickListeners() = with(binding) {
         btFavorite.setOnClickListener {
-            viewModel.onFavoriteIconClicked(article)
+            binding.btFavorite.invisible()
+            binding.circleAnimeView.visible()
+            binding.circleAnimeView.startAnim(
+                anim,
+                onEnd = {
+                    binding.circleAnimeView.visible()
+                    viewModel.onFavoriteIconClicked(article)
+                    binding.btFavorite.visible()
+                }
+            )
         }
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
