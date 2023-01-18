@@ -72,7 +72,7 @@
         android:layout_marginBottom="32dp"
         android:contentDescription="Favorite Button"
         android:src="@drawable/ic_favorite_border"
-        app:backgroundTint="@color/colorRed"
+        app:backgroundTint="@color/colorRedBackground"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
