@@ -69,7 +69,7 @@ fun Fragment.showSnackbar(view: View, message: String, isError: Boolean = false,
 fun Fragment.snackBar(view: View, title: Int){
     Snackbar.make(view,title, 1500)
         .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
-        .setBackgroundTint(Color.parseColor("#E30105"))
+        .setBackgroundTint(loadColor(R.color.colorRedBackground))
         .setTextColor(Color.WHITE)
         .show()
 }
@@ -104,7 +104,7 @@ fun Fragment.showAlertUpDialog(title:Int) {
         Alerter.create(it)
             .setTitle(title)
             .setIcon(R.drawable.ic_breaking_news)
-            .setBackgroundColorRes(R.color.colorRed)
+            .setBackgroundColorRes(R.color.colorRedBackground)
             .show()
     }
 }

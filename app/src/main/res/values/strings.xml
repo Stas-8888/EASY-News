@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NewsApp</string>
+    <string name="app_name">EASY News</string>
     <string name="American_News">Амереканские Новости</string>
     <string name="Russia_News">Русские Новости</string>
     <string name="Germany_News">Немецкие Новости</string>
@@ -41,6 +41,7 @@
 
 
     <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
     <string name="no_acc">Don’t have any account?</string>
     <string name="no_account">Sign Up here</string>
     <string name="forgot_password">Forgot Password?</string>
@@ -54,6 +55,7 @@
     <string name="InvalidEmail">Invalid Email Address</string>
     <string name="email">Email</string>
     <string name="required">required</string>
+    <string name="Sign">Sign In to account.</string>
 
     <!-- Error Strings -->
     <string name="error_check_internet_connection">Check Internet Connection</string>
@@ -63,4 +65,8 @@
     <string name="successes_registered">Successes Registered</string>
     <string name="authentication_failed">Authentication failed, Check email and password</string>
     <string name="wrong_email_password">Wrong Email or Password</string>
+    <string name="title_title">Glad to see you. Check our news, it\'s easy to do</string>
+    <string name="skip">Skip</string>
+    <string name="sign_up_here">If you have an account? Sign In here</string>
+    <string name="create_account">Create Account.</string>
 </resources>
