@@ -1,6 +1,7 @@
 package com.example.newsapppp.presentation.ui.settings
 
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.preference.Preference
 import com.example.newsapppp.R
 import com.example.newsapppp.presentation.utils.extensions.launchCoroutine
 import com.example.newsapppp.domain.interactors.preference.GetCountryFlagUseCase
@@ -38,7 +39,7 @@ class SettingsFragmentViewModel @Inject constructor(
         if (enabled) {
             saveNightModeState(enabled = false, state = AppCompatDelegate.MODE_NIGHT_YES)
         } else {
-            saveNightModeState(enabled = true, state = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            saveNightModeState(enabled = true, state = AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
 

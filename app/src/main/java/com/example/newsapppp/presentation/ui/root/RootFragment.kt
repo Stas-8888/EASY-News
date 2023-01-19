@@ -86,4 +86,5 @@ class RootFragment : BaseFragment<LoginState, FragmentRootBinding, LoginViewMode
 
         WorkManager.getInstance(requireContext()).enqueue(myWorkRequest)
     }
+
 }

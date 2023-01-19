@@ -69,4 +69,6 @@
     <string name="skip">Skip</string>
     <string name="sign_up_here">If you have an account? Sign In here</string>
     <string name="create_account">Create Account.</string>
+    <string name="exceptions">Exceptions</string>
+    <string name="no_internet_connections">No Internet connections</string>
 </resources>

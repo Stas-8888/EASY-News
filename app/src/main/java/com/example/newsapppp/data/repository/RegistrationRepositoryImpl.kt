@@ -24,7 +24,6 @@ class RegistrationRepositoryImpl @Inject constructor(
         email: String,
         password: String,
     ): Task<AuthResult> = dispatchers.iO {
-
         firebaseAuth.signInWithEmailAndPassword(email, password)
     }
 
