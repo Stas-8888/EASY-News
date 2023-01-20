@@ -21,15 +21,19 @@ class FirebaseRepository @Inject constructor(
         result: (FirebaseState<String>) -> Unit
     ) {
         dispatchers.io {
-            firebaseAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        result.invoke(FirebaseState.Success("Login successfully!"))
-                        result.invoke(FirebaseState.Navigate(R.id.mainFragment))
+            if (email.isEmpty() && password.isEmpty()) {
+                result.invoke(FirebaseState.Failure("Email or Password is empty"))
+            } else {
+                firebaseAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            result.invoke(FirebaseState.Success("Login successfully!"))
+                            result.invoke(FirebaseState.Navigate(R.id.mainFragment))
+                        }
+                    }.addOnFailureListener {
+                        result.invoke(FirebaseState.Failure("Authentication failed, Check email and password"))
                     }
-                }.addOnFailureListener {
-                    result.invoke(FirebaseState.Failure("Authentication failed, Check email and password"))
-                }
+            }
         }
     }
 
@@ -40,28 +44,32 @@ class FirebaseRepository @Inject constructor(
         result: (FirebaseState<String>) -> Unit
     ) {
         dispatchers.io {
-            firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        result.invoke(FirebaseState.Success("User register successfully!"))
-                        result.invoke(FirebaseState.Navigate(R.id.loginFragment))
-                    } else {
-                        try {
-                            throw it.exception ?: java.lang.Exception("Invalid authentication")
-                        } catch (e: FirebaseAuthWeakPasswordException) {
-                            result.invoke(FirebaseState.Failure("Authentication failed, Password should be at least 6 characters"))
-                        } catch (e: FirebaseAuthInvalidCredentialsException) {
-                            result.invoke(FirebaseState.Failure("Authentication failed, Invalid email entered"))
-                        } catch (e: FirebaseAuthUserCollisionException) {
-                            result.invoke(FirebaseState.Failure("Authentication failed, Email already registered."))
-                        } catch (e: Exception) {
-                            result.invoke(FirebaseState.Failure(e.message))
+            if (email.isEmpty() && password.isEmpty()) {
+                result.invoke(FirebaseState.Failure("Email or Password is empty"))
+            } else {
+                firebaseAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            result.invoke(FirebaseState.Success("User register successfully!"))
+                            result.invoke(FirebaseState.Navigate(R.id.loginFragment))
+                        } else {
+                            try {
+                                throw it.exception ?: java.lang.Exception("Invalid authentication")
+                            } catch (e: FirebaseAuthWeakPasswordException) {
+                                result.invoke(FirebaseState.Failure("Authentication failed, Password should be at least 6 characters"))
+                            } catch (e: FirebaseAuthInvalidCredentialsException) {
+                                result.invoke(FirebaseState.Failure("Authentication failed, Invalid email entered"))
+                            } catch (e: FirebaseAuthUserCollisionException) {
+                                result.invoke(FirebaseState.Failure("Authentication failed, Email already registered."))
+                            } catch (e: Exception) {
+                                result.invoke(FirebaseState.Failure(e.message))
+                            }
                         }
                     }
-                }
-                .addOnFailureListener {
-                    result.invoke(FirebaseState.Failure(it.localizedMessage))
-                }
+                    .addOnFailureListener {
+                        result.invoke(FirebaseState.Failure(it.localizedMessage))
+                    }
+            }
         }
     }
 
