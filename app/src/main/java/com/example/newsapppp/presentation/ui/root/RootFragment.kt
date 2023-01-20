@@ -28,7 +28,20 @@ class RootFragment : BaseFragment<RootState, FragmentRootBinding, RootViewModel>
     }
 
     override fun renderState(state: RootState) {
-
+        when (state) {
+            is RootState.Loading -> {}
+            is RootState.Error -> {}
+            is RootState.Navigation -> {
+                binding.bottomNavigationView.setOnItemSelectedListener {
+                    when (it.itemId) {
+                        R.id.mainFragment -> navigate(state.mainFragment)
+                        R.id.saveFragment -> navigate(state.saveFragment)
+                        R.id.searchFragment -> navigate(state.searchFragment)
+                    }
+                    true
+                }
+            }
+        }
     }
 
     private fun myPeriodicWork() {
