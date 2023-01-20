@@ -1,8 +1,8 @@
-package com.example.newsapppp.domain.interactors.registration
+package com.example.newsapppp.domain.interactors.firebase
 
-import com.example.newsapppp.domain.repository.RegistrationRepository
+import com.example.newsapppp.domain.repository.FirebaseRepositoryContract
 
-class SignUpUseCase(val repo: RegistrationRepository) {
+class SignUpUseCase(val repo: FirebaseRepositoryContract) {
 
     suspend fun signUp(
         user: String,

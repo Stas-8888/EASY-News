@@ -1,6 +1,6 @@
 package com.example.newsapppp.domain.repository
 
-interface SharedPrefRepository {
+interface SharedPrefRepositoryContract {
 
     suspend fun saveFavorite(key: String, value: Boolean)
 

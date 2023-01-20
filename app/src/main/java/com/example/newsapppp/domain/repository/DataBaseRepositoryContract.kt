@@ -3,7 +3,7 @@ package com.example.newsapppp.domain.repository
 import com.example.newsapppp.domain.model.ArticleModel
 import kotlinx.coroutines.flow.Flow
 
-interface DbRepository {
+interface DataBaseRepositoryContract {
 
     suspend fun insertArticle(article: ArticleModel)
 
@@ -13,5 +13,4 @@ interface DbRepository {
 
     fun getAllArticles(): Flow<List<ArticleModel>>
 
-//    suspend fun saveDeleteArticleFavorite(article: ArticleModel)
 }

@@ -3,14 +3,14 @@ package com.example.newsapppp.di
 import com.example.newsapppp.core.Base
 import com.example.newsapppp.core.DispatchersList
 import com.example.newsapppp.core.ManageResources
-import com.example.newsapppp.data.repository.ArticleRepositoryImpl
-import com.example.newsapppp.data.repository.DbRepositoryImpl
-import com.example.newsapppp.data.repository.RegistrationRepositoryImpl
-import com.example.newsapppp.data.repository.SharedPrefRepositoryImpl
-import com.example.newsapppp.domain.repository.ArticleRepository
-import com.example.newsapppp.domain.repository.DbRepository
-import com.example.newsapppp.domain.repository.RegistrationRepository
-import com.example.newsapppp.domain.repository.SharedPrefRepository
+import com.example.newsapppp.data.repository.ArticleRepository
+import com.example.newsapppp.data.repository.DataBaseRepository
+import com.example.newsapppp.data.repository.FirbaseRepository
+import com.example.newsapppp.data.repository.SharedPrefRepository
+import com.example.newsapppp.domain.repository.ArticleRepositoryContract
+import com.example.newsapppp.domain.repository.DataBaseRepositoryContract
+import com.example.newsapppp.domain.repository.FirebaseRepositoryContract
+import com.example.newsapppp.domain.repository.SharedPrefRepositoryContract
 import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
@@ -35,17 +35,17 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun providesAuthRepository(impl: RegistrationRepositoryImpl): RegistrationRepository = impl
+    fun providesAuthRepository(impl: FirbaseRepository): FirebaseRepositoryContract = impl
 
     @Provides
     @Singleton
-    fun provideArticleRepository(impl: ArticleRepositoryImpl): ArticleRepository = impl
+    fun provideArticleRepository(impl: ArticleRepository): ArticleRepositoryContract = impl
 
     @Provides
     @Singleton
-    fun provideDbRepository(impl: DbRepositoryImpl): DbRepository = impl
+    fun provideDbRepository(impl: DataBaseRepository): DataBaseRepositoryContract = impl
 
     @Provides
     @Singleton
-    fun provideSharedPrefRepository(impl: SharedPrefRepositoryImpl): SharedPrefRepository = impl
+    fun provideSharedPrefRepository(impl: SharedPrefRepository): SharedPrefRepositoryContract = impl
 }

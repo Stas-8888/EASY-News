@@ -6,25 +6,34 @@ import android.widget.Toast
 import com.example.newsapppp.R
 import com.example.newsapppp.core.DispatchersList
 import com.example.newsapppp.core.ManageResources
-import com.example.newsapppp.domain.repository.RegistrationRepository
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
+import com.example.newsapppp.core.FirebaseState
+import com.example.newsapppp.domain.repository.FirebaseRepositoryContract
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class RegistrationRepositoryImpl @Inject constructor(
+class FirbaseRepository @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val manageResources: ManageResources,
     private val dispatchers: DispatchersList,
     @ApplicationContext var context: Context
-) : RegistrationRepository {
+) : FirebaseRepositoryContract {
 
     override suspend fun login(
         email: String,
         password: String,
-    ): Task<AuthResult> = dispatchers.iO {
-        firebaseAuth.signInWithEmailAndPassword(email, password)
+        result: (FirebaseState<String>) -> Unit
+    ) {
+        dispatchers.io {
+            firebaseAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        result.invoke(FirebaseState.Success("Login successfully!"))
+                    }
+                }.addOnFailureListener {
+                    result.invoke(FirebaseState.Failure("Authentication failed, Check email and password"))
+                }
+        }
     }
 
     override suspend fun signup(

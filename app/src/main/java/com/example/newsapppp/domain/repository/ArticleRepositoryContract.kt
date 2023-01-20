@@ -2,7 +2,7 @@ package com.example.newsapppp.domain.repository
 
 import com.example.newsapppp.domain.model.NewsResponseModel
 
-interface ArticleRepository {
+interface ArticleRepositoryContract {
 
     suspend fun getNews(category: String): NewsResponseModel
 

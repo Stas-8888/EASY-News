@@ -1,9 +1,9 @@
 package com.example.newsapppp.domain.interactors.preference
 
 import com.example.newsapppp.domain.repository.BaseUseCaseSuspend
-import com.example.newsapppp.domain.repository.SharedPrefRepository
+import com.example.newsapppp.domain.repository.SharedPrefRepositoryContract
 
-class GetFavoriteUseCase(private val repo: SharedPrefRepository) :
+class GetFavoriteUseCase(private val repo: SharedPrefRepositoryContract) :
     BaseUseCaseSuspend<String, Boolean> {
 
     override suspend fun invoke(data: String): Boolean {

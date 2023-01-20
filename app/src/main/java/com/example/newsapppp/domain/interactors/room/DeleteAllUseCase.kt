@@ -1,9 +1,9 @@
 package com.example.newsapppp.domain.interactors.room
 
 import com.example.newsapppp.domain.repository.BaseUseCaseSuspend
-import com.example.newsapppp.domain.repository.DbRepository
+import com.example.newsapppp.domain.repository.DataBaseRepositoryContract
 
-class DeleteAllUseCase(private val repo: DbRepository) :
+class DeleteAllUseCase(private val repo: DataBaseRepositoryContract) :
     BaseUseCaseSuspend<Unit, Unit> {
 
     override suspend fun invoke(data: Unit) {

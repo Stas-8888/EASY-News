@@ -3,7 +3,7 @@ package com.example.newsapppp.data.repository
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import com.example.newsapppp.core.DispatchersList
-import com.example.newsapppp.domain.repository.SharedPrefRepository
+import com.example.newsapppp.domain.repository.SharedPrefRepositoryContract
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -11,14 +11,14 @@ private const val SHARED_KEY_COUNTRY = "country"
 private const val SHARED_KEY_SWITCH_POSITION = "switch"
 private const val DEFAULT_BOOLEAN = false
 
-class SharedPrefRepositoryImpl @Inject constructor(
+class SharedPrefRepository @Inject constructor(
     @ApplicationContext var context: Context,
     private val dispatchers: DispatchersList
-) : SharedPrefRepository {
+) : SharedPrefRepositoryContract {
 
     private val favoriteShared = context.getSharedPreferences("shared", MODE_PRIVATE)
 
-    override suspend fun saveCountryFlag(value: String) = dispatchers.iO {
+    override suspend fun saveCountryFlag(value: String) = dispatchers.io {
         favoriteShared.edit().putString(SHARED_KEY_COUNTRY, value).apply()
     }
 
@@ -26,7 +26,7 @@ class SharedPrefRepositoryImpl @Inject constructor(
         return favoriteShared.getString(SHARED_KEY_COUNTRY, "us") ?: "us"
     }
 
-    override suspend fun saveFavorite(key: String, value: Boolean) = dispatchers.iO {
+    override suspend fun saveFavorite(key: String, value: Boolean) = dispatchers.io {
         putBoolean(key, value)
     }
 
@@ -34,7 +34,7 @@ class SharedPrefRepositoryImpl @Inject constructor(
         return getBoolean(key)
     }
 
-    override suspend fun saveSwitchPosition(value: Boolean) = dispatchers.iO {
+    override suspend fun saveSwitchPosition(value: Boolean) = dispatchers.io {
         putBoolean(SHARED_KEY_SWITCH_POSITION, value)
     }
 

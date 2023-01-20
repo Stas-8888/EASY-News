@@ -1,4 +1,4 @@
-package com.example.newsapppp.domain.interactors.registration
+package com.example.newsapppp.domain.interactors.firebase
 
 data class ValidationResult(
     val successful: Boolean,

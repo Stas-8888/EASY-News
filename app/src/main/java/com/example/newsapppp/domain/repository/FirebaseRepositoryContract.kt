@@ -1,14 +1,14 @@
 package com.example.newsapppp.domain.repository
 
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
+import com.example.newsapppp.core.FirebaseState
 
-interface RegistrationRepository {
+interface FirebaseRepositoryContract {
 
     suspend fun login(
         email: String,
-        password: String
-    ): Task<AuthResult>
+        password: String,
+        result: (FirebaseState<String>) -> Unit
+    )
 
     suspend fun signup(
         user: String,

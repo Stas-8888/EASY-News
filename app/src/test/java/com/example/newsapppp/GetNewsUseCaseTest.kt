@@ -1,20 +1,20 @@
 package com.example.newsapppp
 
 import com.example.newsapppp.domain.interactors.retrofit.GetNewsUseCase
-import com.example.newsapppp.domain.repository.ArticleRepository
+import com.example.newsapppp.domain.repository.ArticleRepositoryContract
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.mockito.kotlin.mock
 
 class GetNewsUseCaseTest{
-    private val articleRepository = mock<ArticleRepository>()
+    private val articleRepositoryContract = mock<ArticleRepositoryContract>()
 
     @Test
     fun shouldReturnCorrectData() = runBlocking {
-        val getNewsUseCase = GetNewsUseCase(articleRepository)
+        val getNewsUseCase = GetNewsUseCase(articleRepositoryContract)
         val actual = getNewsUseCase.getNews("s","s")
-        val expected = articleRepository.getNews("s","s")
+        val expected = articleRepositoryContract.getNews("s","s")
 
         assertEquals(expected, actual)
     }

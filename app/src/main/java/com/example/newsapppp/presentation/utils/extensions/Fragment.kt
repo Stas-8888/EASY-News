@@ -26,7 +26,8 @@ internal fun Fragment.showNoActionOkDialog(title: Int, content: CharSequence?) {
     MaterialAlertDialogBuilder(requireContext())
         .setTitle(title)
         .setMessage(content)
-        .setPositiveButton(R.string.Cansel) { dialog, _ -> dialog.dismiss()
+        .setPositiveButton(R.string.Cansel) { dialog, _ ->
+            dialog.dismiss()
         }.show()
 }
 
@@ -42,15 +43,20 @@ fun Fragment.loadColor(@ColorRes colorRes: Int): Int {
     return ContextCompat.getColor(requireContext(), colorRes)
 }
 
-fun Fragment.showBottomNavigation(){
+fun Fragment.showBottomNavigation() {
     (requireParentFragment().parentFragment as RootFragment).bottomNavigationView?.visible()
 }
 
-fun Fragment.hideBottomNavigation(){
+fun Fragment.hideBottomNavigation() {
     (requireParentFragment().parentFragment as RootFragment).bottomNavigationView?.invisible()
 }
 
-fun Fragment.showSnackbar(view: View, message: String, isError: Boolean = false, action: () -> Unit = {}) {
+fun Fragment.showSnackbar(
+    view: View,
+    message: String,
+    isError: Boolean = false,
+    action: () -> Unit = {}
+) {
     val sb = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
     if (isError)
         sb.setBackgroundTint(loadColor(R.color.colorRed))
@@ -66,8 +72,16 @@ fun Fragment.showSnackbar(view: View, message: String, isError: Boolean = false,
             }.show()
 }
 
-fun Fragment.snackBar(view: View, title: Int){
-    Snackbar.make(view,title, 1500)
+fun Fragment.snackBar(view: View, title: Int) {
+    Snackbar.make(view, title, 1500)
+        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
+        .setBackgroundTint(loadColor(R.color.colorRedBackground))
+        .setTextColor(Color.WHITE)
+        .show()
+}
+
+fun Fragment.showSnackBarString(view: View, title: String) {
+    Snackbar.make(view, title, 1500)
         .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
         .setBackgroundTint(loadColor(R.color.colorRedBackground))
         .setTextColor(Color.WHITE)
@@ -99,7 +113,7 @@ fun Fragment.showDeleteDialog(onSuccess: () -> Unit, noteSuccess: () -> Unit) {
     }
 }
 
-fun Fragment.showAlertUpDialog(title:Int) {
+fun Fragment.showAlertUpDialog(title: Int) {
     activity?.let {
         Alerter.create(it)
             .setTitle(title)

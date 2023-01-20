@@ -1,8 +1,8 @@
-package com.example.newsapppp.domain.interactors.registration
+package com.example.newsapppp.domain.interactors.firebase
 
-import com.example.newsapppp.domain.repository.RegistrationRepository
+import com.example.newsapppp.domain.repository.FirebaseRepositoryContract
 
-class ValidateRepeatedPasswordUseCase(val repo: RegistrationRepository) {
+class ValidateRepeatedPasswordUseCase(val repo: FirebaseRepositoryContract) {
 
     fun validateRepeatedPassword(password: String, repeatedPassword: String): String {
         return repo.validateRepeatedPassword(password, repeatedPassword)

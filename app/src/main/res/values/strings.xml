@@ -71,4 +71,5 @@
     <string name="create_account">Create Account.</string>
     <string name="exceptions">Exceptions</string>
     <string name="no_internet_connections">No Internet connections</string>
+    <string name="empty_email">Empty email address</string>
 </resources>

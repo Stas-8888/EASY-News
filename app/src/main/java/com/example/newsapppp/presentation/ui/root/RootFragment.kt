@@ -8,47 +8,27 @@ import androidx.work.*
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentRootBinding
 import com.example.newsapppp.presentation.ui.base.BaseFragment
-import com.example.newsapppp.presentation.ui.registration.login.LoginState
-import com.example.newsapppp.presentation.ui.registration.login.LoginViewModel
 import com.example.newsapppp.presentation.utils.MyWorker
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
-class RootFragment : BaseFragment<LoginState, FragmentRootBinding, LoginViewModel>(
+class RootFragment : BaseFragment<RootState, FragmentRootBinding, RootViewModel>(
     FragmentRootBinding::inflate
 ) {
-    override val viewModel by viewModels<LoginViewModel>()
+    override val viewModel by viewModels<RootViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setBottomNavListener()
         myPeriodicWork()
-    }
-
-    private fun setBottomNavListener() {
-        binding.bottomNavigationView.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.mainFragment -> navigate(R.id.mainFragment)
-                R.id.saveFragment -> navigate(R.id.saveFragment)
-                R.id.searchFragment -> navigate(R.id.searchFragment)
-            }
-            true
-        }
     }
 
     private fun navigate(fragment: Int) {
         binding.navFragment.findNavController().navigate(fragment)
     }
 
-    override fun renderState(state: LoginState) {
-        when (state) {
-            is LoginState.Loading -> {}
-            is LoginState.Success -> {}
-            is LoginState.CheckEmail -> {}
-            is LoginState.CheckPassword -> {}
-            is LoginState.Error -> {}
-        }
+    override fun renderState(state: RootState) {
+
     }
 
     private fun myPeriodicWork() {
