@@ -1,6 +1,6 @@
 package com.example.newsapppp.data.repository
 
-import com.example.newsapppp.core.DispatchersList
+import com.example.newsapppp.core.Dispatchers
 import com.example.newsapppp.data.db.NewsDao
 import com.example.newsapppp.data.mapper.ArticleMapper
 import com.example.newsapppp.data.mapper.NewsResponseMapper
@@ -14,7 +14,7 @@ class DataBaseRepository @Inject constructor(
     private val newsDao: NewsDao,
     private val mapper: ArticleMapper,
     private val newsResponseMapper: NewsResponseMapper,
-    private val dispatchers: DispatchersList
+    private val dispatchers: Dispatchers
 ) : DataBaseRepositoryContract {
 
     override suspend fun insertArticle(article: ArticleModel) = dispatchers.io {

@@ -1,6 +1,6 @@
 package com.example.newsapppp.data.repository
 
-import com.example.newsapppp.core.DispatchersList
+import com.example.newsapppp.core.Dispatchers
 import com.example.newsapppp.data.mapper.NewsResponseMapper
 import com.example.newsapppp.data.network.ApiService
 import com.example.newsapppp.domain.model.NewsResponseModel
@@ -11,7 +11,7 @@ class ArticleRepository @Inject constructor(
     private val apiService: ApiService,
     private val newsResponseMapper: NewsResponseMapper,
     private val sharedPref: SharedPrefRepository,
-    private val dispatchers: DispatchersList
+    private val dispatchers: Dispatchers
 ) : ArticleRepositoryContract {
 
     override suspend fun getNews(category: String): NewsResponseModel =

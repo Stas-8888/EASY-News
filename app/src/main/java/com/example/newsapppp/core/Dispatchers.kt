@@ -5,12 +5,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-interface DispatchersList {
+interface Dispatchers {
 
     suspend fun <T> io(block: suspend CoroutineScope.() -> T): T
 }
 
-class Base @Inject constructor() : DispatchersList {
+class Base @Inject constructor() : com.example.newsapppp.core.Dispatchers {
 
     override suspend fun <T> io(block: suspend CoroutineScope.() -> T): T =
         withContext(Dispatchers.IO, block)

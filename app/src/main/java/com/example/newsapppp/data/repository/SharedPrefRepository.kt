@@ -2,7 +2,7 @@ package com.example.newsapppp.data.repository
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
-import com.example.newsapppp.core.DispatchersList
+import com.example.newsapppp.core.Dispatchers
 import com.example.newsapppp.domain.repository.SharedPrefRepositoryContract
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -13,7 +13,7 @@ private const val DEFAULT_BOOLEAN = false
 
 class SharedPrefRepository @Inject constructor(
     @ApplicationContext var context: Context,
-    private val dispatchers: DispatchersList
+    private val dispatchers: Dispatchers
 ) : SharedPrefRepositoryContract {
 
     private val favoriteShared = context.getSharedPreferences("shared", MODE_PRIVATE)

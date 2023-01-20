@@ -29,14 +29,14 @@ class SignInFragment : BaseFragment<FirebaseState<String>, FragmentLoginBinding,
         loginSignup.setOnClickListener {
             navigateTo(R.id.signUpFragment)
         }
-        loginUsername.listenChanges {
+        loginUsername.changesListener {
             viewModel.isValidEmail(emailText())
         }
-        loginPassword.listenChanges {
+        loginPassword.changesListener {
             viewModel.isValidPassword(passwordText())
         }
         btLogin.setOnClickListener {
-            viewModel.signInClicked(
+            viewModel.onSignInClicked(
                 emailText(),
                 passwordText()
             )

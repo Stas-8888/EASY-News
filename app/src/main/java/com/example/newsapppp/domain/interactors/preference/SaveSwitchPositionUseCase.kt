@@ -2,8 +2,9 @@ package com.example.newsapppp.domain.interactors.preference
 
 import com.example.newsapppp.domain.repository.BaseUseCaseSuspend
 import com.example.newsapppp.domain.repository.SharedPrefRepositoryContract
+import javax.inject.Inject
 
-class SaveSwitchPositionUseCase(private val repo: SharedPrefRepositoryContract) :
+class SaveSwitchPositionUseCase @Inject constructor(private val repo: SharedPrefRepositoryContract) :
     BaseUseCaseSuspend<Boolean, Unit> {
 
     override suspend fun invoke(data: Boolean) {

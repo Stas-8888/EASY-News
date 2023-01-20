@@ -2,8 +2,8 @@ package com.example.newsapppp.presentation.ui.registration.signin
 
 import com.example.newsapppp.core.FirebaseState
 import com.example.newsapppp.domain.interactors.firebase.SignInUseCase
-import com.example.newsapppp.domain.interactors.firebase.ValidateEmailUseCase
-import com.example.newsapppp.domain.interactors.firebase.ValidatePasswordUseCase
+import com.example.newsapppp.domain.interactors.firebase.validation.ValidateEmailUseCase
+import com.example.newsapppp.domain.interactors.firebase.validation.ValidatePasswordUseCase
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import com.example.newsapppp.presentation.utils.extensions.launchCoroutine
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +21,7 @@ class SignInViewModel @Inject constructor(
     override val _state = MutableStateFlow<FirebaseState<String>>(FirebaseState.Loading)
     override val state = _state.asStateFlow()
 
-    fun signInClicked(email: String, password: String) = launchCoroutine {
+    fun onSignInClicked(email: String, password: String) = launchCoroutine {
         signIn.signIn(email, password) {
             launchCoroutine {
                 emitState(it)

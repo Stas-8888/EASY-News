@@ -1,12 +1,14 @@
 package com.example.newsapppp.di
 
 import com.example.newsapppp.core.Base
-import com.example.newsapppp.core.DispatchersList
+import com.example.newsapppp.core.Dispatchers
 import com.example.newsapppp.core.ManageResources
 import com.example.newsapppp.data.repository.ArticleRepository
 import com.example.newsapppp.data.repository.DataBaseRepository
 import com.example.newsapppp.data.repository.FirebaseRepository
 import com.example.newsapppp.data.repository.SharedPrefRepository
+import com.example.newsapppp.domain.interactors.firebase.validation.ValidationRepository
+import com.example.newsapppp.domain.interactors.firebase.validation.ValidationRepositoryContract
 import com.example.newsapppp.domain.repository.ArticleRepositoryContract
 import com.example.newsapppp.domain.repository.DataBaseRepositoryContract
 import com.example.newsapppp.domain.repository.FirebaseRepositoryContract
@@ -27,11 +29,16 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun providesDispatchersList(impl: Base): DispatchersList = impl
+    fun providesDispatchersList(impl: Base): Dispatchers = impl
 
     @Provides
     @Singleton
     fun provideFirebaseAuth() = FirebaseAuth.getInstance()
+
+    @Provides
+    @Singleton
+    fun providesValidationRepository(impl: ValidationRepository): ValidationRepositoryContract =
+        impl
 
     @Provides
     @Singleton

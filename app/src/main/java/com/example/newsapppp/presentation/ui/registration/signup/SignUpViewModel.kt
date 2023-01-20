@@ -2,6 +2,10 @@ package com.example.newsapppp.presentation.ui.registration.signup
 
 import com.example.newsapppp.core.FirebaseState
 import com.example.newsapppp.domain.interactors.firebase.*
+import com.example.newsapppp.domain.interactors.firebase.validation.FullNameUseCase
+import com.example.newsapppp.domain.interactors.firebase.validation.ValidateEmailUseCase
+import com.example.newsapppp.domain.interactors.firebase.validation.ValidatePasswordUseCase
+import com.example.newsapppp.domain.interactors.firebase.validation.ValidateRepeatedPasswordUseCase
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import com.example.newsapppp.presentation.utils.extensions.launchCoroutine
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +25,7 @@ class SignUpViewModel @Inject constructor(
     override val _state = MutableStateFlow<FirebaseState<String>>(FirebaseState.Loading)
     override val state = _state.asStateFlow()
 
-    fun isValidate(
+    fun checkValidationFields(
         name: String,
         email: String,
         password: String,
@@ -37,11 +41,10 @@ class SignUpViewModel @Inject constructor(
         )
     }
 
-    fun signUpUser(
+    fun onSignUpClick(
         name: String,
         email: String,
         password: String,
-        repeatedPassword: String
     ) = launchCoroutine {
         signUpUseCase.signUp(name, email, password) {
             launchCoroutine {

@@ -2,8 +2,9 @@ package com.example.newsapppp.domain.interactors.room
 
 import com.example.newsapppp.domain.repository.BaseUseCaseSuspend
 import com.example.newsapppp.domain.repository.DataBaseRepositoryContract
+import javax.inject.Inject
 
-class DeleteAllUseCase(private val repo: DataBaseRepositoryContract) :
+class DeleteAllUseCase @Inject constructor(private val repo: DataBaseRepositoryContract) :
     BaseUseCaseSuspend<Unit, Unit> {
 
     override suspend fun invoke(data: Unit) {

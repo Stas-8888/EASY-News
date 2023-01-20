@@ -7,8 +7,8 @@ import com.example.newsapppp.R
 import com.example.newsapppp.core.FirebaseState
 import com.example.newsapppp.databinding.FragmentSignUpBinding
 import com.example.newsapppp.presentation.ui.base.BaseFragment
+import com.example.newsapppp.presentation.utils.extensions.changesListener
 import com.example.newsapppp.presentation.utils.extensions.hideBottomNavigation
-import com.example.newsapppp.presentation.utils.extensions.listenChanges
 import com.example.newsapppp.presentation.utils.extensions.navigateTo
 import com.example.newsapppp.presentation.utils.extensions.showSnackBarString
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,24 +27,23 @@ class SignUpFragment : BaseFragment<FirebaseState<String>, FragmentSignUpBinding
 
     private fun setupOnClickListeners() = with(binding) {
         registerButton.setOnClickListener {
-            viewModel.signUpUser(
+            viewModel.onSignUpClick(
                 fullNameText(),
                 emailText(),
                 passwordText(),
-                repeatPasswordText(),
             )
         }
 
-        fullName.listenChanges {
+        fullName.changesListener {
             isValid()
         }
-        email.listenChanges {
+        email.changesListener {
             isValid()
         }
-        edPassword.listenChanges {
+        edPassword.changesListener {
             isValid()
         }
-        confirmPassword.listenChanges {
+        confirmPassword.changesListener {
             isValid()
         }
         registerSignin.setOnClickListener {
@@ -53,7 +52,12 @@ class SignUpFragment : BaseFragment<FirebaseState<String>, FragmentSignUpBinding
     }
 
     private fun isValid() {
-        viewModel.isValidate(fullNameText(), emailText(), passwordText(), repeatPasswordText())
+        viewModel.checkValidationFields(
+            fullNameText(),
+            emailText(),
+            passwordText(),
+            repeatPasswordText()
+        )
     }
 
     private fun fullNameText(): String {
