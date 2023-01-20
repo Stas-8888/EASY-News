@@ -13,7 +13,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class SplashFragment : BaseFragment<SplashState, FragmentSplashBinding, SplashViewModel>(
     FragmentSplashBinding::inflate
 ) {
-
     override val viewModel by viewModels<SplashViewModel>()
 
     override fun setupUi() = with(binding) {

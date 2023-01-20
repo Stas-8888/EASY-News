@@ -34,20 +34,20 @@ class SettingsFragmentViewModel @Inject constructor(
         return getCountryFlagUseCase(Unit)
     }
 
-    fun saveChangeNightMode(enabled: Boolean) = launchCoroutine {
+    fun saveDayNightState(enabled: Boolean) = launchCoroutine {
         if (enabled) {
-            saveNightModeState(enabled = false, state = AppCompatDelegate.MODE_NIGHT_YES)
+            setDefaultNightMode(enabled = false, state = AppCompatDelegate.MODE_NIGHT_YES)
         } else {
-            saveNightModeState(enabled = true, state = AppCompatDelegate.MODE_NIGHT_NO)
+            setDefaultNightMode(enabled = true, state = AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
 
-    private suspend fun saveNightModeState(enabled: Boolean, state: Int) {
+    private suspend fun setDefaultNightMode(enabled: Boolean, state: Int) {
         saveSwitchPositionUseCase(enabled)
         AppCompatDelegate.setDefaultNightMode(state)
     }
 
-    fun isSwitchDayNight() = launchCoroutine {
+    fun onSwitchDayNightClick() = launchCoroutine {
         if (getSwitchPositionUseCase(Unit)) {
             emitState(SettingsState.IsSwitch(false))
         } else {
@@ -65,9 +65,9 @@ class SettingsFragmentViewModel @Inject constructor(
         firebaseAuth = FirebaseAuth.getInstance()
         if (firebaseAuth.currentUser != null) {
             emitState(SettingsState.Account(
-                    "Successful Sign Out",
-                    true
-                ) { firebaseAuth.signOut() })
+                "Successful Sign Out",
+                true
+            ) { firebaseAuth.signOut() })
         } else {
             emitState(SettingsState.Account2(R.id.loginFragment))
         }

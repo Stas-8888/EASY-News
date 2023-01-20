@@ -53,7 +53,7 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
             toFirstRecyclerPosition()
         }
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity()) {
-            showSnackBarString(requireView(), getString(R.string.disavled_back_press))
+            showSnackBarString(requireView(), getString(R.string.disabled_back_press))
         }
     }
 

@@ -21,7 +21,7 @@ class ValidationRepository @Inject constructor(
 
     override fun validateEmail(email: String): String {
         if (email.isNullOrEmpty()) {
-            return "Enter email address"
+            return "Empty email address"
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             return context.getString(R.string.InvalidEmail)

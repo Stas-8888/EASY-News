@@ -38,13 +38,13 @@
         android:id="@+id/emailTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="2dp"
         android:text="@string/Sign"
         android:textColor="@color/blackLight"
         app:layout_constraintBottom_toTopOf="@+id/emailContainer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="@+id/emailContainer"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/emailContainer" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -125,7 +125,7 @@
         app:layout_constraintTop_toBottomOf="@+id/loginPasswordContainer" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btLogin"
+        android:id="@+id/btSignIn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -146,9 +146,9 @@
         android:layout_marginTop="24dp"
         android:text="@string/no_acc"
         android:textColor="@color/grey_one"
-        app:layout_constraintEnd_toEndOf="@+id/btLogin"
-        app:layout_constraintStart_toStartOf="@+id/btLogin"
-        app:layout_constraintTop_toBottomOf="@+id/btLogin" />
+        app:layout_constraintEnd_toEndOf="@+id/btSignIn"
+        app:layout_constraintStart_toStartOf="@+id/btSignIn"
+        app:layout_constraintTop_toBottomOf="@+id/btSignIn" />
 
     <TextView
         android:id="@+id/login_signup"
@@ -158,10 +158,10 @@
         android:layout_marginTop="24dp"
         android:text="@string/no_account"
         android:textColor="@color/colorRedBackground"
-        app:layout_constraintEnd_toEndOf="@+id/btLogin"
+        app:layout_constraintEnd_toEndOf="@+id/btSignIn"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/log"
-        app:layout_constraintTop_toBottomOf="@+id/btLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/btSignIn" />
 
     <TextView
         android:id="@+id/bt_skip"
@@ -197,9 +197,9 @@
         android:elevation="10dp"
         android:indeterminateTint="@color/white"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/btLogin"
-        app:layout_constraintEnd_toEndOf="@+id/btLogin"
-        app:layout_constraintStart_toStartOf="@+id/btLogin"
-        app:layout_constraintTop_toTopOf="@+id/btLogin" />
+        app:layout_constraintBottom_toBottomOf="@+id/btSignIn"
+        app:layout_constraintEnd_toEndOf="@+id/btSignIn"
+        app:layout_constraintStart_toStartOf="@+id/btSignIn"
+        app:layout_constraintTop_toTopOf="@+id/btSignIn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

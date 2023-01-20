@@ -18,4 +18,7 @@ interface FirebaseRepositoryContract {
     )
 
     fun logout()
+
+    suspend fun forgotPassword(email: String, result: (FirebaseState<String>) -> Unit)
+
 }

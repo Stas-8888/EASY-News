@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import androidx.annotation.ColorRes
@@ -136,3 +137,27 @@ internal fun Fragment.internetConnectionDialog(status: String) {
         show()
     }
 }
+
+//fun Fragment.validation(email: String, password: String): Boolean {
+//    var isValid = true
+//
+//    if (email.isNullOrEmpty()) {
+//        isValid = false
+//        context?.getString(R.string.empty_email)
+//    } else {
+//        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+//            isValid = false
+//            context?.getString(R.string.InvalidEmail)
+//        }
+//    }
+//    if (password.isNullOrEmpty()) {
+//        isValid = false
+//        context?.getString(R.string.empty_password)
+//    } else {
+//        if (password.length < 6) {
+//            isValid = false
+//            context?.getString(R.string.MinimumCharacter)
+//        }
+//    }
+//    return isValid
+//}

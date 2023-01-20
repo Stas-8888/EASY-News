@@ -22,33 +22,21 @@ class SignInFragment : BaseFragment<FirebaseState<String>, FragmentLoginBinding,
     }
 
     override fun setupUi() = with(binding) {
-        val emailText = loginUsername.text.toString()
-        val passwordText = loginPassword.text.toString()
-        btSkip.setOnClickListener {
-            navigateTo(R.id.mainFragment)
-        }
-        loginSignup.setOnClickListener {
-            navigateTo(R.id.signUpFragment)
-        }
-        loginUsername.changesListener {
-            viewModel.isValidEmail(emailText)
-        }
-        loginPassword.changesListener {
-            viewModel.isValidPassword(passwordText)
-        }
-        btLogin.setOnClickListener {
-            viewModel.onSignInClicked(
-                emailText,
-                passwordText
-            )
-        }
+//        val emailText = loginUsername.text.toString()
+//        val passwordText = loginPassword.text.toString()
+        btSkip.setOnClickListener { navigateTo(R.id.mainFragment) }
+        loginSignup.setOnClickListener { navigateTo(R.id.signUpFragment) }
+        loginUsername.changesListener { viewModel.isValidEmail(emailText()) }
+        loginPassword.changesListener { viewModel.isValidPassword(passwordText()) }
+        btSignIn.setOnClickListener { viewModel.onSignInClicked(emailText(), passwordText()) }
     }
+
+    private fun emailText(): String = binding.loginUsername.text.toString()
+    private fun passwordText(): String = binding.loginPassword.text.toString()
 
     override fun renderState(state: FirebaseState<String>) {
         when (state) {
-            is FirebaseState.Loading -> {
-                binding.loginProgress.invisible()
-            }
+            is FirebaseState.Loading -> binding.loginProgress.invisible()
             is FirebaseState.Failure -> {
                 binding.loginProgress.visible()
                 showSnackBarString(requireView(), state.error)

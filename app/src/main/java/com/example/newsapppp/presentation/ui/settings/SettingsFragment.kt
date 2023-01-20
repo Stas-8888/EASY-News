@@ -34,7 +34,7 @@ class SettingsFragment :
         firebaseAuth = FirebaseAuth.getInstance()
         tvEmail.text = firebaseAuth.currentUser?.email
         setupCountryFlag()
-        viewModel.isSwitchDayNight()
+        viewModel.onSwitchDayNightClick()
     }
 
     override fun setupUi() = with(binding) {
@@ -51,7 +51,7 @@ class SettingsFragment :
             showChangeNameDialog("")
         }
         switchDayNight.setOnCheckedChangeListener { _, isNightMode ->
-            viewModel.saveChangeNightMode(isNightMode)
+            viewModel.saveDayNightState(isNightMode)
         }
     }
 

@@ -4,8 +4,8 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.preference.GetSwitchPositionUseCase
-import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import com.example.newsapppp.presentation.extensions.launchCoroutine
+import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,8 +27,7 @@ class SplashViewModel @Inject constructor(
     }
 
     fun setupDayNightMode() = viewModelScope.launch {
-        val nightMode = getSwitchPosition()
-        if (nightMode) {
+        if (getSwitchPosition()) {
             AppCompatDelegate
                 .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         } else {
