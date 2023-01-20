@@ -7,7 +7,7 @@ import com.example.newsapppp.domain.interactors.firebase.validation.ValidateEmai
 import com.example.newsapppp.domain.interactors.firebase.validation.ValidatePasswordUseCase
 import com.example.newsapppp.domain.interactors.firebase.validation.ValidateRepeatedPasswordUseCase
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
-import com.example.newsapppp.presentation.utils.extensions.launchCoroutine
+import com.example.newsapppp.presentation.extensions.launchCoroutine
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

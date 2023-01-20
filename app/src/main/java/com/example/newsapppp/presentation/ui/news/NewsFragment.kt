@@ -8,15 +8,13 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
 import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentNewsBinding
+import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.ui.base.BaseFragment
-import com.example.newsapppp.presentation.utils.extensions.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.delete_dialog3.view.*
 import kotlinx.android.synthetic.main.fragment_news.*
@@ -39,8 +37,25 @@ class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentVi
         super.onViewCreated(view, savedInstanceState)
         viewModel.checkFavoriteIcon(article)
         setupWebView()
-        setupOnClickListeners()
         hideBottomNavigation()
+    }
+
+    override fun setupUi() = with(binding) {
+        btFavorite.setOnClickListener {
+            btFavorite.invisible()
+            circleAnimeView.visible()
+            circleAnimeView.startAnim(
+                anim,
+                onEnd = {
+                    circleAnimeView.visible()
+                    viewModel.onFavoriteIconClicked(article)
+                    btFavorite.visible()
+                }
+            )
+        }
+        toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -51,24 +66,6 @@ class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentVi
             loadUrl(article.url)
             settings.javaScriptEnabled = true
             settings.safeBrowsingEnabled = true
-        }
-    }
-
-    private fun setupOnClickListeners() = with(binding) {
-        btFavorite.setOnClickListener {
-            binding.btFavorite.invisible()
-            binding.circleAnimeView.visible()
-            binding.circleAnimeView.startAnim(
-                anim,
-                onEnd = {
-                    binding.circleAnimeView.visible()
-                    viewModel.onFavoriteIconClicked(article)
-                    binding.btFavorite.visible()
-                }
-            )
-        }
-        toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
         }
     }
 

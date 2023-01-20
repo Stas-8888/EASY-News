@@ -1,11 +1,11 @@
 package com.example.newsapppp.data.mapper
 
-import com.example.newsapppp.core.EntityMapper
+import com.example.newsapppp.core.BaseMapper
 import com.example.newsapppp.data.db.models.ArticleDbModel
 import com.example.newsapppp.data.network.model.ArticleDto
 import com.example.newsapppp.domain.model.ArticleModel
 
-class ArticleMapper : EntityMapper<ArticleModel, ArticleDbModel> {
+class ArticleMapper : BaseMapper<ArticleModel, ArticleDbModel> {
 
     fun convertToModel(data: ArticleDto) = ArticleModel(
         author = data.author,

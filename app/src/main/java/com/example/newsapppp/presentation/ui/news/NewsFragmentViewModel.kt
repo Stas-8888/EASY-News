@@ -8,7 +8,7 @@ import com.example.newsapppp.domain.interactors.room.InsertArticleUseCase
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
-import com.example.newsapppp.presentation.utils.extensions.launchCoroutine
+import com.example.newsapppp.presentation.extensions.launchCoroutine
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

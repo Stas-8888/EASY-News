@@ -1,4 +1,4 @@
-package com.example.newsapppp.presentation.utils.extensions
+package com.example.newsapppp.presentation.extensions
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment

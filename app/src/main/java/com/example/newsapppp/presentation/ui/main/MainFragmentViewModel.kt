@@ -5,7 +5,7 @@ import com.example.newsapppp.domain.interactors.preference.GetCountryFlagUseCase
 import com.example.newsapppp.domain.interactors.retrofit.GetNewsUseCase
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
-import com.example.newsapppp.presentation.utils.extensions.launchCoroutine
+import com.example.newsapppp.presentation.extensions.launchCoroutine
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

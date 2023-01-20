@@ -2,12 +2,16 @@ package com.example.newsapppp.presentation.ui.splash
 
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.viewModelScope
+import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.preference.GetSwitchPositionUseCase
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
+import com.example.newsapppp.presentation.extensions.launchCoroutine
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,5 +35,10 @@ class SplashViewModel @Inject constructor(
             AppCompatDelegate
                 .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
+    }
+
+    fun delayScreen() = launchCoroutine {
+        delay(TimeUnit.SECONDS.toMillis(3))
+        emitState(SplashState.Navigate(R.id.loginFragment))
     }
 }

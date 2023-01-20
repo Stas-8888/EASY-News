@@ -12,10 +12,10 @@ import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSettingsBinding
 import com.example.newsapppp.databinding.NewNameDialogBinding
 import com.example.newsapppp.presentation.ui.base.BaseFragment
-import com.example.newsapppp.presentation.utils.extensions.hideBottomNavigation
-import com.example.newsapppp.presentation.utils.extensions.navigateTo
-import com.example.newsapppp.presentation.utils.extensions.showSnackbar
-import com.example.newsapppp.presentation.utils.extensions.snackBar
+import com.example.newsapppp.presentation.extensions.hideBottomNavigation
+import com.example.newsapppp.presentation.extensions.navigateTo
+import com.example.newsapppp.presentation.extensions.showSnackbar
+import com.example.newsapppp.presentation.extensions.snackBar
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_settings.*
@@ -35,25 +35,9 @@ class SettingsFragment :
         tvEmail.text = firebaseAuth.currentUser?.email
         setupCountryFlag()
         viewModel.isSwitchDayNight()
-        setupOnClickListeners()
     }
 
-    override fun renderState(state: SettingsState) {
-        when (state) {
-            is SettingsState.Account -> {
-                showSnackbar(requireView(), state.message, state.isError, state.action)
-            }
-            is SettingsState.Account2 -> navigateTo(state.navigation)
-            is SettingsState.GetCurrentEmail -> state.currentEmail
-            is SettingsState.IsSwitch -> isChecked(state.isSwitch)
-        }
-    }
-
-    private fun isChecked(value: Boolean) {
-        switchDayNight.isChecked = value
-    }
-
-    private fun setupOnClickListeners() = with(binding) {
+    override fun setupUi() = with(binding) {
         account.setOnClickListener {
             viewModel.checkAccount()
         }
@@ -68,6 +52,17 @@ class SettingsFragment :
         }
         switchDayNight.setOnCheckedChangeListener { _, isNightMode ->
             viewModel.saveChangeNightMode(isNightMode)
+        }
+    }
+
+    override fun renderState(state: SettingsState) {
+        when (state) {
+            is SettingsState.Account -> {
+                showSnackbar(requireView(), state.message, state.isError, state.action)
+            }
+            is SettingsState.Account2 -> navigateTo(state.navigation)
+            is SettingsState.GetCurrentEmail -> state.currentEmail
+            is SettingsState.IsSwitch -> switchDayNight.isChecked = state.isSwitch
         }
     }
 

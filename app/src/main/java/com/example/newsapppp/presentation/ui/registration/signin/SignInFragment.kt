@@ -6,8 +6,8 @@ import androidx.fragment.app.viewModels
 import com.example.newsapppp.R
 import com.example.newsapppp.core.FirebaseState
 import com.example.newsapppp.databinding.FragmentLoginBinding
+import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.ui.base.BaseFragment
-import com.example.newsapppp.presentation.utils.extensions.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,10 +19,11 @@ class SignInFragment : BaseFragment<FirebaseState<String>, FragmentLoginBinding,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         hideBottomNavigation()
-        setupOnClickListeners()
     }
 
-    private fun setupOnClickListeners() = with(binding) {
+    override fun setupUi() = with(binding) {
+        val emailText = loginUsername.text.toString()
+        val passwordText = loginPassword.text.toString()
         btSkip.setOnClickListener {
             navigateTo(R.id.mainFragment)
         }
@@ -30,25 +31,17 @@ class SignInFragment : BaseFragment<FirebaseState<String>, FragmentLoginBinding,
             navigateTo(R.id.signUpFragment)
         }
         loginUsername.changesListener {
-            viewModel.isValidEmail(emailText())
+            viewModel.isValidEmail(emailText)
         }
         loginPassword.changesListener {
-            viewModel.isValidPassword(passwordText())
+            viewModel.isValidPassword(passwordText)
         }
         btLogin.setOnClickListener {
             viewModel.onSignInClicked(
-                emailText(),
-                passwordText()
+                emailText,
+                passwordText
             )
         }
-    }
-
-    private fun emailText(): String {
-        return binding.loginUsername.text.toString()
-    }
-
-    private fun passwordText(): String {
-        return binding.loginPassword.text.toString()
     }
 
     override fun renderState(state: FirebaseState<String>) {

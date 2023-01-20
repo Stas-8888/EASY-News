@@ -1,13 +1,13 @@
 package com.example.newsapppp.presentation.mapper
 
-import com.example.newsapppp.core.EntityMapper
+import com.example.newsapppp.core.BaseMapper
 import com.example.newsapppp.domain.model.ArticleModel
 import com.example.newsapppp.presentation.model.Article
 
 /**
  * Mapper class used to : transformationModels.
  */
-class ArticleMapperToModel : EntityMapper<Article, ArticleModel> {
+class ArticleMapperToModel : BaseMapper<Article, ArticleModel> {
 
     override fun mapFromEntity(data: Article) = ArticleModel(
         author = data.author,

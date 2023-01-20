@@ -1,4 +1,4 @@
-package com.example.newsapppp.presentation.utils.extensions
+package com.example.newsapppp.presentation.extensions
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -125,7 +125,7 @@ fun Fragment.showAlertUpDialog(title: Int) {
 }
 
 internal fun Fragment.internetConnectionDialog(status: String) {
-    val dialog = Dialog(requireContext()).apply {
+        Dialog(requireContext()).apply {
         setContentView(R.layout.no_internet_connections)
         internet_status.text = status
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

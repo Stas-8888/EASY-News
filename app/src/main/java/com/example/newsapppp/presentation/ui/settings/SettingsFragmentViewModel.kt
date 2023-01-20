@@ -1,13 +1,12 @@
 package com.example.newsapppp.presentation.ui.settings
 
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.preference.Preference
 import com.example.newsapppp.R
-import com.example.newsapppp.presentation.utils.extensions.launchCoroutine
 import com.example.newsapppp.domain.interactors.preference.GetCountryFlagUseCase
 import com.example.newsapppp.domain.interactors.preference.GetSwitchPositionUseCase
 import com.example.newsapppp.domain.interactors.preference.SaveCountryFlagUseCase
 import com.example.newsapppp.domain.interactors.preference.SaveSwitchPositionUseCase
+import com.example.newsapppp.presentation.extensions.launchCoroutine
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel

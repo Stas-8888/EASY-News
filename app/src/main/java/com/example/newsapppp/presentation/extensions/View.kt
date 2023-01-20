@@ -1,4 +1,4 @@
-package com.example.newsapppp.presentation.utils.extensions
+package com.example.newsapppp.presentation.extensions
 
 import android.view.View
 import android.view.animation.Animation

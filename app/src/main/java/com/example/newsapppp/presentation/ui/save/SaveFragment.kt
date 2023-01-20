@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapppp.databinding.FragmentSaveBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
+import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.ui.base.BaseFragment
-import com.example.newsapppp.presentation.utils.extensions.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_save.*
 
@@ -23,10 +23,23 @@ class SaveFragment : BaseFragment<SaveState, FragmentSaveBinding, SaveFragmentVi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showBottomNavigation()
-        setupRecyclerView()
         swipeToDelete()
         viewModel.getAllNews()
-        setupOnClickListeners()
+    }
+
+    override fun setupUi() {
+        with(binding) {
+            btDeleteAll.setOnClickListener {
+                showDeleteDialog({ viewModel.deleteAllArticle() }, { })
+            }
+            newsAdapter.setOnItemClickListener {
+                navigateDirections(SaveFragmentDirections.actionSaveFragmentToNewsFragment(it))
+            }
+            rvSavedNews.apply {
+                adapter = newsAdapter
+                layoutManager = LinearLayoutManager(requireContext())
+            }
+        }
     }
 
     override fun renderState(state: SaveState) {
@@ -39,27 +52,11 @@ class SaveFragment : BaseFragment<SaveState, FragmentSaveBinding, SaveFragmentVi
                 binding.progressBar.invisible()
                 newsAdapter.submitList(state.articles)
             }
-            is SaveState.ShowDeleteDialog ->{
+            is SaveState.ShowDeleteDialog -> {
                 showDeleteDialog(
                     { viewModel.deleteArticle(state.article) },
                     { newsAdapter.notifyItemChanged(state.position) })
             }
-        }
-    }
-
-    private fun setupOnClickListeners() {
-        btDeleteAll.setOnClickListener {
-            showDeleteDialog({ viewModel.deleteAllArticle() }, { })
-        }
-        newsAdapter.setOnItemClickListener {
-            navigateDirections(SaveFragmentDirections.actionSaveFragmentToNewsFragment(it))
-        }
-    }
-
-    private fun setupRecyclerView() = with(binding) {
-        rvSavedNews.apply {
-            adapter = newsAdapter
-            layoutManager = LinearLayoutManager(requireContext())
         }
     }
 

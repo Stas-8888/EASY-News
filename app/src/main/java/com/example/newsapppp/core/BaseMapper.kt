@@ -1,6 +1,6 @@
 package com.example.newsapppp.core
 
-interface EntityMapper <Entity, DomainModel>{
+interface BaseMapper <Entity, DomainModel>{
 
     fun mapFromEntity(data: Entity): DomainModel
 

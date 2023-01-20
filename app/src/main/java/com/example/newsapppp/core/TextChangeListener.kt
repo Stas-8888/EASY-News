@@ -1,4 +1,4 @@
-package com.example.newsapppp.presentation.utils
+package com.example.newsapppp.core
 
 import android.text.Editable
 import android.text.TextWatcher
