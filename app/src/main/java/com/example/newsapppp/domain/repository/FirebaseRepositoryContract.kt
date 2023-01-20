@@ -14,7 +14,7 @@ interface FirebaseRepositoryContract {
         user: String,
         email: String,
         password: String,
-        navigateTo: Unit
+        result: (FirebaseState<String>) -> Unit
     )
 
     fun logout()

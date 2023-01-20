@@ -1,4 +1,4 @@
-package com.example.newsapppp.presentation.ui.registration.login
+package com.example.newsapppp.presentation.ui.registration.signin
 
 import com.example.newsapppp.core.FirebaseState
 import com.example.newsapppp.domain.interactors.firebase.SignInUseCase

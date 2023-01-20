@@ -1,5 +1,6 @@
 package com.example.newsapppp.domain.interactors.firebase
 
+import com.example.newsapppp.core.FirebaseState
 import com.example.newsapppp.domain.repository.FirebaseRepositoryContract
 
 class SignUpUseCase(val repo: FirebaseRepositoryContract) {
@@ -8,8 +9,8 @@ class SignUpUseCase(val repo: FirebaseRepositoryContract) {
         user: String,
         email: String,
         password: String,
-        navigateTo: Unit
+        result: (FirebaseState<String>) -> Unit
     ) {
-        repo.signup(user, email, password, navigateTo)
+        repo.signup(user, email, password, result)
     }
 }

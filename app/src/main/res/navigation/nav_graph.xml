@@ -70,7 +70,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.newsapppp.presentation.ui.registration.login.LoginFragment"
+        android:name="com.example.newsapppp.presentation.ui.registration.signin.SignInFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -90,7 +90,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.newsapppp.presentation.ui.registration.sign.SignUpFragment"
+        android:name="com.example.newsapppp.presentation.ui.registration.signup.SignUpFragment"
         android:label="SignUpFragment" >
         <action
             android:id="@+id/action_signUpFragment_to_mainFragment"

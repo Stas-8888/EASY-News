@@ -5,7 +5,7 @@ import com.example.newsapppp.core.DispatchersList
 import com.example.newsapppp.core.ManageResources
 import com.example.newsapppp.data.repository.ArticleRepository
 import com.example.newsapppp.data.repository.DataBaseRepository
-import com.example.newsapppp.data.repository.FirbaseRepository
+import com.example.newsapppp.data.repository.FirebaseRepository
 import com.example.newsapppp.data.repository.SharedPrefRepository
 import com.example.newsapppp.domain.repository.ArticleRepositoryContract
 import com.example.newsapppp.domain.repository.DataBaseRepositoryContract
@@ -35,7 +35,7 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun providesAuthRepository(impl: FirbaseRepository): FirebaseRepositoryContract = impl
+    fun providesAuthRepository(impl: FirebaseRepository): FirebaseRepositoryContract = impl
 
     @Provides
     @Singleton

@@ -2,17 +2,19 @@ package com.example.newsapppp.data.repository
 
 import android.content.Context
 import android.util.Patterns
-import android.widget.Toast
 import com.example.newsapppp.R
 import com.example.newsapppp.core.DispatchersList
 import com.example.newsapppp.core.ManageResources
 import com.example.newsapppp.core.FirebaseState
 import com.example.newsapppp.domain.repository.FirebaseRepositoryContract
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class FirbaseRepository @Inject constructor(
+class FirebaseRepository @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val manageResources: ManageResources,
     private val dispatchers: DispatchersList,
@@ -41,22 +43,57 @@ class FirbaseRepository @Inject constructor(
         user: String,
         email: String,
         password: String,
-        navigateTo: Unit
+        result: (FirebaseState<String>) -> Unit
     ) {
-        try {
-            firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        navigateTo
-                    } else {
-                        Toast.makeText(context, "Wrong Email or Password", Toast.LENGTH_SHORT)
-                            .show()
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    result.invoke(FirebaseState.Success("User register successfully!"))
+                    result.invoke(FirebaseState.Navigate(R.id.loginFragment))
+                } else {
+                    try {
+                        throw it.exception ?: java.lang.Exception("Invalid authentication")
+                    } catch (e: FirebaseAuthWeakPasswordException) {
+                        result.invoke(FirebaseState.Failure("Authentication failed, Password should be at least 6 characters"))
+                    } catch (e: FirebaseAuthInvalidCredentialsException) {
+                        result.invoke(FirebaseState.Failure("Authentication failed, Invalid email entered"))
+                    } catch (e: FirebaseAuthUserCollisionException) {
+                        result.invoke(FirebaseState.Failure("Authentication failed, Email already registered."))
+                    } catch (e: Exception) {
+                        result.invoke(FirebaseState.Failure(e.message))
                     }
                 }
-        } catch (e: Exception) {
-            Toast.makeText(context, "Email or Password", Toast.LENGTH_SHORT).show()
-        }
+            }
+            .addOnFailureListener {
+                result.invoke(
+                    FirebaseState.Failure(
+                        it.localizedMessage
+                    )
+                )
+            }
     }
+
+
+//    override suspend fun signup(
+//        user: String,
+//        email: String,
+//        password: String,
+//        navigateTo: Unit
+//    ) {
+//        try {
+//            firebaseAuth.createUserWithEmailAndPassword(email, password)
+//                .addOnCompleteListener { task ->
+//                    if (task.isSuccessful) {
+//                        navigateTo
+//                    } else {
+//                        Toast.makeText(context, "Wrong Email or Password", Toast.LENGTH_SHORT)
+//                            .show()
+//                    }
+//                }
+//        } catch (e: Exception) {
+//            Toast.makeText(context, "Email or Password", Toast.LENGTH_SHORT).show()
+//        }
+//    }
 
     override fun logout() {
         firebaseAuth.signOut()

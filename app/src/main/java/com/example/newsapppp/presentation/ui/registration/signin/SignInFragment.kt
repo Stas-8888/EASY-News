@@ -1,4 +1,4 @@
-package com.example.newsapppp.presentation.ui.registration.login
+package com.example.newsapppp.presentation.ui.registration.signin
 
 import android.os.Bundle
 import android.view.View
@@ -11,7 +11,7 @@ import com.example.newsapppp.presentation.utils.extensions.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginFragment : BaseFragment<FirebaseState<String>, FragmentLoginBinding, SignInViewModel>(
+class SignInFragment : BaseFragment<FirebaseState<String>, FragmentLoginBinding, SignInViewModel>(
     FragmentLoginBinding::inflate
 ) {
     override val viewModel by viewModels<SignInViewModel>()
@@ -68,6 +68,7 @@ class LoginFragment : BaseFragment<FirebaseState<String>, FragmentLoginBinding, 
             is FirebaseState.Navigate -> navigateTo(state.navigateTo)
             is FirebaseState.CheckEmail -> binding.emailContainer.helperText = state.data
             is FirebaseState.CheckPassword -> binding.loginPasswordContainer.helperText = state.data
+            is FirebaseState.CheckState -> {}
         }
     }
 }
