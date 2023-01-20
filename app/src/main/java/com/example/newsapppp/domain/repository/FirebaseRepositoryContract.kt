@@ -4,7 +4,7 @@ import com.example.newsapppp.core.FirebaseState
 
 interface FirebaseRepositoryContract {
 
-    suspend fun login(
+    suspend fun signIn(
         email: String,
         password: String,
         result: (FirebaseState<String>) -> Unit

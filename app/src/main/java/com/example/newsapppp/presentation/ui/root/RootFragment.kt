@@ -17,16 +17,13 @@ class RootFragment : BaseFragment<RootState, FragmentRootBinding, RootViewModel>
     FragmentRootBinding::inflate
 ) {
     override val viewModel by viewModels<RootViewModel>()
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         myPeriodicWork()
     }
-
     private fun navigate(fragment: Int) {
         binding.navFragment.findNavController().navigate(fragment)
     }
-
     override fun renderState(state: RootState) {
         when (state) {
             is RootState.Loading -> {}
@@ -43,7 +40,6 @@ class RootFragment : BaseFragment<RootState, FragmentRootBinding, RootViewModel>
             }
         }
     }
-
     private fun myPeriodicWork() {
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.NOT_REQUIRED)
@@ -66,7 +62,6 @@ class RootFragment : BaseFragment<RootState, FragmentRootBinding, RootViewModel>
         WorkManager.getInstance(requireContext())
             .enqueueUniquePeriodicWork("my_id", ExistingPeriodicWorkPolicy.KEEP, myRequest)
     }
-
     private fun myOneTimeWork() {
         val constraints: Constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.UNMETERED)

@@ -29,8 +29,8 @@ object UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideLoginUseCase(repo: FirebaseRepositoryContract): LoginUseCase =
-        LoginUseCase(repo)
+    fun provideLoginUseCase(repo: FirebaseRepositoryContract): SignInUseCase =
+        SignInUseCase(repo)
 
     @Provides
     @Singleton

@@ -3,7 +3,6 @@ package com.example.newsapppp.presentation.ui.registration.login
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.example.newsapppp.R
 import com.example.newsapppp.core.FirebaseState
 import com.example.newsapppp.databinding.FragmentLoginBinding
@@ -12,10 +11,10 @@ import com.example.newsapppp.presentation.utils.extensions.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginFragment : BaseFragment<FirebaseState<String>, FragmentLoginBinding, LoginViewModel>(
+class LoginFragment : BaseFragment<FirebaseState<String>, FragmentLoginBinding, SignInViewModel>(
     FragmentLoginBinding::inflate
 ) {
-    override val viewModel by viewModels<LoginViewModel>()
+    override val viewModel by viewModels<SignInViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,10 +30,10 @@ class LoginFragment : BaseFragment<FirebaseState<String>, FragmentLoginBinding, 
             navigateTo(R.id.signUpFragment)
         }
         loginUsername.listenChanges {
-//            viewModel.isValidEmail(emailText())
+            viewModel.isValidEmail(emailText())
         }
         loginPassword.listenChanges {
-//            viewModel.isValidPassword(passwordText())
+            viewModel.isValidPassword(passwordText())
         }
         btLogin.setOnClickListener {
             viewModel.signInClicked(
@@ -43,44 +42,32 @@ class LoginFragment : BaseFragment<FirebaseState<String>, FragmentLoginBinding, 
             )
         }
     }
+
     private fun emailText(): String {
         return binding.loginUsername.text.toString()
     }
+
     private fun passwordText(): String {
         return binding.loginPassword.text.toString()
     }
+
     override fun renderState(state: FirebaseState<String>) {
         when (state) {
             is FirebaseState.Loading -> {
-                binding.loginProgress.visible()
+                binding.loginProgress.invisible()
             }
             is FirebaseState.Failure -> {
-                binding.loginProgress.invisible()
+                binding.loginProgress.visible()
                 showSnackBarString(requireView(), state.error)
+                binding.loginProgress.invisible()
             }
             is FirebaseState.Success -> {
-                binding.loginProgress.invisible()
+                binding.loginProgress.visible()
                 showSnackBarString(requireView(), state.data)
             }
             is FirebaseState.Navigate -> navigateTo(state.navigateTo)
-
-
-//            is LoginState.Loading -> {}
-//            is LoginState.Success -> {
-//                navigateTo(state.navigateTo)
-//                snackBar(requireView(), state.successMessage)
-//            }
-//            is LoginState.CheckEmail -> binding.emailContainer.helperText = state.data
-//            is LoginState.CheckPassword -> binding.loginPasswordContainer.helperText = state.data
-//            is LoginState.Error -> snackBar(requireView(), state.message)
+            is FirebaseState.CheckEmail -> binding.emailContainer.helperText = state.data
+            is FirebaseState.CheckPassword -> binding.loginPasswordContainer.helperText = state.data
         }
     }
-
-//    override fun onStart() {
-//        super.onStart()
-//
-//        if(firebaseAuth.currentUser != null){
-//            navigateTo(R.id.mainFragment)
-//        }
-//    }
 }

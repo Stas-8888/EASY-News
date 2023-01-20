@@ -5,5 +5,7 @@ sealed class FirebaseState<out T> {
     data class Success<out T>(val data: T) : FirebaseState<T>()
     data class Failure(val error: String) : FirebaseState<Nothing>()
     data class Navigate(val navigateTo: Int) : FirebaseState<Nothing>()
+    data class CheckEmail(val data: String) : FirebaseState<Nothing>()
+    data class CheckPassword(val data: String) : FirebaseState<Nothing>()
 
 }

@@ -19,7 +19,7 @@ class FirbaseRepository @Inject constructor(
     @ApplicationContext var context: Context
 ) : FirebaseRepositoryContract {
 
-    override suspend fun login(
+    override suspend fun signIn(
         email: String,
         password: String,
         result: (FirebaseState<String>) -> Unit
@@ -29,6 +29,7 @@ class FirbaseRepository @Inject constructor(
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         result.invoke(FirebaseState.Success("Login successfully!"))
+                        result.invoke(FirebaseState.Navigate(R.id.mainFragment))
                     }
                 }.addOnFailureListener {
                     result.invoke(FirebaseState.Failure("Authentication failed, Check email and password"))
