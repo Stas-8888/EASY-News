@@ -7,10 +7,7 @@ import com.example.newsapppp.R
 import com.example.newsapppp.core.FirebaseState
 import com.example.newsapppp.databinding.FragmentSignUpBinding
 import com.example.newsapppp.presentation.ui.base.BaseFragment
-import com.example.newsapppp.presentation.utils.extensions.changesListener
-import com.example.newsapppp.presentation.utils.extensions.hideBottomNavigation
-import com.example.newsapppp.presentation.utils.extensions.navigateTo
-import com.example.newsapppp.presentation.utils.extensions.showSnackBarString
+import com.example.newsapppp.presentation.utils.extensions.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -79,15 +76,14 @@ class SignUpFragment : BaseFragment<FirebaseState<String>, FragmentSignUpBinding
     override fun renderState(state: FirebaseState<String>) = with(binding) {
         when (state) {
             is FirebaseState.Loading -> {
-//                binding.loginProgress.invisible()
+                binding.loginProgress.invisible()
             }
             is FirebaseState.Failure -> {
-//                binding.loginProgress.visible()
+                binding.loginProgress.visible()
                 showSnackBarString(requireView(), state.error)
-//                binding.loginProgress.invisible()
             }
             is FirebaseState.Success -> {
-//                binding.loginProgress.visible()
+                binding.loginProgress.visible()
                 showSnackBarString(requireView(), state.data)
             }
             is FirebaseState.Navigate -> navigateTo(state.navigateTo)

@@ -1,12 +1,12 @@
 package com.example.newsapppp.presentation.utils.extensions
 
 import android.app.AlertDialog
-import android.content.Context
+import android.app.Dialog
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import androidx.annotation.ColorRes
-import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -20,6 +20,7 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.tapadoo.alerter.Alerter
 import kotlinx.android.synthetic.main.fragment_root.*
+import kotlinx.android.synthetic.main.no_internet_connections.*
 import kotlinx.coroutines.CoroutineScope
 
 internal fun Fragment.showNoActionOkDialog(title: Int, content: CharSequence?) {
@@ -120,5 +121,18 @@ fun Fragment.showAlertUpDialog(title: Int) {
             .setIcon(R.drawable.ic_breaking_news)
             .setBackgroundColorRes(R.color.colorRedBackground)
             .show()
+    }
+}
+
+internal fun Fragment.internetConnectionDialog(status: String) {
+    val dialog = Dialog(requireContext()).apply {
+        setContentView(R.layout.no_internet_connections)
+        internet_status.text = status
+        window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        setCanceledOnTouchOutside(false)
+        bt_try_again.setOnClickListener {
+            dismiss()
+        }
+        show()
     }
 }

@@ -17,7 +17,7 @@ interface ValidationRepositoryContract {
 class ValidationRepository @Inject constructor(
     @ApplicationContext var context: Context,
     private val manageResources: ManageResources
-    ) : ValidationRepositoryContract {
+) : ValidationRepositoryContract {
 
     override fun validateEmail(email: String): String {
         if (email.isNullOrEmpty()) {
