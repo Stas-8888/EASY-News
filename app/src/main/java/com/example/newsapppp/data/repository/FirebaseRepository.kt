@@ -90,12 +90,12 @@ class FirebaseRepository @Inject constructor(
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     result.invoke(FirebaseState.Success("Email has been sent"))
-
+                    result.invoke(FirebaseState.Navigate(R.id.loginFragment))
                 } else {
                     result.invoke(FirebaseState.Failure(task.exception?.message))
                 }
             }.addOnFailureListener {
-                result.invoke(FirebaseState.Failure("Authentication failed, Check email"))
+                result.invoke(FirebaseState.Failure("Authentication failed, incorrect email"))
             }
     }
 }
