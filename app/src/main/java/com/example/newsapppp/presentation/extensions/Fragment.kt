@@ -75,7 +75,7 @@ fun Fragment.showSnackbar(
 }
 
 fun Fragment.snackBar(view: View, title: Int) {
-    Snackbar.make(view, title, 1500)
+    Snackbar.make(view, title, 1800)
         .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
         .setBackgroundTint(loadColor(R.color.colorRedBackground))
         .setTextColor(Color.WHITE)

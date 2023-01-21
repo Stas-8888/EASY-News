@@ -56,8 +56,7 @@
     <string name="email">Email</string>
     <string name="required">required</string>
     <string name="Sign">Sign In to account.</string>
-    <string name="forgot_password_text">Please, enter your email address. You will receive a link to create a new password via email.</string>
-
+    <string name="forgot_password_text">Enter email address.</string>
 
     <!-- Error Strings -->
     <string name="error_check_internet_connection">Check Internet Connection</string>
