@@ -21,9 +21,9 @@ class FirebaseRepository @Inject constructor(
         result: (FirebaseState<String>) -> Unit
     ) {
         dispatchers.io {
-//            if (email.isNullOrEmpty() && password.isNullOrEmpty()) {
-//                result.invoke(FirebaseState.Failure("Empty failed, Check email and password"))
-//            } else {
+            if (email.isEmpty() && password.isEmpty()) {
+                result.invoke(FirebaseState.Failure("Empty failed, Check email and password"))
+            } else {
                 firebaseAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
@@ -33,10 +33,7 @@ class FirebaseRepository @Inject constructor(
                     }.addOnFailureListener {
                         result.invoke(FirebaseState.Failure("Authentication failed, Check email and password"))
                     }
-                    .addOnCanceledListener {
-                        result.invoke(FirebaseState.Failure("Email or Password is empty"))
-                    }
-//            }
+            }
         }
     }
 
