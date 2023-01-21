@@ -22,16 +22,20 @@ class FirebaseRepository @Inject constructor(
     ) {
         dispatchers.io {
             if (email.isEmpty() && password.isEmpty()) {
-                result.invoke(FirebaseState.Failure("Empty failed, Check email and password"))
+                result.invoke(FirebaseState.Failure("Email or Password is empty"))
+            } else if (email.isEmpty()) {
+                result.invoke(FirebaseState.Failure("Email is empty"))
+            } else if (password.isEmpty()) {
+                result.invoke(FirebaseState.Failure("Password is empty"))
             } else {
                 firebaseAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            result.invoke(FirebaseState.Success("Login successfully!"))
+                            result.invoke(FirebaseState.Success("Sign In successfully!"))
                             result.invoke(FirebaseState.Navigate(R.id.mainFragment))
                         }
                     }.addOnFailureListener {
-                        result.invoke(FirebaseState.Failure("Authentication failed, Check email and password"))
+                        result.invoke(FirebaseState.Failure("Authentication failed, Wrong email or password"))
                     }
             }
         }
@@ -46,6 +50,10 @@ class FirebaseRepository @Inject constructor(
         dispatchers.io {
             if (email.isEmpty() && password.isEmpty()) {
                 result.invoke(FirebaseState.Failure("Email or Password is empty"))
+            } else if (email.isEmpty()) {
+                result.invoke(FirebaseState.Failure("Email is empty"))
+            } else if (password.isEmpty()) {
+                result.invoke(FirebaseState.Failure("Password is empty"))
             } else {
                 firebaseAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener {
