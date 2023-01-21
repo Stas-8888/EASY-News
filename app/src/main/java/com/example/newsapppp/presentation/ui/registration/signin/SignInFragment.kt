@@ -9,6 +9,7 @@ import com.example.newsapppp.databinding.FragmentLoginBinding
 import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_forgot_password.*
 
 @AndroidEntryPoint
 class SignInFragment : BaseFragment<FirebaseState<String>, FragmentLoginBinding, SignInViewModel>(
@@ -22,8 +23,7 @@ class SignInFragment : BaseFragment<FirebaseState<String>, FragmentLoginBinding,
     }
 
     override fun setupUi() = with(binding) {
-//        val emailText = loginUsername.text.toString()
-//        val passwordText = loginPassword.text.toString()
+        btForgotPassword.setOnClickListener { navigateTo(R.id.forgotPasswordFragment) }
         btSkip.setOnClickListener { navigateTo(R.id.mainFragment) }
         loginSignup.setOnClickListener { navigateTo(R.id.signUpFragment) }
         loginUsername.changesListener { viewModel.isValidEmail(emailText()) }
