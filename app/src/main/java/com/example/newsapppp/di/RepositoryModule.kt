@@ -23,6 +23,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object RepositoryModule {
+
     @Provides
     @Singleton
     fun providesManageResources(impl: ManageResources.Base): ManageResources = impl

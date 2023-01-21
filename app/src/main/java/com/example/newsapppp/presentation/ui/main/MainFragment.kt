@@ -30,7 +30,6 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
         showBottomNavigation()
         getCountryAndCategoryTabLayout()
         viewModel.getNews(category = categories[0])
-        viewModel.getCountryFlag()
         checkConnection(this)
     }
 

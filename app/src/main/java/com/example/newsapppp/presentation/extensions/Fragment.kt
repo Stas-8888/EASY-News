@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import androidx.annotation.ColorRes
@@ -120,7 +119,8 @@ fun Fragment.showAlertUpDialog(title: Int) {
         Alerter.create(it)
             .setTitle(title)
             .setIcon(R.drawable.ic_breaking_news)
-            .setBackgroundColorRes(R.color.colorRedBackground)
+            .enableSwipeToDismiss()
+            .setBackgroundResource(R.color.colorRedBackground)
             .show()
     }
 }

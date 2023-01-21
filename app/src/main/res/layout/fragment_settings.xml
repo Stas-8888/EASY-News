@@ -44,6 +44,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="31dp"
         android:src="@drawable/ic_edit_profile"
+        app:layout_constraintBottom_toBottomOf="@+id/account"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
@@ -206,10 +207,9 @@
         android:id="@+id/account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="3dp"
         android:text="SignIn/SignOut"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileCircleImageView" />
+        app:layout_constraintStart_toStartOf="@+id/tvEmail"
+        app:layout_constraintTop_toBottomOf="@+id/tvEdit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
