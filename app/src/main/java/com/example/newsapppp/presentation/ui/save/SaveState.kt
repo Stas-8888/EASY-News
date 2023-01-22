@@ -11,5 +11,5 @@ sealed class SaveState : State {
 
     data class ShowDeleteDialog (val article: Article,val position : Int) : SaveState()
 
-
+    data class Error(val exception: Int) : SaveState()
 }

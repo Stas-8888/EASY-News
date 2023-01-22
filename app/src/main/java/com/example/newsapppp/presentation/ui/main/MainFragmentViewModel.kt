@@ -34,7 +34,6 @@ class MainFragmentViewModel @Inject constructor(
         }
     }
 
-    //Fix
     private fun getCountryFlag() = launchCoroutine {
         emitState(MainState.GetCountryFlag(getCountryFlagUseCase(Unit)))
     }

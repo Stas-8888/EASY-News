@@ -57,6 +57,7 @@ class SaveFragment : BaseFragment<SaveState, FragmentSaveBinding, SaveFragmentVi
                     { viewModel.deleteArticle(state.article) },
                     { newsAdapter.notifyItemChanged(state.position) })
             }
+            is SaveState.Error -> snackBar(requireView(), state.exception)
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.newsapppp.presentation.ui.save
 
+import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.room.DeleteAllUseCase
 import com.example.newsapppp.domain.interactors.room.DeleteArticleUseCase
 import com.example.newsapppp.domain.interactors.room.GetRoomArticleUseCase
@@ -24,9 +25,12 @@ class SaveFragmentViewModel @Inject constructor(
     override val state = _state.asStateFlow()
 
     fun getAllNews() = launchCoroutine {
-        _state.emit(SaveState.ShowLoading)
-        getRoomArticleUseCase(Unit).collect {
-            _state.emit(SaveState.ShowArticles(articleMapperToModel.articleToModelArticle(it)))
+        try {
+            getRoomArticleUseCase(Unit).collect {
+                _state.emit(SaveState.ShowArticles(articleMapperToModel.articleToModelArticle(it)))
+            }
+        } catch (e: Exception) {
+            emitState(SaveState.Error(R.string.error))
         }
     }
 
