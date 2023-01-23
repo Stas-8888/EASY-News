@@ -1,5 +1,5 @@
 import com.example.newsapppp.domain.interactors.firebase.validation.ValidateEmailUseCase
-import com.example.newsapppp.domain.interactors.firebase.validation.ValidationRepositoryContract
+import com.example.newsapppp.domain.repository.ValidationRepositoryContract
 import com.google.common.truth.Truth
 import org.junit.Test
 import org.mockito.kotlin.mock

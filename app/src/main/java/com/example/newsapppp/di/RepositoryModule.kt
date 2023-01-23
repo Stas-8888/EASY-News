@@ -7,8 +7,8 @@ import com.example.newsapppp.data.repository.ArticleRepository
 import com.example.newsapppp.data.repository.DataBaseRepository
 import com.example.newsapppp.data.repository.FirebaseRepository
 import com.example.newsapppp.data.repository.SharedPrefRepository
-import com.example.newsapppp.domain.interactors.firebase.validation.ValidationRepository
-import com.example.newsapppp.domain.interactors.firebase.validation.ValidationRepositoryContract
+import com.example.newsapppp.domain.repository.ValidationRepository
+import com.example.newsapppp.domain.repository.ValidationRepositoryContract
 import com.example.newsapppp.domain.repository.ArticleRepositoryContract
 import com.example.newsapppp.domain.repository.DataBaseRepositoryContract
 import com.example.newsapppp.domain.repository.FirebaseRepositoryContract

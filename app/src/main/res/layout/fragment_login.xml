@@ -80,7 +80,6 @@
             android:inputType="text"
             android:maxLength="14"
             android:textColor="@color/colorRedBackground" />
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
