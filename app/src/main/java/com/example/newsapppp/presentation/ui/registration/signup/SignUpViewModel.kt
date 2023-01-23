@@ -1,11 +1,11 @@
 package com.example.newsapppp.presentation.ui.registration.signup
 
 import com.example.newsapppp.core.FirebaseState
-import com.example.newsapppp.domain.interactors.firebase.*
-import com.example.newsapppp.domain.interactors.firebase.validation.FullNameUseCase
-import com.example.newsapppp.domain.interactors.firebase.validation.ValidateEmailUseCase
-import com.example.newsapppp.domain.interactors.firebase.validation.ValidatePasswordUseCase
-import com.example.newsapppp.domain.interactors.firebase.validation.ValidateRepeatedPasswordUseCase
+import com.example.newsapppp.domain.interactors.authentication.*
+import com.example.newsapppp.domain.interactors.authentication.validation.FullNameUseCase
+import com.example.newsapppp.domain.interactors.authentication.validation.ValidateEmailUseCase
+import com.example.newsapppp.domain.interactors.authentication.validation.ValidatePasswordUseCase
+import com.example.newsapppp.domain.interactors.authentication.validation.ValidateRepeatedPasswordUseCase
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import com.example.newsapppp.presentation.extensions.launchCoroutine
 import dagger.hilt.android.lifecycle.HiltViewModel

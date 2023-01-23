@@ -1,13 +1,10 @@
 package com.example.newsapppp.presentation.ui.news
 
-import android.annotation.SuppressLint
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
 import android.webkit.WebViewClient
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -16,7 +13,6 @@ import com.example.newsapppp.databinding.FragmentNewsBinding
 import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.delete_dialog3.view.*
 import kotlinx.android.synthetic.main.fragment_news.*
 
 @AndroidEntryPoint
@@ -32,7 +28,6 @@ class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentVi
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.checkFavoriteIcon(article)
@@ -58,14 +53,10 @@ class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentVi
         }
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun setupWebView() {
         webView.apply {
             webView.webViewClient = WebViewClient()
             loadUrl(article.url)
-            settings.javaScriptEnabled = true
-            settings.safeBrowsingEnabled = true
         }
     }
 

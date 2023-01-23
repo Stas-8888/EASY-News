@@ -1,7 +1,7 @@
 package com.example.newsapppp.data.network.model
 
-data class NewsResponseDto(
-    val articles: List<ArticleDto>,
+data class NewsResponseRemote(
+    val articles: List<ArticleRemote>,
     val status: String,
     val totalResults: Int
 )

@@ -2,12 +2,12 @@ package com.example.newsapppp.data.mapper
 
 import com.example.newsapppp.core.BaseMapper
 import com.example.newsapppp.data.db.models.ArticleDbModel
-import com.example.newsapppp.data.network.model.ArticleDto
+import com.example.newsapppp.data.network.model.ArticleRemote
 import com.example.newsapppp.domain.model.ArticleModel
 
 class ArticleMapper : BaseMapper<ArticleModel, ArticleDbModel> {
 
-    fun convertToModel(data: ArticleDto) = ArticleModel(
+    fun convertToModel(data: ArticleRemote) = ArticleModel(
         author = data.author,
         content = data.content,
         description = data.description,

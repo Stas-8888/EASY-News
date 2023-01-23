@@ -1,6 +1,6 @@
 package com.example.newsapppp.data.repository
 
-import com.example.newsapppp.core.Dispatchers
+import com.example.newsapppp.core.DispatcherRepositoryContract
 import com.example.newsapppp.data.db.NewsDao
 import com.example.newsapppp.data.mapper.ArticleMapper
 import com.example.newsapppp.data.mapper.NewsResponseMapper
@@ -14,18 +14,18 @@ class DataBaseRepository @Inject constructor(
     private val newsDao: NewsDao,
     private val mapper: ArticleMapper,
     private val newsResponseMapper: NewsResponseMapper,
-    private val dispatchers: Dispatchers
+    private val dispatcherRepositoryContract: DispatcherRepositoryContract
 ) : DataBaseRepositoryContract {
 
-    override suspend fun insertArticle(article: ArticleModel) = dispatchers.io {
+    override suspend fun insertArticle(article: ArticleModel) = dispatcherRepositoryContract.io {
         newsDao.insertArticle(mapper.mapFromEntity(article))
     }
 
-    override suspend fun deleteArticle(article: ArticleModel) = dispatchers.io {
+    override suspend fun deleteArticle(article: ArticleModel) = dispatcherRepositoryContract.io {
         newsDao.deleteArticle(mapper.mapFromEntity(article))
     }
 
-    override suspend fun deleteAllArticle() = dispatchers.io {
+    override suspend fun deleteAllArticle() = dispatcherRepositoryContract.io {
         newsDao.deleteAllArticle()
     }
 

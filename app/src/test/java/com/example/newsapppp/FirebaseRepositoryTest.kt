@@ -1,4 +1,4 @@
-import com.example.newsapppp.domain.interactors.firebase.validation.ValidateEmailUseCase
+import com.example.newsapppp.domain.interactors.authentication.validation.ValidateEmailUseCase
 import com.example.newsapppp.domain.repository.ValidationRepositoryContract
 import com.google.common.truth.Truth
 import org.junit.Test

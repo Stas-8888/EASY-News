@@ -1,43 +1,43 @@
 package com.example.newsapppp.data.repository
 
 import com.example.newsapppp.R
-import com.example.newsapppp.core.Dispatchers
+import com.example.newsapppp.core.DispatcherRepositoryContract
 import com.example.newsapppp.core.FirebaseState
-import com.example.newsapppp.core.ManageResources
-import com.example.newsapppp.domain.repository.FirebaseRepositoryContract
+import com.example.newsapppp.core.ManageResourcesContract
+import com.example.newsapppp.domain.repository.AuthenticationRepositoryContract
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import javax.inject.Inject
 
-class FirebaseRepository @Inject constructor(
+class AuthenticationRepository @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
-    private val dispatchers: Dispatchers,
-    private val manageResources: ManageResources,
-) : FirebaseRepositoryContract {
+    private val dispatcherRepositoryContract: DispatcherRepositoryContract,
+    private val manageResourcesContract: ManageResourcesContract,
+) : AuthenticationRepositoryContract {
 
     override suspend fun signIn(
         email: String,
         password: String,
         result: (FirebaseState<String>) -> Unit
     ) {
-        dispatchers.io {
+        dispatcherRepositoryContract.io {
             if (email.isEmpty() && password.isEmpty()) {
-                result.invoke(FirebaseState.Failure(manageResources.string(R.string.empty_email_password)))
+                result.invoke(FirebaseState.Failure(manageResourcesContract.string(R.string.empty_email_password)))
             } else if (email.isEmpty()) {
-                result.invoke(FirebaseState.Failure(manageResources.string(R.string.empty_email)))
+                result.invoke(FirebaseState.Failure(manageResourcesContract.string(R.string.empty_email)))
             } else if (password.isEmpty()) {
-                result.invoke(FirebaseState.Failure(manageResources.string(R.string.empty_password)))
+                result.invoke(FirebaseState.Failure(manageResourcesContract.string(R.string.empty_password)))
             } else {
                 firebaseAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            result.invoke(FirebaseState.Success(manageResources.string(R.string.successfully_sign_in)))
+                            result.invoke(FirebaseState.Success(manageResourcesContract.string(R.string.successfully_sign_in)))
                             result.invoke(FirebaseState.Navigate(R.id.mainFragment))
                         }
                     }.addOnFailureListener {
-                        result.invoke(FirebaseState.Failure((manageResources.string(R.string.authentication_failed))))
+                        result.invoke(FirebaseState.Failure((manageResourcesContract.string(R.string.authentication_failed))))
                     }
             }
         }
@@ -49,29 +49,29 @@ class FirebaseRepository @Inject constructor(
         password: String,
         result: (FirebaseState<String>) -> Unit
     ) {
-        dispatchers.io {
+        dispatcherRepositoryContract.io {
             if (email.isEmpty() && password.isEmpty()) {
-                result.invoke(FirebaseState.Failure(manageResources.string(R.string.empty_email_password)))
+                result.invoke(FirebaseState.Failure(manageResourcesContract.string(R.string.empty_email_password)))
             } else if (email.isEmpty()) {
-                result.invoke(FirebaseState.Failure(manageResources.string(R.string.empty_email)))
+                result.invoke(FirebaseState.Failure(manageResourcesContract.string(R.string.empty_email)))
             } else if (password.isEmpty()) {
-                result.invoke(FirebaseState.Failure(manageResources.string(R.string.empty_password)))
+                result.invoke(FirebaseState.Failure(manageResourcesContract.string(R.string.empty_password)))
             } else {
                 firebaseAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
-                            result.invoke(FirebaseState.Success(manageResources.string(R.string.successfully_register)))
+                            result.invoke(FirebaseState.Success(manageResourcesContract.string(R.string.successfully_register)))
                             result.invoke(FirebaseState.Navigate(R.id.loginFragment))
                         } else {
                             try {
                                 throw it.exception
-                                    ?: java.lang.Exception(manageResources.string(R.string.invalid_authentication))
+                                    ?: java.lang.Exception(manageResourcesContract.string(R.string.invalid_authentication))
                             } catch (e: FirebaseAuthWeakPasswordException) {
-                                result.invoke(FirebaseState.Failure(manageResources.string(R.string.password_lengs_6)))
+                                result.invoke(FirebaseState.Failure(manageResourcesContract.string(R.string.password_lengs_6)))
                             } catch (e: FirebaseAuthInvalidCredentialsException) {
-                                result.invoke(FirebaseState.Failure(manageResources.string(R.string.invalid_email)))
+                                result.invoke(FirebaseState.Failure(manageResourcesContract.string(R.string.invalid_email)))
                             } catch (e: FirebaseAuthUserCollisionException) {
-                                result.invoke(FirebaseState.Failure(manageResources.string(R.string.email_registered)))
+                                result.invoke(FirebaseState.Failure(manageResourcesContract.string(R.string.email_registered)))
                             } catch (e: Exception) {
                                 result.invoke(FirebaseState.Failure(e.message))
                             }
@@ -92,13 +92,13 @@ class FirebaseRepository @Inject constructor(
         firebaseAuth.sendPasswordResetEmail(email)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    result.invoke(FirebaseState.Success(manageResources.string(R.string.email_sent)))
+                    result.invoke(FirebaseState.Success(manageResourcesContract.string(R.string.email_sent)))
                     result.invoke(FirebaseState.Navigate(R.id.loginFragment))
                 } else {
                     result.invoke(FirebaseState.Failure(task.exception?.message))
                 }
             }.addOnFailureListener {
-                result.invoke(FirebaseState.Failure(manageResources.string(R.string.incorrect_email)))
+                result.invoke(FirebaseState.Failure(manageResourcesContract.string(R.string.incorrect_email)))
             }
     }
 }

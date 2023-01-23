@@ -1,9 +1,9 @@
 package com.example.newsapppp.presentation.ui.registration.signin
 
 import com.example.newsapppp.core.FirebaseState
-import com.example.newsapppp.domain.interactors.firebase.SignInUseCase
-import com.example.newsapppp.domain.interactors.firebase.validation.ValidateEmailUseCase
-import com.example.newsapppp.domain.interactors.firebase.validation.ValidatePasswordUseCase
+import com.example.newsapppp.domain.interactors.authentication.SignInUseCase
+import com.example.newsapppp.domain.interactors.authentication.validation.ValidateEmailUseCase
+import com.example.newsapppp.domain.interactors.authentication.validation.ValidatePasswordUseCase
 import com.example.newsapppp.presentation.extensions.launchCoroutine
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

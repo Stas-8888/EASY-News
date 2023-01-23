@@ -1,4 +1,4 @@
-package com.example.newsapppp.domain.interactors.firebase.validation
+package com.example.newsapppp.domain.interactors.authentication.validation
 
 import com.example.newsapppp.domain.repository.BaseUseCase
 import com.example.newsapppp.domain.repository.ValidationRepositoryContract

@@ -1,6 +1,6 @@
 package com.example.newsapppp.data.network
 
-import com.example.newsapppp.data.network.model.NewsResponseDto
+import com.example.newsapppp.data.network.model.NewsResponseRemote
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -16,7 +16,7 @@ interface ApiService {
         category: String = "",
         @Query("apiKey")
         apiKey: String = API_KEY
-    ): NewsResponseDto
+    ): NewsResponseRemote
 
     @GET("v2/everything")
     suspend fun searchForNews(
@@ -24,5 +24,5 @@ interface ApiService {
         searchQuery: String,
         @Query("apiKey")
         apiKey: String = API_KEY
-    ): NewsResponseDto
+    ): NewsResponseRemote
 }

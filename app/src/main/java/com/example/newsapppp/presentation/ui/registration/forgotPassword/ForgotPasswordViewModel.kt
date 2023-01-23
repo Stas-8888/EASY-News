@@ -1,8 +1,8 @@
 package com.example.newsapppp.presentation.ui.registration.forgotPassword
 
 import com.example.newsapppp.core.FirebaseState
-import com.example.newsapppp.domain.interactors.firebase.ForgotPasswordUseCase
-import com.example.newsapppp.domain.interactors.firebase.validation.ValidateEmailUseCase
+import com.example.newsapppp.domain.interactors.authentication.ForgotPasswordUseCase
+import com.example.newsapppp.domain.interactors.authentication.validation.ValidateEmailUseCase
 import com.example.newsapppp.presentation.extensions.launchCoroutine
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

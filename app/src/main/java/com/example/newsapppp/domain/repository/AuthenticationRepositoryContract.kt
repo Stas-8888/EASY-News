@@ -2,7 +2,7 @@ package com.example.newsapppp.domain.repository
 
 import com.example.newsapppp.core.FirebaseState
 
-interface FirebaseRepositoryContract {
+interface AuthenticationRepositoryContract {
 
     suspend fun signIn(
         email: String,

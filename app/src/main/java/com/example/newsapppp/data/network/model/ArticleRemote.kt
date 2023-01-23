@@ -1,6 +1,6 @@
 package com.example.newsapppp.data.network.model
 
-data class ArticleDto(
+data class ArticleRemote(
     val id: Int = 0,
     val author: String?,
     val content: String?,

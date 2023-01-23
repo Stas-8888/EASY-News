@@ -1,10 +1,10 @@
-package com.example.newsapppp.domain.interactors.firebase
+package com.example.newsapppp.domain.interactors.authentication
 
 import com.example.newsapppp.core.FirebaseState
-import com.example.newsapppp.domain.repository.FirebaseRepositoryContract
+import com.example.newsapppp.domain.repository.AuthenticationRepositoryContract
 import javax.inject.Inject
 
-class SignUpUseCase @Inject constructor(val repo: FirebaseRepositoryContract) {
+class SignUpUseCase @Inject constructor(val repo: AuthenticationRepositoryContract) {
 
     suspend fun signUp(
         user: String,
