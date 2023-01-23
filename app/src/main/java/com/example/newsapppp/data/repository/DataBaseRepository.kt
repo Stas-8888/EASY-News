@@ -14,18 +14,18 @@ class DataBaseRepository @Inject constructor(
     private val newsDao: NewsDao,
     private val mapper: ArticleMapper,
     private val newsResponseMapper: NewsResponseMapper,
-    private val dispatcherRepositoryContract: DispatcherRepositoryContract
+    private val dispatcher: DispatcherRepositoryContract
 ) : DataBaseRepositoryContract {
 
-    override suspend fun insertArticle(article: ArticleModel) = dispatcherRepositoryContract.io {
+    override suspend fun insertArticle(article: ArticleModel) = dispatcher.io {
         newsDao.insertArticle(mapper.mapFromEntity(article))
     }
 
-    override suspend fun deleteArticle(article: ArticleModel) = dispatcherRepositoryContract.io {
+    override suspend fun deleteArticle(article: ArticleModel) = dispatcher.io {
         newsDao.deleteArticle(mapper.mapFromEntity(article))
     }
 
-    override suspend fun deleteAllArticle() = dispatcherRepositoryContract.io {
+    override suspend fun deleteAllArticle() = dispatcher.io {
         newsDao.deleteAllArticle()
     }
 
