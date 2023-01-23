@@ -67,7 +67,9 @@
                 android:id="@+id/fullName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Full Name"
+                android:hint="@string/full_name"
+                android:inputType="text"
+                android:maxLength="14"
                 android:textColor="@color/colorRedBackground" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -101,6 +103,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/email"
+                android:inputType="text"
+                android:maxLength="14"
                 android:textColor="@color/colorRedBackground" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -138,6 +142,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
                 android:inputType="textPassword"
+                android:lines="1"
+                android:maxLength="14"
                 android:textColor="@color/colorRedBackground" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -169,6 +175,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
                 android:inputType="textPassword"
+                android:maxLength="14"
                 android:textColor="@color/colorRedBackground" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -247,7 +254,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="2dp"
             android:text="@string/create_account"
-            android:textColor="@color/blackLight"
+            android:textColor="@color/grey_one"
             app:layout_constraintBottom_toTopOf="@+id/fullNameContainer"
             app:layout_constraintEnd_toEndOf="@+id/fullNameContainer"
             app:layout_constraintHorizontal_bias="1.0"

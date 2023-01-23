@@ -14,7 +14,7 @@ import javax.inject.Inject
 class FirebaseRepository @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val dispatchers: Dispatchers,
-    private val manageResources: ManageResources
+    private val manageResources: ManageResources,
 ) : FirebaseRepositoryContract {
 
     override suspend fun signIn(

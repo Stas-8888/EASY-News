@@ -88,4 +88,5 @@
     <string name="email_registered">Authentication failed, Email already registered.</string>
     <string name="email_sent">Email has been sent</string>
     <string name="incorrect_email">Authentication failed, incorrect email</string>
+    <string name="full_name">Full Name</string>
 </resources>
