@@ -62,9 +62,9 @@
     <string name="error_check_internet_connection">Check Internet Connection</string>
     <string name="error_oops_error_occured">Oops!! An Error Occurred</string>
     <string name="unregistered">If you want to use this functions, please registered</string>
-    <string name="ErrorRegistered">ERROR, If you want to use this functions, please registered</string>
+    <string name="error_registered">ERROR, If you want to use this functions, please registered</string>
     <string name="successes_registered">Successes Registered</string>
-    <string name="authentication_failed">Authentication failed, Check email and password</string>
+    <string name="authentication_failed">Authentication failed, Wrong email or password</string>
     <string name="wrong_email_password">Wrong Email or Password</string>
     <string name="title_title">Glad to see you. Check our news, it\'s easy to do</string>
     <string name="skip">Skip</string>
@@ -72,11 +72,20 @@
     <string name="create_account">Create Account.</string>
     <string name="exceptions">Exceptions</string>
     <string name="no_internet_connections">No Internet connections</string>
-    <string name="empty_email">Empty email address</string>
+    <string name="empty_email">Email is empty</string>
     <string name="internet_connected">Online</string>
     <string name="slow_internet">Slow Internet Connection</string>
     <string name="internet_disconnected">Offline</string>
     <string name="disabled_back_press">Disabled Back Press</string>
     <string name="search">Поиск…</string>
-    <string name="empty_password">Empty password</string>
+    <string name="empty_password">Password is empty</string>
+    <string name="empty_email_password">Email and Password is empty</string>
+    <string name="successfully_sign_in">Sign In is successfully!</string>
+    <string name="successfully_register">You are register successfully!</string>
+    <string name="invalid_authentication">Invalid authentication</string>
+    <string name="password_lengs_6">Authentication failed, Password should be at least 6 characters</string>
+    <string name="invalid_email">Authentication failed, Invalid email entered</string>
+    <string name="email_registered">Authentication failed, Email already registered.</string>
+    <string name="email_sent">Email has been sent</string>
+    <string name="incorrect_email">Authentication failed, incorrect email</string>
 </resources>

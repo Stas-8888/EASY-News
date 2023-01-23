@@ -62,7 +62,7 @@ class NewsFragmentViewModel @Inject constructor(
                 )
             }
         } else {
-            emitState(NewsState.Error(R.string.ErrorRegistered))
+            emitState(NewsState.Error(R.string.error_registered))
         }
     }
 }
