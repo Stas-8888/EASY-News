@@ -1,5 +1,7 @@
 package com.example.newsapppp.presentation.ui.splash
 
+import android.os.Bundle
+import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.R
@@ -15,7 +17,8 @@ class SplashFragment : BaseFragment<SplashState, FragmentSplashBinding, SplashVi
 ) {
     override val viewModel by viewModels<SplashViewModel>()
 
-    override fun setupUi() = with(binding) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
+        super.onViewCreated(view, savedInstanceState)
         hideBottomNavigation()
         viewModel.setupDayNightMode()
         viewModel.delayScreen()
@@ -24,6 +27,8 @@ class SplashFragment : BaseFragment<SplashState, FragmentSplashBinding, SplashVi
         tvNews.startAnimation(animationBounce)
         tvWelcome.startAnimation(animationBounce)
     }
+
+    override fun onClickListener() = with(binding) { }
 
     override fun renderState(state: SplashState) {
         when (state) {

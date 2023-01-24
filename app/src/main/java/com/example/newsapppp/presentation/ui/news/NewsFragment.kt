@@ -35,7 +35,7 @@ class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentVi
         hideBottomNavigation()
     }
 
-    override fun setupUi() = with(binding) {
+    override fun onClickListener() = with(binding) {
         btFavorite.setOnClickListener {
             btFavorite.invisible()
             circleAnimeView.visible()

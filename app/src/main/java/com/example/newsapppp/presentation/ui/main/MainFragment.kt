@@ -12,16 +12,13 @@ import com.example.newsapppp.presentation.adapters.NewsAdapter
 import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
-import com.muddassir.connection_checker.ConnectionState
-import com.muddassir.connection_checker.ConnectivityListener
-import com.muddassir.connection_checker.checkConnection
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_main.*
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentViewModel>(
     FragmentMainBinding::inflate
-), ConnectivityListener {
+) {
 
     private val newsAdapter by lazy { NewsAdapter() }
     override val viewModel by viewModels<MainFragmentViewModel>()
@@ -29,22 +26,8 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
         super.onViewCreated(view, savedInstanceState)
         showBottomNavigation()
         getCountryAndCategoryTabLayout()
-        viewModel.getNews(category = categories[0])
-        checkConnection(this)
-    }
-
-    override fun setupUi() {
-        btProfile.setOnClickListener {
-            navigateTo(R.id.settingsFragment)
-        }
-        newsAdapter.setOnItemClickListener {
-            navigateDirections(MainFragmentDirections.actionMainFragmentToNewsFragment(it))
-        }
-        // Swipe to refresh
-        swipeToRefresh.setOnRefreshListener {
-            binding.rvNews.adapter = newsAdapter
-            swipeToRefresh.isRefreshing = false
-        }
+        viewModel.getNews(category = categories.first())
+        viewModel.getCountryFlag()
         rvNews.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(requireContext())
@@ -56,11 +39,17 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
         }
     }
 
-    override fun onConnectionState(state: ConnectionState) {
-        tvCountry.text = when (state) {
-            ConnectionState.CONNECTED -> getString(R.string.internet_connected)
-            ConnectionState.SLOW -> getString(R.string.slow_internet)
-            else -> getString(R.string.internet_disconnected)
+    override fun onClickListener() {
+        btProfile.setOnClickListener {
+            navigateTo(R.id.settingsFragment)
+        }
+        newsAdapter.setOnItemClickListener {
+            navigateDirections(MainFragmentDirections.actionMainFragmentToNewsFragment(it))
+        }
+        // Swipe to refresh
+        swipeToRefresh.setOnRefreshListener {
+            binding.rvNews.adapter = newsAdapter
+            swipeToRefresh.isRefreshing = false
         }
     }
 
@@ -76,7 +65,7 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
             }
             is MainState.ShowBottom -> fabUp.invisible()
             is MainState.HideBottom -> fabUp.visible()
-            is MainState.GetCountryFlag -> tvCountry.text = state.getCountryFlag
+            is MainState.GetCountryFlag -> {}
             is MainState.Error -> snackBar(requireView(), state.exception)
         }
     }

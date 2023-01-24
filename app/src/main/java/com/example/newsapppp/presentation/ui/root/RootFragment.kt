@@ -4,11 +4,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentRootBinding
-import com.example.newsapppp.presentation.ui.base.BaseFragment
 import com.example.newsapppp.presentation.extensions.internetConnectionDialog
+import com.example.newsapppp.presentation.ui.base.BaseFragment
 import com.muddassir.connection_checker.ConnectionState
 import com.muddassir.connection_checker.ConnectivityListener
-import com.muddassir.connection_checker.checkConnection
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,8 +17,7 @@ class RootFragment : BaseFragment<RootState, FragmentRootBinding, RootViewModel>
 
     override val viewModel by viewModels<RootViewModel>()
 
-    override fun setupUi() {
-        checkConnection(this)
+    override fun onClickListener() {
     }
 
     private fun navigate(fragment: Int) {

@@ -25,19 +25,19 @@ class SaveFragment : BaseFragment<SaveState, FragmentSaveBinding, SaveFragmentVi
         showBottomNavigation()
         swipeToDelete()
         viewModel.getAllNews()
+        rvSavedNews.apply {
+            adapter = newsAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
     }
 
-    override fun setupUi() {
+    override fun onClickListener() {
         with(binding) {
             btDeleteAll.setOnClickListener {
                 showDeleteDialog({ viewModel.deleteAllArticle() }, { })
             }
             newsAdapter.setOnItemClickListener {
                 navigateDirections(SaveFragmentDirections.actionSaveFragmentToNewsFragment(it))
-            }
-            rvSavedNews.apply {
-                adapter = newsAdapter
-                layoutManager = LinearLayoutManager(requireContext())
             }
         }
     }
@@ -71,8 +71,8 @@ class SaveFragment : BaseFragment<SaveState, FragmentSaveBinding, SaveFragmentVi
                 viewHolder: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
             ): Boolean {
-                val initial = viewHolder.adapterPosition
-                val final = target.adapterPosition
+                val initial = viewHolder.bindingAdapterPosition
+                val final = target.bindingAdapterPosition
                 newsAdapter.notifyItemMoved(initial, final)
                 return true
             }
@@ -80,7 +80,7 @@ class SaveFragment : BaseFragment<SaveState, FragmentSaveBinding, SaveFragmentVi
             override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder) = 0.3f
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val position = viewHolder.adapterPosition
+                val position = viewHolder.bindingAdapterPosition
                 val article = newsAdapter.currentList[position]
                 viewModel.onItemSwiped(article, position)
             }

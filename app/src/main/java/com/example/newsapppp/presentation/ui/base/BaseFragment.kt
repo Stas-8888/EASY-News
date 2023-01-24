@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.example.newsapppp.presentation.extensions.launchWhenStarted
+import com.muddassir.connection_checker.checkConnection
 import kotlinx.coroutines.flow.collectLatest
 
 abstract class BaseFragment<State, VB : ViewBinding, VM : BaseViewModel<State>>(
@@ -34,7 +35,8 @@ abstract class BaseFragment<State, VB : ViewBinding, VM : BaseViewModel<State>>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupUi()
+        checkConnection(this)
+        onClickListener()
         observeOnState()
     }
 
@@ -44,6 +46,6 @@ abstract class BaseFragment<State, VB : ViewBinding, VM : BaseViewModel<State>>(
         }
     }
 
-    abstract fun setupUi()
+    abstract fun onClickListener()
     abstract fun renderState(state: State)
 }

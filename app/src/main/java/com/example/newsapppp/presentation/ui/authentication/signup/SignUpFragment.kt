@@ -22,7 +22,7 @@ class SignUpFragment : BaseFragment<AuthState<String>, FragmentSignUpBinding, Si
         hideBottomNavigation()
     }
 
-    override fun setupUi() = with(binding) {
+    override fun onClickListener() = with(binding) {
         registerButton.setOnClickListener {
             viewModel.onSignUpClick(
                 fullNameText(),

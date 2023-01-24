@@ -1,8 +1,8 @@
 package com.example.newsapppp.presentation.ui.main
 
 import com.example.newsapppp.R
-import com.example.newsapppp.domain.interactors.preference.GetCountryFlagUseCase
 import com.example.newsapppp.domain.interactors.articleRemote.GetNewsUseCase
+import com.example.newsapppp.domain.interactors.preference.GetCountryFlagUseCase
 import com.example.newsapppp.presentation.extensions.launchCoroutine
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
@@ -15,15 +15,11 @@ import javax.inject.Inject
 class MainFragmentViewModel @Inject constructor(
     private val getNewsUseCase: GetNewsUseCase,
     private val articleMapperToModel: ArticleMapperToModel,
-    private val getCountryFlagUseCase: GetCountryFlagUseCase
+    private val getCountryFlagUseCase: GetCountryFlagUseCase,
 ) : BaseViewModel<MainState>() {
 
     override val _state = MutableStateFlow<MainState>(MainState.ShowLoading)
     override val state = _state.asStateFlow()
-
-    init {
-        getCountryFlag()
-    }
 
     fun getNews(category: String) = launchCoroutine {
         val data = getNewsUseCase(category).articlesModel.filter { it.urlToImage != null }
@@ -34,7 +30,7 @@ class MainFragmentViewModel @Inject constructor(
         }
     }
 
-    private fun getCountryFlag() = launchCoroutine {
+    fun getCountryFlag() = launchCoroutine {
         emitState(MainState.GetCountryFlag(getCountryFlagUseCase(Unit)))
     }
 

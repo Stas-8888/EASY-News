@@ -37,7 +37,7 @@ class SettingsFragment :
         viewModel.onSwitchDayNightClick()
     }
 
-    override fun setupUi() = with(binding) {
+    override fun onClickListener() = with(binding) {
         account.setOnClickListener {
             viewModel.checkAccount()
         }

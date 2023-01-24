@@ -15,7 +15,7 @@ class ForgotPasswordFragment :
         FragmentForgotPasswordBinding::inflate
     ) {
     override val viewModel by viewModels<ForgotPasswordViewModel>()
-    override fun setupUi() = with(binding) {
+    override fun onClickListener() = with(binding) {
         loginUsername.changesListener { viewModel.isValidEmail(emailText()) }
         btSignIn.setOnClickListener {
             viewModel.forgotPassword(emailText())

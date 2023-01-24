@@ -14,15 +14,13 @@ class ArticleRepository @Inject constructor(
     private val dispatcher: DispatcherRepositoryContract
 ) : ArticleRepositoryContract {
 
-    override suspend fun getNews(category: String): NewsResponseModel =
-        dispatcher.io {
+    override suspend fun getNews(category: String): NewsResponseModel = dispatcher.io {
             val country = sharedPref.getCountryFlag()
             val data = apiService.getBreakingNews(countryCode = country, category = category)
             newsResponseMapper.converterToNewsResponseModel(data)
         }
 
-    override suspend fun searchNews(searchQuery: String): NewsResponseModel =
-        dispatcher.io {
+    override suspend fun searchNews(searchQuery: String): NewsResponseModel = dispatcher.io {
             val data = apiService.searchForNews(searchQuery)
             newsResponseMapper.converterToNewsResponseModel(data)
         }

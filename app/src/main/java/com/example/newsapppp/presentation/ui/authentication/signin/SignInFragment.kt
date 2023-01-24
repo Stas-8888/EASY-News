@@ -21,7 +21,7 @@ class SignInFragment : BaseFragment<AuthState<String>, FragmentLoginBinding, Sig
         hideBottomNavigation()
     }
 
-    override fun setupUi() = with(binding) {
+    override fun onClickListener() = with(binding) {
         btForgotPassword.setOnClickListener { navigateTo(R.id.forgotPasswordFragment) }
         btSkip.setOnClickListener { navigateTo(R.id.mainFragment) }
         loginSignup.setOnClickListener { navigateTo(R.id.signUpFragment) }

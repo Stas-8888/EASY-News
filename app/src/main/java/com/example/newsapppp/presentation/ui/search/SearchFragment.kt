@@ -7,9 +7,9 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapppp.databinding.FragmentSearchBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
-import com.example.newsapppp.presentation.ui.base.BaseFragment
 import com.example.newsapppp.presentation.extensions.navigateDirections
 import com.example.newsapppp.presentation.extensions.showSnackBarString
+import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,22 +22,20 @@ class SearchFragment : BaseFragment<SearchState, FragmentSearchBinding, SearchFr
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.etSearch.requestFocus()
+        binding.rvSearchNews.apply {
+            adapter = newsAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
     }
 
-    override fun setupUi() {
-        with(binding) {
-            rvSearchNews.apply {
-                adapter = newsAdapter
-                layoutManager = LinearLayoutManager(requireContext())
+    override fun onClickListener() = with(binding) {
+        etSearch.addTextChangedListener { editable ->
+            editable?.let {
+                viewModel.searchTextListener(editable.toString())
             }
-            newsAdapter.setOnItemClickListener {
-                navigateDirections(SearchFragmentDirections.actionSearchFragmentToNewsFragment(it))
-            }
-            etSearch.addTextChangedListener { editable ->
-                editable?.let {
-                    viewModel.searchTextListener(editable.toString())
-                }
-            }
+        }
+        newsAdapter.setOnItemClickListener {
+            navigateDirections(SearchFragmentDirections.actionSearchFragmentToNewsFragment(it))
         }
     }
 
