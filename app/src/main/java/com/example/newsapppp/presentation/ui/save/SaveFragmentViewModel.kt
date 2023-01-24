@@ -1,9 +1,9 @@
 package com.example.newsapppp.presentation.ui.save
 
 import com.example.newsapppp.R
-import com.example.newsapppp.domain.interactors.room.DeleteAllUseCase
-import com.example.newsapppp.domain.interactors.room.DeleteArticleUseCase
-import com.example.newsapppp.domain.interactors.room.GetRoomArticleUseCase
+import com.example.newsapppp.domain.interactors.articleLocalSource.DeleteAllUseCase
+import com.example.newsapppp.domain.interactors.articleLocalSource.DeleteArticleUseCase
+import com.example.newsapppp.domain.interactors.articleLocalSource.GetRoomArticleUseCase
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.ui.base.BaseViewModel

@@ -1,6 +1,6 @@
-package com.example.newsapppp.presentation.ui.registration.signin
+package com.example.newsapppp.presentation.ui.authentication.signin
 
-import com.example.newsapppp.core.FirebaseState
+import com.example.newsapppp.presentation.ui.authentication.AuthState
 import com.example.newsapppp.domain.interactors.authentication.SignInUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidateEmailUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidatePasswordUseCase
@@ -16,9 +16,9 @@ class SignInViewModel @Inject constructor(
     private val signIn: SignInUseCase,
     private val validateEmail: ValidateEmailUseCase,
     private val validatePassword: ValidatePasswordUseCase,
-) : BaseViewModel<FirebaseState<String>>() {
+) : BaseViewModel<AuthState<String>>() {
 
-    override val _state = MutableStateFlow<FirebaseState<String>>(FirebaseState.Loading)
+    override val _state = MutableStateFlow<AuthState<String>>(AuthState.Loading)
     override val state = _state.asStateFlow()
 
     fun onSignInClicked(email: String, password: String) = launchCoroutine {
@@ -30,10 +30,10 @@ class SignInViewModel @Inject constructor(
     }
 
     fun isValidEmail(email: String) = launchCoroutine {
-        emitState(FirebaseState.CheckEmail(validateEmail(email)))
+        emitState(AuthState.CheckEmail(validateEmail(email)))
     }
 
     fun isValidPassword(password: String) = launchCoroutine {
-        emitState(FirebaseState.CheckPassword(validatePassword(password)))
+        emitState(AuthState.CheckPassword(validatePassword(password)))
     }
 }

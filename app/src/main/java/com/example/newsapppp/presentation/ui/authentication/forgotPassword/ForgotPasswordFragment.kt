@@ -1,7 +1,7 @@
-package com.example.newsapppp.presentation.ui.registration.forgotPassword
+package com.example.newsapppp.presentation.ui.authentication.forgotPassword
 
 import androidx.fragment.app.viewModels
-import com.example.newsapppp.core.FirebaseState
+import com.example.newsapppp.presentation.ui.authentication.AuthState
 import com.example.newsapppp.databinding.FragmentForgotPasswordBinding
 import com.example.newsapppp.presentation.extensions.changesListener
 import com.example.newsapppp.presentation.extensions.navigateTo
@@ -11,7 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ForgotPasswordFragment :
-    BaseFragment<FirebaseState<String>, FragmentForgotPasswordBinding, ForgotPasswordViewModel>(
+    BaseFragment<AuthState<String>, FragmentForgotPasswordBinding, ForgotPasswordViewModel>(
         FragmentForgotPasswordBinding::inflate
     ) {
     override val viewModel by viewModels<ForgotPasswordViewModel>()
@@ -24,19 +24,19 @@ class ForgotPasswordFragment :
 
     private fun emailText(): String = binding.loginUsername.text.toString()
 
-    override fun renderState(state: FirebaseState<String>) {
+    override fun renderState(state: AuthState<String>) {
         when (state) {
-            is FirebaseState.Loading -> {}
-            is FirebaseState.Failure -> {
+            is AuthState.Loading -> {}
+            is AuthState.Failure -> {
                 showSnackBarString(requireView(), state.error)
             }
-            is FirebaseState.Success -> {
+            is AuthState.Success -> {
                 showSnackBarString(requireView(), state.data)
             }
-            is FirebaseState.Navigate -> navigateTo(state.navigateTo)
-            is FirebaseState.CheckEmail -> binding.emailContainer.helperText = state.data
-            is FirebaseState.CheckPassword -> {}
-            is FirebaseState.CheckState -> {}
+            is AuthState.Navigate -> navigateTo(state.navigateTo)
+            is AuthState.CheckEmail -> binding.emailContainer.helperText = state.data
+            is AuthState.CheckPassword -> {}
+            is AuthState.CheckState -> {}
         }
     }
 }

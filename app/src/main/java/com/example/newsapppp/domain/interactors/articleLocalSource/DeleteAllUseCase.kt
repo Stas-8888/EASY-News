@@ -1,6 +1,6 @@
-package com.example.newsapppp.domain.interactors.room
+package com.example.newsapppp.domain.interactors.articleLocalSource
 
-import com.example.newsapppp.domain.repository.BaseUseCaseSuspend
+import com.example.newsapppp.domain.interactors.baseUseCase.BaseUseCaseSuspend
 import com.example.newsapppp.domain.repository.DataBaseRepositoryContract
 import javax.inject.Inject
 

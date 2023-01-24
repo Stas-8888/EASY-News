@@ -1,18 +1,18 @@
-package com.example.newsapppp.presentation.ui.registration.signup
+package com.example.newsapppp.presentation.ui.authentication.signup
 
 import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.R
-import com.example.newsapppp.core.FirebaseState
+import com.example.newsapppp.presentation.ui.authentication.AuthState
 import com.example.newsapppp.databinding.FragmentSignUpBinding
 import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignUpFragment : BaseFragment<FirebaseState<String>, FragmentSignUpBinding, SignUpViewModel>(
+class SignUpFragment : BaseFragment<AuthState<String>, FragmentSignUpBinding, SignUpViewModel>(
     FragmentSignUpBinding::inflate
 ) {
     override val viewModel by viewModels<SignUpViewModel>()
@@ -53,29 +53,29 @@ class SignUpFragment : BaseFragment<FirebaseState<String>, FragmentSignUpBinding
     private fun repeatPasswordText(): String = binding.confirmPassword.text.toString()
 
 
-    override fun renderState(state: FirebaseState<String>) {
+    override fun renderState(state: AuthState<String>) {
         with(binding) {
             when (state) {
-                is FirebaseState.Loading -> {
+                is AuthState.Loading -> {
                     loginProgress.invisible()
                 }
-                is FirebaseState.Failure -> {
+                is AuthState.Failure -> {
                     loginProgress.visible()
                     showSnackBarString(requireView(), state.error)
                 }
-                is FirebaseState.Success -> {
+                is AuthState.Success -> {
                     loginProgress.visible()
                     showSnackBarString(requireView(), state.data)
                 }
-                is FirebaseState.Navigate -> {
+                is AuthState.Navigate -> {
                     navigateTo(state.navigateTo)
                     requireActivity().onBackPressedDispatcher.addCallback(requireActivity()) {
                         navigateTo(state.navigateTo)
                     }
                 }
-                is FirebaseState.CheckEmail -> {}
-                is FirebaseState.CheckPassword -> {}
-                is FirebaseState.CheckState -> {
+                is AuthState.CheckEmail -> {}
+                is AuthState.CheckPassword -> {}
+                is AuthState.CheckState -> {
                     fullNameContainer.helperText = state.name
                     emailContainer.helperText = state.email
                     passwordContainer.helperText = state.password

@@ -1,17 +1,17 @@
-package com.example.newsapppp.presentation.ui.registration.signin
+package com.example.newsapppp.presentation.ui.authentication.signin
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.R
-import com.example.newsapppp.core.FirebaseState
+import com.example.newsapppp.presentation.ui.authentication.AuthState
 import com.example.newsapppp.databinding.FragmentLoginBinding
 import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignInFragment : BaseFragment<FirebaseState<String>, FragmentLoginBinding, SignInViewModel>(
+class SignInFragment : BaseFragment<AuthState<String>, FragmentLoginBinding, SignInViewModel>(
     FragmentLoginBinding::inflate
 ) {
     override val viewModel by viewModels<SignInViewModel>()
@@ -33,22 +33,22 @@ class SignInFragment : BaseFragment<FirebaseState<String>, FragmentLoginBinding,
     private fun emailText(): String = binding.loginUsername.text.toString()
     private fun passwordText(): String = binding.loginPassword.text.toString()
 
-    override fun renderState(state: FirebaseState<String>) {
+    override fun renderState(state: AuthState<String>) {
         when (state) {
-            is FirebaseState.Loading -> binding.loginProgress.invisible()
-            is FirebaseState.Failure -> {
+            is AuthState.Loading -> binding.loginProgress.invisible()
+            is AuthState.Failure -> {
                 binding.loginProgress.visible()
                 showSnackBarString(requireView(), state.error)
                 binding.loginProgress.invisible()
             }
-            is FirebaseState.Success -> {
+            is AuthState.Success -> {
                 binding.loginProgress.visible()
                 showSnackBarString(requireView(), state.data)
             }
-            is FirebaseState.Navigate -> navigateTo(state.navigateTo)
-            is FirebaseState.CheckEmail -> binding.emailContainer.helperText = state.data
-            is FirebaseState.CheckPassword -> binding.loginPasswordContainer.helperText = state.data
-            is FirebaseState.CheckState -> {}
+            is AuthState.Navigate -> navigateTo(state.navigateTo)
+            is AuthState.CheckEmail -> binding.emailContainer.helperText = state.data
+            is AuthState.CheckPassword -> binding.loginPasswordContainer.helperText = state.data
+            is AuthState.CheckState -> {}
         }
     }
 }

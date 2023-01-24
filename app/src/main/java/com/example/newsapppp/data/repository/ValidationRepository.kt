@@ -38,7 +38,7 @@ class ValidationRepository @Inject constructor(
 
     override fun validateRepeatedPassword(password: String, repeatedPassword: String): String {
         if (password != repeatedPassword) {
-            return manageResources.string(R.string.defferent_password)
+            return manageResources.string(R.string.different_password)
         }
         return manageResources.string(R.string.successful)
     }

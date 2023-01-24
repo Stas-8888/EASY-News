@@ -2,9 +2,9 @@ package com.example.newsapppp.data.repository
 
 import com.example.newsapppp.R
 import com.example.newsapppp.core.DispatcherRepositoryContract
-import com.example.newsapppp.core.FirebaseState
 import com.example.newsapppp.core.ManageResourcesContract
 import com.example.newsapppp.domain.repository.AuthenticationRepositoryContract
+import com.example.newsapppp.presentation.ui.authentication.AuthState
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -20,25 +20,21 @@ class AuthenticationRepository @Inject constructor(
     override suspend fun signIn(
         email: String,
         password: String,
-        result: (FirebaseState<String>) -> Unit
+        result: (AuthState<String>) -> Unit
     ) {
         dispatcher.io {
-            if (email.isEmpty() && password.isEmpty()) {
-                result.invoke(FirebaseState.Failure(manageResources.string(R.string.empty_email_password)))
-            } else if (email.isEmpty()) {
-                result.invoke(FirebaseState.Failure(manageResources.string(R.string.empty_email)))
-            } else if (password.isEmpty()) {
-                result.invoke(FirebaseState.Failure(manageResources.string(R.string.empty_password)))
-            } else {
-                firebaseAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            result.invoke(FirebaseState.Success(manageResources.string(R.string.successfully_sign_in)))
-                            result.invoke(FirebaseState.Navigate(R.id.mainFragment))
+            when {
+                email.isEmpty() -> result.invoke(failure(R.string.empty_email))
+                password.isEmpty() -> result.invoke(failure(R.string.empty_password))
+                else -> {
+                    firebaseAuth.signInWithEmailAndPassword(email, password)
+                        .addOnSuccessListener {
+                            result.invoke(success(R.string.successfully_sign_in))
+                            result.invoke(AuthState.Navigate(R.id.mainFragment))
+                        }.addOnFailureListener {
+                            result.invoke(failure(R.string.authentication_failed))
                         }
-                    }.addOnFailureListener {
-                        result.invoke(FirebaseState.Failure((manageResources.string(R.string.authentication_failed))))
-                    }
+                }
             }
         }
     }
@@ -47,58 +43,65 @@ class AuthenticationRepository @Inject constructor(
         user: String,
         email: String,
         password: String,
-        result: (FirebaseState<String>) -> Unit
+        result: (AuthState<String>) -> Unit
     ) {
         dispatcher.io {
-            if (email.isEmpty() && password.isEmpty()) {
-                result.invoke(FirebaseState.Failure(manageResources.string(R.string.empty_email_password)))
-            } else if (email.isEmpty()) {
-                result.invoke(FirebaseState.Failure(manageResources.string(R.string.empty_email)))
-            } else if (password.isEmpty()) {
-                result.invoke(FirebaseState.Failure(manageResources.string(R.string.empty_password)))
-            } else {
-                firebaseAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            result.invoke(FirebaseState.Success(manageResources.string(R.string.successfully_register)))
-                            result.invoke(FirebaseState.Navigate(R.id.loginFragment))
-                        } else {
-                            try {
-                                throw it.exception
-                                    ?: java.lang.Exception(manageResources.string(R.string.invalid_authentication))
-                            } catch (e: FirebaseAuthWeakPasswordException) {
-                                result.invoke(FirebaseState.Failure(manageResources.string(R.string.password_lengs_6)))
-                            } catch (e: FirebaseAuthInvalidCredentialsException) {
-                                result.invoke(FirebaseState.Failure(manageResources.string(R.string.invalid_email)))
-                            } catch (e: FirebaseAuthUserCollisionException) {
-                                result.invoke(FirebaseState.Failure(manageResources.string(R.string.email_registered)))
-                            } catch (e: Exception) {
-                                result.invoke(FirebaseState.Failure(e.message))
+            when {
+                email.isEmpty() -> result.invoke(failure(R.string.empty_email))
+                password.isEmpty() -> result.invoke(failure(R.string.empty_password))
+                else -> {
+                    firebaseAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener {
+                            if (it.isSuccessful) {
+                                result.invoke(success(R.string.successfully_register))
+                                result.invoke(AuthState.Navigate(R.id.loginFragment))
+                            } else {
+                                try {
+                                    throw it.exception
+                                        ?: java.lang.Exception(manageResources.string(R.string.invalid_authentication))
+                                } catch (e: FirebaseAuthWeakPasswordException) {
+                                    result.invoke(failure(R.string.password_lengs_6))
+                                } catch (e: FirebaseAuthInvalidCredentialsException) {
+                                    result.invoke(failure(R.string.invalid_email))
+                                } catch (e: FirebaseAuthUserCollisionException) {
+                                    result.invoke(failure(R.string.email_registered))
+                                } catch (e: Exception) {
+                                    result.invoke(AuthState.Failure(e.message))
+                                }
                             }
                         }
-                    }
-                    .addOnFailureListener {
-                        result.invoke(FirebaseState.Failure(it.localizedMessage))
-                    }
+                        .addOnFailureListener {
+                            result.invoke(AuthState.Failure(it.localizedMessage))
+                        }
+                }
             }
         }
     }
 
-    override fun logout() {
-        firebaseAuth.signOut()
-    }
+    override fun logout() = firebaseAuth.signOut()
 
-    override suspend fun forgotPassword(email: String, result: (FirebaseState<String>) -> Unit) {
+    override suspend fun forgotPassword(
+        email: String,
+        result: (AuthState<String>) -> Unit
+    ) {
         firebaseAuth.sendPasswordResetEmail(email)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    result.invoke(FirebaseState.Success(manageResources.string(R.string.email_sent)))
-                    result.invoke(FirebaseState.Navigate(R.id.loginFragment))
+                    result.invoke(success(R.string.email_sent))
+                    result.invoke(AuthState.Navigate(R.id.loginFragment))
                 } else {
-                    result.invoke(FirebaseState.Failure(task.exception?.message))
+                    result.invoke(AuthState.Failure(task.exception?.message))
                 }
             }.addOnFailureListener {
-                result.invoke(FirebaseState.Failure(manageResources.string(R.string.incorrect_email)))
+                result.invoke(failure(R.string.incorrect_email))
             }
+    }
+
+    private fun failure(message: Int): AuthState<String> {
+        return AuthState.Failure(manageResources.string(message))
+    }
+
+    private fun success(message: Int): AuthState<String> {
+        return AuthState.Success(manageResources.string(message))
     }
 }

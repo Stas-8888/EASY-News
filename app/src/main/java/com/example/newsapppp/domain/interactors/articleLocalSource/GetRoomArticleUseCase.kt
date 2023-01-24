@@ -1,7 +1,7 @@
-package com.example.newsapppp.domain.interactors.room
+package com.example.newsapppp.domain.interactors.articleLocalSource
 
 import com.example.newsapppp.domain.model.ArticleModel
-import com.example.newsapppp.domain.repository.BaseUseCase
+import com.example.newsapppp.domain.interactors.baseUseCase.BaseUseCase
 import com.example.newsapppp.domain.repository.DataBaseRepositoryContract
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

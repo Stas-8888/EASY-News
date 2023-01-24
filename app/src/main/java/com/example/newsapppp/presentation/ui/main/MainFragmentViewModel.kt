@@ -2,7 +2,7 @@ package com.example.newsapppp.presentation.ui.main
 
 import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.preference.GetCountryFlagUseCase
-import com.example.newsapppp.domain.interactors.retrofit.GetNewsUseCase
+import com.example.newsapppp.domain.interactors.articleRemote.GetNewsUseCase
 import com.example.newsapppp.presentation.extensions.launchCoroutine
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import com.example.newsapppp.presentation.ui.base.BaseViewModel

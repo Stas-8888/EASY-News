@@ -1,6 +1,6 @@
-package com.example.newsapppp.presentation.ui.registration.forgotPassword
+package com.example.newsapppp.presentation.ui.authentication.forgotPassword
 
-import com.example.newsapppp.core.FirebaseState
+import com.example.newsapppp.presentation.ui.authentication.AuthState
 import com.example.newsapppp.domain.interactors.authentication.ForgotPasswordUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidateEmailUseCase
 import com.example.newsapppp.presentation.extensions.launchCoroutine
@@ -14,9 +14,9 @@ import javax.inject.Inject
 class ForgotPasswordViewModel @Inject constructor(
     private val forgotPassword: ForgotPasswordUseCase,
     private val validateEmail: ValidateEmailUseCase
-) : BaseViewModel<FirebaseState<String>>() {
+) : BaseViewModel<AuthState<String>>() {
 
-    override val _state = MutableStateFlow<FirebaseState<String>>(FirebaseState.Loading)
+    override val _state = MutableStateFlow<AuthState<String>>(AuthState.Loading)
     override val state = _state.asStateFlow()
 
     fun forgotPassword(email: String) = launchCoroutine {
@@ -28,6 +28,6 @@ class ForgotPasswordViewModel @Inject constructor(
     }
 
     fun isValidEmail(email: String) = launchCoroutine {
-        emitState(FirebaseState.CheckEmail(validateEmail(email)))
+        emitState(AuthState.CheckEmail(validateEmail(email)))
     }
 }

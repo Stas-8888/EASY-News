@@ -70,7 +70,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.newsapppp.presentation.ui.registration.signin.SignInFragment"
+        android:name="com.example.newsapppp.presentation.ui.authentication.signin.SignInFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -93,7 +93,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.newsapppp.presentation.ui.registration.signup.SignUpFragment"
+        android:name="com.example.newsapppp.presentation.ui.authentication.signup.SignUpFragment"
         android:label="SignUpFragment" >
         <action
             android:id="@+id/action_signUpFragment_to_mainFragment"
@@ -125,7 +125,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="com.example.newsapppp.presentation.ui.registration.forgotPassword.ForgotPasswordFragment"
+        android:name="com.example.newsapppp.presentation.ui.authentication.forgotPassword.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" >
         <action

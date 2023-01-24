@@ -1,6 +1,6 @@
 package com.example.newsapppp.domain.interactors.preference
 
-import com.example.newsapppp.domain.repository.BaseUseCaseSuspend
+import com.example.newsapppp.domain.interactors.baseUseCase.BaseUseCaseSuspend
 import com.example.newsapppp.domain.repository.SharedPrefRepositoryContract
 import javax.inject.Inject
 

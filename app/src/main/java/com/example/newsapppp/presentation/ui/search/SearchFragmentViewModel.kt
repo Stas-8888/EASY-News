@@ -1,7 +1,7 @@
 package com.example.newsapppp.presentation.ui.search
 
 import com.example.newsapppp.presentation.extensions.launchCoroutine
-import com.example.newsapppp.domain.interactors.retrofit.SearchNewsUseCase
+import com.example.newsapppp.domain.interactors.articleRemote.SearchNewsUseCase
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

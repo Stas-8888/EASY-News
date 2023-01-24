@@ -3,8 +3,8 @@ package com.example.newsapppp.presentation.ui.news
 import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.preference.GetFavoriteUseCase
 import com.example.newsapppp.domain.interactors.preference.SaveFavoriteUseCase
-import com.example.newsapppp.domain.interactors.room.DeleteArticleUseCase
-import com.example.newsapppp.domain.interactors.room.InsertArticleUseCase
+import com.example.newsapppp.domain.interactors.articleLocalSource.DeleteArticleUseCase
+import com.example.newsapppp.domain.interactors.articleLocalSource.InsertArticleUseCase
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.ui.base.BaseViewModel

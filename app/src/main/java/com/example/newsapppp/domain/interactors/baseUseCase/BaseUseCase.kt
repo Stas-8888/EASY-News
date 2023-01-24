@@ -1,4 +1,4 @@
-package com.example.newsapppp.domain.repository
+package com.example.newsapppp.domain.interactors.baseUseCase
 
 interface BaseUseCase<in Parameter, out Result> {
 

@@ -1,6 +1,6 @@
-package com.example.newsapppp.presentation.ui.registration.signup
+package com.example.newsapppp.presentation.ui.authentication.signup
 
-import com.example.newsapppp.core.FirebaseState
+import com.example.newsapppp.presentation.ui.authentication.AuthState
 import com.example.newsapppp.domain.interactors.authentication.*
 import com.example.newsapppp.domain.interactors.authentication.validation.FullNameUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidateEmailUseCase
@@ -20,9 +20,9 @@ class SignUpViewModel @Inject constructor(
     private val signUpUseCase: SignUpUseCase,
     private val validatePassword: ValidatePasswordUseCase,
     private val validateRepeatedPassword: ValidateRepeatedPasswordUseCase
-) : BaseViewModel<FirebaseState<String>>() {
+) : BaseViewModel<AuthState<String>>() {
 
-    override val _state = MutableStateFlow<FirebaseState<String>>(FirebaseState.Loading)
+    override val _state = MutableStateFlow<AuthState<String>>(AuthState.Loading)
     override val state = _state.asStateFlow()
 
     fun checkValidationFields(
@@ -32,7 +32,7 @@ class SignUpViewModel @Inject constructor(
         repeatedPassword: String
     ) = launchCoroutine {
         _state.emit(
-            FirebaseState.CheckState(
+            AuthState.CheckState(
                 fullName(name),
                 validateEmail(email),
                 validatePassword(password),
