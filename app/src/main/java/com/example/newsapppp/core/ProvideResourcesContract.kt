@@ -2,7 +2,7 @@ package com.example.newsapppp.core
 
 import androidx.annotation.StringRes
 
-interface ManageResourcesContract {
+interface ProvideResourcesContract {
 
     fun string(@StringRes id: Int): String
 }

@@ -1,7 +1,7 @@
 package com.example.newsapppp.di
 
 import com.example.newsapppp.core.DispatcherRepositoryContract
-import com.example.newsapppp.core.ManageResourcesContract
+import com.example.newsapppp.core.ProvideResourcesContract
 import com.example.newsapppp.data.repository.*
 import com.example.newsapppp.domain.repository.*
 import com.google.firebase.auth.FirebaseAuth
@@ -17,7 +17,7 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun providesManageResources(impl: ManageResources): ManageResourcesContract = impl
+    fun providesManageResources(impl: ProvideResources): ProvideResourcesContract = impl
 
     @Provides
     @Singleton

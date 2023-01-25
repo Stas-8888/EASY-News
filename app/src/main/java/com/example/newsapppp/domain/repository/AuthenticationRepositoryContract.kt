@@ -20,5 +20,4 @@ interface AuthenticationRepositoryContract {
     fun logout()
 
     suspend fun forgotPassword(email: String, result: (AuthState<String>) -> Unit)
-
 }

@@ -2,12 +2,12 @@ package com.example.newsapppp.data.repository
 
 import android.util.Patterns
 import com.example.newsapppp.R
-import com.example.newsapppp.core.ManageResourcesContract
+import com.example.newsapppp.core.ProvideResourcesContract
 import com.example.newsapppp.domain.repository.ValidationRepositoryContract
 import javax.inject.Inject
 
 class ValidationRepository @Inject constructor(
-    private val manageResources: ManageResourcesContract
+    private val manageResources: ProvideResourcesContract
 ) : ValidationRepositoryContract {
 
     override fun validateEmail(email: String): String {
