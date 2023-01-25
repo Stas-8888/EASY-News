@@ -56,8 +56,6 @@ class AuthenticationRepository @Inject constructor(
         }
     }
 
-    override fun logout() = firebaseAuth.signOut()
-
     override suspend fun forgotPassword(
         email: String,
         result: (AuthState<String>) -> Unit
@@ -73,6 +71,8 @@ class AuthenticationRepository @Inject constructor(
                 }
         }
     }
+
+    override fun logout() = firebaseAuth.signOut()
 
     private fun failure(message: Int): AuthState<String> {
         return AuthState.Failure(provideResources.string(message))

@@ -33,7 +33,7 @@ class SettingsFragment :
         hideBottomNavigation()
         firebaseAuth = FirebaseAuth.getInstance()
         tvEmail.text = firebaseAuth.currentUser?.email
-        setupCountryFlag()
+        viewModel.setupCountryFlag()
         viewModel.onSwitchDayNightClick()
     }
 
@@ -63,6 +63,11 @@ class SettingsFragment :
             is SettingsState.Account2 -> navigateTo(state.navigation)
             is SettingsState.GetCurrentEmail -> state.currentEmail
             is SettingsState.IsSwitch -> switchDayNight.isChecked = state.isSwitch
+            is SettingsState.SetupCountryFlag -> binding.imCountry.setImageResource(state.flag)
+            is SettingsState.SaveCurrentCountry -> {
+                binding.imCountry.setImageResource(state.imageResource)
+                snackBar(requireView(), state.countryName)
+            }
         }
     }
 
@@ -71,75 +76,36 @@ class SettingsFragment :
         popup.inflate(R.menu.pop_up_menu)
         popup.setOnMenuItemClickListener { item: MenuItem ->
             when (item.itemId) {
-                R.id.us -> {
-                    saveCurrentCountry(
-                        view,
-                        countryFlag = USA,
-                        imageResource = R.drawable.usa,
-                        countryName = R.string.American_News
-                    )
-                }
-                R.id.ru -> {
-                    saveCurrentCountry(
-                        view,
-                        countryFlag = RUSSIA,
-                        imageResource = R.drawable.russia,
-                        countryName = R.string.Russia_News
-                    )
-                }
-                R.id.germany -> {
-                    saveCurrentCountry(
-                        view,
-                        countryFlag = GERMANY,
-                        imageResource = R.drawable.germany,
-                        countryName = R.string.Germany_News
-                    )
-                }
-                R.id.egipt -> {
-                    saveCurrentCountry(
-                        view,
-                        countryFlag = EGYPT,
-                        imageResource = R.drawable.egypt,
-                        countryName = R.string.Egypt_News
-                    )
-                }
+                R.id.us -> viewModel.saveUsaCountry()
+                R.id.ru -> viewModel.saveRussiaCountry()
+                R.id.germany -> viewModel.saveGermanyCountry()
+                R.id.egipt -> viewModel.saveEgyptCountry()
             }
             true
         }
         popup.show()
     }
 
-    private fun saveCurrentCountry(
-        view: View,
-        countryFlag: String,
-        imageResource: Int,
-        countryName: Int
-    ) {
-        viewModel.saveCountryFlag(countryFlag)
-        setImageResource(imageResource)
-        snackBar(view, countryName)
-    }
+//    private fun setImageResource(res: Int) {
+//        binding.imCountry.setImageResource(res)
+//    }
 
-    private fun setImageResource(res: Int) {
-        binding.imCountry.setImageResource(res)
-    }
-
-    private fun setupCountryFlag() {
-        when (viewModel.getCountryFlag()) {
-            USA -> {
-                setImageResource(R.drawable.usa)
-            }
-            GERMANY -> {
-                setImageResource(R.drawable.germany)
-            }
-            RUSSIA -> {
-                setImageResource(R.drawable.russia)
-            }
-            EGYPT -> {
-                setImageResource(R.drawable.egypt)
-            }
-        }
-    }
+//    private fun setupCountryFlag() {
+//        when (viewModel.getCountryFlag()) {
+//            USA -> {
+//                setImageResource(R.drawable.usa)
+//            }
+//            GERMANY -> {
+//                setImageResource(R.drawable.germany)
+//            }
+//            RUSSIA -> {
+//                setImageResource(R.drawable.russia)
+//            }
+//            EGYPT -> {
+//                setImageResource(R.drawable.egypt)
+//            }
+//        }
+//    }
 
     private fun showChangeNameDialog(name: String) {
         var dialog: AlertDialog? = null
@@ -162,12 +128,5 @@ class SettingsFragment :
             window?.setBackgroundDrawable(null)
             show()
         }
-    }
-
-    companion object {
-        private const val USA = "us"
-        private const val GERMANY = "de"
-        private const val RUSSIA = "ru"
-        private const val EGYPT = "eg"
     }
 }

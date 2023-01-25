@@ -25,9 +25,9 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showBottomNavigation()
+        viewModel.getCountryFlag()
         getCountryAndCategoryTabLayout()
         viewModel.getNews(category = categories.first())
-        viewModel.getCountryFlag()
         rvNews.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(requireContext())

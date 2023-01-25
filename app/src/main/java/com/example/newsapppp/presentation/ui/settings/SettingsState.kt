@@ -14,5 +14,15 @@ sealed class SettingsState : State {
 
     data class Account2(val navigation: Int) : SettingsState()
 
-    data class GetCurrentEmail(val currentEmail: String?): SettingsState()
+    data class GetCurrentEmail(val currentEmail: String?) : SettingsState()
+
+    data class SetupCountryFlag(val flag: Int) : SettingsState()
+
+    data class SaveCurrentCountry(
+        val countryFlag: Unit,
+        val imageResource: Int,
+        val countryName: Int
+    ) : SettingsState()
+
+
 }
