@@ -22,12 +22,13 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
 
     private val newsAdapter by lazy { NewsAdapter() }
     override val viewModel by viewModels<MainFragmentViewModel>()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showBottomNavigation()
         viewModel.getCountryFlag()
         getCountryAndCategoryTabLayout()
-        viewModel.getNews(category = categories.first())
+        viewModel.getNews(categories.first())
         rvNews.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(requireContext())
@@ -69,13 +70,10 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
     }
 
     private fun getCountryAndCategoryTabLayout() {
-        binding.tabMain.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        binding.tabMain.addOnTabSelectedListener(object : SimpleTabSelectedListener() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewModel.getNews(categories[tab.position])
             }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) {}
-            override fun onTabReselected(tab: TabLayout.Tab) {}
         })
     }
 
@@ -93,7 +91,7 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
         fabUp.setOnClickListener { rvNews.smoothScrollToPosition(0) }
     }
 
-    private val categories = listOf(
+    val categories = listOf(
         "Technology",
         "Sports",
         "Science",
