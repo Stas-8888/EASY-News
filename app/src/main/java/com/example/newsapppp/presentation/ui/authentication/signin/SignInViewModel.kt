@@ -29,18 +29,16 @@ class SignInViewModel @Inject constructor(
             email.isEmpty() -> emitState(AuthState.Failure(provideResources.string(R.string.empty_email)))
             password.isEmpty() -> emitState(AuthState.Failure(provideResources.string(R.string.empty_password)))
             else -> signIn.signIn(email, password) {
-                launchCoroutine {
-                    emitState(it)
-                }
+                emitState(it)
             }
         }
     }
 
-    fun isValidEmail(email: String) = launchCoroutine {
+    fun isValidEmail(email: String) {
         emitState(AuthState.CheckEmail(validateEmail(email)))
     }
 
-    fun isValidPassword(password: String) = launchCoroutine {
+    fun isValidPassword(password: String) {
         emitState(AuthState.CheckPassword(validatePassword(password)))
     }
 }

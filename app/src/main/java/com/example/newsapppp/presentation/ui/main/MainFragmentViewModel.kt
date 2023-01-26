@@ -30,11 +30,11 @@ class MainFragmentViewModel @Inject constructor(
         }
     }
 
-    fun getCountryFlag() = launchCoroutine {
+    fun getCountryFlag() {
         emitState(MainState.GetCountryFlag(getCountryFlagUseCase(Unit)))
     }
 
-    fun showOrHideFloatButton(getFirstNewsPosition: Int) = launchCoroutine {
+    fun showOrHideFloatButton(getFirstNewsPosition: Int) {
         if (getFirstNewsPosition < 1)
             emitState(MainState.ShowBottom) else emitState(MainState.HideBottom)
     }

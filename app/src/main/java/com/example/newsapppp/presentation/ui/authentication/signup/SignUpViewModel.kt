@@ -33,8 +33,8 @@ class SignUpViewModel @Inject constructor(
         email: String,
         password: String,
         repeatedPassword: String
-    ) = launchCoroutine {
-        _state.emit(
+    ) {
+        emitState(
             AuthState.CheckState(
                 fullName(name),
                 validateEmail(email),
@@ -53,9 +53,7 @@ class SignUpViewModel @Inject constructor(
             email.isEmpty() -> emitState(AuthState.Failure(provideResources.string(R.string.empty_email)))
             password.isEmpty() -> emitState(AuthState.Failure(provideResources.string(R.string.empty_password)))
             else -> signUpUseCase.signUp(name, email, password) {
-                launchCoroutine {
-                    emitState(it)
-                }
+                emitState(it)
             }
         }
     }

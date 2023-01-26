@@ -4,10 +4,10 @@ import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.articleLocalSource.DeleteAllUseCase
 import com.example.newsapppp.domain.interactors.articleLocalSource.DeleteArticleUseCase
 import com.example.newsapppp.domain.interactors.articleLocalSource.GetRoomArticleUseCase
+import com.example.newsapppp.presentation.extensions.launchCoroutine
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
-import com.example.newsapppp.presentation.extensions.launchCoroutine
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -42,7 +42,7 @@ class SaveFragmentViewModel @Inject constructor(
         deleteAllUseCase(Unit)
     }
 
-    fun onItemSwiped(article: Article, position: Int) = launchCoroutine {
+    fun onItemSwiped(article: Article, position: Int) {
         emitState(SaveState.ShowDeleteDialog(article, position))
     }
 }

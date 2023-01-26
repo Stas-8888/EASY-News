@@ -1,14 +1,14 @@
 package com.example.newsapppp.presentation.ui.news
 
 import com.example.newsapppp.R
-import com.example.newsapppp.domain.interactors.preference.GetFavoriteUseCase
-import com.example.newsapppp.domain.interactors.preference.SaveFavoriteUseCase
 import com.example.newsapppp.domain.interactors.articleLocalSource.DeleteArticleUseCase
 import com.example.newsapppp.domain.interactors.articleLocalSource.InsertArticleUseCase
+import com.example.newsapppp.domain.interactors.preference.GetFavoriteUseCase
+import com.example.newsapppp.domain.interactors.preference.SaveFavoriteUseCase
+import com.example.newsapppp.presentation.extensions.launchCoroutine
 import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
-import com.example.newsapppp.presentation.extensions.launchCoroutine
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,7 +28,8 @@ class NewsFragmentViewModel @Inject constructor(
     private var isFavorite = false
     private val favoritesIconSelected = R.drawable.ic_favorite
     private val favoritesIconUnselected = R.drawable.ic_favorite_border
-    override val _state = MutableStateFlow<NewsState>(NewsState.HideFavoriteIcon(favoritesIconUnselected))
+    override val _state =
+        MutableStateFlow<NewsState>(NewsState.HideFavoriteIcon(favoritesIconUnselected))
     override val state = _state.asStateFlow()
 
     fun checkFavoriteIcon(article: Article) = launchCoroutine {

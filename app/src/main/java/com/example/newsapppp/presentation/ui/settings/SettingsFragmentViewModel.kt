@@ -2,7 +2,6 @@ package com.example.newsapppp.presentation.ui.settings
 
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.newsapppp.R
-import com.example.newsapppp.core.ProvideResourcesContract
 import com.example.newsapppp.domain.interactors.preference.GetCountryFlagUseCase
 import com.example.newsapppp.domain.interactors.preference.GetSwitchPositionUseCase
 import com.example.newsapppp.domain.interactors.preference.SaveCountryFlagUseCase
@@ -36,7 +35,7 @@ class SettingsFragmentViewModel @Inject constructor(
         saveCountryFlagUseCase(value)
     }
 
-    fun getCountryFlag(): String {
+    private fun getCountryFlag(): String {
         return getCountryFlagUseCase(Unit)
     }
 
@@ -61,12 +60,6 @@ class SettingsFragmentViewModel @Inject constructor(
         }
     }
 
-    fun getCurrentEmail() = launchCoroutine {
-        firebaseAuth = FirebaseAuth.getInstance()
-        val email = firebaseAuth.currentUser?.email
-        emitState(SettingsState.GetCurrentEmail(email))
-    }
-
     fun checkAccount() = launchCoroutine {
         firebaseAuth = FirebaseAuth.getInstance()
         if (firebaseAuth.currentUser != null) {
@@ -79,7 +72,7 @@ class SettingsFragmentViewModel @Inject constructor(
         }
     }
 
-    fun setupCountryFlag() = launchCoroutine {
+    fun setupCountryFlag() {
         when (getCountryFlag()) {
             USA -> emitState(SettingsState.SetupCountryFlag(R.drawable.usa))
             GERMANY -> emitState(SettingsState.SetupCountryFlag(R.drawable.germany))

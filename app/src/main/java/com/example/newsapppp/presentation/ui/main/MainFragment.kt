@@ -55,9 +55,7 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
 
     override fun renderState(state: MainState) = with(binding) {
         when (state) {
-            is MainState.ShowLoading -> {
-                progressBar.visible()
-            }
+            is MainState.ShowLoading -> progressBar.visible()
             is MainState.ShowArticles -> {
                 newsAdapter.submitList(state.articles)
                 progressBar.invisible()
@@ -65,7 +63,7 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
             }
             is MainState.ShowBottom -> fabUp.invisible()
             is MainState.HideBottom -> fabUp.visible()
-            is MainState.GetCountryFlag -> {}
+            is MainState.GetCountryFlag -> tvCountry.text = state.getCountryFlag
             is MainState.Error -> snackBar(requireView(), state.exception)
         }
     }
