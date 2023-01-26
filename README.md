@@ -17,6 +17,10 @@
 
 # Libraries And Technologies used
 - Clean Architecture: Data, Domain, Presentation.
+- Coroutines : Executing some code in the background.
+- Room Database : Save,delete and get the articles into a local database.
+- Navigation Component : Navigate between fragments.
+- Dagger hilt : Dependency injection.
 - Firebase Authentication 
 - Use Case: For business logic of project.
 - Mapper: For separate entities.
@@ -24,10 +28,7 @@
   application state in case the configuration changes.
 - Retrofit + Gson Converter: Fetch news from rest api as a gson file and convert it to a kotlin
   object.
-- Room : Save,delete and get the articles into a local database.
 - RecyclerView with DiffUtil.
-- Coroutines : Executing some code in the background.
-- Dagger hilt : Dependency injection.
-- Navigation Component : Navigate between fragments.
 - Glide : Catch and cache images from the internet and show them in an imageView.
+- Coil : Work with image.
 - viewBinding : to access the views without needing to inflate them.
