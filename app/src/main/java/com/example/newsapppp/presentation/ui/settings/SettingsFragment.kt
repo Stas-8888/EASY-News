@@ -55,7 +55,7 @@ class SettingsFragment :
         }
     }
 
-    override fun renderState(state: SettingsState) {
+    override fun setObservers(state: SettingsState) {
         when (state) {
             is SettingsState.Account -> {
                 showSnackbar(requireView(), state.message, state.isError, state.action)
@@ -85,27 +85,6 @@ class SettingsFragment :
         }
         popup.show()
     }
-
-//    private fun setImageResource(res: Int) {
-//        binding.imCountry.setImageResource(res)
-//    }
-
-//    private fun setupCountryFlag() {
-//        when (viewModel.getCountryFlag()) {
-//            USA -> {
-//                setImageResource(R.drawable.usa)
-//            }
-//            GERMANY -> {
-//                setImageResource(R.drawable.germany)
-//            }
-//            RUSSIA -> {
-//                setImageResource(R.drawable.russia)
-//            }
-//            EGYPT -> {
-//                setImageResource(R.drawable.egypt)
-//            }
-//        }
-//    }
 
     private fun showChangeNameDialog(name: String) {
         var dialog: AlertDialog? = null

@@ -59,7 +59,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/white"
-        android:text="Try again..."
+        android:text="OK"
         android:textAllCaps="false"
         android:textColor="@color/colorTextSubtitle" />
 </LinearLayout>

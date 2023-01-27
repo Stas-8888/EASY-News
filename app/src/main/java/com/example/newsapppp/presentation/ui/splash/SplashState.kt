@@ -6,9 +6,5 @@ sealed class SplashState : State {
 
     object Success : SplashState()
 
-    object Error : SplashState()
-
     data class Navigate(val navigateTo: Int) : SplashState()
-
-
 }

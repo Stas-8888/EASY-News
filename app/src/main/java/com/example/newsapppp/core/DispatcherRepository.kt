@@ -1,6 +1,5 @@
-package com.example.newsapppp.data.repository
+package com.example.newsapppp.core
 
-import com.example.newsapppp.core.DispatcherRepositoryContract
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

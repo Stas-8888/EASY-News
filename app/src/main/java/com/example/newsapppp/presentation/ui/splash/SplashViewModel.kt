@@ -34,7 +34,7 @@ class SplashViewModel @Inject constructor(
         }
     }
 
-    fun delayScreen() = launchCoroutine {
+    fun navigateToLoginFragment() = launchCoroutine {
         delay(TimeUnit.SECONDS.toMillis(3))
         emitState(SplashState.Navigate(R.id.loginFragment))
     }

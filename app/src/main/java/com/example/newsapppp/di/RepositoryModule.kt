@@ -1,6 +1,8 @@
 package com.example.newsapppp.di
 
+import com.example.newsapppp.core.DispatcherRepository
 import com.example.newsapppp.core.DispatcherRepositoryContract
+import com.example.newsapppp.core.ProvideResources
 import com.example.newsapppp.core.ProvideResourcesContract
 import com.example.newsapppp.data.repository.*
 import com.example.newsapppp.domain.repository.*
@@ -43,7 +45,7 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideDbRepository(impl: DataBaseRepository): DataBaseRepositoryContract = impl
+    fun provideDbRepository(impl: ArticleLocalSourceRepository): DataBaseRepositoryContract = impl
 
     @Provides
     @Singleton

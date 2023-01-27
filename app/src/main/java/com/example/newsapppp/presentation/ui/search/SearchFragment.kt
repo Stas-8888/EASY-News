@@ -35,15 +35,16 @@ class SearchFragment : BaseFragment<SearchState, FragmentSearchBinding, SearchFr
             }
         }
         newsAdapter.setOnItemClickListener {
-            navigateDirections(SearchFragmentDirections.actionSearchFragmentToNewsFragment(it))
+            viewModel.onItemClick(it)
         }
     }
 
-    override fun renderState(state: SearchState) {
+    override fun setObservers(state: SearchState) {
         when (state) {
             is SearchState.Loading -> {}
             is SearchState.ShowArticles -> newsAdapter.submitList(state.articles)
             is SearchState.Error -> showSnackBarString(requireView(), state.message)
+            is SearchState.NavigationArgs -> navigateDirections(state.navDirections)
         }
     }
 }

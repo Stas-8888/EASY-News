@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class DataBaseRepository @Inject constructor(
+class ArticleLocalSourceRepository @Inject constructor(
     private val newsDao: NewsDao,
     private val mapper: ArticleMapper,
     private val newsResponseMapper: NewsResponseMapper,

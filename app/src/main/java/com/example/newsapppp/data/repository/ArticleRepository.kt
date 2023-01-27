@@ -2,7 +2,7 @@ package com.example.newsapppp.data.repository
 
 import com.example.newsapppp.core.DispatcherRepositoryContract
 import com.example.newsapppp.data.mapper.NewsResponseMapper
-import com.example.newsapppp.data.network.ApiService
+import com.example.newsapppp.data.network.service.ApiService
 import com.example.newsapppp.domain.model.NewsResponseModel
 import com.example.newsapppp.domain.repository.ArticleRepositoryContract
 import javax.inject.Inject

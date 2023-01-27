@@ -16,7 +16,6 @@ abstract class BaseFragment<State, VB : ViewBinding, VM : BaseViewModel<State>>(
     private var _binding: VB? = null
     protected val binding get() = _binding!!
     protected abstract val viewModel: VM
-//    lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,7 +23,6 @@ abstract class BaseFragment<State, VB : ViewBinding, VM : BaseViewModel<State>>(
         savedInstanceState: Bundle?
     ): View? {
         _binding = bindingInflater.invoke(inflater)
-//        firebaseAuth = FirebaseAuth.getInstance()
         return binding.root
     }
 
@@ -42,10 +40,10 @@ abstract class BaseFragment<State, VB : ViewBinding, VM : BaseViewModel<State>>(
 
     private fun observeOnState() = launchWhenStarted {
         viewModel.state.collectLatest { state ->
-            renderState(state)
+            setObservers(state)
         }
     }
 
     abstract fun onClickListener()
-    abstract fun renderState(state: State)
+    abstract fun setObservers(state: State)
 }

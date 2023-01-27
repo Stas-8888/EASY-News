@@ -21,7 +21,7 @@ class SplashFragment : BaseFragment<SplashState, FragmentSplashBinding, SplashVi
         super.onViewCreated(view, savedInstanceState)
         hideBottomNavigation()
         viewModel.setupDayNightMode()
-        viewModel.delayScreen()
+        viewModel.navigateToLoginFragment()
 
         val animationBounce = AnimationUtils.loadAnimation(requireContext(), R.anim.bounce)
         tvNews.startAnimation(animationBounce)
@@ -30,10 +30,9 @@ class SplashFragment : BaseFragment<SplashState, FragmentSplashBinding, SplashVi
 
     override fun onClickListener() = with(binding) { }
 
-    override fun renderState(state: SplashState) {
+    override fun setObservers(state: SplashState) {
         when (state) {
             is SplashState.Success -> {}
-            is SplashState.Error -> {}
             is SplashState.Navigate -> navigateTo(state.navigateTo)
         }
     }

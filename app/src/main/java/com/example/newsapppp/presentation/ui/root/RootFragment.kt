@@ -17,17 +17,11 @@ class RootFragment : BaseFragment<RootState, FragmentRootBinding, RootViewModel>
 
     override val viewModel by viewModels<RootViewModel>()
 
-    override fun onClickListener() {
-    }
+    override fun onClickListener() {}
 
-    private fun navigate(fragment: Int) {
-        binding.navFragment.findNavController().navigate(fragment)
-    }
-
-    override fun renderState(state: RootState) {
+    override fun setObservers(state: RootState) {
         when (state) {
             is RootState.Loading -> {}
-            is RootState.Error -> {}
             is RootState.Navigation -> {
                 binding.bottomNavigationView.setOnItemSelectedListener {
                     when (it.itemId) {
@@ -43,15 +37,12 @@ class RootFragment : BaseFragment<RootState, FragmentRootBinding, RootViewModel>
 
     override fun onConnectionState(state: ConnectionState) {
         when (state) {
-            ConnectionState.CONNECTED -> {
-                internetConnectionDialog(getString(R.string.internet_connected))
-            }
-            ConnectionState.SLOW -> {
-                internetConnectionDialog(getString(R.string.slow_internet))
-            }
-            else -> {
-                internetConnectionDialog(getString(R.string.internet_disconnected))
-            }
+            ConnectionState.CONNECTED -> internetConnectionDialog(getString(R.string.internet_connected))
+            else -> internetConnectionDialog(getString(R.string.internet_disconnected))
         }
+    }
+
+    private fun navigate(fragment: Int) {
+        binding.navFragment.findNavController().navigate(fragment)
     }
 }

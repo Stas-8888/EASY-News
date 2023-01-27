@@ -1,7 +1,6 @@
-package com.example.newsapppp.data.repository
+package com.example.newsapppp.core
 
 import android.content.Context
-import com.example.newsapppp.core.ProvideResourcesContract
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 

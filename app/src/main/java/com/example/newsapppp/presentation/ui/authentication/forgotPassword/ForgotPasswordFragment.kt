@@ -1,11 +1,11 @@
 package com.example.newsapppp.presentation.ui.authentication.forgotPassword
 
 import androidx.fragment.app.viewModels
-import com.example.newsapppp.presentation.ui.authentication.AuthState
 import com.example.newsapppp.databinding.FragmentForgotPasswordBinding
 import com.example.newsapppp.presentation.extensions.changesListener
 import com.example.newsapppp.presentation.extensions.navigateTo
 import com.example.newsapppp.presentation.extensions.showSnackBarString
+import com.example.newsapppp.presentation.ui.authentication.AuthState
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -14,7 +14,9 @@ class ForgotPasswordFragment :
     BaseFragment<AuthState<String>, FragmentForgotPasswordBinding, ForgotPasswordViewModel>(
         FragmentForgotPasswordBinding::inflate
     ) {
+
     override val viewModel by viewModels<ForgotPasswordViewModel>()
+
     override fun onClickListener() = with(binding) {
         loginUsername.changesListener { viewModel.isValidEmail(emailText()) }
         btSignIn.setOnClickListener {
@@ -24,7 +26,7 @@ class ForgotPasswordFragment :
 
     private fun emailText(): String = binding.loginUsername.text.toString()
 
-    override fun renderState(state: AuthState<String>) {
+    override fun setObservers(state: AuthState<String>) {
         when (state) {
             is AuthState.Loading -> {}
             is AuthState.Failure -> {

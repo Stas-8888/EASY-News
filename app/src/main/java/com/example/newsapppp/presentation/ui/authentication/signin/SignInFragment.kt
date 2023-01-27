@@ -33,7 +33,7 @@ class SignInFragment : BaseFragment<AuthState<String>, FragmentLoginBinding, Sig
     private fun emailText(): String = binding.loginUsername.text.toString()
     private fun passwordText(): String = binding.loginPassword.text.toString()
 
-    override fun renderState(state: AuthState<String>) {
+    override fun setObservers(state: AuthState<String>) {
         when (state) {
             is AuthState.Loading -> binding.loginProgress.invisible()
             is AuthState.Failure -> {

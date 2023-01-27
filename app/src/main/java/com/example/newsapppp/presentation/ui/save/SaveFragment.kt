@@ -42,7 +42,7 @@ class SaveFragment : BaseFragment<SaveState, FragmentSaveBinding, SaveFragmentVi
         }
     }
 
-    override fun renderState(state: SaveState) {
+    override fun setObservers(state: SaveState) {
         when (state) {
             is SaveState.ShowLoading -> {
                 binding.progressBar.visible()

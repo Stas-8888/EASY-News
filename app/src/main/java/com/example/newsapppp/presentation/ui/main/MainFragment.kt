@@ -25,16 +25,11 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
         showBottomNavigation()
         viewModel.getCountryFlag()
         getCountryAndCategoryTabLayout()
         viewModel.getNews(categories.first())
-        rvNews.apply {
-            adapter = newsAdapter
-            layoutManager = LinearLayoutManager(requireContext())
-            rvNews.setHasFixedSize(true)
-            toFirstRecyclerPosition()
-        }
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity()) {
             showSnackBarString(requireView(), getString(R.string.disabled_back_press))
         }
@@ -47,14 +42,22 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
         newsAdapter.setOnItemClickListener {
             navigateDirections(MainFragmentDirections.actionMainFragmentToNewsFragment(it))
         }
-        // Swipe to refresh
         swipeToRefresh.setOnRefreshListener {
             binding.rvNews.adapter = newsAdapter
             swipeToRefresh.isRefreshing = false
         }
     }
 
-    override fun renderState(state: MainState) = with(binding) {
+    private fun setupRecyclerView() = with(binding) {
+        rvNews.apply {
+            adapter = newsAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+            rvNews.setHasFixedSize(true)
+            toFirstRecyclerPosition()
+        }
+    }
+
+    override fun setObservers(state: MainState) = with(binding) {
         when (state) {
             is MainState.ShowLoading -> progressBar.visible()
             is MainState.ShowArticles -> {
