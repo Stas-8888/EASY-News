@@ -5,7 +5,7 @@ import com.example.newsapppp.domain.interactors.articleLocalSource.DeleteAllUseC
 import com.example.newsapppp.domain.interactors.articleLocalSource.DeleteArticleUseCase
 import com.example.newsapppp.domain.interactors.articleLocalSource.GetRoomArticleUseCase
 import com.example.newsapppp.presentation.extensions.launchCoroutine
-import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
+import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +18,7 @@ class SaveFragmentViewModel @Inject constructor(
     private val getRoomArticle: GetRoomArticleUseCase,
     private val deleteArticleUseCase: DeleteArticleUseCase,
     private val deleteAll: DeleteAllUseCase,
-    private val articleMapperToModel: ArticleMapperToModel
+    private val mapper: ArticleMapper
 ) : BaseViewModel<SaveState>() {
 
     override val _state = MutableStateFlow<SaveState>(SaveState.ShowLoading)
@@ -27,7 +27,7 @@ class SaveFragmentViewModel @Inject constructor(
     fun setupAllNews() = launchCoroutine {
         try {
             getRoomArticle(Unit).collect {
-                _state.emit(SaveState.ShowArticles(articleMapperToModel.articleToModelArticle(it)))
+                _state.emit(SaveState.ShowArticles(mapper.mapToListArticle(it)))
             }
         } catch (e: Exception) {
             emitState(SaveState.Error(R.string.error))
@@ -35,7 +35,7 @@ class SaveFragmentViewModel @Inject constructor(
     }
 
     fun deleteArticle(article: Article) = launchCoroutine {
-        deleteArticleUseCase(articleMapperToModel.mapFromEntity(article))
+        deleteArticleUseCase(mapper.mapToModel(article))
     }
 
     fun deleteAllArticle() = launchCoroutine {

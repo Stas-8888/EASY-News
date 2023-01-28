@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.example.newsapppp.data.db.NewsDao.Companion.TABLE_NAME
 
 @Entity(tableName = TABLE_NAME)
-data class ArticleDbModel(
+data class ArticleEntity(
     @PrimaryKey
     val url: String,
     val author: String?,

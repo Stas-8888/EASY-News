@@ -1,10 +1,12 @@
 package com.example.newsapppp.core
 
-interface BaseMapper <Entity, DomainModel>{
+/**
+ * Base interface for mappers.
+ * Where [E] incoming class, [T] - outgoing class
+ */
+interface BaseMapper <E, T>{
 
-    fun mapFromEntity(data: Entity): DomainModel
+    fun mapToModel(data: E): T
 
-    fun mapToEntity(data: DomainModel): Entity
-
-    interface Unit<T> : BaseMapper<T, kotlin.Unit>
+    fun mapFromModel(data: T): E
 }

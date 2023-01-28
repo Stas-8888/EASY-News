@@ -1,11 +1,12 @@
 package com.example.newsapppp.data.mapper
 
 import com.example.newsapppp.core.BaseMapper
-import com.example.newsapppp.data.db.models.ArticleDbModel
+import com.example.newsapppp.data.db.models.ArticleEntity
 import com.example.newsapppp.data.network.model.ArticleRemote
 import com.example.newsapppp.domain.model.ArticleModel
+import javax.inject.Inject
 
-class ArticleMapper : BaseMapper<ArticleModel, ArticleDbModel> {
+class EntityMapper @Inject constructor() : BaseMapper<ArticleModel, ArticleEntity> {
 
     fun convertToModel(data: ArticleRemote) = ArticleModel(
         author = data.author,
@@ -17,7 +18,7 @@ class ArticleMapper : BaseMapper<ArticleModel, ArticleDbModel> {
         urlToImage = data.urlToImage
     )
 
-    override fun mapFromEntity(data: ArticleModel) = ArticleDbModel(
+    override fun mapToModel(data: ArticleModel) = ArticleEntity(
         author = data.author,
         content = data.content,
         description = data.description,
@@ -27,7 +28,7 @@ class ArticleMapper : BaseMapper<ArticleModel, ArticleDbModel> {
         urlToImage = data.urlToImage
     )
 
-    override fun mapToEntity(data: ArticleDbModel) = ArticleModel(
+    override fun mapFromModel(data: ArticleEntity) = ArticleModel(
         author = data.author,
         content = data.content,
         description = data.description,

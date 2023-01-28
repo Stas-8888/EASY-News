@@ -3,13 +3,14 @@ package com.example.newsapppp.presentation.mapper
 import com.example.newsapppp.core.BaseMapper
 import com.example.newsapppp.domain.model.ArticleModel
 import com.example.newsapppp.presentation.model.Article
+import javax.inject.Inject
 
 /**
  * Mapper class used to : transformationModels.
  */
-class ArticleMapperToModel : BaseMapper<Article, ArticleModel> {
+class ArticleMapper @Inject constructor() : BaseMapper<Article, ArticleModel> {
 
-    override fun mapFromEntity(data: Article) = ArticleModel(
+    override fun mapToModel(data: Article) = ArticleModel(
         author = data.author,
         content = data.content,
         description = data.description,
@@ -19,7 +20,7 @@ class ArticleMapperToModel : BaseMapper<Article, ArticleModel> {
         urlToImage = data.urlToImage
     )
 
-    override fun mapToEntity(data: ArticleModel) = Article(
+    override fun mapFromModel(data: ArticleModel) = Article(
         author = data.author,
         content = data.content,
         description = data.description,
@@ -29,7 +30,7 @@ class ArticleMapperToModel : BaseMapper<Article, ArticleModel> {
         urlToImage = data.urlToImage
     )
 
-    fun articleToModelArticle(article: List<ArticleModel>): List<Article> {
-        return article.map { mapToEntity(it) }
+    fun mapToListArticle(article: List<ArticleModel>): List<Article> {
+        return article.map { mapFromModel(it) }
     }
 }

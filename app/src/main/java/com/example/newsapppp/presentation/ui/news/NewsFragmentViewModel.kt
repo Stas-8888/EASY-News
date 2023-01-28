@@ -6,7 +6,7 @@ import com.example.newsapppp.domain.interactors.articleLocalSource.InsertArticle
 import com.example.newsapppp.domain.interactors.preference.GetFavoriteUseCase
 import com.example.newsapppp.domain.interactors.preference.SaveFavoriteUseCase
 import com.example.newsapppp.presentation.extensions.launchCoroutine
-import com.example.newsapppp.presentation.mapper.ArticleMapperToModel
+import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -20,7 +20,7 @@ class NewsFragmentViewModel @Inject constructor(
     private val insertArticleUseCase: InsertArticleUseCase,
     private val deleteArticleUseCase: DeleteArticleUseCase,
     private val saveFavoriteUseCase: SaveFavoriteUseCase,
-    private val articleMapperToModel: ArticleMapperToModel,
+    private val articleMapper: ArticleMapper,
     private val getFavoriteUseCase: GetFavoriteUseCase,
     private var firebaseAuth: FirebaseAuth
 ) : BaseViewModel<NewsState>() {
@@ -45,7 +45,7 @@ class NewsFragmentViewModel @Inject constructor(
             if (isFavorite == getFavoriteUseCase(article.url)) {
                 emitState(
                     NewsState.SaveFavoriteArticle(
-                        insertArticleUseCase(articleMapperToModel.mapFromEntity(article)),
+                        insertArticleUseCase(articleMapper.mapToModel(article)),
                         saveFavoriteUseCase.saveFavorite(article.url, true),
                         R.string.Add_Article,
                         favoritesIconSelected
@@ -54,7 +54,7 @@ class NewsFragmentViewModel @Inject constructor(
             } else {
                 emitState(
                     NewsState.DeleteFavoriteArticle(
-                        deleteArticleUseCase(articleMapperToModel.mapFromEntity(article)),
+                        deleteArticleUseCase(articleMapper.mapToModel(article)),
                         saveFavoriteUseCase.saveFavorite(article.url, false),
                         R.string.Delete_Article,
                         favoritesIconUnselected
