@@ -126,7 +126,7 @@ fun Fragment.showAlertUpDialog(title: Int) {
 }
 
 internal fun Fragment.internetConnectionDialog(status: String) {
-        Dialog(requireContext()).apply {
+    Dialog(requireContext()).apply {
         setContentView(R.layout.no_internet_connections)
         internet_status.text = status
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

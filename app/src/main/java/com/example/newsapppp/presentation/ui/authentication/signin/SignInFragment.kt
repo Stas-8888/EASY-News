@@ -25,15 +25,15 @@ class SignInFragment : BaseFragment<AuthState<String>, FragmentLoginBinding, Sig
         btForgotPassword.setOnClickListener { navigateTo(R.id.forgotPasswordFragment) }
         btSkip.setOnClickListener { navigateTo(R.id.mainFragment) }
         loginSignup.setOnClickListener { navigateTo(R.id.signUpFragment) }
-        loginUsername.changesListener { viewModel.isValidEmail(emailText()) }
-        loginPassword.changesListener { viewModel.isValidPassword(passwordText()) }
-        btSignIn.setOnClickListener { viewModel.onSignInClicked(emailText(), passwordText()) }
+        loginUsername.changesListener { viewModel.isEmailChanged(emailText()) }
+        loginPassword.changesListener { viewModel.isPasswordChanged(passwordText()) }
+        btSignIn.setOnClickListener { viewModel.signInButtonClicked(emailText(), passwordText()) }
     }
 
     private fun emailText(): String = binding.loginUsername.text.toString()
     private fun passwordText(): String = binding.loginPassword.text.toString()
 
-    override fun setObservers(state: AuthState<String>) {
+    override fun setObserverState(state: AuthState<String>) {
         when (state) {
             is AuthState.Loading -> binding.loginProgress.invisible()
             is AuthState.Failure -> {

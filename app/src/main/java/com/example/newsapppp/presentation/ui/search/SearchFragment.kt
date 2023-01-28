@@ -35,11 +35,11 @@ class SearchFragment : BaseFragment<SearchState, FragmentSearchBinding, SearchFr
             }
         }
         newsAdapter.setOnItemClickListener {
-            viewModel.onItemClick(it)
+            viewModel.onItemClicked(it)
         }
     }
 
-    override fun setObservers(state: SearchState) {
+    override fun setObserverState(state: SearchState) {
         when (state) {
             is SearchState.Loading -> {}
             is SearchState.ShowArticles -> newsAdapter.submitList(state.articles)

@@ -18,7 +18,7 @@ class ForgotPasswordFragment :
     override val viewModel by viewModels<ForgotPasswordViewModel>()
 
     override fun onClickListener() = with(binding) {
-        loginUsername.changesListener { viewModel.isValidEmail(emailText()) }
+        loginUsername.changesListener { viewModel.isEmailChanged(emailText()) }
         btSignIn.setOnClickListener {
             viewModel.forgotPassword(emailText())
         }
@@ -26,7 +26,7 @@ class ForgotPasswordFragment :
 
     private fun emailText(): String = binding.loginUsername.text.toString()
 
-    override fun setObservers(state: AuthState<String>) {
+    override fun setObserverState(state: AuthState<String>) {
         when (state) {
             is AuthState.Loading -> {}
             is AuthState.Failure -> {

@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapppp.R
+import com.example.newsapppp.core.SimpleTabSelectedListener
 import com.example.newsapppp.databinding.FragmentMainBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
 import com.example.newsapppp.presentation.extensions.*
@@ -27,9 +28,9 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         showBottomNavigation()
-        viewModel.getCountryFlag()
+        viewModel.setupCountry()
         getCountryAndCategoryTabLayout()
-        viewModel.getNews(categories.first())
+        viewModel.setupNews(categories.first())
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity()) {
             showSnackBarString(requireView(), getString(R.string.disabled_back_press))
         }
@@ -57,7 +58,7 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
         }
     }
 
-    override fun setObservers(state: MainState) = with(binding) {
+    override fun setObserverState(state: MainState) = with(binding) {
         when (state) {
             is MainState.ShowLoading -> progressBar.visible()
             is MainState.ShowArticles -> {
@@ -75,7 +76,7 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
     private fun getCountryAndCategoryTabLayout() {
         binding.tabMain.addOnTabSelectedListener(object : SimpleTabSelectedListener() {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                viewModel.getNews(categories[tab.position])
+                viewModel.setupNews(categories[tab.position])
             }
         })
     }

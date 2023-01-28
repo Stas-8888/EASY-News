@@ -14,18 +14,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val getSwitchPositionUseCase: GetSwitchPositionUseCase
+    private val getSwitchPosition: GetSwitchPositionUseCase
 ) : BaseViewModel<SplashState>() {
 
     override val _state = MutableStateFlow<SplashState>(SplashState.Success)
     override val state = _state.asStateFlow()
 
-    private fun getSwitchPosition(): Boolean {
-        return getSwitchPositionUseCase(Unit)
-    }
-
     fun setupDayNightMode() {
-        if (getSwitchPosition()) {
+        if (getSwitchPosition(Unit)) {
             AppCompatDelegate
                 .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         } else {

@@ -65,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvUserName"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="1dp"
         android:layout_toRightOf="@id/profileCircleImageView"
         android:text="@string/Edit"
         android:textColor="@color/grayDark"
@@ -78,13 +78,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvUserName"
-        android:layout_marginTop="1dp"
         android:layout_toRightOf="@id/profileCircleImageView"
         android:text="@string/email"
         android:textColor="@color/grayDark"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/tvUserName"
-        app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEdit" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -207,9 +206,8 @@
         android:id="@+id/account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
         android:text="SignIn/SignOut"
         app:layout_constraintStart_toStartOf="@+id/tvEmail"
-        app:layout_constraintTop_toBottomOf="@+id/tvEdit" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

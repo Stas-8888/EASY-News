@@ -31,7 +31,7 @@ class ForgotPasswordViewModel @Inject constructor(
         }
     }
 
-    fun isValidEmail(email: String) {
+    fun isEmailChanged(email: String) {
         emitState(AuthState.CheckEmail(validateEmail(email)))
     }
 }

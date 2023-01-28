@@ -24,7 +24,7 @@ class SignUpFragment : BaseFragment<AuthState<String>, FragmentSignUpBinding, Si
 
     override fun onClickListener() = with(binding) {
         registerButton.setOnClickListener {
-            viewModel.onSignUpClick(
+            viewModel.signUnButtonClicked(
                 fullNameText(),
                 emailText(),
                 passwordText(),
@@ -53,7 +53,7 @@ class SignUpFragment : BaseFragment<AuthState<String>, FragmentSignUpBinding, Si
     private fun repeatPasswordText(): String = binding.confirmPassword.text.toString()
 
 
-    override fun setObservers(state: AuthState<String>) {
+    override fun setObserverState(state: AuthState<String>) {
         with(binding) {
             when (state) {
                 is AuthState.Loading -> {

@@ -44,7 +44,7 @@ class SignUpViewModel @Inject constructor(
         )
     }
 
-    fun onSignUpClick(
+    fun signUnButtonClicked(
         name: String,
         email: String,
         password: String,

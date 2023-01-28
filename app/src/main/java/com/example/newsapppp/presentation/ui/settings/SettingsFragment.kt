@@ -34,7 +34,7 @@ class SettingsFragment :
         firebaseAuth = FirebaseAuth.getInstance()
         tvEmail.text = firebaseAuth.currentUser?.email
         viewModel.setupCountryFlag()
-        viewModel.onSwitchDayNightClick()
+        viewModel.setupTheme()
     }
 
     override fun onClickListener() = with(binding) {
@@ -51,11 +51,11 @@ class SettingsFragment :
             showChangeNameDialog("")
         }
         switchDayNight.setOnCheckedChangeListener { _, isNightMode ->
-            viewModel.saveDayNightState(isNightMode)
+            viewModel.onSwitchDayNightClicked(isNightMode)
         }
     }
 
-    override fun setObservers(state: SettingsState) {
+    override fun setObserverState(state: SettingsState) {
         when (state) {
             is SettingsState.Account -> {
                 showSnackbar(requireView(), state.message, state.isError, state.action)

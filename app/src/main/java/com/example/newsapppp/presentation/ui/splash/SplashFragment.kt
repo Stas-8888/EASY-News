@@ -30,7 +30,7 @@ class SplashFragment : BaseFragment<SplashState, FragmentSplashBinding, SplashVi
 
     override fun onClickListener() = with(binding) { }
 
-    override fun setObservers(state: SplashState) {
+    override fun setObserverState(state: SplashState) {
         when (state) {
             is SplashState.Success -> {}
             is SplashState.Navigate -> navigateTo(state.navigateTo)

@@ -24,7 +24,7 @@ class SaveFragment : BaseFragment<SaveState, FragmentSaveBinding, SaveFragmentVi
         super.onViewCreated(view, savedInstanceState)
         showBottomNavigation()
         swipeToDelete()
-        viewModel.getAllNews()
+        viewModel.setupAllNews()
         rvSavedNews.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(requireContext())
@@ -42,7 +42,7 @@ class SaveFragment : BaseFragment<SaveState, FragmentSaveBinding, SaveFragmentVi
         }
     }
 
-    override fun setObservers(state: SaveState) {
+    override fun setObserverState(state: SaveState) {
         when (state) {
             is SaveState.ShowLoading -> {
                 binding.progressBar.visible()

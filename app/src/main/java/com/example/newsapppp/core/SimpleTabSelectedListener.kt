@@ -1,4 +1,4 @@
-package com.example.newsapppp.presentation.ui.main
+package com.example.newsapppp.core
 
 import com.google.android.material.tabs.TabLayout
 

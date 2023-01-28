@@ -11,14 +11,12 @@ import javax.inject.Inject
 class RootViewModel @Inject constructor(
 ) : BaseViewModel<RootState>() {
 
-    override val _state = MutableStateFlow<RootState>(RootState.Loading)
+    override val _state = MutableStateFlow<RootState>(
+        RootState.Navigation(
+            R.id.mainFragment,
+            R.id.saveFragment,
+            R.id.searchFragment
+        )
+    )
     override val state = _state.asStateFlow()
-
-    init {
-        onBottomNavClick()
-    }
-
-    private fun onBottomNavClick() {
-        emitState(RootState.Navigation(R.id.mainFragment, R.id.saveFragment, R.id.searchFragment))
-    }
 }

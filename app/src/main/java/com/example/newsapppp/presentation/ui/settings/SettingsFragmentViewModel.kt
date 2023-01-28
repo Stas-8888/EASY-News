@@ -21,39 +21,31 @@ private const val EGYPT = "eg"
 
 @HiltViewModel
 class SettingsFragmentViewModel @Inject constructor(
-    private val saveCountryFlagUseCase: SaveCountryFlagUseCase,
-    private val getCountryFlagUseCase: GetCountryFlagUseCase,
-    private val saveSwitchPositionUseCase: SaveSwitchPositionUseCase,
-    private val getSwitchPositionUseCase: GetSwitchPositionUseCase,
+    private val saveCountryFlag: SaveCountryFlagUseCase,
+    private val getCountryFlag: GetCountryFlagUseCase,
+    private val saveSwitchPosition: SaveSwitchPositionUseCase,
+    private val getSwitchPosition: GetSwitchPositionUseCase,
     private var firebaseAuth: FirebaseAuth,
 ) : BaseViewModel<SettingsState>() {
 
     override val _state = MutableStateFlow<SettingsState>(SettingsState.IsSwitch(true))
     override val state: StateFlow<SettingsState> = _state
 
-    private suspend fun saveCountryFlag(value: String) {
-        saveCountryFlagUseCase(value)
-    }
-
-    private fun getCountryFlag(): String {
-        return getCountryFlagUseCase(Unit)
-    }
-
-    fun saveDayNightState(enabled: Boolean) = launchCoroutine {
+    fun onSwitchDayNightClicked(enabled: Boolean) = launchCoroutine {
         if (enabled) {
-            setDefaultNightMode(enabled = false, state = AppCompatDelegate.MODE_NIGHT_YES)
+            updateTheme(enabled = false, state = AppCompatDelegate.MODE_NIGHT_YES)
         } else {
-            setDefaultNightMode(enabled = true, state = AppCompatDelegate.MODE_NIGHT_NO)
+            updateTheme(enabled = true, state = AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
 
-    private suspend fun setDefaultNightMode(enabled: Boolean, state: Int) {
-        saveSwitchPositionUseCase(enabled)
+    private suspend fun updateTheme(enabled: Boolean, state: Int) {
+        saveSwitchPosition(enabled)
         AppCompatDelegate.setDefaultNightMode(state)
     }
 
-    fun onSwitchDayNightClick() = launchCoroutine {
-        if (getSwitchPositionUseCase(Unit)) {
+    fun setupTheme() = launchCoroutine {
+        if (getSwitchPosition(Unit)) {
             emitState(SettingsState.IsSwitch(false))
         } else {
             emitState(SettingsState.IsSwitch(true))
@@ -73,7 +65,7 @@ class SettingsFragmentViewModel @Inject constructor(
     }
 
     fun setupCountryFlag() {
-        when (getCountryFlag()) {
+        when (getCountryFlag(Unit)) {
             USA -> emitState(SettingsState.SetupCountryFlag(R.drawable.usa))
             GERMANY -> emitState(SettingsState.SetupCountryFlag(R.drawable.germany))
             RUSSIA -> emitState(SettingsState.SetupCountryFlag(R.drawable.russia))

@@ -30,7 +30,7 @@ class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentVi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.checkFavoriteIcon(article)
+        viewModel.setupFavoriteIcon(article)
         setupWebView()
         hideBottomNavigation()
     }
@@ -60,7 +60,7 @@ class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentVi
         }
     }
 
-    override fun setObservers(state: NewsState) = with(binding) {
+    override fun setObserverState(state: NewsState) = with(binding) {
         when (state) {
             is NewsState.DeleteFavoriteArticle -> {
                 setImageResource(state.favoriteIcon)

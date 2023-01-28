@@ -15,18 +15,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SaveFragmentViewModel @Inject constructor(
-    private val getRoomArticleUseCase: GetRoomArticleUseCase,
+    private val getRoomArticle: GetRoomArticleUseCase,
     private val deleteArticleUseCase: DeleteArticleUseCase,
-    private val deleteAllUseCase: DeleteAllUseCase,
+    private val deleteAll: DeleteAllUseCase,
     private val articleMapperToModel: ArticleMapperToModel
 ) : BaseViewModel<SaveState>() {
 
     override val _state = MutableStateFlow<SaveState>(SaveState.ShowLoading)
     override val state = _state.asStateFlow()
 
-    fun getAllNews() = launchCoroutine {
+    fun setupAllNews() = launchCoroutine {
         try {
-            getRoomArticleUseCase(Unit).collect {
+            getRoomArticle(Unit).collect {
                 _state.emit(SaveState.ShowArticles(articleMapperToModel.articleToModelArticle(it)))
             }
         } catch (e: Exception) {
@@ -39,7 +39,7 @@ class SaveFragmentViewModel @Inject constructor(
     }
 
     fun deleteAllArticle() = launchCoroutine {
-        deleteAllUseCase(Unit)
+        deleteAll(Unit)
     }
 
     fun onItemSwiped(article: Article, position: Int) {

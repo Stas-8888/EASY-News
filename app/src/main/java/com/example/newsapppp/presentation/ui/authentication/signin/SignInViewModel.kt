@@ -24,7 +24,7 @@ class SignInViewModel @Inject constructor(
     override val _state = MutableStateFlow<AuthState<String>>(AuthState.Loading)
     override val state = _state.asStateFlow()
 
-    fun onSignInClicked(email: String, password: String) = launchCoroutine {
+    fun signInButtonClicked(email: String, password: String) = launchCoroutine {
         when {
             email.isEmpty() -> emitState(AuthState.Failure(provideResources.string(R.string.empty_email)))
             password.isEmpty() -> emitState(AuthState.Failure(provideResources.string(R.string.empty_password)))
@@ -34,11 +34,11 @@ class SignInViewModel @Inject constructor(
         }
     }
 
-    fun isValidEmail(email: String) {
+    fun isEmailChanged(email: String) {
         emitState(AuthState.CheckEmail(validateEmail(email)))
     }
 
-    fun isValidPassword(password: String) {
+    fun isPasswordChanged(password: String) {
         emitState(AuthState.CheckPassword(validatePassword(password)))
     }
 }

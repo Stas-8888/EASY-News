@@ -19,9 +19,8 @@ class RootFragment : BaseFragment<RootState, FragmentRootBinding, RootViewModel>
 
     override fun onClickListener() {}
 
-    override fun setObservers(state: RootState) {
+    override fun setObserverState(state: RootState) {
         when (state) {
-            is RootState.Loading -> {}
             is RootState.Navigation -> {
                 binding.bottomNavigationView.setOnItemSelectedListener {
                     when (it.itemId) {
