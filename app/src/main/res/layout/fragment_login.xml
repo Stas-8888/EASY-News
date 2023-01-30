@@ -73,7 +73,7 @@
         app:startIconTint="@color/colorRedBackground">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/login_username"
+            android:id="@+id/ed_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/username"
@@ -106,7 +106,7 @@
         app:startIconTint="@color/colorRedBackground">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/login_password"
+            android:id="@+id/ed_login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
@@ -154,7 +154,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btSignIn" />
 
     <TextView
-        android:id="@+id/login_signup"
+        android:id="@+id/bt_login_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -176,7 +176,7 @@
         android:textColor="@color/grey_one"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/log"
-        app:layout_constraintTop_toBottomOf="@+id/login_signup" />
+        app:layout_constraintTop_toBottomOf="@+id/bt_login_signup" />
 
     <ImageView
         android:id="@+id/imageView7"

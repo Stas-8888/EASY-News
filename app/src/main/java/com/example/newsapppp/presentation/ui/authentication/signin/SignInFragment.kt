@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.R
-import com.example.newsapppp.presentation.ui.authentication.AuthState
 import com.example.newsapppp.databinding.FragmentLoginBinding
 import com.example.newsapppp.presentation.extensions.*
+import com.example.newsapppp.presentation.ui.authentication.AuthState
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,30 +24,36 @@ class SignInFragment : BaseFragment<AuthState<String>, FragmentLoginBinding, Sig
     override fun onClickListener() = with(binding) {
         btForgotPassword.setOnClickListener { navigateTo(R.id.forgotPasswordFragment) }
         btSkip.setOnClickListener { navigateTo(R.id.mainFragment) }
-        loginSignup.setOnClickListener { navigateTo(R.id.signUpFragment) }
-        loginUsername.changesListener { viewModel.isEmailChanged(emailText()) }
-        loginPassword.changesListener { viewModel.isPasswordChanged(passwordText()) }
+        btLoginSignup.setOnClickListener { navigateTo(R.id.signUpFragment) }
+        edLogin.changesListener {
+            viewModel.isEmailChanged(emailText())
+            hideKeyboard(requireActivity(), edLogin)
+        }
+        edLoginPassword.changesListener {
+            viewModel.isPasswordChanged(passwordText())
+            hideKeyboard(requireActivity(), edLoginPassword)
+        }
         btSignIn.setOnClickListener { viewModel.signInButtonClicked(emailText(), passwordText()) }
     }
 
-    private fun emailText(): String = binding.loginUsername.text.toString()
-    private fun passwordText(): String = binding.loginPassword.text.toString()
+    private fun emailText(): String = binding.edLogin.text.toString()
+    private fun passwordText(): String = binding.edLoginPassword.text.toString()
 
-    override fun observerState(state: AuthState<String>) {
+    override fun observerState(state: AuthState<String>) = with(binding){
         when (state) {
-            is AuthState.Loading -> binding.loginProgress.invisible()
+            is AuthState.Loading -> loginProgress.invisible()
             is AuthState.Failure -> {
-                binding.loginProgress.visible()
+                loginProgress.visible()
                 showSnackBarString(requireView(), state.error)
-                binding.loginProgress.invisible()
+                loginProgress.invisible()
             }
             is AuthState.Success -> {
-                binding.loginProgress.visible()
+                loginProgress.visible()
                 showSnackBarString(requireView(), state.data)
             }
             is AuthState.Navigate -> navigateTo(state.navigateTo)
-            is AuthState.CheckEmail -> binding.emailContainer.helperText = state.data
-            is AuthState.CheckPassword -> binding.loginPasswordContainer.helperText = state.data
+            is AuthState.CheckEmail -> emailContainer.helperText = state.data
+            is AuthState.CheckPassword -> loginPasswordContainer.helperText = state.data
             is AuthState.CheckState -> {}
         }
     }
