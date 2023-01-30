@@ -26,7 +26,7 @@ class ForgotPasswordFragment :
 
     private fun emailText(): String = binding.loginUsername.text.toString()
 
-    override fun setObserverState(state: AuthState<String>) {
+    override fun observerState(state: AuthState<String>) {
         when (state) {
             is AuthState.Loading -> {}
             is AuthState.Failure -> {

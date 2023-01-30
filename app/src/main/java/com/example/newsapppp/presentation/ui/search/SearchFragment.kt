@@ -39,7 +39,7 @@ class SearchFragment : BaseFragment<SearchState, FragmentSearchBinding, SearchFr
         }
     }
 
-    override fun setObserverState(state: SearchState) {
+    override fun observerState(state: SearchState) {
         when (state) {
             is SearchState.Loading -> {}
             is SearchState.ShowArticles -> newsAdapter.submitList(state.articles)

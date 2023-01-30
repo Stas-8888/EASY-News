@@ -55,7 +55,7 @@ class SettingsFragment :
         }
     }
 
-    override fun setObserverState(state: SettingsState) {
+    override fun observerState(state: SettingsState) {
         when (state) {
             is SettingsState.Account -> {
                 showSnackbar(requireView(), state.message, state.isError, state.action)

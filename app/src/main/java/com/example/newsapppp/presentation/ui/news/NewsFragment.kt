@@ -60,7 +60,7 @@ class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentVi
         }
     }
 
-    override fun setObserverState(state: NewsState) = with(binding) {
+    override fun observerState(state: NewsState) = with(binding) {
         when (state) {
             is NewsState.DeleteFavoriteArticle -> {
                 setImageResource(state.favoriteIcon)

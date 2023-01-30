@@ -9,19 +9,19 @@ import javax.inject.Inject
 
 class ArticleRepository @Inject constructor(
     private val apiService: ApiService,
-    private val newsResponseMapper: NewsResponseMapper,
+    private val mapper: NewsResponseMapper,
     private val sharedPref: SharedPrefRepository,
-    private val dispatcher: DispatcherRepositoryContract
+    private val dispatcher: DispatcherRepositoryContract,
 ) : ArticleRepositoryContract {
 
     override suspend fun getNews(category: String): NewsResponseModel = dispatcher.io {
-            val country = sharedPref.getCountryFlag()
-            val data = apiService.getBreakingNews(countryCode = country, category = category)
-            newsResponseMapper.converterToNewsResponseModel(data)
-        }
+        val country = sharedPref.getCountryFlag()
+        val data = apiService.getBreakingNews(countryCode = country, category = category)
+        mapper.converterToNewsResponseModel(data)
+    }
 
     override suspend fun searchNews(searchQuery: String): NewsResponseModel = dispatcher.io {
-            val data = apiService.searchForNews(searchQuery)
-            newsResponseMapper.converterToNewsResponseModel(data)
-        }
+        val data = apiService.searchForNews(searchQuery)
+        mapper.converterToNewsResponseModel(data)
+    }
 }

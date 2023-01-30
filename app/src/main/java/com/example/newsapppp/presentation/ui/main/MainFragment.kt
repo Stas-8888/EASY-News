@@ -58,7 +58,7 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
         }
     }
 
-    override fun setObserverState(state: MainState) = with(binding) {
+    override fun observerState(state: MainState) = with(binding) {
         when (state) {
             is MainState.ShowLoading -> progressBar.visible()
             is MainState.ShowArticles -> {

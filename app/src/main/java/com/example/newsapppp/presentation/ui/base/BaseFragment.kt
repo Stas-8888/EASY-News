@@ -40,10 +40,10 @@ abstract class BaseFragment<State, VB : ViewBinding, VM : BaseViewModel<State>>(
 
     private fun observeOnState() = launchWhenStarted {
         viewModel.state.collectLatest { state ->
-            setObserverState(state)
+            observerState(state)
         }
     }
 
     abstract fun onClickListener()
-    abstract fun setObserverState(state: State)
+    abstract fun observerState(state: State)
 }

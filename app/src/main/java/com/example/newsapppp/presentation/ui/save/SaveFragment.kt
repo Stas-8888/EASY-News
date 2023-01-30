@@ -11,7 +11,6 @@ import com.example.newsapppp.presentation.adapters.NewsAdapter
 import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_save.*
 
 @AndroidEntryPoint
 class SaveFragment : BaseFragment<SaveState, FragmentSaveBinding, SaveFragmentViewModel>(
@@ -22,13 +21,10 @@ class SaveFragment : BaseFragment<SaveState, FragmentSaveBinding, SaveFragmentVi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showBottomNavigation()
+        setupAdapter()
         swipeToDelete()
+        showBottomNavigation()
         viewModel.setupAllNews()
-        rvSavedNews.apply {
-            adapter = newsAdapter
-            layoutManager = LinearLayoutManager(requireContext())
-        }
     }
 
     override fun onClickListener() {
@@ -42,14 +38,14 @@ class SaveFragment : BaseFragment<SaveState, FragmentSaveBinding, SaveFragmentVi
         }
     }
 
-    override fun setObserverState(state: SaveState) {
+    override fun observerState(state: SaveState) = with(binding) {
         when (state) {
             is SaveState.ShowLoading -> {
-                binding.progressBar.visible()
+                progressBar.visible()
             }
             is SaveState.ShowArticles -> {
-                binding.tvBackgroundText.invisible()
-                binding.progressBar.invisible()
+                tvBackgroundText.invisible()
+                progressBar.invisible()
                 newsAdapter.submitList(state.articles)
             }
             is SaveState.ShowDeleteDialog -> {
@@ -61,7 +57,7 @@ class SaveFragment : BaseFragment<SaveState, FragmentSaveBinding, SaveFragmentVi
         }
     }
 
-    private fun swipeToDelete() {
+    private fun swipeToDelete() = with(binding) {
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN,
             ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
@@ -87,6 +83,13 @@ class SaveFragment : BaseFragment<SaveState, FragmentSaveBinding, SaveFragmentVi
         }
         ItemTouchHelper(itemTouchHelperCallback).apply {
             attachToRecyclerView(rvSavedNews)
+        }
+    }
+
+    private fun setupAdapter() = with(binding) {
+        rvSavedNews.apply {
+            adapter = newsAdapter
+            layoutManager = LinearLayoutManager(requireContext())
         }
     }
 }

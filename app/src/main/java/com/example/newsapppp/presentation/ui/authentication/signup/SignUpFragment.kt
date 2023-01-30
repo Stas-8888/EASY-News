@@ -53,7 +53,7 @@ class SignUpFragment : BaseFragment<AuthState<String>, FragmentSignUpBinding, Si
     private fun repeatPasswordText(): String = binding.confirmPassword.text.toString()
 
 
-    override fun setObserverState(state: AuthState<String>) {
+    override fun observerState(state: AuthState<String>) {
         with(binding) {
             when (state) {
                 is AuthState.Loading -> {
