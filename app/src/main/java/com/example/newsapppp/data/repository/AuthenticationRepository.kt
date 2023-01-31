@@ -4,7 +4,9 @@ import com.example.newsapppp.R
 import com.example.newsapppp.core.DispatcherRepositoryContract
 import com.example.newsapppp.core.ProvideResourcesContract
 import com.example.newsapppp.domain.repository.AuthenticationRepositoryContract
-import com.example.newsapppp.presentation.ui.authentication.AuthState
+import com.example.newsapppp.presentation.ui.authentication.signin.SignInState
+import com.example.newsapppp.presentation.ui.authentication.forgotPassword.ForgotPasswordState
+import com.example.newsapppp.presentation.ui.authentication.signup.SignUpState
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -20,13 +22,12 @@ class AuthenticationRepository @Inject constructor(
     override suspend fun signIn(
         email: String,
         password: String,
-        result: (AuthState<String>) -> Unit
+        result: (SignInState<String>) -> Unit
     ) {
         dispatcher.io {
             firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnSuccessListener {
                     result.invoke(success(R.string.successfully_sign_in))
-                    result.invoke(AuthState.Navigate(R.id.mainFragment))
                 }.addOnFailureListener {
                     result.invoke(failure(R.string.authentication_failed))
                 }
@@ -37,20 +38,19 @@ class AuthenticationRepository @Inject constructor(
         user: String,
         email: String,
         password: String,
-        result: (AuthState<String>) -> Unit
+        result: (SignUpState<String>) -> Unit
     ) {
         dispatcher.io {
             firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnSuccessListener {
-                    result.invoke(success(R.string.successfully_register))
-                    result.invoke(AuthState.Navigate(R.id.loginFragment))
+                    result.invoke(SignUpState.Success(provideResources.string(R.string.successfully_register)))
                 }
                 .addOnFailureListener {
                     when (it) {
-                        is FirebaseAuthWeakPasswordException -> result.invoke(failure(R.string.password_lengs_6))
-                        is FirebaseAuthInvalidCredentialsException -> result.invoke(failure(R.string.invalid_email))
-                        is FirebaseAuthUserCollisionException -> result.invoke(failure(R.string.email_registered))
-                        else -> result.invoke(failure(R.string.invalid_authentication))
+                        is FirebaseAuthWeakPasswordException -> result.invoke(failureSignUp(R.string.password_lengs_6))
+                        is FirebaseAuthInvalidCredentialsException -> result.invoke(failureSignUp(R.string.invalid_email))
+                        is FirebaseAuthUserCollisionException -> result.invoke(failureSignUp(R.string.email_registered))
+                        else -> result.invoke(failureSignUp(R.string.invalid_authentication))
                     }
                 }
         }
@@ -58,27 +58,29 @@ class AuthenticationRepository @Inject constructor(
 
     override suspend fun forgotPassword(
         email: String,
-        result: (AuthState<String>) -> Unit
+        result: (ForgotPasswordState<String>) -> Unit
     ) {
         dispatcher.io {
             firebaseAuth.sendPasswordResetEmail(email)
                 .addOnSuccessListener {
-                    result.invoke(success(R.string.email_sent))
-                    result.invoke(AuthState.Navigate(R.id.loginFragment))
+                    result.invoke(ForgotPasswordState.Failure(provideResources.string(R.string.email_sent)))
                 }.addOnFailureListener {
-                    result.invoke(failure(R.string.incorrect_email))
-                    result.invoke(AuthState.Failure(it.message))
+                    result.invoke(ForgotPasswordState.Failure(it.message))
                 }
         }
     }
 
     override fun logout() = firebaseAuth.signOut()
 
-    private fun failure(message: Int): AuthState<String> {
-        return AuthState.Failure(provideResources.string(message))
+    private fun failure(message: Int): SignInState<String> {
+        return SignInState.Failure(provideResources.string(message))
     }
 
-    private fun success(message: Int): AuthState<String> {
-        return AuthState.Success(provideResources.string(message))
+    private fun failureSignUp(message: Int): SignUpState<String> {
+        return SignUpState.Failure(provideResources.string(message))
+    }
+
+    private fun success(message: Int): SignInState<String> {
+        return SignInState.Success(provideResources.string(message))
     }
 }

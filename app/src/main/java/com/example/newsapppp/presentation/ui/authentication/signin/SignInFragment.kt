@@ -3,15 +3,13 @@ package com.example.newsapppp.presentation.ui.authentication.signin
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentLoginBinding
 import com.example.newsapppp.presentation.extensions.*
-import com.example.newsapppp.presentation.ui.authentication.AuthState
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignInFragment : BaseFragment<AuthState<String>, FragmentLoginBinding, SignInViewModel>(
+class SignInFragment : BaseFragment<SignInState<String>, FragmentLoginBinding, SignInViewModel>(
     FragmentLoginBinding::inflate
 ) {
     override val viewModel by viewModels<SignInViewModel>()
@@ -22,9 +20,9 @@ class SignInFragment : BaseFragment<AuthState<String>, FragmentLoginBinding, Sig
     }
 
     override fun onClickListener() = with(binding) {
-        btForgotPassword.setOnClickListener { navigateTo(R.id.forgotPasswordFragment) }
-        btSkip.setOnClickListener { navigateTo(R.id.mainFragment) }
-        btLoginSignup.setOnClickListener { navigateTo(R.id.signUpFragment) }
+        btForgotPassword.setOnClickListener { viewModel.onForgotPasswordClicked() }
+        btSkip.setOnClickListener { viewModel.onSkipClicked() }
+        btLoginSignup.setOnClickListener { viewModel.onSkipSignUpClicked() }
         edLogin.changesListener {
             viewModel.isEmailChanged(emailText())
             hideKeyboard(requireActivity(), edLogin)
@@ -39,22 +37,25 @@ class SignInFragment : BaseFragment<AuthState<String>, FragmentLoginBinding, Sig
     private fun emailText(): String = binding.edLogin.text.toString()
     private fun passwordText(): String = binding.edLoginPassword.text.toString()
 
-    override fun observerState(state: AuthState<String>) = with(binding){
+    override fun observerState(state: SignInState<String>) = with(binding) {
         when (state) {
-            is AuthState.Loading -> loginProgress.invisible()
-            is AuthState.Failure -> {
+            is SignInState.Loading -> loginProgress.invisible()
+            is SignInState.Failure -> {
                 loginProgress.visible()
                 showSnackBarString(requireView(), state.error)
                 loginProgress.invisible()
             }
-            is AuthState.Success -> {
+            is SignInState.Success -> {
                 loginProgress.visible()
                 showSnackBarString(requireView(), state.data)
             }
-            is AuthState.Navigate -> navigateTo(state.navigateTo)
-            is AuthState.CheckEmail -> emailContainer.helperText = state.data
-            is AuthState.CheckPassword -> loginPasswordContainer.helperText = state.data
-            is AuthState.CheckState -> {}
+            is SignInState.NavigateForgotPassword -> navigateTo(state.navigateForgotPassword)
+            is SignInState.NavigateSkip -> navigateTo(state.navigateToSkip)
+            is SignInState.NavigateSignUp -> navigateTo(state.navigateSignUp)
+            is SignInState.Navigate -> navigateTo(state.navigateTo)
+            is SignInState.CheckEmail -> emailContainer.helperText = state.data
+            is SignInState.CheckPassword -> loginPasswordContainer.helperText = state.data
+            is SignInState.CheckState -> {}
         }
     }
 }

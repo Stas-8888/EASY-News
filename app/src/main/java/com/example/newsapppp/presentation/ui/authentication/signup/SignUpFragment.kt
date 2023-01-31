@@ -5,14 +5,13 @@ import android.view.View
 import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.R
-import com.example.newsapppp.presentation.ui.authentication.AuthState
 import com.example.newsapppp.databinding.FragmentSignUpBinding
 import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignUpFragment : BaseFragment<AuthState<String>, FragmentSignUpBinding, SignUpViewModel>(
+class SignUpFragment : BaseFragment<SignUpState<String>, FragmentSignUpBinding, SignUpViewModel>(
     FragmentSignUpBinding::inflate
 ) {
     override val viewModel by viewModels<SignUpViewModel>()
@@ -20,6 +19,9 @@ class SignUpFragment : BaseFragment<AuthState<String>, FragmentSignUpBinding, Si
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         hideBottomNavigation()
+        requireActivity().onBackPressedDispatcher.addCallback(requireActivity()) {
+            viewModel.onBackPressClick()
+        }
     }
 
     override fun onClickListener() = with(binding) {
@@ -53,29 +55,24 @@ class SignUpFragment : BaseFragment<AuthState<String>, FragmentSignUpBinding, Si
     private fun repeatPasswordText(): String = binding.confirmPassword.text.toString()
 
 
-    override fun observerState(state: AuthState<String>) {
+    override fun observerState(state: SignUpState<String>) {
         with(binding) {
             when (state) {
-                is AuthState.Loading -> {
+                is SignUpState.Loading -> {
                     loginProgress.invisible()
                 }
-                is AuthState.Failure -> {
+                is SignUpState.Failure -> {
                     loginProgress.visible()
                     showSnackBarString(requireView(), state.error)
                 }
-                is AuthState.Success -> {
+                is SignUpState.Success -> {
                     loginProgress.visible()
                     showSnackBarString(requireView(), state.data)
                 }
-                is AuthState.Navigate -> {
+                is SignUpState.Navigate -> {
                     navigateTo(state.navigateTo)
-                    requireActivity().onBackPressedDispatcher.addCallback(requireActivity()) {
-                        navigateTo(state.navigateTo)
-                    }
                 }
-                is AuthState.CheckEmail -> {}
-                is AuthState.CheckPassword -> {}
-                is AuthState.CheckState -> {
+                is SignUpState.CheckState -> {
                     fullNameContainer.helperText = state.name
                     emailContainer.helperText = state.email
                     passwordContainer.helperText = state.password

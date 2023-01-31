@@ -8,7 +8,6 @@ import com.example.newsapppp.domain.interactors.authentication.validation.Valida
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidatePasswordUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidateRepeatedPasswordUseCase
 import com.example.newsapppp.presentation.extensions.launchCoroutine
-import com.example.newsapppp.presentation.ui.authentication.AuthState
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,9 +22,9 @@ class SignUpViewModel @Inject constructor(
     private val validatePassword: ValidatePasswordUseCase,
     private val validateRepeatedPassword: ValidateRepeatedPasswordUseCase,
     private val provideResources: ProvideResourcesContract
-) : BaseViewModel<AuthState<String>>() {
+) : BaseViewModel<SignUpState<String>>() {
 
-    override val _state = MutableStateFlow<AuthState<String>>(AuthState.Loading)
+    override val _state = MutableStateFlow<SignUpState<String>>(SignUpState.Loading)
     override val state = _state.asStateFlow()
 
     fun checkValidationFields(
@@ -35,7 +34,7 @@ class SignUpViewModel @Inject constructor(
         repeatedPassword: String
     ) {
         emitState(
-            AuthState.CheckState(
+            SignUpState.CheckState(
                 fullName(name),
                 validateEmail(email),
                 validatePassword(password),
@@ -44,16 +43,22 @@ class SignUpViewModel @Inject constructor(
         )
     }
 
+    fun onBackPressClick(){
+        emitState(SignUpState.Navigate(R.id.loginFragment))
+    }
+
     fun signUnButtonClicked(
         name: String,
         email: String,
         password: String,
     ) = launchCoroutine {
         when {
-            email.isEmpty() -> emitState(AuthState.Failure(provideResources.string(R.string.empty_email)))
-            password.isEmpty() -> emitState(AuthState.Failure(provideResources.string(R.string.empty_password)))
+            email.isEmpty() -> emitState(SignUpState.Failure(provideResources.string(R.string.empty_email)))
+            password.isEmpty() -> emitState(SignUpState.Failure(provideResources.string(R.string.empty_password)))
             else -> signUpUseCase.signUp(name, email, password) {
                 emitState(it)
+                emitState(SignUpState.Navigate(R.id.loginFragment))
+
             }
         }
     }

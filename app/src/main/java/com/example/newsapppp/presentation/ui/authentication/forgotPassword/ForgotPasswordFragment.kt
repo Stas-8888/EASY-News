@@ -5,13 +5,12 @@ import com.example.newsapppp.databinding.FragmentForgotPasswordBinding
 import com.example.newsapppp.presentation.extensions.changesListener
 import com.example.newsapppp.presentation.extensions.navigateTo
 import com.example.newsapppp.presentation.extensions.showSnackBarString
-import com.example.newsapppp.presentation.ui.authentication.AuthState
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ForgotPasswordFragment :
-    BaseFragment<AuthState<String>, FragmentForgotPasswordBinding, ForgotPasswordViewModel>(
+    BaseFragment<ForgotPasswordState<String>, FragmentForgotPasswordBinding, ForgotPasswordViewModel>(
         FragmentForgotPasswordBinding::inflate
     ) {
 
@@ -26,15 +25,13 @@ class ForgotPasswordFragment :
 
     private fun emailText(): String = binding.edLogin.text.toString()
 
-    override fun observerState(state: AuthState<String>) {
+    override fun observerState(state: ForgotPasswordState<String>) {
         when (state) {
-            is AuthState.Loading -> {}
-            is AuthState.Failure -> showSnackBarString(requireView(), state.error)
-            is AuthState.Success -> showSnackBarString(requireView(), state.data)
-            is AuthState.Navigate -> navigateTo(state.navigateTo)
-            is AuthState.CheckEmail -> binding.emailContainer.helperText = state.data
-            is AuthState.CheckPassword -> {}
-            is AuthState.CheckState -> {}
+            is ForgotPasswordState.Loading -> {}
+            is ForgotPasswordState.Failure -> showSnackBarString(requireView(), state.error)
+            is ForgotPasswordState.Success -> showSnackBarString(requireView(), state.data)
+            is ForgotPasswordState.Navigate -> navigateTo(state.navigateTo)
+            is ForgotPasswordState.CheckEmail -> binding.emailContainer.helperText = state.data
         }
     }
 }
