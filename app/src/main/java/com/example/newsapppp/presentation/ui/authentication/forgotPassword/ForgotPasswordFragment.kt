@@ -17,13 +17,13 @@ class ForgotPasswordFragment :
     override val viewModel by viewModels<ForgotPasswordViewModel>()
 
     override fun onClickListener() = with(binding) {
-        edLogin.changesListener { viewModel.isEmailChanged(emailText()) }
-        btSignIn.setOnClickListener {
-            viewModel.forgotPassword(emailText())
+        edEmail.changesListener { viewModel.isEmailChanged(emailText()) }
+        btForgotPassword.setOnClickListener {
+            viewModel.onForgotPasswordClicked(emailText())
         }
     }
 
-    private fun emailText(): String = binding.edLogin.text.toString()
+    private fun emailText(): String = binding.edEmail.text.toString()
 
     override fun observerState(state: ForgotPasswordState<String>) {
         when (state) {

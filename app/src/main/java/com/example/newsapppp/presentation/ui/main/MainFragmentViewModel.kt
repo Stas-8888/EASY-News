@@ -21,7 +21,7 @@ class MainFragmentViewModel @Inject constructor(
     override val _state = MutableStateFlow<MainState>(MainState.ShowLoading)
     override val state = _state.asStateFlow()
 
-    fun setupNews(category: String) = launchCoroutine {
+    fun setupArticleNews(category: String) = launchCoroutine {
         val data = getNews(category).articlesModel.filter { it.urlToImage != null }
         if (data.isNotEmpty()) {
             emit(MainState.ShowArticles(articleMapper.mapToListArticle(data)))

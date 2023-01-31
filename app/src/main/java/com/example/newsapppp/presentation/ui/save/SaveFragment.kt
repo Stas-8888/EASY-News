@@ -30,7 +30,7 @@ class SaveFragment : BaseFragment<SaveState, FragmentSaveBinding, SaveFragmentVi
     override fun onClickListener() {
         with(binding) {
             btDeleteAll.setOnClickListener {
-                showDeleteDialog({ viewModel.deleteAllArticle() }, { })
+                showDeleteDialog({ viewModel.onDeleteAllArticleClicked() }, { })
             }
             newsAdapter.setOnItemClickListener {
                 navigateDirections(SaveFragmentDirections.actionSaveFragmentToNewsFragment(it))

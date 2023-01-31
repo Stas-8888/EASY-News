@@ -12,6 +12,8 @@ sealed class SettingsState : State {
         val action: () -> Unit = {}
     ) : SettingsState()
 
+    data class SetEmail(val email: String?) : SettingsState()
+
     data class Account2(val navigation: Int) : SettingsState()
 
     data class GetCurrentEmail(val currentEmail: String?) : SettingsState()

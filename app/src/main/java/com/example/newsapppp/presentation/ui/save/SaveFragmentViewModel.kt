@@ -38,7 +38,7 @@ class SaveFragmentViewModel @Inject constructor(
         deleteArticleUseCase(mapper.mapToModel(article))
     }
 
-    fun deleteAllArticle() = launchCoroutine {
+    fun onDeleteAllArticleClicked() = launchCoroutine {
         deleteAll(Unit)
     }
 

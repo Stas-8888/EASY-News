@@ -25,7 +25,7 @@ class SettingsFragmentViewModel @Inject constructor(
     private val getCountryFlag: GetCountryFlagUseCase,
     private val saveSwitchPosition: SaveSwitchPositionUseCase,
     private val getSwitchPosition: GetSwitchPositionUseCase,
-    private var firebaseAuth: FirebaseAuth,
+    private var firebaseAuth: FirebaseAuth
 ) : BaseViewModel<SettingsState>() {
 
     override val _state = MutableStateFlow<SettingsState>(SettingsState.IsSwitch(true))
@@ -50,6 +50,11 @@ class SettingsFragmentViewModel @Inject constructor(
         } else {
             emit(SettingsState.IsSwitch(true))
         }
+    }
+
+    fun setupEmail(){
+        firebaseAuth = FirebaseAuth.getInstance()
+        emit(SettingsState.SetEmail(firebaseAuth.currentUser?.email))
     }
 
     fun checkAccount() = launchCoroutine {

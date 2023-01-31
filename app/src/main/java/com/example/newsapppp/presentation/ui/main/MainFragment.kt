@@ -30,7 +30,7 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
         showBottomNavigation()
         viewModel.setupCountry()
         getCountryAndCategoryTabLayout()
-        viewModel.setupNews(categories.first())
+        viewModel.setupArticleNews(categories.first())
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity()) {
             showSnackBarString(requireView(), getString(R.string.disabled_back_press))
         }
@@ -76,7 +76,7 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
     private fun getCountryAndCategoryTabLayout() {
         binding.tabMain.addOnTabSelectedListener(object : SimpleTabSelectedListener() {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                viewModel.setupNews(categories[tab.position])
+                viewModel.setupArticleNews(categories[tab.position])
             }
         })
     }

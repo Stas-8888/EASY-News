@@ -21,7 +21,7 @@ class ForgotPasswordViewModel @Inject constructor(
     override val _state = MutableStateFlow<ForgotPasswordState<String>>(ForgotPasswordState.Loading)
     override val state = _state.asStateFlow()
 
-    fun forgotPassword(email: String) = launchCoroutine {
+    fun onForgotPasswordClicked(email: String) = launchCoroutine {
         when {
             email.isEmpty() -> emit(ForgotPasswordState.Failure(provideResources.string(R.string.empty_email)))
             else -> {

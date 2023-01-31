@@ -11,12 +11,11 @@ import androidx.navigation.fragment.findNavController
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSettingsBinding
 import com.example.newsapppp.databinding.NewNameDialogBinding
-import com.example.newsapppp.presentation.ui.base.BaseFragment
 import com.example.newsapppp.presentation.extensions.hideBottomNavigation
 import com.example.newsapppp.presentation.extensions.navigateTo
 import com.example.newsapppp.presentation.extensions.showSnackbar
 import com.example.newsapppp.presentation.extensions.snackBar
-import com.google.firebase.auth.FirebaseAuth
+import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_settings.*
 
@@ -26,15 +25,13 @@ class SettingsFragment :
         FragmentSettingsBinding::inflate
     ) {
     override val viewModel by viewModels<SettingsFragmentViewModel>()
-    lateinit var firebaseAuth: FirebaseAuth
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         hideBottomNavigation()
-        firebaseAuth = FirebaseAuth.getInstance()
-        tvEmail.text = firebaseAuth.currentUser?.email
-        viewModel.setupCountryFlag()
         viewModel.setupTheme()
+        viewModel.setupEmail()
+        viewModel.setupCountryFlag()
     }
 
     override fun onClickListener() = with(binding) {
@@ -60,6 +57,7 @@ class SettingsFragment :
             is SettingsState.Account -> {
                 showSnackbar(requireView(), state.message, state.isError, state.action)
             }
+            is SettingsState.SetEmail -> tvEmail.text = state.email.toString()
             is SettingsState.Account2 -> navigateTo(state.navigation)
             is SettingsState.GetCurrentEmail -> state.currentEmail
             is SettingsState.IsSwitch -> switchDayNight.isChecked = state.isSwitch
