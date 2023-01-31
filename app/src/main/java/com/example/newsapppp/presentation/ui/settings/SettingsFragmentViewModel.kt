@@ -46,35 +46,35 @@ class SettingsFragmentViewModel @Inject constructor(
 
     fun setupTheme() = launchCoroutine {
         if (getSwitchPosition(Unit)) {
-            emitState(SettingsState.IsSwitch(false))
+            emit(SettingsState.IsSwitch(false))
         } else {
-            emitState(SettingsState.IsSwitch(true))
+            emit(SettingsState.IsSwitch(true))
         }
     }
 
     fun checkAccount() = launchCoroutine {
         firebaseAuth = FirebaseAuth.getInstance()
         if (firebaseAuth.currentUser != null) {
-            emitState(SettingsState.Account(
+            emit(SettingsState.Account(
                 "Successful Sign Out",
                 true
             ) { firebaseAuth.signOut() })
         } else {
-            emitState(SettingsState.Account2(R.id.loginFragment))
+            emit(SettingsState.Account2(R.id.loginFragment))
         }
     }
 
     fun setupCountryFlag() {
         when (getCountryFlag(Unit)) {
-            USA -> emitState(SettingsState.SetupCountryFlag(R.drawable.usa))
-            GERMANY -> emitState(SettingsState.SetupCountryFlag(R.drawable.germany))
-            RUSSIA -> emitState(SettingsState.SetupCountryFlag(R.drawable.russia))
-            EGYPT -> emitState(SettingsState.SetupCountryFlag(R.drawable.egypt))
+            USA -> emit(SettingsState.SetupCountryFlag(R.drawable.usa))
+            GERMANY -> emit(SettingsState.SetupCountryFlag(R.drawable.germany))
+            RUSSIA -> emit(SettingsState.SetupCountryFlag(R.drawable.russia))
+            EGYPT -> emit(SettingsState.SetupCountryFlag(R.drawable.egypt))
         }
     }
 
     fun saveUsaCountry() = launchCoroutine {
-        emitState(
+        emit(
             SettingsState.SaveCurrentCountry(
                 countryFlag = saveCountryFlag(USA),
                 imageResource = R.drawable.usa,
@@ -84,7 +84,7 @@ class SettingsFragmentViewModel @Inject constructor(
     }
 
     fun saveRussiaCountry() = launchCoroutine {
-        emitState(
+        emit(
             SettingsState.SaveCurrentCountry(
                 countryFlag = saveCountryFlag(RUSSIA),
                 imageResource = R.drawable.russia,
@@ -94,7 +94,7 @@ class SettingsFragmentViewModel @Inject constructor(
     }
 
     fun saveGermanyCountry() = launchCoroutine {
-        emitState(
+        emit(
             SettingsState.SaveCurrentCountry(
                 countryFlag = saveCountryFlag(GERMANY),
                 imageResource = R.drawable.germany,
@@ -104,7 +104,7 @@ class SettingsFragmentViewModel @Inject constructor(
     }
 
     fun saveEgyptCountry() = launchCoroutine {
-        emitState(
+        emit(
             SettingsState.SaveCurrentCountry(
                 countryFlag = saveCountryFlag(EGYPT),
                 imageResource = R.drawable.egypt,

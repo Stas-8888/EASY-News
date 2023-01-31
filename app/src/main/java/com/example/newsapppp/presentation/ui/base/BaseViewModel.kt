@@ -10,7 +10,7 @@ abstract class BaseViewModel<State> : ViewModel() {
     protected abstract val _state: MutableSharedFlow<State>
     abstract val state: SharedFlow<State>
 
-    fun emitState(action: State) = launchCoroutine{
+    fun emit(action: State) = launchCoroutine{
         _state.emit(action)
     }
 }

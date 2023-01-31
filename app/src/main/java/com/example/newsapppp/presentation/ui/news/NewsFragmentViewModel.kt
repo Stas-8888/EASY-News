@@ -43,7 +43,7 @@ class NewsFragmentViewModel @Inject constructor(
         firebaseAuth = FirebaseAuth.getInstance()
         if (firebaseAuth.currentUser != null) {
             if (isFavorite == getFavoriteUseCase(article.url)) {
-                emitState(
+                emit(
                     NewsState.SaveFavoriteArticle(
                         insertArticleUseCase(articleMapper.mapToModel(article)),
                         saveFavoriteUseCase.saveFavorite(article.url, true),
@@ -52,7 +52,7 @@ class NewsFragmentViewModel @Inject constructor(
                     )
                 )
             } else {
-                emitState(
+                emit(
                     NewsState.DeleteFavoriteArticle(
                         deleteArticleUseCase(articleMapper.mapToModel(article)),
                         saveFavoriteUseCase.saveFavorite(article.url, false),
@@ -62,7 +62,7 @@ class NewsFragmentViewModel @Inject constructor(
                 )
             }
         } else {
-            emitState(NewsState.Error(R.string.error_registered))
+            emit(NewsState.Error(R.string.error_registered))
         }
     }
 }

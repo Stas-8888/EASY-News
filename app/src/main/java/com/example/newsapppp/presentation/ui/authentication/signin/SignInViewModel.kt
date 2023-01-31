@@ -25,32 +25,25 @@ class SignInViewModel @Inject constructor(
 
     fun signInButtonClicked(email: String, password: String) = launchCoroutine {
         when {
-            email.isEmpty() -> emitState(SignInState.Failure(provideResources.string(R.string.empty_email)))
-            password.isEmpty() -> emitState(SignInState.Failure(provideResources.string(R.string.empty_password)))
-            else -> signIn.signIn(email, password) {
-                emitState(it)
-                emitState(SignInState.Navigate(R.id.mainFragment))
+            email.isEmpty() -> emit(SignInState.Failure(provideResources.string(R.string.empty_email)))
+            password.isEmpty() -> emit(SignInState.Failure(provideResources.string(R.string.empty_password)))
+            else -> {
+                signIn.signIn(email, password)
+                    .addOnSuccessListener {
+                        emit(SignInState.Success(provideResources.string(R.string.successfully_sign_in)))
+                        emit(SignInState.Navigate(R.id.mainFragment))
+                    }.addOnFailureListener {
+                        emit(SignInState.Failure(provideResources.string(R.string.authentication_failed)))
+                    }
             }
         }
     }
 
-    fun onForgotPasswordClicked() {
-        emitState(SignInState.NavigateForgotPassword(R.id.forgotPasswordFragment))
-    }
-
-    fun onSkipClicked() {
-        emitState(SignInState.NavigateSkip(R.id.mainFragment))
-    }
-
-    fun onSkipSignUpClicked() {
-        emitState(SignInState.NavigateSkip(R.id.signUpFragment))
-    }
-
-    fun isEmailChanged(email: String) {
-        emitState(SignInState.CheckEmail(validateEmail(email)))
-    }
-
-    fun isPasswordChanged(password: String) {
-        emitState(SignInState.CheckPassword(validatePassword(password)))
-    }
+    fun onSkipClicked() = emit(SignInState.NavigateSkip(R.id.mainFragment))
+    fun onSkipSignUpClicked() = emit(SignInState.NavigateSkip(R.id.signUpFragment))
+    fun isEmailChanged(email: String) = emit(SignInState.CheckEmail(validateEmail(email)))
+    fun onForgotPasswordClicked() =
+        emit(SignInState.NavigateForgotPassword(R.id.forgotPasswordFragment))
+    fun isPasswordChanged(password: String) =
+        emit(SignInState.CheckPassword(validatePassword(password)))
 }

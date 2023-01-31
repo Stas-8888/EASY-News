@@ -24,18 +24,18 @@ class MainFragmentViewModel @Inject constructor(
     fun setupNews(category: String) = launchCoroutine {
         val data = getNews(category).articlesModel.filter { it.urlToImage != null }
         if (data.isNotEmpty()) {
-            emitState(MainState.ShowArticles(articleMapper.mapToListArticle(data)))
+            emit(MainState.ShowArticles(articleMapper.mapToListArticle(data)))
         } else {
-            emitState(MainState.Error(R.string.error))
+            emit(MainState.Error(R.string.error))
         }
     }
 
     fun setupCountry() {
-        emitState(MainState.GetCountryFlag(getCountryFlag(Unit)))
+        emit(MainState.GetCountryFlag(getCountryFlag(Unit)))
     }
 
     fun showOrHideFloatButton(getFirstNewsPosition: Int) {
         if (getFirstNewsPosition < 1)
-            emitState(MainState.ShowBottom) else emitState(MainState.HideBottom)
+            emit(MainState.ShowBottom) else emit(MainState.HideBottom)
     }
 }

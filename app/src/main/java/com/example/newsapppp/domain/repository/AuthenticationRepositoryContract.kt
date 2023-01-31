@@ -1,16 +1,16 @@
 package com.example.newsapppp.domain.repository
 
-import com.example.newsapppp.presentation.ui.authentication.signin.SignInState
 import com.example.newsapppp.presentation.ui.authentication.forgotPassword.ForgotPasswordState
 import com.example.newsapppp.presentation.ui.authentication.signup.SignUpState
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 
 interface AuthenticationRepositoryContract {
 
     suspend fun signIn(
         email: String,
         password: String,
-        result: (SignInState<String>) -> Unit
-    )
+    ): Task<AuthResult>
 
     suspend fun signup(
         user: String,

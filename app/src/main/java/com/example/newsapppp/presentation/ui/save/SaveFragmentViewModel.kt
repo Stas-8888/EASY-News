@@ -30,7 +30,7 @@ class SaveFragmentViewModel @Inject constructor(
                 _state.emit(SaveState.ShowArticles(mapper.mapToListArticle(it)))
             }
         } catch (e: Exception) {
-            emitState(SaveState.Error(R.string.error))
+            emit(SaveState.Error(R.string.error))
         }
     }
 
@@ -43,6 +43,6 @@ class SaveFragmentViewModel @Inject constructor(
     }
 
     fun onItemSwiped(article: Article, position: Int) {
-        emitState(SaveState.ShowDeleteDialog(article, position))
+        emit(SaveState.ShowDeleteDialog(article, position))
     }
 }

@@ -55,7 +55,6 @@ class SignInFragment : BaseFragment<SignInState<String>, FragmentLoginBinding, S
             is SignInState.Navigate -> navigateTo(state.navigateTo)
             is SignInState.CheckEmail -> emailContainer.helperText = state.data
             is SignInState.CheckPassword -> loginPasswordContainer.helperText = state.data
-            is SignInState.CheckState -> {}
         }
     }
 }

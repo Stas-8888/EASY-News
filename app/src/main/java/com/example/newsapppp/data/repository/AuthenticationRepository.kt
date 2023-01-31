@@ -7,6 +7,8 @@ import com.example.newsapppp.domain.repository.AuthenticationRepositoryContract
 import com.example.newsapppp.presentation.ui.authentication.signin.SignInState
 import com.example.newsapppp.presentation.ui.authentication.forgotPassword.ForgotPasswordState
 import com.example.newsapppp.presentation.ui.authentication.signup.SignUpState
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -22,17 +24,10 @@ class AuthenticationRepository @Inject constructor(
     override suspend fun signIn(
         email: String,
         password: String,
-        result: (SignInState<String>) -> Unit
-    ) {
-        dispatcher.io {
-            firebaseAuth.signInWithEmailAndPassword(email, password)
-                .addOnSuccessListener {
-                    result.invoke(success(R.string.successfully_sign_in))
-                }.addOnFailureListener {
-                    result.invoke(failure(R.string.authentication_failed))
-                }
-        }
+    ): Task<AuthResult> = dispatcher.io {
+        firebaseAuth.signInWithEmailAndPassword(email, password)
     }
+
 
     override suspend fun signup(
         user: String,

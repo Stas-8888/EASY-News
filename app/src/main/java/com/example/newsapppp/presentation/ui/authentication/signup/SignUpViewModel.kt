@@ -33,7 +33,7 @@ class SignUpViewModel @Inject constructor(
         password: String,
         repeatedPassword: String
     ) {
-        emitState(
+        emit(
             SignUpState.CheckState(
                 fullName(name),
                 validateEmail(email),
@@ -44,7 +44,7 @@ class SignUpViewModel @Inject constructor(
     }
 
     fun onBackPressClick(){
-        emitState(SignUpState.Navigate(R.id.loginFragment))
+        emit(SignUpState.Navigate(R.id.loginFragment))
     }
 
     fun signUnButtonClicked(
@@ -53,11 +53,11 @@ class SignUpViewModel @Inject constructor(
         password: String,
     ) = launchCoroutine {
         when {
-            email.isEmpty() -> emitState(SignUpState.Failure(provideResources.string(R.string.empty_email)))
-            password.isEmpty() -> emitState(SignUpState.Failure(provideResources.string(R.string.empty_password)))
+            email.isEmpty() -> emit(SignUpState.Failure(provideResources.string(R.string.empty_email)))
+            password.isEmpty() -> emit(SignUpState.Failure(provideResources.string(R.string.empty_password)))
             else -> signUpUseCase.signUp(name, email, password) {
-                emitState(it)
-                emitState(SignUpState.Navigate(R.id.loginFragment))
+                emit(it)
+                emit(SignUpState.Navigate(R.id.loginFragment))
 
             }
         }
