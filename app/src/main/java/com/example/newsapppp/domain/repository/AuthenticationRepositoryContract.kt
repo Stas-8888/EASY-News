@@ -1,6 +1,5 @@
 package com.example.newsapppp.domain.repository
 
-import com.example.newsapppp.presentation.ui.authentication.forgotPassword.ForgotPasswordState
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 
@@ -19,5 +18,5 @@ interface AuthenticationRepositoryContract {
 
     fun logout()
 
-    suspend fun forgotPassword(email: String, result: (ForgotPasswordState<String>) -> Unit)
+    suspend fun forgotPassword(email: String): Task<Void>
 }

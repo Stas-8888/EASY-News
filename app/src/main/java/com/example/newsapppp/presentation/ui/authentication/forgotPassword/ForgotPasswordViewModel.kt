@@ -24,8 +24,13 @@ class ForgotPasswordViewModel @Inject constructor(
     fun forgotPassword(email: String) = launchCoroutine {
         when {
             email.isEmpty() -> emit(ForgotPasswordState.Failure(provideResources.string(R.string.empty_email)))
-            else -> forgotPassword.forgotPassword(email) {
-                emit(it)
+            else -> {
+                forgotPassword.forgotPassword(email)
+                    .addOnSuccessListener {
+                        emit(ForgotPasswordState.Failure(provideResources.string(R.string.email_sent)))
+                    }.addOnFailureListener {
+                        emit(ForgotPasswordState.Failure(it.message))
+                    }
             }
         }
     }
