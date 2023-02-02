@@ -31,10 +31,6 @@ class SettingsFragmentViewModel @Inject constructor(
     override val _state = MutableStateFlow<SettingsState>(SettingsState.IsSwitch(true))
     override val state: StateFlow<SettingsState> = _state
 
-    init {
-        firebaseAuth = FirebaseAuth.getInstance()
-    }
-
     fun onSwitchDayNightClicked(enabled: Boolean) = launchCoroutine {
         if (enabled) {
             updateTheme(enabled = false, state = AppCompatDelegate.MODE_NIGHT_YES)
@@ -56,11 +52,14 @@ class SettingsFragmentViewModel @Inject constructor(
         }
     }
 
-    fun setupEmail(){
-        emit(SettingsState.SetEmail(firebaseAuth.currentUser?.email))
+    fun setupEmail() {
+        firebaseAuth = FirebaseAuth.getInstance()
+        val data = firebaseAuth.currentUser?.email
+        emit(SettingsState.SetEmail(data))
     }
 
     fun checkAccount() = launchCoroutine {
+        firebaseAuth = FirebaseAuth.getInstance()
         if (firebaseAuth.currentUser != null) {
             emit(SettingsState.Account(
                 "Successful Sign Out",

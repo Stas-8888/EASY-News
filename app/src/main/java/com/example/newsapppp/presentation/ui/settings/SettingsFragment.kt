@@ -29,13 +29,10 @@ class SettingsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         hideBottomNavigation()
-        with(viewModel){
-            setupTheme()
-            setupCountryFlag()
-            setupEmail()
-        }
+        viewModel.setupCountryFlag()
+        viewModel.setupEmail()
+        viewModel.setupTheme()
     }
-
 
     override fun onClickListener() = with(binding) {
         account.setOnClickListener {
