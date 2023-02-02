@@ -33,5 +33,5 @@ class AuthenticationRepository @Inject constructor(
         firebaseAuth.sendPasswordResetEmail(email)
     }
 
-    override fun logout() = firebaseAuth.signOut()
+    override fun logOut() = firebaseAuth.signOut()
 }

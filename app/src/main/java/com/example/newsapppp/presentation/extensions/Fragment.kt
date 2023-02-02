@@ -34,6 +34,20 @@ internal fun Fragment.showNoActionOkDialog(title: Int, content: CharSequence?) {
         }.show()
 }
 
+//private fun openDeleteAlertDialog(title: Int,) {
+//    MaterialAlertDialogBuilder(requireContext())
+//        .setTitle(title)
+//        .setMessage(R.string.irreversible)
+//        .setIcon(R.drawable.ic_delete)
+//        .setPositiveButton(R.string.Delete) { _, _ ->
+//            settingsViewModel.deleteAllData()
+//        }
+//        .setNegativeButton(android.R.string.cancel) { dialog, _ ->
+//            dialog.dismiss()
+//        }
+//        .show()
+//}
+
 fun Fragment.navigateTo(where: Int) = findNavController().navigate(where)
 
 fun Fragment.navigateDirections(where: NavDirections) = findNavController().navigate(where)

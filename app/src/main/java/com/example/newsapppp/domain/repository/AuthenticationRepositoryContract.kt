@@ -16,7 +16,7 @@ interface AuthenticationRepositoryContract {
         password: String,
     ): Task<AuthResult>
 
-    fun logout()
+    fun logOut()
 
     suspend fun forgotPassword(email: String): Task<Void>
 }

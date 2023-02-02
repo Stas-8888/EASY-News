@@ -1,7 +1,7 @@
 package com.example.newsapppp.presentation.ui.search
 
-import com.example.newsapppp.presentation.extensions.launchCoroutine
 import com.example.newsapppp.domain.interactors.articleRemote.SearchNewsUseCase
+import com.example.newsapppp.presentation.extensions.launchCoroutine
 import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchFragmentViewModel @Inject constructor(
     private val searchNewsUseCase: SearchNewsUseCase,
-    private val articleMapper: ArticleMapper
+    private val mapper: ArticleMapper,
 ) : BaseViewModel<SearchState>() {
 
     override val _state = MutableStateFlow<SearchState>(SearchState.Loading)
@@ -22,7 +22,7 @@ class SearchFragmentViewModel @Inject constructor(
     fun searchTextListener(searchQuery: String) = launchCoroutine {
         if (searchQuery.isNotEmpty()) {
             val data = searchNewsUseCase(searchQuery).articlesModel
-            emit(SearchState.ShowArticles(articleMapper.mapToListArticle(data)))
+            emit(SearchState.ShowArticles(mapper.mapToListArticle(data)))
         } else {
             emit(SearchState.Error("Server error"))
         }
