@@ -43,19 +43,19 @@ class NewsFragmentViewModel @Inject constructor(
         firebaseAuth = FirebaseAuth.getInstance()
         if (firebaseAuth.currentUser != null) {
             if (isFavorite == getFavoriteUseCase(article.url)) {
+                insertArticleUseCase(articleMapper.mapToModel(article))
+                saveFavoriteUseCase.saveFavorite(article.url, true)
                 emit(
                     NewsState.SaveFavoriteArticle(
-                        insertArticleUseCase(articleMapper.mapToModel(article)),
-                        saveFavoriteUseCase.saveFavorite(article.url, true),
                         R.string.Add_Article,
                         favoritesIconSelected
                     )
                 )
             } else {
+                deleteArticleUseCase(articleMapper.mapToModel(article))
+                saveFavoriteUseCase.saveFavorite(article.url, false)
                 emit(
                     NewsState.DeleteFavoriteArticle(
-                        deleteArticleUseCase(articleMapper.mapToModel(article)),
-                        saveFavoriteUseCase.saveFavorite(article.url, false),
                         R.string.Delete_Article,
                         favoritesIconUnselected
                     )

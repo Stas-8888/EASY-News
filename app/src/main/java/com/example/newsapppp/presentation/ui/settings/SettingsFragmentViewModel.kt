@@ -54,8 +54,7 @@ class SettingsFragmentViewModel @Inject constructor(
 
     fun setupEmail() {
         firebaseAuth = FirebaseAuth.getInstance()
-        val data = firebaseAuth.currentUser?.email
-        emit(SettingsState.SetEmail(data))
+        emit(SettingsState.SetEmail(firebaseAuth.currentUser?.email))
     }
 
     fun checkAccount() = launchCoroutine {
