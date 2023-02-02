@@ -29,9 +29,9 @@ class SettingsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         hideBottomNavigation()
-        viewModel.setupCountryFlag()
         viewModel.setupEmail()
         viewModel.setupTheme()
+        viewModel.setupCountryFlag()
     }
 
     override fun onClickListener() = with(binding) {
@@ -64,7 +64,7 @@ class SettingsFragment :
                 is SettingsState.IsSwitch -> switchDayNight.isChecked = state.isSwitch
                 is SettingsState.SetupCountryFlag -> imCountry.setImageResource(state.flag)
                 is SettingsState.SaveCurrentCountry -> {
-                    imCountry.setImageResource(state.imageResource)
+//                    imCountry.setImageResource(state.imageResource)
                     snackBar(requireView(), state.countryName)
                 }
             }

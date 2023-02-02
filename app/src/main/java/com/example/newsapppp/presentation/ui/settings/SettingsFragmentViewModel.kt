@@ -79,43 +79,23 @@ class SettingsFragmentViewModel @Inject constructor(
     }
 
     fun saveUsaCountry() = launchCoroutine {
-        emit(
-            SettingsState.SaveCurrentCountry(
-                countryFlag = saveCountryFlag(USA),
-                imageResource = R.drawable.usa,
-                countryName = R.string.American_News
-            )
-        )
+        saveCountryFlag(USA)
+        emit(SettingsState.SaveCurrentCountry(countryName = R.string.American_News))
     }
 
     fun saveRussiaCountry() = launchCoroutine {
-        emit(
-            SettingsState.SaveCurrentCountry(
-                countryFlag = saveCountryFlag(RUSSIA),
-                imageResource = R.drawable.russia,
-                countryName = R.string.Russia_News
-            )
-        )
+        saveCountryFlag(RUSSIA)
+        emit(SettingsState.SaveCurrentCountry(countryName = R.string.Russia_News))
     }
 
     fun saveGermanyCountry() = launchCoroutine {
-        emit(
-            SettingsState.SaveCurrentCountry(
-                countryFlag = saveCountryFlag(GERMANY),
-                imageResource = R.drawable.germany,
-                countryName = R.string.Germany_News
-            )
-        )
+        saveCountryFlag(GERMANY)
+        emit(SettingsState.SaveCurrentCountry(countryName = R.string.Germany_News))
     }
 
     fun saveEgyptCountry() = launchCoroutine {
-        emit(
-            SettingsState.SaveCurrentCountry(
-                countryFlag = saveCountryFlag(EGYPT),
-                imageResource = R.drawable.egypt,
-                countryName = R.string.Egypt_News
-            )
-        )
+        saveCountryFlag(EGYPT)
+        emit(SettingsState.SaveCurrentCountry(countryName = R.string.Egypt_News))
     }
 }
 
