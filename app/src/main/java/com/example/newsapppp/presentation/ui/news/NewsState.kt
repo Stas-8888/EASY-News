@@ -5,12 +5,12 @@ sealed class NewsState : State {
     data class ShowFavoriteIcon(val favoriteIcon: Int) : NewsState()
     data class HideFavoriteIcon(val favoriteIcon: Int) : NewsState()
 
-    data class SaveFavoriteArticle(
+    data class SaveFavorite(
         val status: Int,
         val favoriteIcon: Int
     ) : NewsState()
 
-    data class DeleteFavoriteArticle(
+    data class DeleteFavorite(
         val status: Int,
         val favoriteIcon: Int
     ) : NewsState()

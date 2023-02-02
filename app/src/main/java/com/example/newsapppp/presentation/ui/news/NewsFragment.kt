@@ -62,11 +62,11 @@ class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentVi
 
     override fun observerState(state: NewsState) = with(binding) {
         when (state) {
-            is NewsState.DeleteFavoriteArticle -> {
+            is NewsState.DeleteFavorite -> {
                 setImageResource(state.favoriteIcon)
                 showAlertUpDialog(state.status)
             }
-            is NewsState.SaveFavoriteArticle -> {
+            is NewsState.SaveFavorite -> {
                 setImageResource(state.favoriteIcon)
                 showAlertUpDialog(state.status)
             }

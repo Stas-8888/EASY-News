@@ -17,22 +17,23 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewsFragmentViewModel @Inject constructor(
-    private val insertArticleUseCase: InsertArticleUseCase,
-    private val deleteArticleUseCase: DeleteArticleUseCase,
-    private val saveFavoriteUseCase: SaveFavoriteUseCase,
-    private val articleMapper: ArticleMapper,
-    private val getFavoriteUseCase: GetFavoriteUseCase,
+    private val insertArticle: InsertArticleUseCase,
+    private val deleteArticle: DeleteArticleUseCase,
+    private val saveFavorite: SaveFavoriteUseCase,
+    private val mapper: ArticleMapper,
+    private val getFavorite: GetFavoriteUseCase,
     private var firebaseAuth: FirebaseAuth
 ) : BaseViewModel<NewsState>() {
 
     private var isFavorite = false
     private val favoritesIconSelected = R.drawable.ic_favorite
     private val favoritesIconUnselected = R.drawable.ic_favorite_border
-    override val _state = MutableStateFlow<NewsState>(NewsState.HideFavoriteIcon(favoritesIconUnselected))
+    override val _state =
+        MutableStateFlow<NewsState>(NewsState.HideFavoriteIcon(favoritesIconUnselected))
     override val state = _state.asStateFlow()
 
     fun setupFavoriteIcon(article: Article) = launchCoroutine {
-        if (isFavorite != getFavoriteUseCase(article.url)) {
+        if (isFavorite != getFavorite(article.url)) {
             _state.emit(NewsState.ShowFavoriteIcon(favoritesIconSelected))
         } else {
             _state.emit(NewsState.HideFavoriteIcon(favoritesIconUnselected))
@@ -42,24 +43,14 @@ class NewsFragmentViewModel @Inject constructor(
     fun onFavoriteIconClicked(article: Article) = launchCoroutine {
         firebaseAuth = FirebaseAuth.getInstance()
         if (firebaseAuth.currentUser != null) {
-            if (isFavorite == getFavoriteUseCase(article.url)) {
-                insertArticleUseCase(articleMapper.mapToModel(article))
-                saveFavoriteUseCase.saveFavorite(article.url, true)
-                emit(
-                    NewsState.SaveFavoriteArticle(
-                        R.string.Add_Article,
-                        favoritesIconSelected
-                    )
-                )
+            if (isFavorite == getFavorite(article.url)) {
+                insertArticle(mapper.mapToModel(article))
+                saveFavorite.saveFavorite(article.url, true)
+                emit(NewsState.SaveFavorite(R.string.Add_Article, favoritesIconSelected))
             } else {
-                deleteArticleUseCase(articleMapper.mapToModel(article))
-                saveFavoriteUseCase.saveFavorite(article.url, false)
-                emit(
-                    NewsState.DeleteFavoriteArticle(
-                        R.string.Delete_Article,
-                        favoritesIconUnselected
-                    )
-                )
+                deleteArticle(mapper.mapToModel(article))
+                saveFavorite.saveFavorite(article.url, false)
+                emit(NewsState.DeleteFavorite(R.string.Delete_Article, favoritesIconUnselected))
             }
         } else {
             emit(NewsState.Error(R.string.error_registered))
