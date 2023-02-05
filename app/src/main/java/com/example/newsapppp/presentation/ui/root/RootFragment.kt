@@ -5,6 +5,7 @@ import androidx.navigation.findNavController
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentRootBinding
 import com.example.newsapppp.presentation.extensions.internetConnectionDialog
+import com.example.newsapppp.presentation.extensions.showSnackBarString
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import com.muddassir.connection_checker.ConnectionState
 import com.muddassir.connection_checker.ConnectivityListener
@@ -17,10 +18,13 @@ class RootFragment : BaseFragment<RootState, FragmentRootBinding, RootViewModel>
 
     override val viewModel by viewModels<RootViewModel>()
 
-    override fun onClickListener() {}
+    override fun onClickListener() {
+        viewModel.interceptorErrors()
+    }
 
     override fun observerState(state: RootState) {
         when (state) {
+            is RootState.InterceptorErrors -> showSnackBarString(requireView(), state.error)
             is RootState.Navigation -> {
                 binding.bottomNavigationView.setOnItemSelectedListener {
                     when (it.itemId) {

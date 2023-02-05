@@ -64,7 +64,6 @@ class SettingsFragment :
                 is SettingsState.IsSwitch -> switchDayNight.isChecked = state.isSwitch
                 is SettingsState.SetupCountryFlag -> imCountry.setImageResource(state.flag)
                 is SettingsState.SaveCurrentCountry -> {
-//                    imCountry.setImageResource(state.imageResource)
                     snackBar(requireView(), state.countryName)
                 }
             }

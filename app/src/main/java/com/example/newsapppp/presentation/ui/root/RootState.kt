@@ -8,4 +8,7 @@ sealed class RootState : State {
         val saveFragment: Int,
         val searchFragment: Int
     ) : RootState()
+
+    data class InterceptorErrors(val error: String) : RootState()
+
 }

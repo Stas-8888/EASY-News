@@ -4,6 +4,8 @@ import com.example.newsapppp.core.DispatcherRepository
 import com.example.newsapppp.core.DispatcherRepositoryContract
 import com.example.newsapppp.core.ProvideResources
 import com.example.newsapppp.core.ProvideResourcesContract
+import com.example.newsapppp.core.interceptor.ErrorsInterceptor
+import com.example.newsapppp.core.interceptor.ErrorsInterceptorContract
 import com.example.newsapppp.data.repository.*
 import com.example.newsapppp.domain.repository.*
 import com.google.firebase.auth.FirebaseAuth
@@ -16,6 +18,10 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object RepositoryModule {
+
+    @Provides
+    @Singleton
+    fun providesErrorsInterceptor(impl: ErrorsInterceptor): ErrorsInterceptorContract = impl
 
     @Provides
     @Singleton

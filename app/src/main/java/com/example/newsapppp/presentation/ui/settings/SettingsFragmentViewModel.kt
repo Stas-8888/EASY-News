@@ -61,7 +61,7 @@ class SettingsFragmentViewModel @Inject constructor(
         firebaseAuth = FirebaseAuth.getInstance()
         if (firebaseAuth.currentUser != null) {
             emit(SettingsState.Account(
-                "Successful Sign Out",
+                "Do you, want to sign out?",
                 true
             ) { firebaseAuth.signOut() })
         } else {
@@ -71,11 +71,15 @@ class SettingsFragmentViewModel @Inject constructor(
 
     fun setupCountryFlag() {
         when (getCountryFlag(Unit)) {
-            USA -> emit(SettingsState.SetupCountryFlag(R.drawable.usa))
-            GERMANY -> emit(SettingsState.SetupCountryFlag(R.drawable.germany))
-            RUSSIA -> emit(SettingsState.SetupCountryFlag(R.drawable.russia))
-            EGYPT -> emit(SettingsState.SetupCountryFlag(R.drawable.egypt))
+            USA -> countryFlag(R.drawable.usa)
+            GERMANY -> countryFlag(R.drawable.germany)
+            RUSSIA -> countryFlag(R.drawable.russia)
+            EGYPT -> countryFlag(R.drawable.egypt)
         }
+    }
+
+    private fun countryFlag(data: Int) {
+        emit(SettingsState.SetupCountryFlag(data))
     }
 
     fun saveUsaCountry() = launchCoroutine {
