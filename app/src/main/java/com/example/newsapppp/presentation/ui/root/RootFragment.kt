@@ -24,7 +24,9 @@ class RootFragment : BaseFragment<RootState, FragmentRootBinding, RootViewModel>
 
     override fun observerState(state: RootState) {
         when (state) {
-            is RootState.InterceptorErrors -> showSnackBarString(requireView(), state.error)
+            is RootState.InterceptorErrors -> {
+                showSnackBarString(requireView(), state.error)
+            }
             is RootState.Navigation -> {
                 binding.bottomNavigationView.setOnItemSelectedListener {
                     when (it.itemId) {

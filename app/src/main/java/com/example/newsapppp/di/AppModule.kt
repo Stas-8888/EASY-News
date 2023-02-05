@@ -1,6 +1,7 @@
 package com.example.newsapppp.di
 
 import com.example.newsapppp.BuildConfig
+import com.example.newsapppp.core.interceptor.ErrorsInterceptorContract
 import com.example.newsapppp.core.interceptor.RestErrorInterceptor
 import com.example.newsapppp.data.network.service.ApiService
 import dagger.Module
@@ -16,17 +17,19 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    @Provides
     @Singleton
-    private val restErrorInterceptor = RestErrorInterceptor()
+    fun restErrorInterceptor(error: ErrorsInterceptorContract) = RestErrorInterceptor(error)
 
+    @Provides
     @Singleton
-    private val okHttpClient = OkHttpClient.Builder()
-        .addNetworkInterceptor(restErrorInterceptor)
+    fun okHttpClient(error: RestErrorInterceptor) = OkHttpClient.Builder()
+        .addNetworkInterceptor(error)
         .build()
 
     @Provides
     @Singleton
-    fun retrofitInstance(): ApiService = Retrofit.Builder()
+    fun retrofitInstance(okHttpClient: OkHttpClient): ApiService = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)
