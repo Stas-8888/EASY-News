@@ -10,16 +10,12 @@ sealed class SettingsState : State {
         val action: () -> Unit = {}
     ) : SettingsState()
 
-    data class SetupUi(val email: String?, val flag: Int, val theme: Boolean): SettingsState()
-
-    data class Account2(val navigation: Int) : SettingsState()
-
-    data class GetCurrentEmail(val currentEmail: String?) : SettingsState()
-
     data class SaveCurrentCountry(
-//        val imageResource: Int,
+        val imageResource: Int,
         val countryName: Int
     ) : SettingsState()
 
+    data class Navigate(val navigation: Int) : SettingsState()
 
+    data class SetupUi(val email: String?, val flag: Int, val theme: Boolean) : SettingsState()
 }

@@ -24,11 +24,17 @@ class SettingsFragmentViewModel @Inject constructor(
     private val saveCountryFlag: SaveCountryFlagUseCase,
     private val getCountryFlag: GetCountryFlagUseCase,
     private val saveSwitchPosition: SaveSwitchPositionUseCase,
-    private val getThemes: GetSwitchPositionUseCase,
     private var firebaseAuth: FirebaseAuth,
-) : BaseViewModel<SettingsState>() {
+    getThemes: GetSwitchPositionUseCase
+    ) : BaseViewModel<SettingsState>() {
 
-    override val _state = MutableStateFlow<SettingsState>(SettingsState.SaveCurrentCountry(0))
+    override val _state = MutableStateFlow<SettingsState>(
+        SettingsState.SetupUi(
+            email = firebaseAuth.currentUser?.email,
+            flag = setupCountryFlag(),
+            theme = !getThemes(Unit)
+        )
+    )
     override val state: StateFlow<SettingsState> = _state
 
     fun onSwitchDayNightClicked(enabled: Boolean) = launchCoroutine {
@@ -39,16 +45,6 @@ class SettingsFragmentViewModel @Inject constructor(
             saveSwitchPosition(true)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
-    }
-
-    fun setupUi() {
-        emit(
-            SettingsState.SetupUi(
-                email = firebaseAuth.currentUser?.email,
-                flag = setupCountryFlag(),
-                theme = !getThemes(Unit)
-            )
-        )
     }
 
     private fun setupCountryFlag(): Int {
@@ -70,28 +66,30 @@ class SettingsFragmentViewModel @Inject constructor(
                 true
             ) { firebaseAuth.signOut() })
         } else {
-            emit(SettingsState.Account2(R.id.loginFragment))
+            emit(SettingsState.Navigate(R.id.loginFragment))
         }
     }
 
     fun saveUsaCountry() = launchCoroutine {
         saveCountryFlag(USA)
-        emit(SettingsState.SaveCurrentCountry(countryName = R.string.American_News))
+        emit(SettingsState.SaveCurrentCountry(R.drawable.usa, R.string.American_News))
     }
 
     fun saveRussiaCountry() = launchCoroutine {
         saveCountryFlag(RUSSIA)
-        emit(SettingsState.SaveCurrentCountry(countryName = R.string.Russia_News))
+        emit(SettingsState.SaveCurrentCountry(R.drawable.russia, R.string.Russia_News))
     }
 
     fun saveGermanyCountry() = launchCoroutine {
         saveCountryFlag(GERMANY)
-        emit(SettingsState.SaveCurrentCountry(countryName = R.string.Germany_News))
+        emit(
+            SettingsState.SaveCurrentCountry(R.drawable.germany, R.string.Germany_News)
+        )
     }
 
     fun saveEgyptCountry() = launchCoroutine {
         saveCountryFlag(EGYPT)
-        emit(SettingsState.SaveCurrentCountry(countryName = R.string.Egypt_News))
+        emit(SettingsState.SaveCurrentCountry(R.drawable.egypt, R.string.Egypt_News))
     }
 }
 
