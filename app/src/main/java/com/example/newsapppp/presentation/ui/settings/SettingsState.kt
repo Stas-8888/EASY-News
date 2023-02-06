@@ -11,7 +11,7 @@ sealed class SettingsState : State {
     ) : SettingsState()
 
     data class SaveCurrentCountry(
-        val imageResource: Int,
+        val countryFlag: Int,
         val countryName: Int
     ) : SettingsState()
 
