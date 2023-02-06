@@ -29,9 +29,7 @@ class SettingsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         hideBottomNavigation()
-        viewModel.setupEmail()
-        viewModel.setupTheme()
-        viewModel.setupCountryFlag()
+        viewModel.setupUi()
     }
 
     override fun onClickListener() = with(binding) {
@@ -58,11 +56,13 @@ class SettingsFragment :
                 is SettingsState.Account -> {
                     showSnackbar(requireView(), state.message, state.isError, state.action)
                 }
-                is SettingsState.SetEmail -> tvEmail.text = state.email
+                is SettingsState.SetupUi -> {
+                    tvEmail.text = state.email
+                    switchDayNight.isChecked = state.theme
+                    imCountry.setImageResource(state.flag)
+                }
                 is SettingsState.Account2 -> navigateTo(state.navigation)
                 is SettingsState.GetCurrentEmail -> state.currentEmail
-                is SettingsState.IsSwitch -> switchDayNight.isChecked = state.isSwitch
-                is SettingsState.SetupCountryFlag -> imCountry.setImageResource(state.flag)
                 is SettingsState.SaveCurrentCountry -> {
                     snackBar(requireView(), state.countryName)
                 }

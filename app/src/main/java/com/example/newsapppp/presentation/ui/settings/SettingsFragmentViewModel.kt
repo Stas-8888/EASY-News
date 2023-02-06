@@ -28,7 +28,7 @@ class SettingsFragmentViewModel @Inject constructor(
     private var firebaseAuth: FirebaseAuth,
 ) : BaseViewModel<SettingsState>() {
 
-    override val _state = MutableStateFlow<SettingsState>(SettingsState.IsSwitch(true))
+    override val _state = MutableStateFlow<SettingsState>(SettingsState.SaveCurrentCountry(0))
     override val state: StateFlow<SettingsState> = _state
 
     fun onSwitchDayNightClicked(enabled: Boolean) = launchCoroutine {
@@ -44,21 +44,25 @@ class SettingsFragmentViewModel @Inject constructor(
         AppCompatDelegate.setDefaultNightMode(state)
     }
 
-    fun setupTheme() = launchCoroutine {
-        if (getSwitchPosition(Unit)) {
-            emit(SettingsState.IsSwitch(false))
-        } else {
-            emit(SettingsState.IsSwitch(true))
-        }
+    private fun setupTheme(): Boolean {
+        return !getSwitchPosition(Unit)
     }
 
-    fun setupEmail() {
-        firebaseAuth = FirebaseAuth.getInstance()
-        emit(SettingsState.SetEmail(firebaseAuth.currentUser?.email))
+    fun setupUi() {
+        emit(
+            SettingsState.SetupUi(
+                email = setupEmail(),
+                flag = setupCountryFlag(),
+                theme = setupTheme()
+            )
+        )
+    }
+
+    private fun setupEmail(): String? {
+        return firebaseAuth.currentUser?.email
     }
 
     fun checkAccount() = launchCoroutine {
-        firebaseAuth = FirebaseAuth.getInstance()
         if (firebaseAuth.currentUser != null) {
             emit(SettingsState.Account(
                 "Do you, want to sign out?",
@@ -69,17 +73,16 @@ class SettingsFragmentViewModel @Inject constructor(
         }
     }
 
-    fun setupCountryFlag() {
-        when (getCountryFlag(Unit)) {
-            USA -> countryFlag(R.drawable.usa)
-            GERMANY -> countryFlag(R.drawable.germany)
-            RUSSIA -> countryFlag(R.drawable.russia)
-            EGYPT -> countryFlag(R.drawable.egypt)
+    private fun setupCountryFlag(): Int {
+        return when (getCountryFlag(Unit)) {
+            USA -> R.drawable.usa
+            GERMANY -> R.drawable.germany
+            RUSSIA -> R.drawable.russia
+            EGYPT -> R.drawable.egypt
+            else -> {
+                0
+            }
         }
-    }
-
-    private fun countryFlag(data: Int) {
-        emit(SettingsState.SetupCountryFlag(data))
     }
 
     fun saveUsaCountry() = launchCoroutine {
