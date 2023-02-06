@@ -24,7 +24,7 @@ class SettingsFragmentViewModel @Inject constructor(
     private val saveCountryFlag: SaveCountryFlagUseCase,
     private val getCountryFlag: GetCountryFlagUseCase,
     private val saveSwitchPosition: SaveSwitchPositionUseCase,
-    private val getSwitchPosition: GetSwitchPositionUseCase,
+    private val getThemes: GetSwitchPositionUseCase,
     private var firebaseAuth: FirebaseAuth,
 ) : BaseViewModel<SettingsState>() {
 
@@ -33,44 +33,22 @@ class SettingsFragmentViewModel @Inject constructor(
 
     fun onSwitchDayNightClicked(enabled: Boolean) = launchCoroutine {
         if (enabled) {
-            updateTheme(enabled = false, state = AppCompatDelegate.MODE_NIGHT_YES)
+            saveSwitchPosition(false)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {
-            updateTheme(enabled = true, state = AppCompatDelegate.MODE_NIGHT_NO)
+            saveSwitchPosition(true)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
-    }
-
-    private suspend fun updateTheme(enabled: Boolean, state: Int) {
-        saveSwitchPosition(enabled)
-        AppCompatDelegate.setDefaultNightMode(state)
-    }
-
-    private fun setupTheme(): Boolean {
-        return !getSwitchPosition(Unit)
     }
 
     fun setupUi() {
         emit(
             SettingsState.SetupUi(
-                email = setupEmail(),
+                email = firebaseAuth.currentUser?.email,
                 flag = setupCountryFlag(),
-                theme = setupTheme()
+                theme = !getThemes(Unit)
             )
         )
-    }
-
-    private fun setupEmail(): String? {
-        return firebaseAuth.currentUser?.email
-    }
-
-    fun checkAccount() = launchCoroutine {
-        if (firebaseAuth.currentUser != null) {
-            emit(SettingsState.Account(
-                "Do you, want to sign out?",
-                true
-            ) { firebaseAuth.signOut() })
-        } else {
-            emit(SettingsState.Account2(R.id.loginFragment))
-        }
     }
 
     private fun setupCountryFlag(): Int {
@@ -82,6 +60,17 @@ class SettingsFragmentViewModel @Inject constructor(
             else -> {
                 0
             }
+        }
+    }
+
+    fun checkAccount() = launchCoroutine {
+        if (firebaseAuth.currentUser != null) {
+            emit(SettingsState.Account(
+                "Do you, want to sign out?",
+                true
+            ) { firebaseAuth.signOut() })
+        } else {
+            emit(SettingsState.Account2(R.id.loginFragment))
         }
     }
 
