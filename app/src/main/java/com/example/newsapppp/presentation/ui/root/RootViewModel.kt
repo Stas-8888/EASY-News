@@ -24,7 +24,7 @@ class RootViewModel @Inject constructor(
     override val state = _state.asStateFlow()
 
     fun interceptorErrors() = launchCoroutine {
-        errors.code200().collect() {
+        errors.errorsInterceptor().collect() {
             if (it.isNotEmpty()) {
                 emit(RootState.InterceptorErrors(it))
             }

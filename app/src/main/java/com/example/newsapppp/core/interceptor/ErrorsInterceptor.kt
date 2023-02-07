@@ -7,7 +7,7 @@ import javax.inject.Inject
 class ErrorsInterceptor @Inject constructor() : ErrorsInterceptorContract {
     val flow = MutableStateFlow("")
 
-    override fun code200(): StateFlow<String> {
+    override fun errorsInterceptor(): StateFlow<String> {
         return flow
     }
 

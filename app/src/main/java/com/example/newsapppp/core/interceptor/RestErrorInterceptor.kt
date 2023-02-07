@@ -21,6 +21,11 @@ class RestErrorInterceptor(
                     errors.emitError("Data, Success received")
                 }
             }
+            500 -> {
+                CoroutineScope(SupervisorJob() + Dispatchers.Main).launch {
+                    errors.emitError("Server Error")
+                }
+            }
         }
         return response
     }
