@@ -28,6 +28,7 @@
   application state in case the configuration changes.
 - Retrofit + Gson Converter: Fetch news from rest api as a gson file and convert it to a kotlin
   object.
+- Okhttp client. Work with Interceptor.
 - RecyclerView with DiffUtil.
 - Glide : Catch and cache images from the internet and show them in an imageView.
 - Coil : Work with image.
