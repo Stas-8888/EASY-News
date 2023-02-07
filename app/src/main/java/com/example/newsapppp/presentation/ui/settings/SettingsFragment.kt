@@ -32,8 +32,8 @@ class SettingsFragment :
     }
 
     override fun onClickListener() = with(binding) {
-        account.setOnClickListener {
-            viewModel.checkAccount()
+        btAccount.setOnClickListener {
+            viewModel.onAccountClicked()
         }
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
@@ -89,8 +89,9 @@ class SettingsFragment :
         builder.setView(binding.root)
         binding.apply {
             edNewListName.setText(name)
-            if (name.isNotEmpty()) bCreate.text = getString(R.string.Update)
-
+            if (name.isNotEmpty()) {
+                bCreate.text = getString(R.string.Update)
+            }
             bCreate.setOnClickListener {
                 val listName = edNewListName.text.toString()
                 if (listName.isNotEmpty()) {

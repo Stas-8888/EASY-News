@@ -38,6 +38,7 @@
     <string name="Saved">Сохраненное</string>
     <string name="main">Основное</string>
     <string name="error">Some error</string>
+    <string name="server_error">Server not available</string>
 
 
     <string name="sign_in">Sign In</string>

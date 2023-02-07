@@ -17,5 +17,5 @@ sealed class SettingsState : State {
 
     data class Navigate(val navigation: Int) : SettingsState()
 
-    data class SetupUi(val email: String?, val flag: Int, val theme: Boolean) : SettingsState()
+    data class SetupUi(val theme: Boolean, val email: String?, val flag: Int) : SettingsState()
 }

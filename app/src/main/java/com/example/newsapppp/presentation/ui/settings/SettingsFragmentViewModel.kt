@@ -22,17 +22,23 @@ private const val EGYPT = "eg"
 @HiltViewModel
 class SettingsFragmentViewModel @Inject constructor(
     private val saveCountryFlag: SaveCountryFlagUseCase,
-    private val getCountryFlag: GetCountryFlagUseCase,
     private val saveSwitchPosition: SaveSwitchPositionUseCase,
     private var firebaseAuth: FirebaseAuth,
+    getCountryFlag: GetCountryFlagUseCase,
     getThemes: GetSwitchPositionUseCase
-    ) : BaseViewModel<SettingsState>() {
+) : BaseViewModel<SettingsState>() {
 
     override val _state = MutableStateFlow<SettingsState>(
         SettingsState.SetupUi(
+            theme = !getThemes(Unit),
             email = firebaseAuth.currentUser?.email,
-            flag = setupCountryFlag(),
-            theme = !getThemes(Unit)
+            flag = when (getCountryFlag(Unit)) {
+                USA -> R.drawable.usa
+                GERMANY -> R.drawable.germany
+                RUSSIA -> R.drawable.russia
+                EGYPT -> R.drawable.egypt
+                else -> R.drawable.usa
+            }
         )
     )
     override val state: StateFlow<SettingsState> = _state
@@ -47,19 +53,7 @@ class SettingsFragmentViewModel @Inject constructor(
         }
     }
 
-    private fun setupCountryFlag(): Int {
-        return when (getCountryFlag(Unit)) {
-            USA -> R.drawable.usa
-            GERMANY -> R.drawable.germany
-            RUSSIA -> R.drawable.russia
-            EGYPT -> R.drawable.egypt
-            else -> {
-                0
-            }
-        }
-    }
-
-    fun checkAccount() = launchCoroutine {
+    fun onAccountClicked() = launchCoroutine {
         if (firebaseAuth.currentUser != null) {
             emit(SettingsState.Account(
                 "Do you, want to sign out?",
@@ -82,9 +76,7 @@ class SettingsFragmentViewModel @Inject constructor(
 
     fun saveGermanyCountry() = launchCoroutine {
         saveCountryFlag(GERMANY)
-        emit(
-            SettingsState.SaveCurrentCountry(R.drawable.germany, R.string.Germany_News)
-        )
+        emit(SettingsState.SaveCurrentCountry(R.drawable.germany, R.string.Germany_News))
     }
 
     fun saveEgyptCountry() = launchCoroutine {

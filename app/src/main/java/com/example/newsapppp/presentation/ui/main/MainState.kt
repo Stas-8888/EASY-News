@@ -15,5 +15,5 @@ sealed class MainState : State {
 
     object HideBottom : MainState()
 
-    data class GetCountryFlag(val getCountryFlag: String) : MainState()
+    data class CountryFlag(val countryFlag: String) : MainState()
 }

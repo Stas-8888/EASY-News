@@ -14,24 +14,22 @@ import javax.inject.Inject
 @HiltViewModel
 class MainFragmentViewModel @Inject constructor(
     private val getNews: GetNewsUseCase,
-    private val articleMapper: ArticleMapper,
-    private val getCountryFlag: GetCountryFlagUseCase,
+    private val mapper: ArticleMapper,
+    getCountryFlag: GetCountryFlagUseCase,
 ) : BaseViewModel<MainState>() {
 
-    override val _state = MutableStateFlow<MainState>(MainState.ShowLoading)
+    override val _state = MutableStateFlow<MainState>(MainState.CountryFlag(getCountryFlag(Unit)))
     override val state = _state.asStateFlow()
 
     fun setupArticleNews(category: String) = launchCoroutine {
-        val data = getNews(category).articlesModel.filter { it.urlToImage != null }
-        if (data.isNotEmpty()) {
-            emit(MainState.ShowArticles(articleMapper.mapToListArticle(data)))
-        } else {
-            emit(MainState.Error(R.string.error))
+        try {
+            val data = getNews(category).articlesModel.filter { it.urlToImage != null }
+            if (data.isNotEmpty()) {
+                emit(MainState.ShowArticles(mapper.mapToListArticle(data)))
+            }
+        } catch (e: Exception) {
+            emit(MainState.Error(R.string.server_error))
         }
-    }
-
-    fun setupCountry() {
-        emit(MainState.GetCountryFlag(getCountryFlag(Unit)))
     }
 
     fun showOrHideFloatButton(getFirstNewsPosition: Int) {

@@ -28,7 +28,6 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         showBottomNavigation()
-        viewModel.setupCountry()
         getCountryAndCategoryTabLayout()
         viewModel.setupArticleNews(categories.first())
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity()) {
@@ -68,7 +67,7 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
             }
             is MainState.ShowBottom -> fabUp.invisible()
             is MainState.HideBottom -> fabUp.visible()
-            is MainState.GetCountryFlag -> tvCountry.text = state.getCountryFlag
+            is MainState.CountryFlag -> tvCountry.text = state.countryFlag
             is MainState.Error -> snackBar(requireView(), state.exception)
         }
     }
