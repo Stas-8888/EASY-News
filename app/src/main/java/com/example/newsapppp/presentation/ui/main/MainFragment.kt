@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapppp.R
 import com.example.newsapppp.core.SimpleTabSelectedListener
 import com.example.newsapppp.databinding.FragmentMainBinding
-import com.example.newsapppp.presentation.adapters.NewsAdapter
+import com.example.newsapppp.presentation.adapters.NewsPagerAdapter
 import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
@@ -21,7 +21,7 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
     FragmentMainBinding::inflate
 ) {
 
-    private val newsAdapter by lazy { NewsAdapter() }
+    private val newsAdapter by lazy { NewsPagerAdapter() }
     override val viewModel by viewModels<MainFragmentViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,7 +61,7 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
         when (state) {
             is MainState.ShowLoading -> progressBar.visible()
             is MainState.ShowArticles -> {
-                newsAdapter.submitList(state.articles)
+                newsAdapter.submitData(lifecycle, state.articles)
                 progressBar.invisible()
                 tvCenterText.invisible()
             }
