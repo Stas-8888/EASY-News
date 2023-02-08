@@ -4,7 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.newsapppp.data.mapper.NewsResponseMapper
 import com.example.newsapppp.data.network.service.ApiService
-import com.example.newsapppp.presentation.model.Article
+import com.example.newsapppp.domain.model.ArticleModel
 import retrofit2.HttpException
 
 class ArticlePagingSource(
@@ -12,14 +12,14 @@ class ArticlePagingSource(
     private val countryCode: String,
     private val category: String,
     private val mapper: NewsResponseMapper
-) : PagingSource<Int, Article>() {
+) : PagingSource<Int, ArticleModel>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Article> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticleModel> {
         return try {
             val currentPage = params.key ?: 1
             val response = repository.getBreakingNews(currentPage, countryCode, category)
             val data = response.articles
-            val responseData = mutableListOf<Article>()
+            val responseData = mutableListOf<ArticleModel>()
             responseData.addAll(mapper.mapToListArticleRemote(data))
 
             LoadResult.Page(
@@ -35,7 +35,7 @@ class ArticlePagingSource(
 
     }
 
-    override fun getRefreshKey(state: PagingState<Int, Article>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, ArticleModel>): Int? {
         return null
     }
 }

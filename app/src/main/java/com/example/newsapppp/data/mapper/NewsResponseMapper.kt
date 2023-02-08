@@ -5,7 +5,6 @@ import com.example.newsapppp.data.network.model.ArticleRemote
 import com.example.newsapppp.data.network.model.NewsResponseRemote
 import com.example.newsapppp.domain.model.ArticleModel
 import com.example.newsapppp.domain.model.NewsResponseModel
-import com.example.newsapppp.presentation.model.Article
 import javax.inject.Inject
 
 class NewsResponseMapper @Inject constructor(private val entityMapper: EntityMapper) {
@@ -26,7 +25,7 @@ class NewsResponseMapper @Inject constructor(private val entityMapper: EntityMap
         return article.map { entityMapper.mapFromModel(it) }
     }
 
-    private fun mapFromRemote(data: ArticleRemote) = Article(
+    private fun mapFromRemote(data: ArticleRemote) = ArticleModel(
         author = data.author,
         content = data.content,
         description = data.description,
@@ -36,7 +35,7 @@ class NewsResponseMapper @Inject constructor(private val entityMapper: EntityMap
         urlToImage = data.urlToImage
     )
 
-    fun mapToListArticleRemote(article: List<ArticleRemote>): List<Article> {
+    fun mapToListArticleRemote(article: List<ArticleRemote>): List<ArticleModel> {
         return article.map { mapFromRemote(it) }
     }
 }
