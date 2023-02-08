@@ -1,5 +1,6 @@
 package com.example.newsapppp.presentation.ui.main
 
+import androidx.paging.filter
 import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.articleRemote.GetNewsUseCase
 import com.example.newsapppp.domain.interactors.preference.GetCountryFlagUseCase
@@ -23,9 +24,11 @@ class MainFragmentViewModel @Inject constructor(
 
     fun setupArticleNews(category: String) = launchCoroutine {
         try {
-            val data = getNews(category).articlesModel.filter { it.urlToImage != null }
-            if (data.isNotEmpty()) {
-                emit(MainState.ShowArticles(mapper.mapToListArticle(data)))
+            getNews(category).collect() {
+                val data = it.filter { article ->
+                    article.urlToImage != null && article.title != null
+                }
+                emit(MainState.ShowArticles(mapper.mapToPagingArticle(data)))
             }
         } catch (e: Exception) {
             emit(MainState.Error(R.string.server_error))

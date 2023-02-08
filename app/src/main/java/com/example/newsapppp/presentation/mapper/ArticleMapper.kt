@@ -1,5 +1,7 @@
 package com.example.newsapppp.presentation.mapper
 
+import androidx.paging.PagingData
+import androidx.paging.map
 import com.example.newsapppp.core.BaseMapper
 import com.example.newsapppp.domain.model.ArticleModel
 import com.example.newsapppp.presentation.model.Article
@@ -31,6 +33,10 @@ class ArticleMapper @Inject constructor() : BaseMapper<Article, ArticleModel> {
     )
 
     fun mapToListArticle(article: List<ArticleModel>): List<Article> {
+        return article.map { mapFromModel(it) }
+    }
+
+    fun mapToPagingArticle(article: PagingData<ArticleModel>): PagingData<Article> {
         return article.map { mapFromModel(it) }
     }
 }
