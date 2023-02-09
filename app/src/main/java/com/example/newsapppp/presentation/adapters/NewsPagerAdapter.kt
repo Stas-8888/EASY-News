@@ -3,7 +3,6 @@ package com.example.newsapppp.presentation.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
@@ -23,8 +22,6 @@ class NewsPagerAdapter: PagingDataAdapter<Article, NewsPagerAdapter.ArticleViewH
     }
 
     private var onItemClickListener: ((Article) -> Unit)? = null
-    private var onFavoriteIconClicked: ((Article) -> Unit)? = null
-
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         val article = getItem(position)
@@ -49,9 +46,5 @@ class NewsPagerAdapter: PagingDataAdapter<Article, NewsPagerAdapter.ArticleViewH
 
     fun setOnItemClickListener(listener: (Article) -> Unit) {
         onItemClickListener = listener
-    }
-
-    fun setOnFavoriteClickListener(listener: (Article) -> Unit) {
-        onFavoriteIconClicked = listener
     }
 }

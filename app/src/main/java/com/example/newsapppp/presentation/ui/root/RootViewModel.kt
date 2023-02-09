@@ -1,7 +1,7 @@
 package com.example.newsapppp.presentation.ui.root
 
 import com.example.newsapppp.R
-import com.example.newsapppp.core.interceptor.ErrorsInterceptorContract
+import com.example.newsapppp.data.network.interceptor.ErrorsInterceptorContract
 import com.example.newsapppp.presentation.extensions.launchCoroutine
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

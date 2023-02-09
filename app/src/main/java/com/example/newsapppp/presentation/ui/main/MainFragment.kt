@@ -3,7 +3,9 @@ package com.example.newsapppp.presentation.ui.main
 import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapppp.R
@@ -54,17 +56,23 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
             layoutManager = LinearLayoutManager(requireContext())
             rvNews.setHasFixedSize(true)
             toFirstRecyclerPosition()
+
+            newsAdapter.addLoadStateListener { loadState ->
+                progressBar.isVisible = loadState.source.refresh is LoadState.Loading
+                tvCenterText.isVisible = loadState.source.refresh is LoadState.Loading
+                rvNews.isVisible = loadState.source.refresh is LoadState.NotLoading
+                if (loadState.source.refresh is LoadState.NotLoading && newsAdapter.itemCount < 1) {
+                    progressBar.invisible()
+                    tvCenterText.invisible()
+                }
+            }
         }
     }
 
     override fun observerState(state: MainState) = with(binding) {
         when (state) {
             is MainState.ShowLoading -> progressBar.visible()
-            is MainState.ShowArticles -> {
-                newsAdapter.submitData(lifecycle, state.articles)
-                progressBar.invisible()
-                tvCenterText.invisible()
-            }
+            is MainState.ShowArticles -> newsAdapter.submitData(lifecycle, state.articles)
             is MainState.ShowBottom -> fabUp.invisible()
             is MainState.HideBottom -> fabUp.visible()
             is MainState.CountryFlag -> tvCountry.text = state.countryFlag

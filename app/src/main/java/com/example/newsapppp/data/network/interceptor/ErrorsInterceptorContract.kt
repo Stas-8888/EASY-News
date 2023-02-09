@@ -1,4 +1,4 @@
-package com.example.newsapppp.core.interceptor
+package com.example.newsapppp.data.network.interceptor
 
 import kotlinx.coroutines.flow.Flow
 
