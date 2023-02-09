@@ -1,7 +1,8 @@
 package com.example.newsapppp.presentation.ui.main
 
+import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import androidx.paging.filter
-import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.articleRemote.GetNewsUseCase
 import com.example.newsapppp.domain.interactors.preference.GetCountryFlagUseCase
 import com.example.newsapppp.presentation.extensions.launchCoroutine
@@ -23,15 +24,11 @@ class MainFragmentViewModel @Inject constructor(
     override val state = _state.asStateFlow()
 
     fun setupArticleNews(category: String) = launchCoroutine {
-        try {
-            getNews(category).collect() {
-                val data = it.filter { article ->
-                    article.urlToImage != null && article.title != null
-                }
-                emit(MainState.ShowArticles(mapper.mapToPagingArticle(data)))
+        getNews(category).cachedIn(viewModelScope).collect() {
+            val data = it.filter { article ->
+                article.urlToImage != null && article.title != null
             }
-        } catch (e: Exception) {
-            emit(MainState.Error(R.string.server_error))
+            emit(MainState.ShowArticles(mapper.mapToPagingArticle(data)))
         }
     }
 

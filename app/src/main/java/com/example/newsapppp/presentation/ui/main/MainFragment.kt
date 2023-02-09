@@ -61,6 +61,7 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
                 progressBar.isVisible = loadState.source.refresh is LoadState.Loading
                 tvCenterText.isVisible = loadState.source.refresh is LoadState.Loading
                 rvNews.isVisible = loadState.source.refresh is LoadState.NotLoading
+
                 if (loadState.source.refresh is LoadState.NotLoading && newsAdapter.itemCount < 1) {
                     progressBar.invisible()
                     tvCenterText.invisible()

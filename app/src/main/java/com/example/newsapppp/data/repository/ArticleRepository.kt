@@ -20,13 +20,15 @@ class ArticleRepository @Inject constructor(
     private val dispatcher: DispatcherRepositoryContract,
 ) : ArticleRepositoryContract {
 
-    override suspend fun getNews(category: String): Flow<PagingData<ArticleModel>> = dispatcher.io {
-        return@io Pager(
-            config = PagingConfig(pageSize = 20, maxSize = 200, enablePlaceholders = false),
-            pagingSourceFactory = {
-                ArticlePagingSource(apiService, sharedPref.getCountryFlag(), category, mapper)
-            }
-        ).flow
+    override suspend fun getNews(category: String): Flow<PagingData<ArticleModel>> {
+        return dispatcher.io {
+            Pager(
+                config = PagingConfig(pageSize = 20, maxSize = 200, enablePlaceholders = false),
+                pagingSourceFactory = {
+                    ArticlePagingSource(apiService, sharedPref.getCountryFlag(), category, mapper)
+                }
+            ).flow
+        }
     }
 
     override suspend fun searchNews(searchQuery: String): NewsResponseModel = dispatcher.io {

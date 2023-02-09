@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/btProfile"
                 style="drawable/bg_ripple_white"
                 android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvCenterText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvCountry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
         android:paddingStart="6dp"
         android:paddingEnd="6dp"
         android:text="@string/My_News"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -124,23 +124,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tabMain" />
+            app:layout_constraintTop_toTopOf="@+id/tabMain"
+            tools:listitem="@layout/item_layout" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/progress_bar1"
-        android:layout_width="110dp"
-        android:layout_height="76dp"
-        android:layout_marginBottom="316dp"
-        android:indeterminate="true"
-        android:progressBackgroundTint="@color/colorRed"
-        android:visibility="gone"
-        app:indicatorSize="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:trackColor="#FFC107"
-        app:trackThickness="50dp" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabMain"

@@ -2,6 +2,7 @@ package com.example.newsapppp.presentation.ui.save
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,22 +39,24 @@ class SaveFragment : BaseFragment<SaveState, FragmentSaveBinding, SaveFragmentVi
         }
     }
 
-    override fun observerState(state: SaveState) = with(binding) {
-        when (state) {
-            is SaveState.ShowLoading -> {
-                progressBar.visible()
+    override fun observerState(state: SaveState) {
+        with(binding) {
+            when (state) {
+                is SaveState.ShowLoading -> {
+                    progressBar.visible()
+                }
+                is SaveState.ShowArticles -> {
+                    newsAdapter.submitList(state.articles)
+                    progressBar.isVisible = state.progressBar
+                    tvBackgroundText.isVisible = state.state
+                    state.exception?.let { snackBar(requireView(), it) }
+                }
+                is SaveState.ShowDeleteDialog -> {
+                    showDeleteDialog(
+                        { viewModel.deleteArticle(state.article) },
+                        { newsAdapter.notifyItemChanged(state.position) })
+                }
             }
-            is SaveState.ShowArticles -> {
-                tvBackgroundText.invisible()
-                progressBar.invisible()
-                newsAdapter.submitList(state.articles)
-            }
-            is SaveState.ShowDeleteDialog -> {
-                showDeleteDialog(
-                    { viewModel.deleteArticle(state.article) },
-                    { newsAdapter.notifyItemChanged(state.position) })
-            }
-            is SaveState.Error -> snackBar(requireView(), state.exception)
         }
     }
 

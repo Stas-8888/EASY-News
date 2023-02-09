@@ -25,12 +25,26 @@ class SaveFragmentViewModel @Inject constructor(
     override val state = _state.asStateFlow()
 
     fun setupAllNews() = launchCoroutine {
-        try {
-            getRoomArticle(Unit).collect {
-                _state.emit(SaveState.ShowArticles(mapper.mapToListArticle(it)))
+        getRoomArticle(Unit).collect {
+            if (it.isNotEmpty()) {
+                emit(
+                    SaveState.ShowArticles(
+                        articles = mapper.mapToListArticle(it),
+                        progressBar = false,
+                        state = false,
+                        exception = null
+                    )
+                )
+            } else {
+                emit(
+                    SaveState.ShowArticles(
+                        articles = emptyList(),
+                        progressBar = false,
+                        state = true,
+                        exception = R.string.empty_list
+                    )
+                )
             }
-        } catch (e: Exception) {
-            emit(SaveState.Error(R.string.error))
         }
     }
 
