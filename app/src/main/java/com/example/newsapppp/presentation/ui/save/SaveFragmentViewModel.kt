@@ -4,6 +4,8 @@ import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.articleLocalSource.DeleteAllUseCase
 import com.example.newsapppp.domain.interactors.articleLocalSource.DeleteArticleUseCase
 import com.example.newsapppp.domain.interactors.articleLocalSource.GetRoomArticleUseCase
+import com.example.newsapppp.domain.interactors.preference.SaveFavoriteUseCase
+import com.example.newsapppp.domain.repository.SharedPrefRepositoryContract
 import com.example.newsapppp.presentation.extensions.launchCoroutine
 import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article
@@ -15,8 +17,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SaveFragmentViewModel @Inject constructor(
+    private val sharedPrefRepository: SharedPrefRepositoryContract,
     private val getRoomArticle: GetRoomArticleUseCase,
-    private val deleteArticleUseCase: DeleteArticleUseCase,
+    private val deleteArticle: DeleteArticleUseCase,
+    private val saveFavorite: SaveFavoriteUseCase,
     private val deleteAll: DeleteAllUseCase,
     private val mapper: ArticleMapper
 ) : BaseViewModel<SaveState>() {
@@ -49,10 +53,12 @@ class SaveFragmentViewModel @Inject constructor(
     }
 
     fun deleteArticle(article: Article) = launchCoroutine {
-        deleteArticleUseCase(mapper.mapToModel(article))
+        deleteArticle(mapper.mapToModel(article))
+        saveFavorite.saveFavorite(article.url, false)
     }
 
     fun onDeleteAllArticleClicked() = launchCoroutine {
+        sharedPrefRepository.deleteAllFavorite()
         deleteAll(Unit)
     }
 

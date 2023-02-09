@@ -34,6 +34,10 @@ class SharedPrefRepository @Inject constructor(
         return getBoolean(key)
     }
 
+    override fun deleteAllFavorite() {
+        favoriteShared.edit().clear().apply()
+    }
+
     override suspend fun saveSwitchPosition(value: Boolean) = dispatcher.io {
         putBoolean(SHARED_KEY_SWITCH_POSITION, value)
     }

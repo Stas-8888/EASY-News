@@ -6,6 +6,8 @@ interface SharedPrefRepositoryContract {
 
     suspend fun getFavorite(key: String): Boolean
 
+    fun deleteAllFavorite()
+
     suspend fun saveCountryFlag(value: String)
 
     fun getCountryFlag(): String

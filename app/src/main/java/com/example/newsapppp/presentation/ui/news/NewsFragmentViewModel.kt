@@ -41,7 +41,6 @@ class NewsFragmentViewModel @Inject constructor(
     }
 
     fun onFavoriteIconClicked(article: Article) = launchCoroutine {
-        firebaseAuth = FirebaseAuth.getInstance()
         if (firebaseAuth.currentUser != null) {
             if (isFavorite == getFavorite(article.url)) {
                 insertArticle(mapper.mapToModel(article))
