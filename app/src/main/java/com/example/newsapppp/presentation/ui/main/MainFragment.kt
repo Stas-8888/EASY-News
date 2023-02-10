@@ -30,6 +30,7 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         showBottomNavigation()
+        viewModel.setupCountryFlag()
         getCountryAndCategoryTabLayout()
         viewModel.setupArticleNews(categories.first())
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity()) {

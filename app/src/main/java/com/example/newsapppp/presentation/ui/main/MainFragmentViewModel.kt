@@ -17,11 +17,15 @@ import javax.inject.Inject
 class MainFragmentViewModel @Inject constructor(
     private val getNews: GetNewsUseCase,
     private val mapper: ArticleMapper,
-    getCountryFlag: GetCountryFlagUseCase,
+    private val getCountryFlag: GetCountryFlagUseCase,
 ) : BaseViewModel<MainState>() {
 
-    override val _state = MutableStateFlow<MainState>(MainState.CountryFlag(getCountryFlag(Unit)))
+    override val _state = MutableStateFlow<MainState>(MainState.ShowLoading)
     override val state = _state.asStateFlow()
+
+    fun setupCountryFlag(){
+        emit(MainState.CountryFlag(getCountryFlag(Unit)))
+    }
 
     fun setupArticleNews(category: String) = launchCoroutine {
         getNews(category).cachedIn(viewModelScope).collect() {
