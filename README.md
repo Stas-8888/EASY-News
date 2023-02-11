@@ -6,8 +6,9 @@
 - supports searching news.
 - supports choose news from 4 countries.
 - supports choose categories of news.
-- supports save,delete Article.
+- supports save, delete Article.
 - supports day&night mode.
+- support notifacation every 15 minutes by work manager.
 - supports check internet connections.
 
 # Preview
@@ -30,6 +31,8 @@
   object.
 - Okhttp client. Work with Interceptor.
 - RecyclerView with DiffUtil.
+- Pagination with Paging 3, Retrofit and kotlin Flow.
+- Work Manager.
 - Glide : Catch and cache images from the internet and show them in an imageView.
 - Coil : Work with image.
 - viewBinding : to access the views without needing to inflate them.
