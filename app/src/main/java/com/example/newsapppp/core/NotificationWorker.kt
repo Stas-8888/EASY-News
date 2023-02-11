@@ -38,7 +38,7 @@ class NotificationWorker(context: Context, workerParameters: WorkerParameters) :
             CHANNEL_ID
         )
             .setSmallIcon(R.drawable.ic_launcher_background)
-            .setContentTitle("Visit our App. And you will know main news in the world ")
+            .setContentTitle("Visit our App. And you will know main news in the world")
             .setContentText("EASY News")
             .setPriority(NotificationCompat.PRIORITY_MAX)
             .setAutoCancel(true)
