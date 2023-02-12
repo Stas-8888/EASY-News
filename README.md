@@ -14,7 +14,7 @@
 # Preview
 ![collect](https://user-images.githubusercontent.com/108537240/213318988-72368091-3a0c-4b4a-bbaa-6ed5ac82d9c9.jpg)
 ![collect 3](https://user-images.githubusercontent.com/108537240/214073396-fea7bbda-b595-4e53-8f16-392327809db1.jpg)
-[5](https://user-images.githubusercontent.com/108537240/187301558-16fbb29f-9603-466e-825d-c6ae428f28f4.jpg)
+![5](https://user-images.githubusercontent.com/108537240/187301558-16fbb29f-9603-466e-825d-c6ae428f28f4.jpg)
 
 # Libraries And Technologies used
 - Clean Architecture: Data, Domain, Presentation.
