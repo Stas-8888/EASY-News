@@ -36,5 +36,3 @@
 - Glide : Catch and cache images from the internet and show them in an imageView.
 - Coil : Work with image.
 - viewBinding : to access the views without needing to inflate them.
-
-[5](https://user-images.githubusercontent.com/108537240/187301558-16fbb29f-9603-466e-825d-c6ae428f28f4.jpg)
