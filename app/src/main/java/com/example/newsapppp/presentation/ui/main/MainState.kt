@@ -12,9 +12,7 @@ sealed class MainState : State {
 
     data class Error(val exception: Int) : MainState()
 
-    object ShowBottom : MainState()
-
-    object HideBottom : MainState()
+    data class Visibility(val state: Boolean) : MainState()
 
     data class CountryFlag(val countryFlag: String) : MainState()
 }

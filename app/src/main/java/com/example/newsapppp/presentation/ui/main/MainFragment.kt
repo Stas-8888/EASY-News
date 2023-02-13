@@ -75,8 +75,7 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
         when (state) {
             is MainState.ShowLoading -> progressBar.visible()
             is MainState.ShowArticles -> newsAdapter.submitData(lifecycle, state.articles)
-            is MainState.ShowBottom -> fabUp.invisible()
-            is MainState.HideBottom -> fabUp.visible()
+            is MainState.Visibility -> fabUp.isVisible = state.state
             is MainState.CountryFlag -> tvCountry.text = state.countryFlag
             is MainState.Error -> snackBar(requireView(), state.exception)
         }

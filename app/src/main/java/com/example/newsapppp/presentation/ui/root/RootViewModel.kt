@@ -25,6 +25,10 @@ class RootViewModel @Inject constructor(
     )
     override val state = _state.asStateFlow()
 
+    fun setupBottomNavigationClick() {
+        emit(RootState.Navigation(R.id.mainFragment, R.id.saveFragment, R.id.searchFragment))
+    }
+
     fun interceptorErrors() = launchCoroutine {
         errors.errorsInterceptor().collect() {
             if (it.isNotEmpty()) {

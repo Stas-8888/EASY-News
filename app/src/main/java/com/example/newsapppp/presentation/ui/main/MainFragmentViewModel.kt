@@ -23,7 +23,7 @@ class MainFragmentViewModel @Inject constructor(
     override val _state = MutableStateFlow<MainState>(MainState.ShowLoading)
     override val state = _state.asStateFlow()
 
-    fun setupCountryFlag(){
+    fun setupCountryFlag() {
         emit(MainState.CountryFlag(getCountryFlag(Unit)))
     }
 
@@ -38,6 +38,6 @@ class MainFragmentViewModel @Inject constructor(
 
     fun showOrHideFloatButton(getFirstNewsPosition: Int) {
         if (getFirstNewsPosition < 1)
-            emit(MainState.ShowBottom) else emit(MainState.HideBottom)
+            emit(MainState.Visibility(false)) else emit(MainState.Visibility(true))
     }
 }

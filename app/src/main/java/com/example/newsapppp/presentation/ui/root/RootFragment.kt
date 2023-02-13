@@ -1,5 +1,7 @@
 package com.example.newsapppp.presentation.ui.root
 
+import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.newsapppp.R
@@ -18,9 +20,14 @@ class RootFragment : BaseFragment<RootState, FragmentRootBinding, RootViewModel>
 
     override val viewModel by viewModels<RootViewModel>()
 
-    override fun onClickListener() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel.interceptorErrors()
         viewModel.checkRegistration()
+    }
+
+    override fun onClickListener() {
+        viewModel.setupBottomNavigationClick()
     }
 
     override fun observerState(state: RootState) {
