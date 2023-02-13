@@ -74,7 +74,6 @@ class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentVi
                 btFavorite.invisible()
                 snackBar(btFavorite, state.message)
             }
-            is NewsState.HideFavoriteIcon -> setImageResource(state.favoriteIcon)
             is NewsState.ShowFavoriteIcon -> setImageResource(state.favoriteIcon)
         }
     }

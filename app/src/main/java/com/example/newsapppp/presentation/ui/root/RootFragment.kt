@@ -27,23 +27,17 @@ class RootFragment : BaseFragment<RootState, FragmentRootBinding, RootViewModel>
     }
 
     override fun onClickListener() {
-        viewModel.setupBottomNavigationClick()
+        binding.bottomNavigationView.setOnItemSelectedListener {
+            viewModel.setupBottomNavigationClick(it)
+            true
+        }
     }
 
     override fun observerState(state: RootState) {
         when (state) {
             is RootState.NavigationToMain -> navigate(state.mainFragment)
             is RootState.InterceptorErrors -> showSnackBarString(requireView(), state.error)
-            is RootState.Navigation -> {
-                binding.bottomNavigationView.setOnItemSelectedListener {
-                    when (it.itemId) {
-                        R.id.mainFragment -> navigate(state.mainFragment)
-                        R.id.saveFragment -> navigate(state.saveFragment)
-                        R.id.searchFragment -> navigate(state.searchFragment)
-                    }
-                    true
-                }
-            }
+            is RootState.Navigation -> navigate(state.navigateFragment)
         }
     }
 
