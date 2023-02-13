@@ -20,6 +20,12 @@
         <action
             android:id="@+id/action_mainFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_saveFragment"
+            app:destination="@id/saveFragment" />
     </fragment>
     <fragment
         android:id="@+id/newsFragment"
@@ -59,71 +65,50 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.newsapppp.presentation.ui.settings.SettingsFragment"
-        android:label="Настройки">
+        android:label="Настройки"
+        tools:layout="@layout/fragment_settings"/>
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.example.newsapppp.presentation.ui.authentication.signin.SignInFragment"
+        tools:layout="@layout/fragment_sign_in">
         <action
-            android:id="@+id/action_settingsFragment_to_mainFragment"
+            android:id="@+id/action_signInFragment_to_mainFragment"
             app:destination="@id/mainFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.newsapppp.presentation.ui.authentication.signin.SignInFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-        <action
-            android:id="@+id/action_loginFragment_to_signUpFragment"
+            android:id="@+id/action_signInFragment_to_signUpFragment"
             app:destination="@id/signUpFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/signInFragment"
+            app:popUpToInclusive="false" />
         <action
-            android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
+            android:id="@+id/action_signInFragment_to_forgotPasswordFragment"
             app:destination="@id/forgotPasswordFragment"
-            app:popUpTo="@id/loginFragment"
+            app:popUpTo="@id/signInFragment"
             app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.example.newsapppp.presentation.ui.authentication.signup.SignUpFragment"
-        android:label="SignUpFragment" >
-        <action
-            android:id="@+id/action_signUpFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-        <action
-            android:id="@+id/action_signUpFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-    </fragment>
+        tools:layout="@layout/fragment_sign_up" />
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.example.newsapppp.presentation.ui.splash.SplashFragment"
         android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash" >
+        tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
+            app:destination="@id/signInFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"

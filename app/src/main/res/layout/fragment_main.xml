@@ -7,6 +7,43 @@
     android:background="@color/colorBackground"
     tools:context=".presentation.ui.main.MainFragment">
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabMain"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@color/colorTabLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/tabIndicatorColor"
+        app:tabIndicatorFullWidth="true"
+        app:tabMode="auto"
+        app:tabSelectedTextColor="@color/colorPrimaryDark"
+        app:tabTextColor="@color/tabTextColor">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Main_news" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Sport" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Science" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Entertainment" />
+
+    </com.google.android.material.tabs.TabLayout>
+
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progress_bar"
         android:layout_width="0dp"
@@ -90,7 +127,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
-        android:background="#818ABF"
+        android:background="@color/grey_one"
         android:elevation="5dp"
         android:paddingStart="6dp"
         android:paddingEnd="6dp"
@@ -127,43 +164,6 @@
             app:layout_constraintTop_toTopOf="@+id/tabMain"
             tools:listitem="@layout/item_layout" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabMain"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:background="@color/colorTabLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:tabGravity="fill"
-        app:tabIndicatorColor="@color/tabIndicatorColor"
-        app:tabIndicatorFullWidth="true"
-        app:tabMode="auto"
-        app:tabSelectedTextColor="@color/colorPrimaryDark"
-        app:tabTextColor="@color/tabTextColor">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Main_news" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Sport" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Science" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Entertainment" />
-
-    </com.google.android.material.tabs.TabLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabUp"

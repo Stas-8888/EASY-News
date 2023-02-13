@@ -17,4 +17,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportFragmentManager.beginTransaction().replace(R.id.container, RootFragment()).commit()
     }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.fragments.first() is RootFragment) {
+            (supportFragmentManager.fragments.first() as RootFragment).onBackPressed()
+        } else {
+            onBackPressedDispatcher.onBackPressed()
+        }
+    }
 }

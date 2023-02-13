@@ -61,7 +61,7 @@ class SettingsFragmentViewModel @Inject constructor(
                 true
             ) { firebaseAuth.signOut() })
         } else {
-            emit(SettingsState.Navigate(R.id.loginFragment))
+            emit(SettingsState.Navigate(R.id.signInFragment))
         }
     }
 

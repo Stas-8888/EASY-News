@@ -47,10 +47,6 @@ class SignUpViewModel @Inject constructor(
         )
     }
 
-    fun onBackPressClick() {
-        emit(SignUpState.Navigate(R.id.loginFragment))
-    }
-
     fun signUnButtonClicked(
         name: String,
         email: String,
@@ -63,7 +59,7 @@ class SignUpViewModel @Inject constructor(
                 signUpUseCase.signUp(name, email, password)
                     .addOnSuccessListener {
                         emit(SignUpState.Success(provideResources.string(R.string.successfully_register)))
-                        emit(SignUpState.Navigate(R.id.loginFragment))
+                        emit(SignUpState.Navigate(R.id.signInFragment))
                     }
                     .addOnFailureListener {
                         when (it) {

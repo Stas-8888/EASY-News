@@ -1,5 +1,7 @@
 package com.example.newsapppp.presentation.ui.authentication.signin
 
+import androidx.navigation.NavDirections
+
 sealed class SignInState<out T> {
     object Loading : SignInState<Nothing>()
     data class Success<out T>(val data: T) : SignInState<T>()
@@ -10,7 +12,7 @@ sealed class SignInState<out T> {
     ) : SignInState<Nothing>()
 
     data class NavigateSkip(
-        val navigateToSkip: Int,
+        val navigateToSkip: NavDirections,
     ) : SignInState<Nothing>()
 
     data class NavigateForgotPassword(
@@ -18,7 +20,7 @@ sealed class SignInState<out T> {
     ) : SignInState<Nothing>()
 
     data class NavigateSignUp(
-        val navigateSignUp: Int,
+        val navigateSignUp: NavDirections,
     ) : SignInState<Nothing>()
 
     data class CheckEmail(val data: String) : SignInState<Nothing>()

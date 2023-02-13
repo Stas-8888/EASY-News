@@ -39,8 +39,8 @@ class SignInViewModel @Inject constructor(
         }
     }
 
-    fun onSkipClicked() = emit(SignInState.NavigateSkip(R.id.mainFragment))
-    fun onSkipSignUpClicked() = emit(SignInState.NavigateSkip(R.id.signUpFragment))
+    fun onSkipClicked() = emit(SignInState.NavigateSkip(SignInFragmentDirections.actionSignInFragmentToMainFragment()))
+    fun onSignUpClicked() = emit(SignInState.NavigateSkip(SignInFragmentDirections.actionSignInFragmentToSignUpFragment()))
     fun isEmailChanged(email: String) = emit(SignInState.CheckEmail(validateEmail(email)))
     fun onForgotPasswordClicked() =
         emit(SignInState.NavigateForgotPassword(R.id.forgotPasswordFragment))

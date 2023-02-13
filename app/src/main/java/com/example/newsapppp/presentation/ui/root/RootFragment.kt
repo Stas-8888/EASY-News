@@ -26,6 +26,10 @@ class RootFragment : BaseFragment<RootState, FragmentRootBinding, RootViewModel>
         viewModel.checkRegistration()
     }
 
+    fun onBackPressed(){
+        binding.navFragment.findNavController().navigateUp()
+    }
+
     override fun onClickListener() {
         binding.bottomNavigationView.setOnItemSelectedListener {
             viewModel.setupBottomNavigationClick(it)

@@ -39,6 +39,8 @@ class RootViewModel @Inject constructor(
     fun checkRegistration() {
         if (firebaseAuth.currentUser != null) {
             emit(RootState.NavigationToMain(R.id.mainFragment))
+        } else {
+            emit(RootState.NavigationToMain(R.id.signInFragment))
         }
     }
 }

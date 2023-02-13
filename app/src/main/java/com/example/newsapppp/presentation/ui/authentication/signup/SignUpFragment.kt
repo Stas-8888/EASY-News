@@ -2,7 +2,6 @@ package com.example.newsapppp.presentation.ui.authentication.signup
 
 import android.os.Bundle
 import android.view.View
-import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSignUpBinding
@@ -19,9 +18,6 @@ class SignUpFragment : BaseFragment<SignUpState<String>, FragmentSignUpBinding, 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         hideBottomNavigation()
-        requireActivity().onBackPressedDispatcher.addCallback(requireActivity()) {
-            viewModel.onBackPressClick()
-        }
     }
 
     override fun onClickListener() = with(binding) {
@@ -37,7 +33,7 @@ class SignUpFragment : BaseFragment<SignUpState<String>, FragmentSignUpBinding, 
         email.changesListener { isValid() }
         edPassword.changesListener { isValid() }
         confirmPassword.changesListener { isValid() }
-        registerSignin.setOnClickListener { navigateTo(R.id.loginFragment) }
+        registerSignin.setOnClickListener { navigateTo(R.id.signInFragment) }
     }
 
     private fun isValid() {
