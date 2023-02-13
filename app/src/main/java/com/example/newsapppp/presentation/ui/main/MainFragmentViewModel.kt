@@ -23,21 +23,20 @@ class MainFragmentViewModel @Inject constructor(
     override val _state = MutableStateFlow<MainState>(MainState.ShowLoading)
     override val state = _state.asStateFlow()
 
-    fun setupCountryFlag() {
-        emit(MainState.CountryFlag(getCountryFlag(Unit)))
-    }
-
-    fun setupArticleNews(category: String) = launchCoroutine {
+    fun setupUi(category: String) = launchCoroutine {
         getNews(category).cachedIn(viewModelScope).collect() {
-            val data = it.filter { article ->
-                article.urlToImage != null && article.title != null
-            }
-            emit(MainState.ShowArticles(mapper.mapToPagingArticle(data)))
+            val data = it.filter { article -> article.urlToImage != null && article.title != null }
+            emit(
+                MainState.SetupUi(
+                    setupArticleNews = mapper.mapToPagingArticle(data),
+                    countryFlag = getCountryFlag(Unit)
+                )
+            )
         }
     }
 
     fun showOrHideFloatButton(getFirstNewsPosition: Int) {
         if (getFirstNewsPosition < 1)
-            emit(MainState.Visibility(false)) else emit(MainState.Visibility(true))
+            emit(MainState.BottomVisibility(false)) else emit(MainState.BottomVisibility(true))
     }
 }

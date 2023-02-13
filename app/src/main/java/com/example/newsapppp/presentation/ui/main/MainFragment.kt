@@ -30,9 +30,8 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         showBottomNavigation()
-        viewModel.setupCountryFlag()
         getCountryAndCategoryTabLayout()
-        viewModel.setupArticleNews(categories.first())
+        viewModel.setupUi(categories.first())
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity()) {
             showSnackBarString(requireView(), getString(R.string.disabled_back_press))
         }
@@ -65,7 +64,7 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
 
                 if (loadState.source.refresh is LoadState.NotLoading && newsAdapter.itemCount < 1) {
                     progressBar.invisible()
-                    tvCenterText.invisible()
+                    tvCenterText.visible()
                 }
             }
         }
@@ -74,9 +73,11 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
     override fun observerState(state: MainState) = with(binding) {
         when (state) {
             is MainState.ShowLoading -> progressBar.visible()
-            is MainState.ShowArticles -> newsAdapter.submitData(lifecycle, state.articles)
-            is MainState.Visibility -> fabUp.isVisible = state.state
-            is MainState.CountryFlag -> tvCountry.text = state.countryFlag
+            is MainState.SetupUi -> {
+                newsAdapter.submitData(lifecycle, state.setupArticleNews)
+                tvCountry.text = state.countryFlag
+            }
+            is MainState.BottomVisibility -> fabUp.isVisible = state.state
             is MainState.Error -> snackBar(requireView(), state.exception)
         }
     }
@@ -84,7 +85,7 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
     private fun getCountryAndCategoryTabLayout() {
         binding.tabMain.addOnTabSelectedListener(object : SimpleTabSelectedListener() {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                viewModel.setupArticleNews(categories[tab.position])
+                viewModel.setupUi(categories[tab.position])
             }
         })
     }
