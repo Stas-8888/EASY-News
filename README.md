@@ -8,7 +8,7 @@
 - supports choose categories of news.
 - supports save, delete Article.
 - supports day&night mode.
-- support notifacation every 15 minutes by work manager.
+- support notifications every 15 minutes by work manager.
 - supports check internet connections.
 
 # Preview
