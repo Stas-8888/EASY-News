@@ -71,12 +71,7 @@ class SettingsFragment :
         val popup = PopupMenu(requireContext(), view)
         popup.inflate(R.menu.pop_up_menu)
         popup.setOnMenuItemClickListener { item: MenuItem ->
-            when (item.itemId) {
-                R.id.us -> viewModel.saveUsaCountry()
-                R.id.ru -> viewModel.saveRussiaCountry()
-                R.id.germany -> viewModel.saveGermanyCountry()
-                R.id.egipt -> viewModel.saveEgyptCountry()
-            }
+            viewModel.setupPopupMenu(item)
             true
         }
         popup.show()

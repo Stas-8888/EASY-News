@@ -1,5 +1,6 @@
 package com.example.newsapppp.presentation.ui.settings
 
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.preference.GetCountryFlagUseCase
@@ -64,24 +65,25 @@ class SettingsFragmentViewModel @Inject constructor(
         }
     }
 
-    fun saveUsaCountry() = launchCoroutine {
-        saveCountryFlag(USA)
-        emit(SettingsState.SaveCurrentCountry(R.drawable.usa, R.string.American_News))
-    }
-
-    fun saveRussiaCountry() = launchCoroutine {
-        saveCountryFlag(RUSSIA)
-        emit(SettingsState.SaveCurrentCountry(R.drawable.russia, R.string.Russia_News))
-    }
-
-    fun saveGermanyCountry() = launchCoroutine {
-        saveCountryFlag(GERMANY)
-        emit(SettingsState.SaveCurrentCountry(R.drawable.germany, R.string.Germany_News))
-    }
-
-    fun saveEgyptCountry() = launchCoroutine {
-        saveCountryFlag(EGYPT)
-        emit(SettingsState.SaveCurrentCountry(R.drawable.egypt, R.string.Egypt_News))
+    fun setupPopupMenu(item: MenuItem) = launchCoroutine {
+        when (item.itemId) {
+            R.id.us -> {
+                saveCountryFlag(USA)
+                emit(SettingsState.SaveCurrentCountry(R.drawable.usa, R.string.American_News))
+            }
+            R.id.ru -> {
+                saveCountryFlag(RUSSIA)
+                emit(SettingsState.SaveCurrentCountry(R.drawable.russia, R.string.Russia_News))
+            }
+            R.id.germany -> {
+                saveCountryFlag(GERMANY)
+                emit(SettingsState.SaveCurrentCountry(R.drawable.germany, R.string.Germany_News))
+            }
+            R.id.egipt -> {
+                saveCountryFlag(EGYPT)
+                emit(SettingsState.SaveCurrentCountry(R.drawable.egypt, R.string.Egypt_News))
+            }
+        }
     }
 }
 
