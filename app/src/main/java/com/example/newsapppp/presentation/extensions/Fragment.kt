@@ -21,8 +21,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.tapadoo.alerter.Alerter
-import kotlinx.android.synthetic.main.fragment_root.*
-import kotlinx.android.synthetic.main.no_internet_connections.*
 import kotlinx.coroutines.CoroutineScope
 
 internal fun Fragment.showNoActionOkDialog(title: Int, content: CharSequence?) {
@@ -61,11 +59,11 @@ fun Fragment.loadColor(@ColorRes colorRes: Int): Int {
 }
 
 fun Fragment.showBottomNavigation() {
-    (requireParentFragment().parentFragment as RootFragment).bottomNavigationView?.visible()
+    (requireParentFragment().parentFragment as RootFragment)
 }
 
 fun Fragment.hideBottomNavigation() {
-    (requireParentFragment().parentFragment as RootFragment).bottomNavigationView?.invisible()
+    (requireParentFragment().parentFragment as RootFragment)
 }
 
 fun Fragment.showSnackbar(
@@ -144,12 +142,12 @@ fun Fragment.showAlertUpDialog(title: Int) {
 internal fun Fragment.internetConnectionDialog(status: String) {
     Dialog(requireContext()).apply {
         setContentView(R.layout.no_internet_connections)
-        internet_status.text = status
+//        internet_status.text = status
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         setCanceledOnTouchOutside(false)
-        bt_try_again.setOnClickListener {
-            dismiss()
-        }
+//        bt_try_again.setOnClickListener {
+//            dismiss()
+//        }
         show()
     }
 }

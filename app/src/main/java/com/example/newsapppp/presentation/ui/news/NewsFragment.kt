@@ -13,7 +13,6 @@ import com.example.newsapppp.databinding.FragmentNewsBinding
 import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_news.*
 
 @AndroidEntryPoint
 class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentViewModel>(
@@ -54,8 +53,8 @@ class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentVi
     }
 
     private fun setupWebView() {
-        webView.apply {
-            webView.webViewClient = WebViewClient()
+        binding.webView.apply {
+            binding.webView.webViewClient = WebViewClient()
             loadUrl(article.url)
         }
     }

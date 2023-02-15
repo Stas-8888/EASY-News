@@ -31,6 +31,7 @@ class SearchFragment : BaseFragment<SearchState, FragmentSearchBinding, SearchFr
     override fun onClickListener() = with(binding) {
         etSearch.addTextChangedListener { editable ->
             editable?.let {
+//                hideKeyboard(requireActivity(), etSearch)
                 viewModel.searchTextListener(editable.toString())
             }
         }

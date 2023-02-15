@@ -21,8 +21,6 @@ class NewsAdapter : ListAdapter<Article, NewsAdapter.ArticleViewHolder>(NewsItem
     }
 
     private var onItemClickListener: ((Article) -> Unit)? = null
-    private var onFavoriteIconClicked: ((Article) -> Unit)? = null
-
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         val article = getItem(position)
@@ -47,9 +45,5 @@ class NewsAdapter : ListAdapter<Article, NewsAdapter.ArticleViewHolder>(NewsItem
 
     fun setOnItemClickListener(listener: (Article) -> Unit) {
         onItemClickListener = listener
-    }
-
-    fun setOnFavoriteClickListener(listener: (Article) -> Unit) {
-        onFavoriteIconClicked = listener
     }
 }

@@ -17,7 +17,6 @@ import com.example.newsapppp.presentation.extensions.showSnackbar
 import com.example.newsapppp.presentation.extensions.snackBar
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_settings.*
 
 @AndroidEntryPoint
 class SettingsFragment :
@@ -39,7 +38,7 @@ class SettingsFragment :
             findNavController().navigateUp()
         }
         imCountry.setOnClickListener {
-            showPopup(im_country)
+            showPopup(imCountry)
         }
         tvEdit.setOnClickListener {
             showChangeNameDialog("")
@@ -90,7 +89,7 @@ class SettingsFragment :
             bCreate.setOnClickListener {
                 val listName = edNewListName.text.toString()
                 if (listName.isNotEmpty()) {
-                    tvUserName.text = listName
+//                    tvUserName.text = listName
                 }
                 dialog?.dismiss()
             }

@@ -16,7 +16,6 @@ import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_main.*
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentViewModel>(
@@ -37,12 +36,12 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
         }
     }
 
-    override fun onClickListener() {
-        btProfile.setOnClickListener {
-            navigateTo(R.id.settingsFragment)
+    override fun onClickListener() = with(binding) {
+        btSettings.setOnClickListener {
+            viewModel.onBtSettingsClicked()
         }
         newsAdapter.setOnItemClickListener {
-            navigateDirections(MainFragmentDirections.actionMainFragmentToNewsFragment(it))
+            viewModel.onNewsAdapterClicked(it)
         }
         swipeToRefresh.setOnRefreshListener {
             binding.rvNews.adapter = newsAdapter
@@ -73,6 +72,8 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
     override fun observerState(state: MainState) = with(binding) {
         when (state) {
             is MainState.ShowLoading -> progressBar.visible()
+            is MainState.SettingsClicked -> navigateTo(state.navigate)
+            is MainState.AdapterClicked -> navigateDirections(state.navigate)
             is MainState.SetupUi -> {
                 newsAdapter.submitData(lifecycle, state.setupArticleNews)
                 tvCountry.text = state.countryFlag
@@ -91,10 +92,11 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
     }
 
     private fun getFirstNewsPosition(): Int {
-        return (rvNews?.layoutManager as? LinearLayoutManager)?.findFirstVisibleItemPosition() ?: 0
+        return (binding.rvNews.layoutManager as? LinearLayoutManager)?.findFirstVisibleItemPosition()
+            ?: 0
     }
 
-    private fun toFirstRecyclerPosition() {
+    private fun toFirstRecyclerPosition() = with(binding) {
         rvNews.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)

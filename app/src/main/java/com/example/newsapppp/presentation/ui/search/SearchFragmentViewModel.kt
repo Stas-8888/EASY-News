@@ -28,7 +28,13 @@ class SearchFragmentViewModel @Inject constructor(
         }
     }
 
-    fun onItemClicked(article: Article){
-        emit(SearchState.NavigationArgs(SearchFragmentDirections.actionSearchFragmentToNewsFragment(article)))
+    fun onItemClicked(article: Article) {
+        emit(
+            SearchState.NavigationArgs(
+                SearchFragmentDirections.actionSearchFragmentToNewsFragment(
+                    article
+                )
+            )
+        )
     }
 }

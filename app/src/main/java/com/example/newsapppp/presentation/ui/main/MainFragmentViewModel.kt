@@ -3,10 +3,12 @@ package com.example.newsapppp.presentation.ui.main
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import androidx.paging.filter
+import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.articleRemote.GetNewsUseCase
 import com.example.newsapppp.domain.interactors.preference.GetCountryFlagUseCase
 import com.example.newsapppp.presentation.extensions.launchCoroutine
 import com.example.newsapppp.presentation.mapper.ArticleMapper
+import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -38,5 +40,13 @@ class MainFragmentViewModel @Inject constructor(
     fun showOrHideFloatButton(getFirstNewsPosition: Int) {
         if (getFirstNewsPosition < 1)
             emit(MainState.BottomVisibility(false)) else emit(MainState.BottomVisibility(true))
+    }
+
+    fun onNewsAdapterClicked(article: Article) {
+        emit(MainState.AdapterClicked(MainFragmentDirections.actionMainFragmentToNewsFragment(article)))
+    }
+
+    fun onBtSettingsClicked(){
+        emit(MainState.SettingsClicked(R.id.action_mainFragment_to_settingsFragment))
     }
 }
