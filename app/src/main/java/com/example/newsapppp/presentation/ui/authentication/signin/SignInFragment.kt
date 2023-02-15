@@ -7,9 +7,10 @@ import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignInFragment : BaseFragment<SignInState<String>, FragmentSignInBinding, SignInViewModel>(
-    FragmentSignInBinding::inflate
-) {
+class SignInFragment :
+    BaseFragment<SignInState<String>, SignInAction, FragmentSignInBinding, SignInViewModel>(
+        FragmentSignInBinding::inflate
+    ) {
     override val viewModel by viewModels<SignInViewModel>()
 
     override fun onClickListener() = with(binding) {
@@ -48,6 +49,12 @@ class SignInFragment : BaseFragment<SignInState<String>, FragmentSignInBinding, 
             is SignInState.Navigate -> navigateTo(state.navigateTo)
             is SignInState.CheckEmail -> emailContainer.helperText = state.data
             is SignInState.CheckPassword -> loginPasswordContainer.helperText = state.data
+        }
+    }
+
+    override fun observerShared(actions: SignInAction) {
+        when (actions) {
+            is SignInAction.Navigate -> navigateTo(actions.navigateTo)
         }
     }
 }

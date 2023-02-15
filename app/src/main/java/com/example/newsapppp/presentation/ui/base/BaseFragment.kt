@@ -10,6 +10,11 @@ import com.example.newsapppp.presentation.extensions.launchWhenStarted
 import com.muddassir.connection_checker.checkConnection
 import kotlinx.coroutines.flow.collectLatest
 
+/**
+ * Base class for all Fragments.
+ *
+ */
+
 abstract class BaseFragment<State, Action, VB : ViewBinding, VM : BaseViewModel<State, Action>>(
     private val bindingInflater: (inflater: LayoutInflater) -> VB
 ) : Fragment() {
@@ -36,6 +41,7 @@ abstract class BaseFragment<State, Action, VB : ViewBinding, VM : BaseViewModel<
         checkConnection(this)
         onClickListener()
         observeOnState()
+        observeOnShared()
     }
 
     private fun observeOnState() = launchWhenStarted {
@@ -44,6 +50,14 @@ abstract class BaseFragment<State, Action, VB : ViewBinding, VM : BaseViewModel<
         }
     }
 
+    private fun observeOnShared() = launchWhenStarted {
+        viewModel.shared.collectLatest { actions ->
+            observerShared(actions)
+        }
+    }
+
+
     abstract fun onClickListener()
     abstract fun observerState(state: State)
+    abstract fun observerShared(actions: Action)
 }
