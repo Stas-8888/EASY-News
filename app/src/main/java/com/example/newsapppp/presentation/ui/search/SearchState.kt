@@ -1,7 +1,7 @@
 package com.example.newsapppp.presentation.ui.search
 
 import androidx.navigation.NavDirections
-import com.example.newsapppp.core.State
+import com.example.newsapppp.core.mvvm.State
 import com.example.newsapppp.presentation.model.Article
 
 sealed class SearchState : State {

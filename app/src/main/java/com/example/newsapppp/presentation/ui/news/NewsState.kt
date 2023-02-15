@@ -1,6 +1,6 @@
 package com.example.newsapppp.presentation.ui.news
 
-import com.example.newsapppp.core.State
+import com.example.newsapppp.core.mvvm.State
 sealed class NewsState : State {
     data class ShowFavoriteIcon(val favoriteIcon: Int) : NewsState()
 

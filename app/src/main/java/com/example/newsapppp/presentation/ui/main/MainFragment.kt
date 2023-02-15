@@ -38,9 +38,10 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
         viewModel.interceptorErrors()
         getCountryAndCategoryTabLayout()
         viewModel.setupUi(categories.first())
-        requireActivity().onBackPressedDispatcher.addCallback(requireActivity()) {
-            showSnackBarString(requireView(), getString(R.string.disabled_back_press))
-        }
+
+//        requireActivity().onBackPressedDispatcher.addCallback(requireActivity()) {
+//            showSnackBarString(requireView(), getString(R.string.disabled_back_press))
+//        }
     }
 
     override fun onClickListener() = with(binding) {

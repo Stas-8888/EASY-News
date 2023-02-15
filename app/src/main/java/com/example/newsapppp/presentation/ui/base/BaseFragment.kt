@@ -10,7 +10,7 @@ import com.example.newsapppp.presentation.extensions.launchWhenStarted
 import com.muddassir.connection_checker.checkConnection
 import kotlinx.coroutines.flow.collectLatest
 
-abstract class BaseFragment<State, VB : ViewBinding, VM : BaseViewModel<State>>(
+abstract class BaseFragment<State, Action, VB : ViewBinding, VM : BaseViewModel<State, Action>>(
     private val bindingInflater: (inflater: LayoutInflater) -> VB
 ) : Fragment() {
     private var _binding: VB? = null

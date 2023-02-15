@@ -1,6 +1,6 @@
 package com.example.newsapppp.presentation.ui.save
 
-import com.example.newsapppp.core.State
+import com.example.newsapppp.core.mvvm.State
 import com.example.newsapppp.presentation.model.Article
 
 sealed class SaveState : State {
