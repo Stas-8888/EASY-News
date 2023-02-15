@@ -1,7 +1,12 @@
 package com.example.newsapppp.presentation.ui.main
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -112,6 +117,21 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
         when (state) {
             ConnectionState.CONNECTED -> internetConnectionDialog(getString(R.string.internet_connected))
             else -> internetConnectionDialog(getString(R.string.internet_disconnected))
+        }
+    }
+
+    private fun internetConnectionDialog(status: String) {
+        Dialog(requireContext()).apply {
+            setContentView(R.layout.no_internet_connections)
+            val internetStatus = findViewById<TextView>(R.id.internet_status)
+            val btTry = findViewById<Button>(R.id.bt_try_again)
+            internetStatus.text = status
+            window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            setCanceledOnTouchOutside(false)
+            btTry.setOnClickListener {
+                dismiss()
+            }
+            show()
         }
     }
 

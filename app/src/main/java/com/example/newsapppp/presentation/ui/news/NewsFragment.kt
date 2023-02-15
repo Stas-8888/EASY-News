@@ -70,7 +70,7 @@ class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentVi
             }
             is NewsState.Error -> {
                 btFavorite.invisible()
-                snackBar(btFavorite, state.message)
+                showSnackBarInt(btFavorite, state.message)
             }
             is NewsState.ShowFavoriteIcon -> setImageResource(state.favoriteIcon)
         }

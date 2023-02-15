@@ -11,8 +11,8 @@ import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSettingsBinding
 import com.example.newsapppp.databinding.NewNameDialogBinding
 import com.example.newsapppp.presentation.extensions.navigateTo
-import com.example.newsapppp.presentation.extensions.showSnackbar
-import com.example.newsapppp.presentation.extensions.snackBar
+import com.example.newsapppp.presentation.extensions.showSnackBarCansel
+import com.example.newsapppp.presentation.extensions.showSnackBarInt
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -49,12 +49,12 @@ class SettingsFragment :
                 imCountry.setImageResource(state.flag)
             }
             is SettingsState.SaveCurrentCountry -> {
-                snackBar(requireView(), state.countryName)
+                showSnackBarInt(requireView(), state.countryName)
                 imCountry.setImageResource(state.countryFlag)
             }
             is SettingsState.Navigate -> navigateTo(state.navigation)
             is SettingsState.Account -> {
-                showSnackbar(requireView(), state.message, state.isError, state.action)
+                showSnackBarCansel(requireView(), state.message, state.isError, state.action)
             }
         }
     }

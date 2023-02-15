@@ -11,7 +11,7 @@ import com.example.newsapppp.databinding.FragmentSaveBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
 import com.example.newsapppp.presentation.extensions.navigateDirections
 import com.example.newsapppp.presentation.extensions.showDeleteDialog
-import com.example.newsapppp.presentation.extensions.snackBar
+import com.example.newsapppp.presentation.extensions.showSnackBarInt
 import com.example.newsapppp.presentation.extensions.visible
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,7 +51,7 @@ class SaveFragment : BaseFragment<SaveState, FragmentSaveBinding, SaveFragmentVi
                     newsAdapter.submitList(state.articles)
                     progressBar.isVisible = state.progressBar
                     tvBackgroundText.isVisible = state.state
-                    state.exception?.let { snackBar(requireView(), it) }
+                    state.exception?.let { showSnackBarInt(requireView(), it) }
                 }
                 is SaveState.ShowDeleteDialog -> {
                     showDeleteDialog(
