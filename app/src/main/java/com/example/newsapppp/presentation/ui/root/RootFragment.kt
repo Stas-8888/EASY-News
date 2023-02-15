@@ -26,7 +26,7 @@ class RootFragment : BaseFragment<RootState, FragmentRootBinding, RootViewModel>
         viewModel.checkRegistration()
     }
 
-    fun onBackPressed(){
+    fun onBackPressed() {
         binding.navFragment.findNavController().navigateUp()
     }
 
