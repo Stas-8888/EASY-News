@@ -28,7 +28,7 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        showBottomNavigation()
+        viewModel.interceptorErrors()
         getCountryAndCategoryTabLayout()
         viewModel.setupUi(categories.first())
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity()) {
@@ -75,11 +75,11 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
             is MainState.SettingsClicked -> navigateTo(state.navigate)
             is MainState.AdapterClicked -> navigateDirections(state.navigate)
             is MainState.SetupUi -> {
-                newsAdapter.submitData(lifecycle, state.setupArticleNews)
+                newsAdapter.submitData(lifecycle, state.article)
                 tvCountry.text = state.countryFlag
             }
             is MainState.BottomVisibility -> fabUp.isVisible = state.state
-            is MainState.Error -> snackBar(requireView(), state.exception)
+            is MainState.Error -> showSnackBarString(requireView(), state.exception)
         }
     }
 

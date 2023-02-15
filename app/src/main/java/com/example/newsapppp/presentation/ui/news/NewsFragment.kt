@@ -31,7 +31,6 @@ class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentVi
         super.onViewCreated(view, savedInstanceState)
         viewModel.setupFavoriteIcon(article)
         setupWebView()
-        hideBottomNavigation()
     }
 
     override fun onClickListener() = with(binding) {

@@ -5,6 +5,7 @@ import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.preference.GetSwitchPositionUseCase
 import com.example.newsapppp.presentation.extensions.launchCoroutine
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val getSwitchPosition: GetSwitchPositionUseCase
+    private val getSwitchPosition: GetSwitchPositionUseCase,
+    private val firebaseAuth: FirebaseAuth
 ) : BaseViewModel<SplashState>() {
 
     override val _state = MutableStateFlow<SplashState>(SplashState.Success)
@@ -32,6 +34,11 @@ class SplashViewModel @Inject constructor(
 
     fun navigateToLoginFragment() = launchCoroutine {
         delay(TimeUnit.SECONDS.toMillis(3))
-        emit(SplashState.Navigate(R.id.signInFragment))
+
+        if (firebaseAuth.currentUser != null) {
+            emit(SplashState.Navigate(R.id.mainFragment))
+        } else {
+            emit(SplashState.Navigate(R.id.signInFragment))
+        }
     }
 }

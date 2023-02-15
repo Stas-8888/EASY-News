@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import androidx.paging.filter
 import com.example.newsapppp.R
+import com.example.newsapppp.data.network.interceptor.ErrorsInterceptorContract
 import com.example.newsapppp.domain.interactors.articleRemote.GetNewsUseCase
 import com.example.newsapppp.domain.interactors.preference.GetCountryFlagUseCase
 import com.example.newsapppp.presentation.extensions.launchCoroutine
@@ -20,6 +21,7 @@ class MainFragmentViewModel @Inject constructor(
     private val getNews: GetNewsUseCase,
     private val mapper: ArticleMapper,
     private val getCountryFlag: GetCountryFlagUseCase,
+    private val interceptorErrors: ErrorsInterceptorContract
 ) : BaseViewModel<MainState>() {
 
     override val _state = MutableStateFlow<MainState>(MainState.ShowLoading)
@@ -30,10 +32,18 @@ class MainFragmentViewModel @Inject constructor(
             val data = it.filter { article -> article.urlToImage != null && article.title != null }
             emit(
                 MainState.SetupUi(
-                    setupArticleNews = mapper.mapToPagingArticle(data),
+                    article = mapper.mapToPagingArticle(data),
                     countryFlag = getCountryFlag(Unit)
                 )
             )
+        }
+    }
+
+    fun interceptorErrors() = launchCoroutine {
+        interceptorErrors.errorsInterceptor().collect() {
+            if (it.isNotEmpty()) {
+                emit(MainState.Error(it))
+            }
         }
     }
 
@@ -43,10 +53,16 @@ class MainFragmentViewModel @Inject constructor(
     }
 
     fun onNewsAdapterClicked(article: Article) {
-        emit(MainState.AdapterClicked(MainFragmentDirections.actionMainFragmentToNewsFragment(article)))
+        emit(
+            MainState.AdapterClicked(
+                MainFragmentDirections.actionMainFragmentToNewsFragment(
+                    article
+                )
+            )
+        )
     }
 
-    fun onBtSettingsClicked(){
+    fun onBtSettingsClicked() {
         emit(MainState.SettingsClicked(R.id.action_mainFragment_to_settingsFragment))
     }
 }

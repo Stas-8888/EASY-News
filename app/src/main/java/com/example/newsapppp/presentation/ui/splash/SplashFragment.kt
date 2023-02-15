@@ -6,9 +6,8 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSplashBinding
-import com.example.newsapppp.presentation.ui.base.BaseFragment
-import com.example.newsapppp.presentation.extensions.hideBottomNavigation
 import com.example.newsapppp.presentation.extensions.navigateTo
+import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,7 +18,6 @@ class SplashFragment : BaseFragment<SplashState, FragmentSplashBinding, SplashVi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
-        hideBottomNavigation()
         viewModel.setupDayNightMode()
         viewModel.navigateToLoginFragment()
 

@@ -2,9 +2,7 @@ package com.example.newsapppp.presentation.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.newsapppp.R
 import com.example.newsapppp.databinding.ActivityMainBinding
-import com.example.newsapppp.presentation.ui.root.RootFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -15,14 +13,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportFragmentManager.beginTransaction().replace(R.id.container, RootFragment()).commit()
-    }
-
-    override fun onBackPressed() {
-        if (supportFragmentManager.fragments.first() is RootFragment) {
-            (supportFragmentManager.fragments.first() as RootFragment).onBackPressed()
-        } else {
-            onBackPressedDispatcher.onBackPressed()
-        }
     }
 }

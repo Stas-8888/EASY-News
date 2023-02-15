@@ -16,7 +16,6 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.DeleteDialog3Binding
-import com.example.newsapppp.presentation.ui.root.RootFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
@@ -56,14 +55,6 @@ fun Fragment.launchWhenStarted(block: suspend CoroutineScope.() -> Unit) {
 
 fun Fragment.loadColor(@ColorRes colorRes: Int): Int {
     return ContextCompat.getColor(requireContext(), colorRes)
-}
-
-fun Fragment.showBottomNavigation() {
-    (requireParentFragment().parentFragment as RootFragment)
-}
-
-fun Fragment.hideBottomNavigation() {
-    (requireParentFragment().parentFragment as RootFragment)
 }
 
 fun Fragment.showSnackbar(

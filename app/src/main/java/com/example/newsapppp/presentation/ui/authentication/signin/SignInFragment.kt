@@ -1,7 +1,5 @@
 package com.example.newsapppp.presentation.ui.authentication.signin
 
-import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.databinding.FragmentSignInBinding
 import com.example.newsapppp.presentation.extensions.*
@@ -13,11 +11,6 @@ class SignInFragment : BaseFragment<SignInState<String>, FragmentSignInBinding, 
     FragmentSignInBinding::inflate
 ) {
     override val viewModel by viewModels<SignInViewModel>()
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        hideBottomNavigation()
-    }
 
     override fun onClickListener() = with(binding) {
         btForgotPassword.setOnClickListener { viewModel.onForgotPasswordClicked() }

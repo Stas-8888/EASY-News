@@ -7,22 +7,6 @@
     android:background="@color/colorBackground"
     tools:context=".presentation.ui.main.MainFragment">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="365dp"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"
-        android:background="@drawable/bottom_corner"
-        android:elevation="2dp"
-        app:itemIconTint="@drawable/bottom_color_selected"
-        app:labelVisibilityMode="unlabeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu" />
-
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabMain"
         android:layout_width="0dp"

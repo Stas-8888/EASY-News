@@ -1,7 +1,5 @@
 package com.example.newsapppp.presentation.ui.authentication.signup
 
-import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSignUpBinding
@@ -14,11 +12,6 @@ class SignUpFragment : BaseFragment<SignUpState<String>, FragmentSignUpBinding, 
     FragmentSignUpBinding::inflate
 ) {
     override val viewModel by viewModels<SignUpViewModel>()
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        hideBottomNavigation()
-    }
 
     override fun onClickListener() = with(binding) {
         registerButton.setOnClickListener {

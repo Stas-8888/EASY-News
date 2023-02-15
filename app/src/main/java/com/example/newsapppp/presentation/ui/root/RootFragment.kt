@@ -3,10 +3,10 @@ package com.example.newsapppp.presentation.ui.root
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentRootBinding
 import com.example.newsapppp.presentation.extensions.internetConnectionDialog
+import com.example.newsapppp.presentation.extensions.navigateTo
 import com.example.newsapppp.presentation.extensions.showSnackBarString
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import com.muddassir.connection_checker.ConnectionState
@@ -26,9 +26,9 @@ class RootFragment : BaseFragment<RootState, FragmentRootBinding, RootViewModel>
         viewModel.checkRegistration()
     }
 
-    fun onBackPressed() {
-        binding.navFragment.findNavController().navigateUp()
-    }
+//    fun onBackPressed() {
+//        binding.navFragment.findNavController().navigateUp()
+//    }
 
     override fun onClickListener() {
         binding.bottomNavigationView.setOnItemSelectedListener {
@@ -39,9 +39,9 @@ class RootFragment : BaseFragment<RootState, FragmentRootBinding, RootViewModel>
 
     override fun observerState(state: RootState) {
         when (state) {
-            is RootState.NavigationToMain -> navigate(state.mainFragment)
+            is RootState.NavigationToMain -> navigateTo(state.mainFragment)
             is RootState.InterceptorErrors -> showSnackBarString(requireView(), state.error)
-            is RootState.Navigation -> navigate(state.navigateFragment)
+            is RootState.Navigation -> navigateTo(state.navigateFragment)
         }
     }
 
@@ -52,7 +52,7 @@ class RootFragment : BaseFragment<RootState, FragmentRootBinding, RootViewModel>
         }
     }
 
-    private fun navigate(fragment: Int) {
-        binding.navFragment.findNavController().navigate(fragment)
-    }
+//    private fun navigate(fragment: Int) {
+//        binding.navFragment.findNavController().navigate(fragment)
+//    }
 }

@@ -1,7 +1,6 @@
 package com.example.newsapppp.presentation.ui.settings
 
 import android.app.AlertDialog
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSettingsBinding
 import com.example.newsapppp.databinding.NewNameDialogBinding
-import com.example.newsapppp.presentation.extensions.hideBottomNavigation
 import com.example.newsapppp.presentation.extensions.navigateTo
 import com.example.newsapppp.presentation.extensions.showSnackbar
 import com.example.newsapppp.presentation.extensions.snackBar
@@ -24,11 +22,6 @@ class SettingsFragment :
         FragmentSettingsBinding::inflate
     ) {
     override val viewModel by viewModels<SettingsFragmentViewModel>()
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        hideBottomNavigation()
-    }
 
     override fun onClickListener() = with(binding) {
         btAccount.setOnClickListener {
