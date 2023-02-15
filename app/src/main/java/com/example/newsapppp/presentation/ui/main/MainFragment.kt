@@ -15,12 +15,14 @@ import com.example.newsapppp.presentation.adapters.NewsPagerAdapter
 import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
+import com.muddassir.connection_checker.ConnectionState
+import com.muddassir.connection_checker.ConnectivityListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentViewModel>(
     FragmentMainBinding::inflate
-) {
+), ConnectivityListener {
 
     private val newsAdapter by lazy { NewsPagerAdapter() }
     override val viewModel by viewModels<MainFragmentViewModel>()
@@ -104,6 +106,13 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
             }
         })
         fabUp.setOnClickListener { rvNews.smoothScrollToPosition(0) }
+    }
+
+    override fun onConnectionState(state: ConnectionState) {
+        when (state) {
+            ConnectionState.CONNECTED -> internetConnectionDialog(getString(R.string.internet_connected))
+            else -> internetConnectionDialog(getString(R.string.internet_disconnected))
+        }
     }
 
     val categories = listOf(
