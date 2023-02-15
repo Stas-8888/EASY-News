@@ -6,7 +6,9 @@ import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
@@ -14,10 +16,13 @@ import javax.inject.Inject
 class SearchFragmentViewModel @Inject constructor(
     private val searchNewsUseCase: SearchNewsUseCase,
     private val mapper: ArticleMapper,
-) : BaseViewModel<SearchState>() {
+) : BaseViewModel<SearchState, SearchAction>() {
 
     override val _state = MutableStateFlow<SearchState>(SearchState.Loading)
     override val state = _state.asStateFlow()
+
+    override val _shared = MutableSharedFlow<SearchAction>()
+    override val shared = _shared.asSharedFlow()
 
     fun searchTextListener(searchQuery: String) = launchCoroutine {
         if (searchQuery.isNotEmpty()) {

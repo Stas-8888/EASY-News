@@ -11,8 +11,10 @@ import com.example.newsapppp.presentation.extensions.launchCoroutine
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import javax.inject.Inject
 
 private const val USA = "us"
@@ -27,7 +29,7 @@ class SettingsFragmentViewModel @Inject constructor(
     private var firebaseAuth: FirebaseAuth,
     getCountryFlag: GetCountryFlagUseCase,
     getThemes: GetSwitchPositionUseCase
-) : BaseViewModel<SettingsState>() {
+) : BaseViewModel<SettingsState, SettingsAction>() {
 
     override val _state = MutableStateFlow<SettingsState>(
         SettingsState.SetupUi(
@@ -43,6 +45,9 @@ class SettingsFragmentViewModel @Inject constructor(
         )
     )
     override val state: StateFlow<SettingsState> = _state
+
+    override val _shared = MutableSharedFlow<SettingsAction>()
+    override val shared = _shared.asSharedFlow()
 
     fun onSwitchDayNightClicked(enabled: Boolean) = launchCoroutine {
         if (enabled) {

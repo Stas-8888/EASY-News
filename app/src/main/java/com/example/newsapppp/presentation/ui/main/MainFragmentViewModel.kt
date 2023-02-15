@@ -12,7 +12,9 @@ import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
@@ -22,10 +24,13 @@ class MainFragmentViewModel @Inject constructor(
     private val mapper: ArticleMapper,
     private val getCountryFlag: GetCountryFlagUseCase,
     private val interceptorErrors: ErrorsInterceptorContract
-) : BaseViewModel<MainState>() {
+) : BaseViewModel<MainState, MainAction>() {
 
     override val _state = MutableStateFlow<MainState>(MainState.ShowLoading)
     override val state = _state.asStateFlow()
+
+    override val _shared = MutableSharedFlow<MainAction>()
+    override val shared = _shared.asSharedFlow()
 
     fun setupUi(category: String) = launchCoroutine {
         getNews(category).cachedIn(viewModelScope).collect() {

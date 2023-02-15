@@ -14,7 +14,9 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
@@ -26,10 +28,13 @@ class SignUpViewModel @Inject constructor(
     private val validatePassword: ValidatePasswordUseCase,
     private val validateRepeatedPassword: ValidateRepeatedPasswordUseCase,
     private val provideResources: ProvideResourcesContract
-) : BaseViewModel<SignUpState<String>>() {
+) : BaseViewModel<SignUpState<String>, SignUpAction>() {
 
     override val _state = MutableStateFlow<SignUpState<String>>(SignUpState.Loading)
     override val state = _state.asStateFlow()
+
+    override val _shared = MutableSharedFlow<SignUpAction>()
+    override val shared = _shared.asSharedFlow()
 
     fun checkValidationFields(
         name: String,

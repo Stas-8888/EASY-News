@@ -8,7 +8,9 @@ import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -17,10 +19,13 @@ import javax.inject.Inject
 class SplashViewModel @Inject constructor(
     private val getSwitchPosition: GetSwitchPositionUseCase,
     private val firebaseAuth: FirebaseAuth
-) : BaseViewModel<SplashState>() {
+) : BaseViewModel<SplashState, SplashAction>() {
 
     override val _state = MutableStateFlow<SplashState>(SplashState.Success)
     override val state = _state.asStateFlow()
+
+    override val _shared = MutableSharedFlow<SplashAction>()
+    override val shared = _shared.asSharedFlow()
 
     fun setupDayNightMode() {
         if (getSwitchPosition(Unit)) {
