@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SettingsFragment :
-    BaseFragment<SettingsState, FragmentSettingsBinding, SettingsFragmentViewModel>(
+    BaseFragment<SettingsState, SettingsAction, FragmentSettingsBinding, SettingsFragmentViewModel>(
         FragmentSettingsBinding::inflate
     ) {
     override val viewModel by viewModels<SettingsFragmentViewModel>()
@@ -39,6 +39,9 @@ class SettingsFragment :
         switchDayNight.setOnCheckedChangeListener { _, isNightMode ->
             viewModel.onSwitchDayNightClicked(isNightMode)
         }
+    }
+
+    override fun observerShared(actions: SettingsAction) {
     }
 
     override fun observerState(state: SettingsState) = with(binding) {

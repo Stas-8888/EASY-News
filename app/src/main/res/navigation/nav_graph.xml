@@ -8,7 +8,6 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.newsapppp.presentation.ui.main.MainFragment"
-        android:label="Daily News"
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_newsFragment"
@@ -91,7 +90,13 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_signInFragment_to_forgotPasswordFragment"
-            app:destination="@id/forgotPasswordFragment" />
+            app:destination="@id/forgotPasswordFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/signInFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -113,6 +118,5 @@
     <fragment
         android:id="@+id/forgotPasswordFragment"
         android:name="com.example.newsapppp.presentation.ui.authentication.forgotPassword.ForgotPasswordFragment"
-        android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
 </navigation>

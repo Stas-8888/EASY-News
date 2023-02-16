@@ -1,11 +1,8 @@
 package com.example.newsapppp.presentation.ui.authentication.signin
 
-import com.example.newsapppp.core.mvvm.Action
+import androidx.navigation.NavDirections
 
-sealed class SignInAction : Action {
+sealed class SignInAction {
 
-    data class Navigate(val navigateTo: Int) : SignInAction()
-
-//    data class NavigateDirections(val navigateToSkip: NavDirections) : SignInAction()
-
+    data class Navigate(val navigateTo: NavDirections) : SignInAction()
 }

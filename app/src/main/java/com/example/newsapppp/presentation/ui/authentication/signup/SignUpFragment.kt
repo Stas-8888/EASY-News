@@ -8,9 +8,10 @@ import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignUpFragment : BaseFragment<SignUpState<String>, FragmentSignUpBinding, SignUpViewModel>(
-    FragmentSignUpBinding::inflate
-) {
+class SignUpFragment :
+    BaseFragment<SignUpState<String>, SignUpAction, FragmentSignUpBinding, SignUpViewModel>(
+        FragmentSignUpBinding::inflate
+    ) {
     override val viewModel by viewModels<SignUpViewModel>()
 
     override fun onClickListener() = with(binding) {
@@ -27,6 +28,9 @@ class SignUpFragment : BaseFragment<SignUpState<String>, FragmentSignUpBinding, 
         edPassword.changesListener { isValid() }
         confirmPassword.changesListener { isValid() }
         registerSignin.setOnClickListener { navigateTo(R.id.signInFragment) }
+    }
+
+    override fun observerShared(actions: SignUpAction) {
     }
 
     private fun isValid() {

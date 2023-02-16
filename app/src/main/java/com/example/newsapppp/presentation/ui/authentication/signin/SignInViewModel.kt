@@ -36,7 +36,7 @@ class SignInViewModel @Inject constructor(
                 signIn.signIn(email, password)
                     .addOnSuccessListener {
                         emit(SignInState.Success(provideResources.string(R.string.successfully_sign_in)))
-                        emitShared(SignInAction.Navigate(R.id.mainFragment))
+                        emitShared(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment()))
                     }.addOnFailureListener {
                         emit(SignInState.Failure(provideResources.string(R.string.authentication_failed)))
                     }
@@ -45,14 +45,15 @@ class SignInViewModel @Inject constructor(
     }
 
     fun onSkipClicked() =
-        emit(SignInState.NavigateSkip(SignInFragmentDirections.actionSignInFragmentToMainFragment()))
+        emitShared(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment()))
 
     fun onSignUpClicked() =
-        emit(SignInState.NavigateSkip(SignInFragmentDirections.actionSignInFragmentToSignUpFragment()))
+        emitShared(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment()))
+
+    fun onForgotPasswordClicked() =
+        emitShared(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToForgotPasswordFragment()))
 
     fun isEmailChanged(email: String) = emit(SignInState.CheckEmail(validateEmail(email)))
-    fun onForgotPasswordClicked() =
-        emit(SignInState.NavigateForgotPassword(R.id.forgotPasswordFragment))
 
     fun isPasswordChanged(password: String) =
         emit(SignInState.CheckPassword(validatePassword(password)))

@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.paging.LoadState
@@ -25,7 +24,7 @@ import com.muddassir.connection_checker.ConnectivityListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentViewModel>(
+class MainFragment : BaseFragment<MainState, MainAction, FragmentMainBinding, MainFragmentViewModel>(
     FragmentMainBinding::inflate
 ), ConnectivityListener {
 
@@ -38,10 +37,6 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
         viewModel.interceptorErrors()
         getCountryAndCategoryTabLayout()
         viewModel.setupUi(categories.first())
-
-//        requireActivity().onBackPressedDispatcher.addCallback(requireActivity()) {
-//            showSnackBarString(requireView(), getString(R.string.disabled_back_press))
-//        }
     }
 
     override fun onClickListener() = with(binding) {
@@ -55,6 +50,9 @@ class MainFragment : BaseFragment<MainState, FragmentMainBinding, MainFragmentVi
             binding.rvNews.adapter = newsAdapter
             swipeToRefresh.isRefreshing = false
         }
+    }
+
+    override fun observerShared(actions: MainAction) {
     }
 
     private fun setupRecyclerView() = with(binding) {

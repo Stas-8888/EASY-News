@@ -10,7 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ForgotPasswordFragment :
-    BaseFragment<ForgotPasswordState<String>, FragmentForgotPasswordBinding, ForgotPasswordViewModel>(
+    BaseFragment<ForgotPasswordState<String>, ForgotPasswordAction, FragmentForgotPasswordBinding, ForgotPasswordViewModel>(
         FragmentForgotPasswordBinding::inflate
     ) {
 
@@ -21,6 +21,9 @@ class ForgotPasswordFragment :
         btForgotPassword.setOnClickListener {
             viewModel.onForgotPasswordClicked(emailText())
         }
+    }
+
+    override fun observerShared(actions: ForgotPasswordAction) {
     }
 
     private fun emailText(): String = binding.edEmail.text.toString()

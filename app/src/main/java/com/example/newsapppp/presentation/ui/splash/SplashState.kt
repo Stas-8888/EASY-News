@@ -1,8 +1,6 @@
 package com.example.newsapppp.presentation.ui.splash
 
-import com.example.newsapppp.core.mvvm.State
-
-sealed class SplashState : State {
+sealed class SplashState {
 
     object Success : SplashState()
 

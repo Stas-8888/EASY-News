@@ -17,9 +17,10 @@ import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SaveFragment : BaseFragment<SaveState, FragmentSaveBinding, SaveFragmentViewModel>(
-    FragmentSaveBinding::inflate
-) {
+class SaveFragment :
+    BaseFragment<SaveState, SaveAction, FragmentSaveBinding, SaveFragmentViewModel>(
+        FragmentSaveBinding::inflate
+    ) {
     private val newsAdapter by lazy { NewsAdapter() }
     override val viewModel by viewModels<SaveFragmentViewModel>()
 
@@ -39,6 +40,10 @@ class SaveFragment : BaseFragment<SaveState, FragmentSaveBinding, SaveFragmentVi
                 navigateDirections(SaveFragmentDirections.actionSaveFragmentToNewsFragment(it))
             }
         }
+    }
+
+    override fun observerShared(actions: SaveAction) {
+
     }
 
     override fun observerState(state: SaveState) {

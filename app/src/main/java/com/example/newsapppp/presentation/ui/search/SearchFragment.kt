@@ -13,9 +13,10 @@ import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchFragment : BaseFragment<SearchState, FragmentSearchBinding, SearchFragmentViewModel>(
-    FragmentSearchBinding::inflate
-) {
+class SearchFragment :
+    BaseFragment<SearchState, SearchAction, FragmentSearchBinding, SearchFragmentViewModel>(
+        FragmentSearchBinding::inflate
+    ) {
     private val newsAdapter by lazy { NewsAdapter() }
     override val viewModel by viewModels<SearchFragmentViewModel>()
 
@@ -38,6 +39,9 @@ class SearchFragment : BaseFragment<SearchState, FragmentSearchBinding, SearchFr
         newsAdapter.setOnItemClickListener {
             viewModel.onItemClicked(it)
         }
+    }
+
+    override fun observerShared(actions: SearchAction) {
     }
 
     override fun observerState(state: SearchState) {

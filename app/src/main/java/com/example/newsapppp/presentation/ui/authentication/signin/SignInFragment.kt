@@ -43,10 +43,6 @@ class SignInFragment :
                 loginProgress.visible()
                 showSnackBarString(requireView(), state.data)
             }
-            is SignInState.NavigateForgotPassword -> navigateTo(state.navigateForgotPassword)
-            is SignInState.NavigateSkip -> navigateDirections(state.navigateToSkip)
-            is SignInState.NavigateSignUp -> navigateDirections(state.navigateSignUp)
-            is SignInState.Navigate -> navigateTo(state.navigateTo)
             is SignInState.CheckEmail -> emailContainer.helperText = state.data
             is SignInState.CheckPassword -> loginPasswordContainer.helperText = state.data
         }
@@ -54,7 +50,7 @@ class SignInFragment :
 
     override fun observerShared(actions: SignInAction) {
         when (actions) {
-            is SignInAction.Navigate -> navigateTo(actions.navigateTo)
+            is SignInAction.Navigate -> navigateDirections(actions.navigateTo)
         }
     }
 }

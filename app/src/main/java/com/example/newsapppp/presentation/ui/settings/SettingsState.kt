@@ -1,8 +1,6 @@
 package com.example.newsapppp.presentation.ui.settings
 
-import com.example.newsapppp.core.mvvm.State
-
-sealed class SettingsState : State {
+sealed class SettingsState {
 
     data class Account(
         val message: String,

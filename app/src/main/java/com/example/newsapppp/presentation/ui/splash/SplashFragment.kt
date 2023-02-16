@@ -11,9 +11,10 @@ import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SplashFragment : BaseFragment<SplashState, FragmentSplashBinding, SplashViewModel>(
-    FragmentSplashBinding::inflate
-) {
+class SplashFragment :
+    BaseFragment<SplashState, SplashAction, FragmentSplashBinding, SplashViewModel>(
+        FragmentSplashBinding::inflate
+    ) {
     override val viewModel by viewModels<SplashViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
@@ -27,6 +28,8 @@ class SplashFragment : BaseFragment<SplashState, FragmentSplashBinding, SplashVi
     }
 
     override fun onClickListener() = with(binding) { }
+    override fun observerShared(actions: SplashAction) {
+    }
 
     override fun observerState(state: SplashState) {
         when (state) {

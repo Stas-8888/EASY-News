@@ -2,10 +2,9 @@ package com.example.newsapppp.presentation.ui.main
 
 import androidx.navigation.NavDirections
 import androidx.paging.PagingData
-import com.example.newsapppp.core.mvvm.State
 import com.example.newsapppp.presentation.model.Article
 
-sealed class MainState : State {
+sealed class MainState {
 
     object ShowLoading : MainState()
 

@@ -15,9 +15,10 @@ import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentViewModel>(
-    FragmentNewsBinding::inflate
-) {
+class NewsFragment :
+    BaseFragment<NewsState, NewsAction, FragmentNewsBinding, NewsFragmentViewModel>(
+        FragmentNewsBinding::inflate
+    ) {
     private val args: NewsFragmentArgs by navArgs()
     override val viewModel by viewModels<NewsFragmentViewModel>()
     private val article by lazy { args.article }
@@ -49,6 +50,9 @@ class NewsFragment : BaseFragment<NewsState, FragmentNewsBinding, NewsFragmentVi
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+    }
+
+    override fun observerShared(actions: NewsAction) {
     }
 
     private fun setupWebView() {
