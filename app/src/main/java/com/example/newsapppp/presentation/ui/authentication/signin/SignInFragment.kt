@@ -14,9 +14,6 @@ class SignInFragment :
     override val viewModel by viewModels<SignInViewModel>()
 
     override fun onClickListener() = with(binding) {
-        btForgotPassword.setOnClickListener { viewModel.onForgotPasswordClicked() }
-        btSkip.setOnClickListener { viewModel.onSkipClicked() }
-        btLoginSignup.setOnClickListener { viewModel.onSignUpClicked() }
         edLogin.changesListener {
             viewModel.isEmailChanged(emailText())
             hideKeyboard(requireActivity(), edLogin)
@@ -25,7 +22,18 @@ class SignInFragment :
             viewModel.isPasswordChanged(passwordText())
             hideKeyboard(requireActivity(), edLoginPassword)
         }
-        btSignIn.setOnClickListener { viewModel.signInButtonClicked(emailText(), passwordText()) }
+        btSignIn.setOnClickListener {
+            viewModel.onSignInButtonClicked(emailText(), passwordText())
+        }
+        btForgotPassword.setOnClickListener {
+            viewModel.onForgotPasswordClicked()
+        }
+        btLoginSignup.setOnClickListener {
+            viewModel.onSignUpClicked()
+        }
+        btSkip.setOnClickListener {
+            viewModel.onSkipClicked()
+        }
     }
 
     private fun emailText(): String = binding.edLogin.text.toString()

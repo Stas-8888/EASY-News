@@ -28,7 +28,7 @@ class SignInViewModel @Inject constructor(
     override val _shared = MutableSharedFlow<SignInAction>()
     override val shared = _shared.asSharedFlow()
 
-    fun signInButtonClicked(email: String, password: String) = launchCoroutine {
+    fun onSignInButtonClicked(email: String, password: String) = launchCoroutine {
         when {
             email.isEmpty() -> emit(SignInState.Failure(provideResources.string(R.string.empty_email)))
             password.isEmpty() -> emit(SignInState.Failure(provideResources.string(R.string.empty_password)))
