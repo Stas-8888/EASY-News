@@ -56,7 +56,6 @@ abstract class BaseFragment<State, Action, VB : ViewBinding, VM : BaseViewModel<
         }
     }
 
-
     abstract fun onClickListener()
     abstract fun observerState(state: State)
     abstract fun observerShared(actions: Action)

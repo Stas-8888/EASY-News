@@ -24,7 +24,7 @@ fun Fragment.navigateTo(where: Int) = findNavController().navigate(where)
 fun Fragment.navigateDirections(where: NavDirections) = findNavController().navigate(where)
 
 fun Fragment.launchWhenStarted(block: suspend CoroutineScope.() -> Unit) {
-    lifecycleScope.launchWhenStarted(block)
+    viewLifecycleOwner.lifecycleScope.launchWhenStarted(block)
 }
 
 fun Fragment.loadColor(@ColorRes colorRes: Int): Int {
