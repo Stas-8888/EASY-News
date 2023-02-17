@@ -52,9 +52,6 @@ class NewsFragment :
         }
     }
 
-    override fun observerShared(actions: NewsAction) {
-    }
-
     private fun setupWebView() {
         binding.webView.apply {
             binding.webView.webViewClient = WebViewClient()
@@ -74,9 +71,15 @@ class NewsFragment :
             }
             is NewsState.Error -> {
                 btFavorite.invisible()
-                showSnackBarInt(btFavorite, state.message)
+                showSnackBarInt(state.message)
             }
             is NewsState.ShowFavoriteIcon -> setImageResource(state.favoriteIcon)
+        }
+    }
+
+    override fun observerShared(actions: NewsAction) {
+        when (actions) {
+            is NewsAction.Message -> showSnackBarInt(actions.message)
         }
     }
 

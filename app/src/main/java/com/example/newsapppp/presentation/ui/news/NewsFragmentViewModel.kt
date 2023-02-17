@@ -57,7 +57,7 @@ class NewsFragmentViewModel @Inject constructor(
                 emit(NewsState.DeleteFavorite(R.string.Delete_Article, favoritesIconUnselected))
             }
         } else {
-            emit(NewsState.Error(R.string.error_registered))
+            emitShared(NewsAction.Message(R.string.error_registered))
         }
     }
 }

@@ -52,8 +52,8 @@ fun Fragment.showSnackBarCansel(
             }.show()
 }
 
-fun Fragment.showSnackBarInt(view: View, title: Int) {
-    Snackbar.make(view, title, 1800)
+fun Fragment.showSnackBarInt(title: Int) {
+    Snackbar.make(requireView(), title, 1800)
         .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
         .setBackgroundTint(loadColor(R.color.colorRedBackground))
         .setTextColor(Color.WHITE)
