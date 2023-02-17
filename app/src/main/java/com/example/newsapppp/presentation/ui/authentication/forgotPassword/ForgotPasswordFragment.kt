@@ -3,7 +3,6 @@ package com.example.newsapppp.presentation.ui.authentication.forgotPassword
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.databinding.FragmentForgotPasswordBinding
 import com.example.newsapppp.presentation.extensions.changesListener
-import com.example.newsapppp.presentation.extensions.navigateTo
 import com.example.newsapppp.presentation.extensions.showSnackBarString
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,18 +22,20 @@ class ForgotPasswordFragment :
         }
     }
 
-    override fun observerShared(actions: ForgotPasswordAction) {
-    }
-
     private fun emailText(): String = binding.edEmail.text.toString()
 
     override fun observerState(state: ForgotPasswordState<String>) {
         when (state) {
             is ForgotPasswordState.Loading -> {}
-            is ForgotPasswordState.Failure -> showSnackBarString(requireView(), state.error)
             is ForgotPasswordState.Success -> showSnackBarString(requireView(), state.data)
-            is ForgotPasswordState.Navigate -> navigateTo(state.navigateTo)
             is ForgotPasswordState.CheckEmail -> binding.emailContainer.helperText = state.data
+        }
+    }
+
+    override fun observerShared(actions: ForgotPasswordAction) {
+        when (actions) {
+            is ForgotPasswordAction.Message -> showSnackBarString(requireView(), actions.message)
+
         }
     }
 }

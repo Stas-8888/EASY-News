@@ -28,13 +28,13 @@ class ForgotPasswordViewModel @Inject constructor(
 
     fun onForgotPasswordClicked(email: String) = launchCoroutine {
         when {
-            email.isEmpty() -> emit(ForgotPasswordState.Failure(provideResources.string(R.string.empty_email)))
+            email.isEmpty() -> emitShared(ForgotPasswordAction.Message(provideResources.string(R.string.empty_email)))
             else -> {
                 forgotPassword.forgotPassword(email)
                     .addOnSuccessListener {
-                        emit(ForgotPasswordState.Failure(provideResources.string(R.string.email_sent)))
+                        emitShared(ForgotPasswordAction.Message(provideResources.string(R.string.email_sent)))
                     }.addOnFailureListener {
-                        emit(ForgotPasswordState.Failure(it.message))
+                        emitShared(ForgotPasswordAction.Message(it.message))
                     }
             }
         }
