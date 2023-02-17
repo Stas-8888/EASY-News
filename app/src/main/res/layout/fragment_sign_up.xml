@@ -197,7 +197,7 @@
             app:layout_constraintTop_toBottomOf="@+id/loginPasswordContainer" />
 
         <TextView
-            android:id="@+id/register_signin"
+            android:id="@+id/bt_sign_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -230,7 +230,7 @@
             app:layout_constraintEnd_toStartOf="@+id/imageView"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toEndOf="@+id/register_signin"
+            app:layout_constraintStart_toEndOf="@+id/bt_sign_in"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/register_button" />
 

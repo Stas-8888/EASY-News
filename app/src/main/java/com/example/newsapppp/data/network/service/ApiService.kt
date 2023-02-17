@@ -1,11 +1,11 @@
 package com.example.newsapppp.data.network.service
 
+import com.example.newsapppp.BuildConfig
 import com.example.newsapppp.data.network.model.NewsResponseRemote
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-//private const val API_KEY = BuildConfig.API_KEY
-private const val API_KEY = "a0e436b60013442b85ed2ab11d93dbfb"
+private const val API_KEY = BuildConfig.API_KEY
 
 interface ApiService {
     @GET("v2/top-headlines")

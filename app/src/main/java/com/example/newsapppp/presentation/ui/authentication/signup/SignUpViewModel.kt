@@ -58,27 +58,31 @@ class SignUpViewModel @Inject constructor(
         password: String,
     ) = launchCoroutine {
         when {
-            email.isEmpty() -> failure(R.string.empty_email)
-            password.isEmpty() -> failure(R.string.empty_password)
+            email.isEmpty() -> message(R.string.empty_email)
+            password.isEmpty() -> message(R.string.empty_password)
             else -> {
                 signUpUseCase.signUp(name, email, password)
                     .addOnSuccessListener {
-                        emit(SignUpState.Success(provideResources.string(R.string.successfully_register)))
-                        emit(SignUpState.Navigate(R.id.signInFragment))
+                        message(R.string.successfully_register)
+                        emitShared(SignUpAction.Navigate(SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()))
                     }
                     .addOnFailureListener {
                         when (it) {
-                            is FirebaseAuthWeakPasswordException -> failure(R.string.password_lengs_6)
-                            is FirebaseAuthInvalidCredentialsException -> failure(R.string.invalid_email)
-                            is FirebaseAuthUserCollisionException -> failure(R.string.email_registered)
-                            else -> failure(R.string.invalid_authentication)
+                            is FirebaseAuthWeakPasswordException -> message(R.string.password_lengs_6)
+                            is FirebaseAuthInvalidCredentialsException -> message(R.string.invalid_email)
+                            is FirebaseAuthUserCollisionException -> message(R.string.email_registered)
+                            else -> message(R.string.invalid_authentication)
                         }
                     }
             }
         }
     }
 
-    private fun failure(message: Int): Job {
-        return emit(SignUpState.Failure(provideResources.string(message)))
+    fun onBtSignInClicked(){
+        emitShared(SignUpAction.Navigate(SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()))
+    }
+
+    private fun message(message: Int): Job {
+        return emitShared(SignUpAction.Message(provideResources.string(message)))
     }
 }

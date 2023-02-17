@@ -2,7 +2,7 @@ package com.example.newsapppp.presentation.ui.authentication.forgotPassword
 
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.databinding.FragmentForgotPasswordBinding
-import com.example.newsapppp.presentation.extensions.changesListener
+import com.example.newsapppp.presentation.extensions.textChangeListener
 import com.example.newsapppp.presentation.extensions.showSnackBarString
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,7 +16,7 @@ class ForgotPasswordFragment :
     override val viewModel by viewModels<ForgotPasswordViewModel>()
 
     override fun onClickListener() = with(binding) {
-        edEmail.changesListener { viewModel.isEmailChanged(emailText()) }
+        edEmail.textChangeListener { viewModel.isEmailChanged(emailText()) }
         btForgotPassword.setOnClickListener {
             viewModel.onForgotPasswordClicked(emailText())
         }
@@ -35,7 +35,6 @@ class ForgotPasswordFragment :
     override fun observerShared(actions: ForgotPasswordAction) {
         when (actions) {
             is ForgotPasswordAction.Message -> showSnackBarString(requireView(), actions.message)
-
         }
     }
 }

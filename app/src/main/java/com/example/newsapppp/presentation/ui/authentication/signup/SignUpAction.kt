@@ -1,6 +1,8 @@
 package com.example.newsapppp.presentation.ui.authentication.signup
 
-sealed class SignUpAction {
+import androidx.navigation.NavDirections
 
-    data class Navigate(val navigateTo: Int) : SignUpAction()
+sealed class SignUpAction {
+    data class Navigate(val navigateTo: NavDirections) : SignUpAction()
+    data class Message(val message: String?) : SignUpAction()
 }

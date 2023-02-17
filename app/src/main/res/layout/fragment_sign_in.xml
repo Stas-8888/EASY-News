@@ -154,7 +154,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btSignIn" />
 
     <TextView
-        android:id="@+id/bt_login_signup"
+        android:id="@+id/bt_sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -176,7 +176,7 @@
         android:textColor="@color/grey_one"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/log"
-        app:layout_constraintTop_toBottomOf="@+id/bt_login_signup" />
+        app:layout_constraintTop_toBottomOf="@+id/bt_sign_up" />
 
     <ImageView
         android:id="@+id/imageView7"

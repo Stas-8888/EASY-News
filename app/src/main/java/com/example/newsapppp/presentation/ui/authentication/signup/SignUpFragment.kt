@@ -1,9 +1,11 @@
 package com.example.newsapppp.presentation.ui.authentication.signup
 
 import androidx.fragment.app.viewModels
-import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSignUpBinding
-import com.example.newsapppp.presentation.extensions.*
+import com.example.newsapppp.presentation.extensions.textChangeListener
+import com.example.newsapppp.presentation.extensions.invisible
+import com.example.newsapppp.presentation.extensions.navigateDirections
+import com.example.newsapppp.presentation.extensions.showSnackBarString
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,14 +25,11 @@ class SignUpFragment :
             )
         }
 
-        fullName.changesListener { isValid() }
-        email.changesListener { isValid() }
-        edPassword.changesListener { isValid() }
-        confirmPassword.changesListener { isValid() }
-        registerSignin.setOnClickListener { navigateTo(R.id.signInFragment) }
-    }
-
-    override fun observerShared(actions: SignUpAction) {
+        fullName.textChangeListener { isValid() }
+        email.textChangeListener { isValid() }
+        edPassword.textChangeListener { isValid() }
+        confirmPassword.textChangeListener { isValid() }
+        btSignIn.setOnClickListener { viewModel.onBtSignInClicked() }
     }
 
     private fun isValid() {
@@ -54,17 +53,6 @@ class SignUpFragment :
                 is SignUpState.Loading -> {
                     loginProgress.invisible()
                 }
-                is SignUpState.Failure -> {
-                    loginProgress.visible()
-                    showSnackBarString(requireView(), state.error)
-                }
-                is SignUpState.Success -> {
-                    loginProgress.visible()
-                    showSnackBarString(requireView(), state.data)
-                }
-                is SignUpState.Navigate -> {
-                    navigateTo(state.navigateTo)
-                }
                 is SignUpState.CheckState -> {
                     fullNameContainer.helperText = state.name
                     emailContainer.helperText = state.email
@@ -72,6 +60,13 @@ class SignUpFragment :
                     loginPasswordContainer.helperText = state.repeatPassword
                 }
             }
+        }
+    }
+
+    override fun observerShared(actions: SignUpAction) {
+        when (actions) {
+            is SignUpAction.Navigate -> navigateDirections(actions.navigateTo)
+            is SignUpAction.Message -> showSnackBarString(requireView(), actions.message)
         }
     }
 }
