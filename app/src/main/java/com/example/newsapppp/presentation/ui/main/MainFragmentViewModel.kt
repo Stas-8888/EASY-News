@@ -3,7 +3,6 @@ package com.example.newsapppp.presentation.ui.main
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import androidx.paging.filter
-import com.example.newsapppp.R
 import com.example.newsapppp.data.network.interceptor.ErrorsInterceptorContract
 import com.example.newsapppp.domain.interactors.articleRemote.GetNewsUseCase
 import com.example.newsapppp.domain.interactors.preference.GetCountryFlagUseCase
@@ -47,7 +46,7 @@ class MainFragmentViewModel @Inject constructor(
     fun interceptorErrors() = launchCoroutine {
         interceptorErrors.errorsInterceptor().collect() {
             if (it.isNotEmpty()) {
-                emit(MainState.Error(it))
+                emitShared(MainAction.Message(it))
             }
         }
     }
@@ -58,8 +57,8 @@ class MainFragmentViewModel @Inject constructor(
     }
 
     fun onNewsAdapterClicked(article: Article) {
-        emit(
-            MainState.AdapterClicked(
+        emitShared(
+            MainAction.Navigate(
                 MainFragmentDirections.actionMainFragmentToNewsFragment(
                     article
                 )
@@ -68,6 +67,7 @@ class MainFragmentViewModel @Inject constructor(
     }
 
     fun onBtSettingsClicked() {
-        emit(MainState.SettingsClicked(R.id.action_mainFragment_to_settingsFragment))
+        emitShared(
+            MainAction.Navigate(MainFragmentDirections.actionMainFragmentToSettingsFragment()))
     }
 }

@@ -1,6 +1,8 @@
 package com.example.newsapppp.presentation.ui.main
 
-sealed class MainAction {
+import androidx.navigation.NavDirections
 
-    data class Navigate(val navigateTo: Int) : MainAction()
+sealed class MainAction {
+    data class Navigate(val navigateTo: NavDirections) : MainAction()
+    data class Message(val message: String?) : MainAction()
 }

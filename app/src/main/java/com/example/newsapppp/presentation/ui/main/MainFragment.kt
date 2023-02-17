@@ -16,7 +16,10 @@ import com.example.newsapppp.R
 import com.example.newsapppp.core.SimpleTabSelectedListener
 import com.example.newsapppp.databinding.FragmentMainBinding
 import com.example.newsapppp.presentation.adapters.NewsPagerAdapter
-import com.example.newsapppp.presentation.extensions.*
+import com.example.newsapppp.presentation.extensions.invisible
+import com.example.newsapppp.presentation.extensions.navigateDirections
+import com.example.newsapppp.presentation.extensions.showSnackBarString
+import com.example.newsapppp.presentation.extensions.visible
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
 import com.muddassir.connection_checker.ConnectionState
@@ -24,9 +27,10 @@ import com.muddassir.connection_checker.ConnectivityListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainFragment : BaseFragment<MainState, MainAction, FragmentMainBinding, MainFragmentViewModel>(
-    FragmentMainBinding::inflate
-), ConnectivityListener {
+class MainFragment :
+    BaseFragment<MainState, MainAction, FragmentMainBinding, MainFragmentViewModel>(
+        FragmentMainBinding::inflate
+    ), ConnectivityListener {
 
     private val newsAdapter by lazy { NewsPagerAdapter() }
     override val viewModel by viewModels<MainFragmentViewModel>()
@@ -52,9 +56,6 @@ class MainFragment : BaseFragment<MainState, MainAction, FragmentMainBinding, Ma
         }
     }
 
-    override fun observerShared(actions: MainAction) {
-    }
-
     private fun setupRecyclerView() = with(binding) {
         rvNews.apply {
             adapter = newsAdapter
@@ -78,14 +79,18 @@ class MainFragment : BaseFragment<MainState, MainAction, FragmentMainBinding, Ma
     override fun observerState(state: MainState) = with(binding) {
         when (state) {
             is MainState.ShowLoading -> progressBar.visible()
-            is MainState.SettingsClicked -> navigateTo(state.navigate)
-            is MainState.AdapterClicked -> navigateDirections(state.navigate)
             is MainState.SetupUi -> {
                 newsAdapter.submitData(lifecycle, state.article)
                 tvCountry.text = state.countryFlag
             }
             is MainState.BottomVisibility -> fabUp.isVisible = state.state
-            is MainState.Error -> showSnackBarString(requireView(), state.exception)
+        }
+    }
+
+    override fun observerShared(actions: MainAction) {
+        when (actions) {
+            is MainAction.Message -> showSnackBarString(requireView(), actions.message)
+            is MainAction.Navigate -> navigateDirections(actions.navigateTo)
         }
     }
 
