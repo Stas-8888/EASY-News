@@ -1,7 +1,6 @@
 package com.example.newsapppp.presentation.ui.authentication.forgotPassword
 
 import com.example.newsapppp.R
-import com.example.newsapppp.core.ProvideResourcesContract
 import com.example.newsapppp.domain.interactors.authentication.ForgotPasswordUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidateEmailUseCase
 import com.example.newsapppp.presentation.extensions.launchCoroutine
@@ -16,8 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ForgotPasswordViewModel @Inject constructor(
     private val forgotPassword: ForgotPasswordUseCase,
-    private val validateEmail: ValidateEmailUseCase,
-    private val provideResources: ProvideResourcesContract
+    private val validateEmail: ValidateEmailUseCase
 ) : BaseViewModel<ForgotPasswordState<String>, ForgotPasswordAction>() {
 
     override val _state = MutableStateFlow<ForgotPasswordState<String>>(ForgotPasswordState.Loading)
@@ -28,13 +26,13 @@ class ForgotPasswordViewModel @Inject constructor(
 
     fun onForgotPasswordClicked(email: String) = launchCoroutine {
         when {
-            email.isEmpty() -> emitShared(ForgotPasswordAction.Message(provideResources.string(R.string.empty_email)))
+            email.isEmpty() -> emitShared(ForgotPasswordAction.Message(R.string.empty_email))
             else -> {
                 forgotPassword.forgotPassword(email)
                     .addOnSuccessListener {
-                        emitShared(ForgotPasswordAction.Message(provideResources.string(R.string.email_sent)))
+                        emitShared(ForgotPasswordAction.Message(R.string.email_sent))
                     }.addOnFailureListener {
-                        emitShared(ForgotPasswordAction.Message(it.message))
+                        emitShared(ForgotPasswordAction.Message(it.message?.toInt() ?: 0))
                     }
             }
         }

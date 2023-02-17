@@ -1,7 +1,6 @@
 package com.example.newsapppp.presentation.ui.authentication.signin
 
 import com.example.newsapppp.R
-import com.example.newsapppp.core.ProvideResourcesContract
 import com.example.newsapppp.domain.interactors.authentication.SignInUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidateEmailUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidatePasswordUseCase
@@ -18,8 +17,7 @@ import javax.inject.Inject
 class SignInViewModel @Inject constructor(
     private val signIn: SignInUseCase,
     private val validateEmail: ValidateEmailUseCase,
-    private val validatePassword: ValidatePasswordUseCase,
-    private val provideResources: ProvideResourcesContract
+    private val validatePassword: ValidatePasswordUseCase
 ) : BaseViewModel<SignInState<String>, SignInAction>() {
 
     override val _state = MutableStateFlow<SignInState<String>>(SignInState.Loading)
@@ -30,15 +28,15 @@ class SignInViewModel @Inject constructor(
 
     fun onSignInButtonClicked(email: String, password: String) = launchCoroutine {
         when {
-            email.isEmpty() -> emitShared(SignInAction.Message(provideResources.string(R.string.empty_email)))
-            password.isEmpty() -> emitShared(SignInAction.Message(provideResources.string(R.string.empty_password)))
+            email.isEmpty() -> emitShared(SignInAction.Message(R.string.empty_email))
+            password.isEmpty() -> emitShared(SignInAction.Message(R.string.empty_password))
             else -> {
                 signIn.signIn(email, password)
                     .addOnSuccessListener {
-                        emitShared(SignInAction.Message(provideResources.string(R.string.successfully_sign_in)))
+                        emitShared(SignInAction.Message(R.string.successfully_sign_in))
                         emitShared(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment()))
                     }.addOnFailureListener {
-                        emitShared(SignInAction.Message(provideResources.string(R.string.authentication_failed)))
+                        emitShared(SignInAction.Message(R.string.authentication_failed))
                     }
             }
         }

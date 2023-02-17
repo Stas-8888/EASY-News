@@ -12,7 +12,7 @@ import com.example.newsapppp.databinding.FragmentSettingsBinding
 import com.example.newsapppp.databinding.NewNameDialogBinding
 import com.example.newsapppp.presentation.extensions.navigateTo
 import com.example.newsapppp.presentation.extensions.showSnackBarCansel
-import com.example.newsapppp.presentation.extensions.showSnackBarInt
+import com.example.newsapppp.presentation.extensions.showSnackBar
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -52,7 +52,7 @@ class SettingsFragment :
                 imCountry.setImageResource(state.flag)
             }
             is SettingsState.SaveCurrentCountry -> {
-                showSnackBarInt(requireView(), state.countryName)
+                showSnackBar(state.countryName)
                 imCountry.setImageResource(state.countryFlag)
             }
             is SettingsState.Navigate -> navigateTo(state.navigation)

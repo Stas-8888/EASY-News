@@ -71,7 +71,7 @@ class NewsFragment :
             }
             is NewsState.Error -> {
                 btFavorite.invisible()
-                showSnackBarInt(state.message)
+                showSnackBar(state.message)
             }
             is NewsState.ShowFavoriteIcon -> setImageResource(state.favoriteIcon)
         }
@@ -79,7 +79,7 @@ class NewsFragment :
 
     override fun observerShared(actions: NewsAction) {
         when (actions) {
-            is NewsAction.Message -> showSnackBarInt(actions.message)
+            is NewsAction.Message -> showSnackBar(actions.message)
         }
     }
 

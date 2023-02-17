@@ -2,8 +2,8 @@ package com.example.newsapppp.presentation.ui.authentication.forgotPassword
 
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.databinding.FragmentForgotPasswordBinding
+import com.example.newsapppp.presentation.extensions.showSnackBar
 import com.example.newsapppp.presentation.extensions.textChangeListener
-import com.example.newsapppp.presentation.extensions.showSnackBarString
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,14 +27,13 @@ class ForgotPasswordFragment :
     override fun observerState(state: ForgotPasswordState<String>) {
         when (state) {
             is ForgotPasswordState.Loading -> {}
-            is ForgotPasswordState.Success -> showSnackBarString(requireView(), state.data)
             is ForgotPasswordState.CheckEmail -> binding.emailContainer.helperText = state.data
         }
     }
 
     override fun observerShared(actions: ForgotPasswordAction) {
         when (actions) {
-            is ForgotPasswordAction.Message -> showSnackBarString(requireView(), actions.message)
+            is ForgotPasswordAction.Message -> showSnackBar(actions.message)
         }
     }
 }

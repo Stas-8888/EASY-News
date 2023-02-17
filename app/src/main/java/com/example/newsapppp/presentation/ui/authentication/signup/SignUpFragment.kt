@@ -2,10 +2,10 @@ package com.example.newsapppp.presentation.ui.authentication.signup
 
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.databinding.FragmentSignUpBinding
-import com.example.newsapppp.presentation.extensions.textChangeListener
 import com.example.newsapppp.presentation.extensions.invisible
 import com.example.newsapppp.presentation.extensions.navigateDirections
-import com.example.newsapppp.presentation.extensions.showSnackBarString
+import com.example.newsapppp.presentation.extensions.showSnackBar
+import com.example.newsapppp.presentation.extensions.textChangeListener
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,7 +18,7 @@ class SignUpFragment :
 
     override fun onClickListener() = with(binding) {
         registerButton.setOnClickListener {
-            viewModel.signUnButtonClicked(
+            viewModel.onSignUnButtonClicked(
                 fullNameText(),
                 emailText(),
                 passwordText(),
@@ -29,7 +29,7 @@ class SignUpFragment :
         email.textChangeListener { isValid() }
         edPassword.textChangeListener { isValid() }
         confirmPassword.textChangeListener { isValid() }
-        btSignIn.setOnClickListener { viewModel.onBtSignInClicked() }
+        btSignIn.setOnClickListener { viewModel.onSignInBottomClicked() }
     }
 
     private fun isValid() {
@@ -66,7 +66,7 @@ class SignUpFragment :
     override fun observerShared(actions: SignUpAction) {
         when (actions) {
             is SignUpAction.Navigate -> navigateDirections(actions.navigateTo)
-            is SignUpAction.Message -> showSnackBarString(requireView(), actions.message)
+            is SignUpAction.Message -> showSnackBar(actions.message)
         }
     }
 }

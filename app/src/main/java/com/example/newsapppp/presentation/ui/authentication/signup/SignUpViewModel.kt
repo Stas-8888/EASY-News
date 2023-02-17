@@ -1,7 +1,6 @@
 package com.example.newsapppp.presentation.ui.authentication.signup
 
 import com.example.newsapppp.R
-import com.example.newsapppp.core.ProvideResourcesContract
 import com.example.newsapppp.domain.interactors.authentication.SignUpUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.FullNameUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidateEmailUseCase
@@ -27,7 +26,6 @@ class SignUpViewModel @Inject constructor(
     private val signUpUseCase: SignUpUseCase,
     private val validatePassword: ValidatePasswordUseCase,
     private val validateRepeatedPassword: ValidateRepeatedPasswordUseCase,
-    private val provideResources: ProvideResourcesContract
 ) : BaseViewModel<SignUpState<String>, SignUpAction>() {
 
     override val _state = MutableStateFlow<SignUpState<String>>(SignUpState.Loading)
@@ -52,7 +50,7 @@ class SignUpViewModel @Inject constructor(
         )
     }
 
-    fun signUnButtonClicked(
+    fun onSignUnButtonClicked(
         name: String,
         email: String,
         password: String,
@@ -78,11 +76,11 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    fun onBtSignInClicked(){
+    fun onSignInBottomClicked() {
         emitShared(SignUpAction.Navigate(SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()))
     }
 
     private fun message(message: Int): Job {
-        return emitShared(SignUpAction.Message(provideResources.string(message)))
+        return emitShared(SignUpAction.Message(message))
     }
 }
