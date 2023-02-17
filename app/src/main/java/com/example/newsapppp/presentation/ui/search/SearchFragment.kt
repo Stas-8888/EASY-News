@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapppp.databinding.FragmentSearchBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
 import com.example.newsapppp.presentation.extensions.navigateDirections
-import com.example.newsapppp.presentation.extensions.showSnackBarString
+import com.example.newsapppp.presentation.extensions.showSnackBar
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,7 +32,6 @@ class SearchFragment :
     override fun onClickListener() = with(binding) {
         etSearch.addTextChangedListener { editable ->
             editable?.let {
-//                hideKeyboard(requireActivity(), etSearch)
                 viewModel.searchTextListener(editable.toString())
             }
         }
@@ -41,15 +40,17 @@ class SearchFragment :
         }
     }
 
-    override fun observerShared(actions: SearchAction) {
-    }
-
     override fun observerState(state: SearchState) {
         when (state) {
             is SearchState.Loading -> {}
             is SearchState.ShowArticles -> newsAdapter.submitList(state.articles)
-            is SearchState.Error -> showSnackBarString(requireView(), state.message)
-            is SearchState.NavigationArgs -> navigateDirections(state.navDirections)
+        }
+    }
+
+    override fun observerShared(actions: SearchAction) {
+        when (actions) {
+            is SearchAction.Message -> showSnackBar(actions.message)
+            is SearchAction.Navigate -> navigateDirections(actions.navigateTo)
         }
     }
 }

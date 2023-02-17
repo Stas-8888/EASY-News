@@ -1,6 +1,8 @@
 package com.example.newsapppp.presentation.ui.search
 
-sealed class SearchAction {
+import androidx.navigation.NavDirections
 
-    data class Navigate(val navigateTo: Int) : SearchAction()
+sealed class SearchAction {
+    data class Navigate(val navigateTo: NavDirections) : SearchAction()
+    data class Message(val message: Int) : SearchAction()
 }

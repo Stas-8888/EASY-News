@@ -1,5 +1,6 @@
 package com.example.newsapppp.presentation.ui.search
 
+import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.articleRemote.SearchNewsUseCase
 import com.example.newsapppp.presentation.extensions.launchCoroutine
 import com.example.newsapppp.presentation.mapper.ArticleMapper
@@ -29,13 +30,13 @@ class SearchFragmentViewModel @Inject constructor(
             val data = searchNewsUseCase(searchQuery).articlesModel
             emit(SearchState.ShowArticles(mapper.mapToListArticle(data)))
         } else {
-            emit(SearchState.Error("Server error"))
+            emitShared(SearchAction.Message(R.string.server_error))
         }
     }
 
     fun onItemClicked(article: Article) {
-        emit(
-            SearchState.NavigationArgs(
+        emitShared(
+            SearchAction.Navigate(
                 SearchFragmentDirections.actionSearchFragmentToNewsFragment(
                     article
                 )
