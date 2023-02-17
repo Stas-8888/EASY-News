@@ -37,13 +37,9 @@ class SaveFragment :
                 showDeleteDialog({ viewModel.onDeleteAllArticleClicked() }, { })
             }
             newsAdapter.setOnItemClickListener {
-                navigateDirections(SaveFragmentDirections.actionSaveFragmentToNewsFragment(it))
+                viewModel.onNewsAdapterItemClicked(it)
             }
         }
-    }
-
-    override fun observerShared(actions: SaveAction) {
-
     }
 
     override fun observerState(state: SaveState) {
@@ -65,6 +61,13 @@ class SaveFragment :
                 }
             }
         }
+    }
+
+    override fun observerShared(actions: SaveAction) {
+        when (actions) {
+            is SaveAction.Navigate -> navigateDirections(actions.navigateTo)
+        }
+
     }
 
     private fun swipeToDelete() = with(binding) {
