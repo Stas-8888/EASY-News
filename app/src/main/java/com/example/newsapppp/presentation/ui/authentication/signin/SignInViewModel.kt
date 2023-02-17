@@ -30,15 +30,15 @@ class SignInViewModel @Inject constructor(
 
     fun onSignInButtonClicked(email: String, password: String) = launchCoroutine {
         when {
-            email.isEmpty() -> emit(SignInState.Failure(provideResources.string(R.string.empty_email)))
-            password.isEmpty() -> emit(SignInState.Failure(provideResources.string(R.string.empty_password)))
+            email.isEmpty() -> emitShared(SignInAction.Message(provideResources.string(R.string.empty_email)))
+            password.isEmpty() -> emitShared(SignInAction.Message(provideResources.string(R.string.empty_password)))
             else -> {
                 signIn.signIn(email, password)
                     .addOnSuccessListener {
-                        emit(SignInState.Success(provideResources.string(R.string.successfully_sign_in)))
+                        emitShared(SignInAction.Message(provideResources.string(R.string.successfully_sign_in)))
                         emitShared(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment()))
                     }.addOnFailureListener {
-                        emit(SignInState.Failure(provideResources.string(R.string.authentication_failed)))
+                        emitShared(SignInAction.Message(provideResources.string(R.string.authentication_failed)))
                     }
             }
         }

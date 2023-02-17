@@ -5,4 +5,6 @@ import androidx.navigation.NavDirections
 sealed class SignInAction {
 
     data class Navigate(val navigateTo: NavDirections) : SignInAction()
+
+    data class Message(val error: String?) : SignInAction()
 }

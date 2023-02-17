@@ -42,11 +42,6 @@ class SignInFragment :
     override fun observerState(state: SignInState<String>) = with(binding) {
         when (state) {
             is SignInState.Loading -> loginProgress.invisible()
-            is SignInState.Failure -> {
-                loginProgress.visible()
-                showSnackBarString(requireView(), state.error)
-                loginProgress.invisible()
-            }
             is SignInState.Success -> {
                 loginProgress.visible()
                 showSnackBarString(requireView(), state.data)
@@ -59,6 +54,7 @@ class SignInFragment :
     override fun observerShared(actions: SignInAction) {
         when (actions) {
             is SignInAction.Navigate -> navigateDirections(actions.navigateTo)
+            is SignInAction.Message -> showSnackBarString(requireView(), actions.error)
         }
     }
 }
