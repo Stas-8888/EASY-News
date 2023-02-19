@@ -31,16 +31,15 @@ class MainFragmentViewModel @Inject constructor(
     override val _shared = MutableSharedFlow<MainAction>()
     override val shared = _shared.asSharedFlow()
 
-    fun setupUi(category: String) = launchCoroutine {
+    fun setupAllArticle(category: String) = launchCoroutine {
         getNews(category).cachedIn(viewModelScope).collect() {
             val data = it.filter { article -> article.urlToImage != null && article.title != null }
-            emit(
-                MainState.SetupUi(
-                    article = mapper.mapToPagingArticle(data),
-                    countryFlag = getCountryFlag(Unit)
-                )
-            )
+            emit(MainState.GetPagingAllArticle(article = mapper.mapToPagingArticle(data)))
         }
+    }
+
+    fun setupCountryFlag(){
+        emit(MainState.CountryFlag(getCountryFlag(Unit)))
     }
 
     fun interceptorErrors() = launchCoroutine {

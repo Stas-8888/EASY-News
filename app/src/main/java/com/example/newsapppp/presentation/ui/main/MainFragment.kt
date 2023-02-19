@@ -40,7 +40,8 @@ class MainFragment :
         setupRecyclerView()
         viewModel.interceptorErrors()
         getCountryAndCategoryTabLayout()
-        viewModel.setupUi(categories.first())
+        viewModel.setupCountryFlag()
+        viewModel.setupAllArticle(categories.first())
     }
 
     override fun onClickListener() = with(binding) {
@@ -64,13 +65,19 @@ class MainFragment :
             toFirstRecyclerPosition()
 
             newsAdapter.addLoadStateListener { loadState ->
-                progressBar.isVisible = loadState.source.refresh is LoadState.Loading
-                tvCenterText.isVisible = loadState.source.refresh is LoadState.Loading
-                rvNews.isVisible = loadState.source.refresh is LoadState.NotLoading
-
-                if (loadState.source.refresh is LoadState.NotLoading && newsAdapter.itemCount < 1) {
-                    progressBar.invisible()
-                    tvCenterText.visible()
+                when (val state = loadState.refresh) {
+                    is LoadState.Error -> {
+                        progressBar.invisible()
+                        showSnackBarString(requireView(), state.error.message ?: "Some Error")
+                    }
+                    is LoadState.Loading -> {
+                        progressBar.visible()
+                        tvCenterText.visible()
+                    }
+                    is LoadState.NotLoading -> {
+                        progressBar.invisible()
+                        tvCenterText.invisible()
+                    }
                 }
             }
         }
@@ -78,11 +85,9 @@ class MainFragment :
 
     override fun observerState(state: MainState) = with(binding) {
         when (state) {
-            is MainState.ShowLoading -> progressBar.visible()
-            is MainState.SetupUi -> {
-                newsAdapter.submitData(lifecycle, state.article)
-                tvCountry.text = state.countryFlag
-            }
+            is MainState.ShowLoading -> {}
+            is MainState.GetPagingAllArticle -> newsAdapter.submitData(lifecycle, state.article)
+            is MainState.CountryFlag -> tvCountry.text = state.countryFlag
             is MainState.BottomVisibility -> fabUp.isVisible = state.state
         }
     }
@@ -97,7 +102,7 @@ class MainFragment :
     private fun getCountryAndCategoryTabLayout() {
         binding.tabMain.addOnTabSelectedListener(object : SimpleTabSelectedListener() {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                viewModel.setupUi(categories[tab.position])
+                viewModel.setupAllArticle(categories[tab.position])
             }
         })
     }

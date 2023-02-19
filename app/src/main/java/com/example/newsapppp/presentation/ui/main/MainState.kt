@@ -5,6 +5,7 @@ import com.example.newsapppp.presentation.model.Article
 
 sealed class MainState {
     object ShowLoading : MainState()
-    data class SetupUi(val article: PagingData<Article>, val countryFlag: String) : MainState()
+    data class GetPagingAllArticle(val article: PagingData<Article>) : MainState()
+    data class CountryFlag(val countryFlag: String) : MainState()
     data class BottomVisibility(val state: Boolean) : MainState()
 }
