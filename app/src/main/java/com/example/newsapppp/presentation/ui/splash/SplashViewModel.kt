@@ -1,7 +1,6 @@
 package com.example.newsapppp.presentation.ui.splash
 
 import androidx.appcompat.app.AppCompatDelegate
-import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.preference.GetSwitchPositionUseCase
 import com.example.newsapppp.presentation.extensions.launchCoroutine
 import com.example.newsapppp.presentation.ui.base.BaseViewModel
@@ -29,11 +28,9 @@ class SplashViewModel @Inject constructor(
 
     fun setupDayNightMode() {
         if (getSwitchPosition(Unit)) {
-            AppCompatDelegate
-                .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         } else {
-            AppCompatDelegate
-                .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
     }
 
@@ -41,9 +38,9 @@ class SplashViewModel @Inject constructor(
         delay(TimeUnit.SECONDS.toMillis(3))
 
         if (firebaseAuth.currentUser != null) {
-            emit(SplashState.Navigate(R.id.mainFragment))
+            emitShared(SplashAction.Navigate(SplashFragmentDirections.actionSplashFragmentToMainFragment()))
         } else {
-            emit(SplashState.Navigate(R.id.signInFragment))
+            emitShared(SplashAction.Navigate(SplashFragmentDirections.actionSplashFragmentToLoginFragment()))
         }
     }
 }

@@ -6,7 +6,7 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSplashBinding
-import com.example.newsapppp.presentation.extensions.navigateTo
+import com.example.newsapppp.presentation.extensions.navigateDirections
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,13 +28,10 @@ class SplashFragment :
     }
 
     override fun onClickListener() = with(binding) { }
+    override fun observerState(state: SplashState) {}
     override fun observerShared(actions: SplashAction) {
-    }
-
-    override fun observerState(state: SplashState) {
-        when (state) {
-            is SplashState.Success -> {}
-            is SplashState.Navigate -> navigateTo(state.navigateTo)
+        when (actions) {
+            is SplashAction.Navigate -> navigateDirections(actions.navigateTo)
         }
     }
 }

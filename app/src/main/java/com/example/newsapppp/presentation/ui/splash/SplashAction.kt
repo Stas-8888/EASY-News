@@ -1,6 +1,7 @@
 package com.example.newsapppp.presentation.ui.splash
 
-sealed class SplashAction {
+import androidx.navigation.NavDirections
 
-    data class Navigate(val navigateTo: Int) : SplashAction()
+sealed class SplashAction {
+    data class Navigate(val navigateTo: NavDirections) : SplashAction()
 }
