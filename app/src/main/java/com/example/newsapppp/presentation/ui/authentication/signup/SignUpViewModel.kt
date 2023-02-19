@@ -83,4 +83,8 @@ class SignUpViewModel @Inject constructor(
     private fun message(message: Int): Job {
         return emitShared(SignUpAction.Message(message))
     }
+
+    fun notEnabledYet(){
+        emitShared(SignUpAction.Message(R.string.not_enabled_yet))
+    }
 }

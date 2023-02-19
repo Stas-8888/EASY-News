@@ -3,10 +3,7 @@ package com.example.newsapppp.presentation.ui.base
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.presentation.extensions.launchCoroutine
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.*
 
 /**
  * Base class which represent ViewModel.

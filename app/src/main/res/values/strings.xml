@@ -94,4 +94,9 @@
     <string name="different_password">Different Password</string>
     <string name="recover_email_title">You can recover your email here</string>
     <string name="recover_email">Recover email</string>
+    <string name="not_enabled_yet">Not Enabled Yet</string>
+    <string name="want_delete">ХОТИТЕ УДАЛИТЬ ?</string>
+    <string name="delete">Удалить</string>
+    <string name="cansel">Отменить</string>
+    <string name="cant_return">без возврата</string>
 </resources>

@@ -57,7 +57,7 @@
         android:fontFamily="@font/worksansextrabold"
         android:gravity="center"
         android:text="@string/news"
-        android:textColor="#EFEFEF"
+        android:textColor="@color/background_text"
         android:textSize="80sp"
         android:textStyle="bold"
         app:layout_constrainedWidth="true"

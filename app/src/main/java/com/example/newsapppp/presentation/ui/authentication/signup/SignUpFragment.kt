@@ -17,6 +17,12 @@ class SignUpFragment :
     override val viewModel by viewModels<SignUpViewModel>()
 
     override fun onClickListener() = with(binding) {
+        btGoogle.setOnClickListener {
+            viewModel.notEnabledYet()
+        }
+        btFaceBook.setOnClickListener {
+            viewModel.notEnabledYet()
+        }
         registerButton.setOnClickListener {
             viewModel.onSignUnButtonClicked(
                 fullNameText(),

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -46,7 +45,7 @@
             android:elevation="10dp"
             android:fontFamily="@font/worksansmedium"
             android:gravity="center"
-            android:text="ХОТИТЕ УДАЛИТЬ ?"
+            android:text="@string/want_delete"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -63,13 +62,13 @@
             android:layout_marginBottom="6dp"
             android:backgroundTint="@color/colorBackground"
             android:fontFamily="@font/worksansmedium"
-            android:text="Удалить"
+            android:text="@string/delete"
             android:textColor="@color/colorPrimaryDark"
             app:cornerRadius="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintStart_toEndOf="@+id/btFaceBook"
             app:layout_constraintTop_toBottomOf="@+id/tvMassege"
             app:layout_constraintVertical_bias="0.0" />
 
@@ -83,16 +82,16 @@
             android:layout_marginBottom="6dp"
             android:backgroundTint="@color/colorBackground"
             android:fontFamily="@font/worksansmedium"
-            android:text="Отменить"
+            android:text="@string/cansel"
             android:textColor="@color/colorPrimaryDark"
             app:cornerRadius="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView2"
+            app:layout_constraintEnd_toStartOf="@+id/btFaceBook"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvMassege" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/btFaceBook"
             android:layout_width="32dp"
             android:layout_height="33dp"
             app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
@@ -108,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:fontFamily="@font/worksansmedium"
-            android:text="без возврата"
+            android:text="@string/cant_return"
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="@+id/tvMassege"
             app:layout_constraintStart_toStartOf="@+id/tvMassege"
