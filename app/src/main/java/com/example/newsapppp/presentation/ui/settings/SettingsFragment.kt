@@ -10,9 +10,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSettingsBinding
 import com.example.newsapppp.databinding.NewNameDialogBinding
-import com.example.newsapppp.presentation.extensions.navigateTo
-import com.example.newsapppp.presentation.extensions.showSnackBarCansel
+import com.example.newsapppp.presentation.extensions.navigateDirections
 import com.example.newsapppp.presentation.extensions.showSnackBar
+import com.example.newsapppp.presentation.extensions.showSnackBarCansel
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,6 +42,13 @@ class SettingsFragment :
     }
 
     override fun observerShared(actions: SettingsAction) {
+        when (actions) {
+            is SettingsAction.Navigate -> navigateDirections(actions.navigateTo)
+            is SettingsAction.Message -> showSnackBar(actions.message)
+            is SettingsAction.Account -> {
+                showSnackBarCansel(actions.message, actions.isError, actions.action)
+            }
+        }
     }
 
     override fun observerState(state: SettingsState) = with(binding) {
@@ -51,14 +58,7 @@ class SettingsFragment :
                 switchDayNight.isChecked = state.theme
                 imCountry.setImageResource(state.flag)
             }
-            is SettingsState.SaveCurrentCountry -> {
-                showSnackBar(state.countryName)
-                imCountry.setImageResource(state.countryFlag)
-            }
-            is SettingsState.Navigate -> navigateTo(state.navigation)
-            is SettingsState.Account -> {
-                showSnackBarCansel(requireView(), state.message, state.isError, state.action)
-            }
+            is SettingsState.SetCurrentCountry -> imCountry.setImageResource(state.countryFlag)
         }
     }
 

@@ -32,12 +32,11 @@ fun Fragment.loadColor(@ColorRes colorRes: Int): Int {
 }
 
 fun Fragment.showSnackBarCansel(
-    view: View,
     message: String,
     isError: Boolean = false,
     action: () -> Unit = {}
 ) {
-    val sb = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
+    val sb = Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG)
     if (isError)
         sb.setBackgroundTint(loadColor(R.color.colorRed))
             .setTextColor(loadColor(R.color.white))

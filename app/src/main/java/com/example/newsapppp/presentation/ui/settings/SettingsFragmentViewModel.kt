@@ -61,12 +61,12 @@ class SettingsFragmentViewModel @Inject constructor(
 
     fun onAccountClicked() = launchCoroutine {
         if (firebaseAuth.currentUser != null) {
-            emit(SettingsState.Account(
+            emitShared(SettingsAction.Account(
                 "Do you, want to sign out?",
                 true
             ) { firebaseAuth.signOut() })
         } else {
-            emit(SettingsState.Navigate(R.id.signInFragment))
+            emitShared(SettingsAction.Navigate(SettingsFragmentDirections.actionSettingsFragmentToSignInFragment()))
         }
     }
 
@@ -74,19 +74,23 @@ class SettingsFragmentViewModel @Inject constructor(
         when (item.itemId) {
             R.id.us -> {
                 saveCountryFlag(USA)
-                emit(SettingsState.SaveCurrentCountry(R.drawable.usa, R.string.American_News))
+                emit(SettingsState.SetCurrentCountry(R.drawable.usa))
+                emitShared((SettingsAction.Message(R.string.American_News)))
             }
             R.id.ru -> {
                 saveCountryFlag(RUSSIA)
-                emit(SettingsState.SaveCurrentCountry(R.drawable.russia, R.string.Russia_News))
+                emit(SettingsState.SetCurrentCountry(R.drawable.russia))
+                emitShared(SettingsAction.Message(R.string.Russia_News))
             }
             R.id.germany -> {
                 saveCountryFlag(GERMANY)
-                emit(SettingsState.SaveCurrentCountry(R.drawable.germany, R.string.Germany_News))
+                emit(SettingsState.SetCurrentCountry(R.drawable.germany))
+                emitShared(SettingsAction.Message(R.string.Germany_News))
             }
             R.id.egipt -> {
                 saveCountryFlag(EGYPT)
-                emit(SettingsState.SaveCurrentCountry(R.drawable.egypt, R.string.Egypt_News))
+                emit(SettingsState.SetCurrentCountry(R.drawable.egypt))
+                emitShared(SettingsAction.Message(R.string.Egypt_News))
             }
         }
     }
