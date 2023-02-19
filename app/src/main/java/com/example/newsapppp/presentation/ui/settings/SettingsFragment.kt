@@ -34,7 +34,7 @@ class SettingsFragment :
             showPopup(imCountry)
         }
         tvEdit.setOnClickListener {
-            showChangeNameDialog("")
+            showChangeNameDialog()
         }
         switchDayNight.setOnCheckedChangeListener { _, isNightMode ->
             viewModel.onSwitchDayNightClicked(isNightMode)
@@ -43,11 +43,11 @@ class SettingsFragment :
 
     override fun observerShared(actions: SettingsAction) {
         when (actions) {
-            is SettingsAction.Navigate -> navigateDirections(actions.navigateTo)
-            is SettingsAction.Message -> showSnackBar(actions.message)
             is SettingsAction.Account -> {
                 showSnackBarCansel(actions.message, actions.isError, actions.action)
             }
+            is SettingsAction.Navigate -> navigateDirections(actions.navigateTo)
+            is SettingsAction.Message -> showSnackBar(actions.message)
         }
     }
 
@@ -72,20 +72,21 @@ class SettingsFragment :
         popup.show()
     }
 
-    private fun showChangeNameDialog(name: String) {
+    private fun showChangeNameDialog() {
+        var typeText = ""
         var dialog: AlertDialog? = null
         val builder = AlertDialog.Builder(context)
         val binding = NewNameDialogBinding.inflate(LayoutInflater.from(context))
         builder.setView(binding.root)
         binding.apply {
-            edNewListName.setText(name)
+            val name = edNewListName.text
             if (name.isNotEmpty()) {
                 bCreate.text = getString(R.string.Update)
             }
             bCreate.setOnClickListener {
                 val listName = edNewListName.text.toString()
                 if (listName.isNotEmpty()) {
-//                    tvUserName.text = listName
+                    typeText = listName
                 }
                 dialog?.dismiss()
             }

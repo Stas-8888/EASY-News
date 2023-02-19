@@ -47,7 +47,7 @@ fun Fragment.showSnackBarCansel(
         sb.setBackgroundTint(loadColor(R.color.colorSecondary))
             .setTextColor(loadColor(R.color.black))
             .setAction("Cancel") {
-                action
+                action()
             }.show()
 }
 
@@ -59,8 +59,8 @@ fun Fragment.showSnackBar(title: Int) {
         .show()
 }
 
-fun Fragment.showSnackBarString(view: View, title: String?) {
-    Snackbar.make(view, title.toString(), 1500)
+fun Fragment.showSnackBarString(title: String?) {
+    Snackbar.make(requireView(), title.toString(), 1800)
         .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
         .setBackgroundTint(loadColor(R.color.colorRedBackground))
         .setTextColor(Color.WHITE)

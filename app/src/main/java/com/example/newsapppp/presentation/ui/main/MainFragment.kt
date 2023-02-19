@@ -16,10 +16,7 @@ import com.example.newsapppp.R
 import com.example.newsapppp.core.SimpleTabSelectedListener
 import com.example.newsapppp.databinding.FragmentMainBinding
 import com.example.newsapppp.presentation.adapters.NewsPagerAdapter
-import com.example.newsapppp.presentation.extensions.invisible
-import com.example.newsapppp.presentation.extensions.navigateDirections
-import com.example.newsapppp.presentation.extensions.showSnackBarString
-import com.example.newsapppp.presentation.extensions.visible
+import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
 import com.muddassir.connection_checker.ConnectionState
@@ -68,7 +65,7 @@ class MainFragment :
                 when (val state = loadState.refresh) {
                     is LoadState.Error -> {
                         progressBar.invisible()
-                        showSnackBarString(requireView(), state.error.message ?: "Some Error")
+                        showSnackBarString(state.error.message ?: "Some Error")
                     }
                     is LoadState.Loading -> {
                         progressBar.visible()
@@ -94,7 +91,7 @@ class MainFragment :
 
     override fun observerShared(actions: MainAction) {
         when (actions) {
-            is MainAction.Message -> showSnackBarString(requireView(), actions.message)
+            is MainAction.Message -> showSnackBarString(actions.message)
             is MainAction.Navigate -> navigateDirections(actions.navigateTo)
         }
     }

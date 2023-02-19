@@ -41,11 +41,7 @@ class SignInFragment :
 
     override fun observerState(state: SignInState<String>) = with(binding) {
         when (state) {
-            is SignInState.Loading -> loginProgress.invisible()
-            is SignInState.Success -> {
-                loginProgress.visible()
-                showSnackBarString(requireView(), state.data)
-            }
+            is SignInState.Loading -> loginProgress.visibility(state.loading)
             is SignInState.CheckEmail -> emailContainer.helperText = state.data
             is SignInState.CheckPassword -> loginPasswordContainer.helperText = state.data
         }

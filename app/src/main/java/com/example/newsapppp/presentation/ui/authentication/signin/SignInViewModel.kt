@@ -20,7 +20,7 @@ class SignInViewModel @Inject constructor(
     private val validatePassword: ValidatePasswordUseCase
 ) : BaseViewModel<SignInState<String>, SignInAction>() {
 
-    override val _state = MutableStateFlow<SignInState<String>>(SignInState.Loading)
+    override val _state = MutableStateFlow<SignInState<String>>(SignInState.Loading(false))
     override val state = _state.asStateFlow()
 
     override val _shared = MutableSharedFlow<SignInAction>()
@@ -33,6 +33,7 @@ class SignInViewModel @Inject constructor(
             else -> {
                 signIn.signIn(email, password)
                     .addOnSuccessListener {
+                        emit(SignInState.Loading(true))
                         emitShared(SignInAction.Message(R.string.successfully_sign_in))
                         emitShared(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment()))
                     }.addOnFailureListener {

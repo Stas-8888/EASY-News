@@ -11,6 +11,10 @@ internal fun View.visible() {
     visibility = View.VISIBLE
 }
 
+internal fun View.visibility(data: Boolean) {
+    visibility = if (data) View.VISIBLE else View.INVISIBLE
+}
+
 internal fun View.startAnim(animation: Animation, onEnd: () -> Unit = {}) {
     animation.setAnimationListener(object : Animation.AnimationListener {
         override fun onAnimationStart(animation: Animation?) = Unit

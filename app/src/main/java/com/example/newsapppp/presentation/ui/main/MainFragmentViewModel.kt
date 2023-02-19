@@ -38,7 +38,7 @@ class MainFragmentViewModel @Inject constructor(
         }
     }
 
-    fun setupCountryFlag(){
+    fun setupCountryFlag() {
         emit(MainState.CountryFlag(getCountryFlag(Unit)))
     }
 
@@ -67,6 +67,7 @@ class MainFragmentViewModel @Inject constructor(
 
     fun onBtSettingsClicked() {
         emitShared(
-            MainAction.Navigate(MainFragmentDirections.actionMainFragmentToSettingsFragment()))
+            MainAction.Navigate(MainFragmentDirections.actionMainFragmentToSettingsFragment())
+        )
     }
 }
