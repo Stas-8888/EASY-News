@@ -27,23 +27,12 @@ class SettingsFragmentViewModel @Inject constructor(
     private val saveCountryFlag: SaveCountryFlagUseCase,
     private val saveSwitchPosition: SaveSwitchPositionUseCase,
     private var firebaseAuth: FirebaseAuth,
-    getCountryFlag: GetCountryFlagUseCase,
-    getThemes: GetSwitchPositionUseCase
+    private var getCountryFlag: GetCountryFlagUseCase,
+    private var getThemes: GetSwitchPositionUseCase
 ) : BaseViewModel<SettingsState, SettingsAction>() {
 
-    override val _state = MutableStateFlow<SettingsState>(
-        SettingsState.SetupUi(
-            theme = !getThemes(Unit),
-            email = firebaseAuth.currentUser?.email,
-            flag = when (getCountryFlag(Unit)) {
-                USA -> R.drawable.usa
-                GERMANY -> R.drawable.germany
-                RUSSIA -> R.drawable.russia
-                EGYPT -> R.drawable.egypt
-                else -> R.drawable.usa
-            }
-        )
-    )
+    override val _state =
+        MutableStateFlow<SettingsState>(SettingsState.SetCurrentCountry(R.drawable.usa))
     override val state: StateFlow<SettingsState> = _state
 
     override val _shared = MutableSharedFlow<SettingsAction>()
@@ -57,6 +46,22 @@ class SettingsFragmentViewModel @Inject constructor(
             saveSwitchPosition(true)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
+    }
+
+    fun setupUi() {
+        emit(
+            SettingsState.SetupUi(
+                theme = !getThemes(Unit),
+                email = firebaseAuth.currentUser?.email ?: "Email address",
+                flag = when (getCountryFlag(Unit)) {
+                    USA -> R.drawable.usa
+                    GERMANY -> R.drawable.germany
+                    RUSSIA -> R.drawable.russia
+                    EGYPT -> R.drawable.egypt
+                    else -> R.drawable.usa
+                }
+            )
+        )
     }
 
     fun onAccountClicked() = launchCoroutine {

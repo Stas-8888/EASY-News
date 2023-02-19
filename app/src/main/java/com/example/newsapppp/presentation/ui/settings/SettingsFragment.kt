@@ -1,6 +1,7 @@
 package com.example.newsapppp.presentation.ui.settings
 
 import android.app.AlertDialog
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -22,6 +23,11 @@ class SettingsFragment :
         FragmentSettingsBinding::inflate
     ) {
     override val viewModel by viewModels<SettingsFragmentViewModel>()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.setupUi()
+    }
 
     override fun onClickListener() = with(binding) {
         btAccount.setOnClickListener {

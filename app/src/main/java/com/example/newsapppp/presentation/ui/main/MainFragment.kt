@@ -37,8 +37,7 @@ class MainFragment :
         setupRecyclerView()
         viewModel.interceptorErrors()
         getCountryAndCategoryTabLayout()
-        viewModel.setupCountryFlag()
-        viewModel.setupAllArticle(categories.first())
+        viewModel.setupUi(categories.first())
     }
 
     override fun onClickListener() = with(binding) {
@@ -83,8 +82,10 @@ class MainFragment :
     override fun observerState(state: MainState) = with(binding) {
         when (state) {
             is MainState.ShowLoading -> {}
-            is MainState.GetPagingAllArticle -> newsAdapter.submitData(lifecycle, state.article)
-            is MainState.CountryFlag -> tvCountry.text = state.countryFlag
+            is MainState.SetupUI -> {
+                newsAdapter.submitData(lifecycle, state.article)
+                tvCountry.text = state.countryFlag
+            }
             is MainState.BottomVisibility -> fabUp.isVisible = state.state
         }
     }
@@ -99,7 +100,7 @@ class MainFragment :
     private fun getCountryAndCategoryTabLayout() {
         binding.tabMain.addOnTabSelectedListener(object : SimpleTabSelectedListener() {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                viewModel.setupAllArticle(categories[tab.position])
+                viewModel.setupUi(categories[tab.position])
             }
         })
     }
