@@ -54,17 +54,17 @@ class SaveFragment :
                     tvBackgroundText.isVisible = state.state
                     state.exception?.let { showSnackBar(it) }
                 }
-                is SaveState.ShowDeleteDialog -> {
-                    showDeleteDialog(
-                        { viewModel.deleteArticle(state.article) },
-                        { newsAdapter.notifyItemChanged(state.position) })
-                }
             }
         }
     }
 
     override fun observerShared(actions: SaveAction) {
         when (actions) {
+            is SaveAction.ShowDeleteDialog -> {
+                showDeleteDialog(
+                    { viewModel.deleteArticle(actions.article) },
+                    { newsAdapter.notifyItemChanged(actions.position) })
+            }
             is SaveAction.Navigate -> navigateDirections(actions.navigateTo)
         }
 

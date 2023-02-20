@@ -12,7 +12,4 @@ sealed class SaveState {
         val state: Boolean,
         val exception: Int?
     ) : SaveState()
-
-    data class ShowDeleteDialog(val article: Article, val position: Int) : SaveState()
-
 }

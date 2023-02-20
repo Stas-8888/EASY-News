@@ -68,7 +68,7 @@ class SaveFragmentViewModel @Inject constructor(
     }
 
     fun onItemSwiped(article: Article, position: Int) {
-        emit(SaveState.ShowDeleteDialog(article, position))
+        emitShared(SaveAction.ShowDeleteDialog(article, position))
     }
 
     fun onNewsAdapterItemClicked(article: Article) = launchCoroutine {
