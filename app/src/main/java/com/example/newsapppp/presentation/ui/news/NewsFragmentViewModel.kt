@@ -31,7 +31,7 @@ class NewsFragmentViewModel @Inject constructor(
     private val favoritesIconSelected = R.drawable.ic_favorite
     private val favoritesIconUnselected = R.drawable.ic_favorite_border
     override val _state =
-        MutableStateFlow<NewsState>(NewsState.ShowFavoriteIcon(favoritesIconUnselected))
+        MutableStateFlow<NewsState>(NewsState.SetupFavoriteIcon(favoritesIconUnselected))
     override val state = _state.asStateFlow()
 
     override val _shared = MutableSharedFlow<NewsAction>()
@@ -39,9 +39,9 @@ class NewsFragmentViewModel @Inject constructor(
 
     fun setupFavoriteIcon(article: Article) = launchCoroutine {
         if (isFavorite != getFavorite(article.url)) {
-            _state.emit(NewsState.ShowFavoriteIcon(favoritesIconSelected))
+            _state.emit(NewsState.SetupFavoriteIcon(favoritesIconSelected))
         } else {
-            _state.emit(NewsState.ShowFavoriteIcon(favoritesIconUnselected))
+            _state.emit(NewsState.SetupFavoriteIcon(favoritesIconUnselected))
         }
     }
 
@@ -50,11 +50,11 @@ class NewsFragmentViewModel @Inject constructor(
             if (isFavorite == getFavorite(article.url)) {
                 insertArticle(mapper.mapToModel(article))
                 saveFavorite.saveFavorite(article.url, true)
-                emit(NewsState.SaveFavorite(R.string.Add_Article, favoritesIconSelected))
+                emitShared(NewsAction.FavoriteIcon(R.string.Add_Article, favoritesIconSelected))
             } else {
                 deleteArticle(mapper.mapToModel(article))
                 saveFavorite.saveFavorite(article.url, false)
-                emit(NewsState.DeleteFavorite(R.string.Delete_Article, favoritesIconUnselected))
+                emitShared(NewsAction.FavoriteIcon(R.string.Delete_Article, favoritesIconUnselected))
             }
         } else {
             emitShared(NewsAction.Message(R.string.error_registered))

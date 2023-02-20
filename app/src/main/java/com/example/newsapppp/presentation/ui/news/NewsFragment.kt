@@ -59,26 +59,18 @@ class NewsFragment :
         }
     }
 
-    override fun observerState(state: NewsState) = with(binding) {
+    override fun observerState(state: NewsState) {
         when (state) {
-            is NewsState.DeleteFavorite -> {
-                setImageResource(state.favoriteIcon)
-                showAlertUpDialog(state.status)
-            }
-            is NewsState.SaveFavorite -> {
-                setImageResource(state.favoriteIcon)
-                showAlertUpDialog(state.status)
-            }
-            is NewsState.Error -> {
-                btFavorite.invisible()
-                showSnackBar(state.message)
-            }
-            is NewsState.ShowFavoriteIcon -> setImageResource(state.favoriteIcon)
+            is NewsState.SetupFavoriteIcon -> setImageResource(state.favoriteIcon)
         }
     }
 
     override fun observerShared(actions: NewsAction) {
         when (actions) {
+            is NewsAction.FavoriteIcon -> {
+                setImageResource(actions.favoriteIcon)
+                showAlertUpDialog(actions.status)
+            }
             is NewsAction.Message -> showSnackBar(actions.message)
         }
     }
