@@ -33,11 +33,14 @@ class MainFragmentViewModel @Inject constructor(
 
     fun setupUi(category: String) = launchCoroutine {
         getNews(category).cachedIn(viewModelScope).collect() {
-            val data = it.filter { article -> article.urlToImage != null && article.title != null }
-            emit(MainState.SetupUI(
-                article = mapper.mapToPagingArticle(data),
-                countryFlag = getCountryFlag(Unit)
-            ))
+            val data =
+                it.filter { article -> article.urlToImage != null && article.title != null }
+            emit(
+                MainState.SetupUI(
+                    article = mapper.mapToPagingArticle(data),
+                    countryFlag = getCountryFlag(Unit)
+                )
+            )
         }
     }
 

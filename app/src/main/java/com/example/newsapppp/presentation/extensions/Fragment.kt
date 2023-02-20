@@ -2,10 +2,14 @@ package com.example.newsapppp.presentation.extensions
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.Dialog
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
+import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -100,6 +104,21 @@ fun Fragment.showAlertUpDialog(title: Int) {
             .enableSwipeToDismiss()
             .setBackgroundResource(R.color.colorRedBackground)
             .show()
+    }
+}
+
+fun Fragment.internetConnectionDialog(status: String) {
+    Dialog(requireContext()).apply {
+        setContentView(R.layout.no_internet_connections)
+        val internetStatus = findViewById<TextView>(R.id.internet_status)
+        val btTry = findViewById<Button>(R.id.bt_try_again)
+        internetStatus.text = status
+        window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        setCanceledOnTouchOutside(false)
+        btTry.setOnClickListener {
+            dismiss()
+        }
+        show()
     }
 }
 

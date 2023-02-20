@@ -1,33 +1,28 @@
 package com.example.newsapppp.presentation.ui.main
 
-import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.newsapppp.R
 import com.example.newsapppp.core.SimpleTabSelectedListener
 import com.example.newsapppp.databinding.FragmentMainBinding
 import com.example.newsapppp.presentation.adapters.NewsPagerAdapter
-import com.example.newsapppp.presentation.extensions.*
+import com.example.newsapppp.presentation.extensions.invisible
+import com.example.newsapppp.presentation.extensions.navigateDirections
+import com.example.newsapppp.presentation.extensions.showSnackBarString
+import com.example.newsapppp.presentation.extensions.visible
 import com.example.newsapppp.presentation.ui.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
-import com.muddassir.connection_checker.ConnectionState
-import com.muddassir.connection_checker.ConnectivityListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainFragment :
     BaseFragment<MainState, MainAction, FragmentMainBinding, MainFragmentViewModel>(
         FragmentMainBinding::inflate
-    ), ConnectivityListener {
+    ) {
 
     private val newsAdapter by lazy { NewsPagerAdapter() }
     override val viewModel by viewModels<MainFragmentViewModel>()
@@ -118,28 +113,6 @@ class MainFragment :
             }
         })
         fabUp.setOnClickListener { rvNews.smoothScrollToPosition(0) }
-    }
-
-    override fun onConnectionState(state: ConnectionState) {
-        when (state) {
-            ConnectionState.CONNECTED -> internetConnectionDialog(getString(R.string.internet_connected))
-            else -> internetConnectionDialog(getString(R.string.internet_disconnected))
-        }
-    }
-
-    private fun internetConnectionDialog(status: String) {
-        Dialog(requireContext()).apply {
-            setContentView(R.layout.no_internet_connections)
-            val internetStatus = findViewById<TextView>(R.id.internet_status)
-            val btTry = findViewById<Button>(R.id.bt_try_again)
-            internetStatus.text = status
-            window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            setCanceledOnTouchOutside(false)
-            btTry.setOnClickListener {
-                dismiss()
-            }
-            show()
-        }
     }
 
     val categories = listOf(

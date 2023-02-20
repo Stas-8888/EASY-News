@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapppp.databinding.FragmentSearchBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
+import com.example.newsapppp.presentation.extensions.internetConnectionDialog
 import com.example.newsapppp.presentation.extensions.navigateDirections
 import com.example.newsapppp.presentation.extensions.showSnackBar
 import com.example.newsapppp.presentation.ui.base.BaseFragment
@@ -51,6 +52,7 @@ class SearchFragment :
         when (actions) {
             is SearchAction.Message -> showSnackBar(actions.message)
             is SearchAction.Navigate -> navigateDirections(actions.navigateTo)
+            is SearchAction.InternetConnections -> internetConnectionDialog(getString(actions.message))
         }
     }
 }

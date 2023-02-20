@@ -1,6 +1,7 @@
 package com.example.newsapppp.presentation.ui.search
 
 import com.example.newsapppp.R
+import com.example.newsapppp.core.NetworkHandler
 import com.example.newsapppp.domain.interactors.articleRemote.SearchNewsUseCase
 import com.example.newsapppp.presentation.extensions.launchCoroutine
 import com.example.newsapppp.presentation.mapper.ArticleMapper
@@ -16,6 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchFragmentViewModel @Inject constructor(
     private val searchNewsUseCase: SearchNewsUseCase,
+    private val network: NetworkHandler,
     private val mapper: ArticleMapper,
 ) : BaseViewModel<SearchState, SearchAction>() {
 
@@ -26,11 +28,15 @@ class SearchFragmentViewModel @Inject constructor(
     override val shared = _shared.asSharedFlow()
 
     fun searchTextListener(searchQuery: String) = launchCoroutine {
+        if (network.isNetworkAvailable()) {
         if (searchQuery.isNotEmpty()) {
             val data = searchNewsUseCase(searchQuery).articlesModel
             emit(SearchState.ShowArticles(mapper.mapToListArticle(data)))
         } else {
             emitShared(SearchAction.Message(R.string.server_error))
+        }
+        } else {
+            emitShared(SearchAction.InternetConnections(R.string.internet_disconnected))
         }
     }
 
