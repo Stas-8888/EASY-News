@@ -33,10 +33,10 @@ class SearchFragmentViewModel @Inject constructor(
             val data = searchNewsUseCase(searchQuery).articlesModel
             emit(SearchState.ShowArticles(mapper.mapToListArticle(data)))
         } else {
-            emitShared(SearchAction.Message(R.string.server_error))
+            emitShared(SearchAction.ShowMessage(R.string.server_error))
         }
         } else {
-            emitShared(SearchAction.InternetConnections(R.string.internet_disconnected))
+            emitShared(SearchAction.ShowNetworkConnections(R.string.internet_disconnected))
         }
     }
 

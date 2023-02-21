@@ -45,6 +45,19 @@ class SettingsFragment :
         switchDayNight.setOnCheckedChangeListener { _, isNightMode ->
             viewModel.onSwitchDayNightClicked(isNightMode)
         }
+
+        btImage.setOnClickListener {
+            val popupMenu: PopupMenu = PopupMenu(context,btImage)
+            popupMenu.menuInflater.inflate(R.menu.profile_photo_storage,popupMenu.menu)
+            popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
+                when(item.itemId) {
+                    R.id.galleryMenu ->{}
+                    R.id.cameraMenu ->{}
+                }
+                true
+            })
+            popupMenu.show()
+        }
     }
 
     override fun observerShared(actions: SettingsAction) {

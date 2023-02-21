@@ -81,6 +81,9 @@
         <action
             android:id="@+id/action_signInFragment_to_mainFragment"
             app:destination="@id/mainFragment"
+            app:popUpTo="@navigation/nav_graph"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -119,8 +122,11 @@
             app:enterAnim="@anim/slide_in_right"/>
         <action
             android:id="@+id/action_splashFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
             app:enterAnim="@anim/slide_in_right"
-            app:destination="@id/mainFragment" />
+            app:popUpTo="@navigation/nav_graph"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"

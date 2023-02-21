@@ -75,7 +75,5 @@ class NewsFragment :
         }
     }
 
-    private fun setImageResource(data: Int) {
-        binding.btFavorite.setImageResource(data)
-    }
+    private fun setImageResource(data: Int) = binding.btFavorite.setImageResource(data)
 }

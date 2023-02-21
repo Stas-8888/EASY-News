@@ -50,9 +50,9 @@ class SearchFragment :
 
     override fun observerShared(actions: SearchAction) {
         when (actions) {
-            is SearchAction.Message -> showSnackBar(actions.message)
+            is SearchAction.ShowMessage -> showSnackBar(actions.message)
             is SearchAction.Navigate -> navigateDirections(actions.navigateTo)
-            is SearchAction.InternetConnections -> internetConnectionDialog(getString(actions.message))
+            is SearchAction.ShowNetworkConnections -> internetConnectionDialog(getString(actions.message))
         }
     }
 }

@@ -4,6 +4,6 @@ import androidx.navigation.NavDirections
 
 sealed class SearchAction {
     data class Navigate(val navigateTo: NavDirections) : SearchAction()
-    data class Message(val message: Int) : SearchAction()
-    data class InternetConnections(val message: Int) : SearchAction()
+    data class ShowMessage(val message: Int) : SearchAction()
+    data class ShowNetworkConnections(val message: Int) : SearchAction()
 }

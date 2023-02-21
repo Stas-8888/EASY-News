@@ -30,9 +30,7 @@ class NetworkHandler @Inject constructor(@ApplicationContext private val context
                 else -> false
             }
         } else {
-            @Suppress("DEPRECATION") val networkInfo =
-                connectivityManager.activeNetworkInfo ?: return false
-            @Suppress("DEPRECATION")
+            val networkInfo = connectivityManager.activeNetworkInfo ?: return false
             return networkInfo.isConnected
         }
     }

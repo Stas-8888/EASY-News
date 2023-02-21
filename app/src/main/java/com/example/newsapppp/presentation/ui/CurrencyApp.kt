@@ -11,12 +11,10 @@ import java.util.concurrent.TimeUnit
  */
 @HiltAndroidApp
 class CurrencyApp : Application() {
-
     override fun onCreate() {
         super.onCreate()
         notificationWork()
     }
-
     private fun notificationWork() {
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.NOT_REQUIRED)
