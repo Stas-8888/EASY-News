@@ -1,6 +1,7 @@
 package com.example.newsapppp.presentation.screens.settings
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -16,6 +17,8 @@ import com.example.newsapppp.presentation.extensions.showSnackBar
 import com.example.newsapppp.presentation.extensions.showSnackBarCansel
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+
+const val PICK_IMAGE_REQUEST = 71
 
 @AndroidEntryPoint
 class SettingsFragment :
@@ -51,13 +54,20 @@ class SettingsFragment :
             popupMenu.menuInflater.inflate(R.menu.profile_photo_storage, popupMenu.menu)
             popupMenu.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
-                    R.id.galleryMenu -> {}
+                    R.id.galleryMenu -> launchGallery()
                     R.id.cameraMenu -> {}
                 }
                 true
             }
             popupMenu.show()
         }
+    }
+
+    private fun launchGallery() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST)
     }
 
     override fun observerShared(actions: SettingsAction) {
