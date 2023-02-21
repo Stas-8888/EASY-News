@@ -1,6 +1,6 @@
 package com.example.newsapppp.domain.interactors.preference
 
-import com.example.newsapppp.domain.interactors.baseUseCase.BaseUseCase
+import com.example.newsapppp.domain.interactors.baseusecase.BaseUseCase
 import com.example.newsapppp.domain.repository.SharedPrefRepositoryContract
 import javax.inject.Inject
 

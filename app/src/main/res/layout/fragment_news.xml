@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.news.NewsFragment">
+    tools:context=".presentation.screens.news.NewsFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

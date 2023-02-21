@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.newsapppp.presentation.ui.main.MainFragment"
+        android:name="com.example.newsapppp.presentation.screens.main.MainFragment"
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_newsFragment"
@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.example.newsapppp.presentation.ui.news.NewsFragment"
+        android:name="com.example.newsapppp.presentation.screens.news.NewsFragment"
         android:label="Daily News"
         tools:layout="@layout/fragment_news">
         <argument
@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/saveFragment"
-        android:name="com.example.newsapppp.presentation.ui.save.SaveFragment"
+        android:name="com.example.newsapppp.presentation.screens.save.SaveFragment"
         android:label="Мои Новости"
         tools:layout="@layout/fragment_save">
         <action
@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.newsapppp.presentation.ui.search.SearchFragment"
+        android:name="com.example.newsapppp.presentation.screens.search.SearchFragment"
         android:label="Поиск Новостей"
         tools:layout="@layout/fragment_search">
         <action
@@ -67,7 +67,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.newsapppp.presentation.ui.settings.SettingsFragment"
+        android:name="com.example.newsapppp.presentation.screens.settings.SettingsFragment"
         android:label="Настройки"
         tools:layout="@layout/fragment_settings" >
         <action
@@ -76,7 +76,7 @@
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.example.newsapppp.presentation.ui.authentication.signin.SignInFragment"
+        android:name="com.example.newsapppp.presentation.screens.authentication.signin.SignInFragment"
         tools:layout="@layout/fragment_sign_in">
         <action
             android:id="@+id/action_signInFragment_to_mainFragment"
@@ -105,7 +105,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.newsapppp.presentation.ui.authentication.signup.SignUpFragment"
+        android:name="com.example.newsapppp.presentation.screens.authentication.signup.SignUpFragment"
         tools:layout="@layout/fragment_sign_up">
         <action
             android:id="@+id/action_signUpFragment_to_signInFragment"
@@ -113,7 +113,7 @@
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.example.newsapppp.presentation.ui.splash.SplashFragment"
+        android:name="com.example.newsapppp.presentation.screens.splash.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash">
         <action
@@ -130,6 +130,6 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="com.example.newsapppp.presentation.ui.authentication.forgotPassword.ForgotPasswordFragment"
+        android:name="com.example.newsapppp.presentation.screens.authentication.forgotPassword.ForgotPasswordFragment"
         tools:layout="@layout/fragment_forgot_password" />
 </navigation>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorRedBackground"
-    tools:context=".presentation.ui.splash.SplashFragment">
+    tools:context=".presentation.screens.splash.SplashFragment">
 
     <TextView
         android:id="@+id/tvNews"
