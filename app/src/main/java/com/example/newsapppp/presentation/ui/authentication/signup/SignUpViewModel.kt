@@ -15,8 +15,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,10 +27,7 @@ class SignUpViewModel @Inject constructor(
 ) : BaseViewModel<SignUpState<String>, SignUpAction>() {
 
     override val _state = MutableStateFlow<SignUpState<String>>(SignUpState.Loading)
-    override val state = _state.asStateFlow()
-
     override val _shared = MutableSharedFlow<SignUpAction>()
-    override val shared = _shared.asSharedFlow()
 
     fun checkValidationFields(
         name: String,

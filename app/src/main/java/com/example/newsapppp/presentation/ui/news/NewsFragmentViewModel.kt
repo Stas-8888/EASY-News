@@ -13,8 +13,6 @@ import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,10 +30,7 @@ class NewsFragmentViewModel @Inject constructor(
     private val favoritesIconUnselected = R.drawable.ic_favorite_border
     override val _state =
         MutableStateFlow<NewsState>(NewsState.SetupFavoriteIcon(favoritesIconUnselected))
-    override val state = _state.asStateFlow()
-
     override val _shared = MutableSharedFlow<NewsAction>()
-    override val shared = _shared.asSharedFlow()
 
     fun setupFavoriteIcon(article: Article) = launchCoroutine {
         if (isFavorite != getFavorite(article.url)) {

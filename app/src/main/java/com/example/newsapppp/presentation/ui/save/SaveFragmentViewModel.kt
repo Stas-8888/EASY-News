@@ -13,8 +13,6 @@ import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,10 +26,7 @@ class SaveFragmentViewModel @Inject constructor(
 ) : BaseViewModel<SaveState, SaveAction>() {
 
     override val _state = MutableStateFlow<SaveState>(SaveState.ShowLoading)
-    override val state = _state.asStateFlow()
-
     override val _shared = MutableSharedFlow<SaveAction>()
-    override val shared = _shared.asSharedFlow()
 
     fun setupAllNews() = launchCoroutine {
         getRoomArticle(Unit).collect {

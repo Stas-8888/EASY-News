@@ -9,8 +9,6 @@ import com.example.newsapppp.presentation.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,10 +19,7 @@ class SignInViewModel @Inject constructor(
 ) : BaseViewModel<SignInState<String>, SignInAction>() {
 
     override val _state = MutableStateFlow<SignInState<String>>(SignInState.Loading(false))
-    override val state = _state.asStateFlow()
-
     override val _shared = MutableSharedFlow<SignInAction>()
-    override val shared = _shared.asSharedFlow()
 
     fun onSignInButtonClicked(email: String, password: String) = launchCoroutine {
         when {

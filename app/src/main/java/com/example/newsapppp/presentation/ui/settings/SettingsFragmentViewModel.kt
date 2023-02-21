@@ -13,8 +13,6 @@ import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import javax.inject.Inject
 
 private const val USA = "us"
@@ -33,10 +31,7 @@ class SettingsFragmentViewModel @Inject constructor(
 
     override val _state =
         MutableStateFlow<SettingsState>(SettingsState.SetCurrentCountry(R.drawable.usa))
-    override val state: StateFlow<SettingsState> = _state
-
     override val _shared = MutableSharedFlow<SettingsAction>()
-    override val shared = _shared.asSharedFlow()
 
     fun onSwitchDayNightClicked(enabled: Boolean) = launchCoroutine {
         if (enabled) {

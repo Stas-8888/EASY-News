@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.presentation.extensions.launchCoroutine
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 /**
  * Base class which represent ViewModel.
@@ -16,10 +16,10 @@ import kotlinx.coroutines.flow.StateFlow
 abstract class BaseViewModel<S, A> : ViewModel() {
 
     protected abstract val _state: MutableStateFlow<S>
-    abstract val state: StateFlow<S>
+    val state by lazy { _state.asStateFlow() }
 
     protected abstract val _shared: MutableSharedFlow<A>
-    abstract val shared: SharedFlow<A>
+    val shared by lazy { _shared.asSharedFlow() }
 
     /**
      * Emit new [S] state to [state] in Scope [viewModelScope].
