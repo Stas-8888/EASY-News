@@ -16,11 +16,6 @@ class RestErrorInterceptor(
         val request: Request = chain.request()
         val response = chain.proceed(request)
         when (response.code) {
-            200 -> {
-                CoroutineScope(SupervisorJob() + Dispatchers.Main).launch {
-                    errors.emitError("Data, Success received")
-                }
-            }
             400 -> {
                 CoroutineScope(SupervisorJob() + Dispatchers.Main).launch {
                     errors.emitError("The request was unacceptable, often due to a missing or misconfigured parameter.")

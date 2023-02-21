@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newsapppp.R
 import com.example.newsapppp.core.SimpleTabSelectedListener
 import com.example.newsapppp.databinding.FragmentMainBinding
 import com.example.newsapppp.presentation.adapters.NewsPagerAdapter
@@ -31,7 +32,7 @@ class MainFragment :
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         viewModel.interceptorErrors()
-        getCountryAndCategoryTabLayout()
+        setupTabLayout()
         viewModel.setupUi(categories.first())
     }
 
@@ -56,10 +57,10 @@ class MainFragment :
             toFirstRecyclerPosition()
 
             newsAdapter.addLoadStateListener { loadState ->
-                when (val state = loadState.refresh) {
+                when (val data = loadState.refresh) {
                     is LoadState.Error -> {
                         progressBar.invisible()
-                        showSnackBarString(state.error.message ?: "Some Error")
+                        showSnackBarString(data.error.message ?: "Some Error")
                     }
                     is LoadState.Loading -> {
                         progressBar.visible()
@@ -92,8 +93,12 @@ class MainFragment :
         }
     }
 
-    private fun getCountryAndCategoryTabLayout() {
-        binding.tabMain.addOnTabSelectedListener(object : SimpleTabSelectedListener() {
+    private fun setupTabLayout() = with(binding) {
+        tabMain.addTab(tabMain.newTab().setText((R.string.Main_news)))
+        tabMain.addTab(tabMain.newTab().setText((R.string.Sport)))
+        tabMain.addTab(tabMain.newTab().setText((R.string.Science)))
+        tabMain.addTab(tabMain.newTab().setText((R.string.Entertainment)))
+        tabMain.addOnTabSelectedListener(object : SimpleTabSelectedListener() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewModel.setupUi(categories[tab.position])
             }

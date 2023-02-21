@@ -1,5 +1,6 @@
 package com.example.newsapppp.presentation.extensions
 
+import android.animation.ObjectAnimator
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
@@ -29,6 +30,22 @@ fun Fragment.navigateDirections(where: NavDirections) = findNavController().navi
 
 fun Fragment.launchWhenStarted(block: suspend CoroutineScope.() -> Unit) {
     viewLifecycleOwner.lifecycleScope.launchWhenStarted(block)
+}
+
+fun Fragment.slideDown(view: View) {
+    val height = view.height
+    ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, 0f, height.toFloat()).apply {
+        duration = 400
+        start()
+    }
+}
+
+fun Fragment.slideUp(view: View) {
+    val height = view.height
+    ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, height.toFloat(), 0f).apply {
+        duration = 400
+        start()
+    }
 }
 
 fun Fragment.loadColor(@ColorRes colorRes: Int): Int {

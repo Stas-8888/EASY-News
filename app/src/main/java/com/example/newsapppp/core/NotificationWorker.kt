@@ -14,7 +14,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.example.newsapppp.R
-import com.example.newsapppp.presentation.screens.MainActivity
+import com.example.newsapppp.presentation.screens.activity.MainActivity
 
 class NotificationWorker(context: Context, workerParameters: WorkerParameters) : Worker(context, workerParameters) {
 
