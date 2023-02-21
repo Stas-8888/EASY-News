@@ -19,15 +19,16 @@ class SplashFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.setupDayNightMode()
-        viewModel.navigateToLoginFragment()
-
         val animationBounce = AnimationUtils.loadAnimation(requireContext(), R.anim.bounce)
         tvNews.startAnimation(animationBounce)
         tvWelcome.startAnimation(animationBounce)
     }
 
-    override fun onClickListener() = with(binding) { }
+    override fun onClickListener() {
+        viewModel.setupDayNightMode()
+        viewModel.navigateToLoginFragment()
+    }
+
     override fun observerState(state: SplashState) {}
     override fun observerShared(actions: SplashAction) {
         when (actions) {

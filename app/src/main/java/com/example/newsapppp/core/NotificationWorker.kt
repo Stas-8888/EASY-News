@@ -33,6 +33,7 @@ class NotificationWorker(context: Context, workerParameters: WorkerParameters) :
             0, intent, 0
         )
 
+        //ToDO: remove hardcode
         val notification = NotificationCompat.Builder(
             applicationContext,
             CHANNEL_ID

@@ -89,6 +89,7 @@
     <string name="invalid_email">Authentication failed, Invalid email entered</string>
     <string name="email_registered">Authentication failed, Email already registered.</string>
     <string name="email_sent">Email has been sent</string>
+    <string name="wrong_email">Wrong Email</string>
     <string name="incorrect_email">Authentication failed, incorrect email</string>
     <string name="full_name">Full Name</string>
     <string name="different_password">Different Password</string>
@@ -99,4 +100,6 @@
     <string name="delete">Удалить</string>
     <string name="cansel">Отменить</string>
     <string name="cant_return">без возврата</string>
+    <string name="take_a_photo">Take a Photo</string>
+    <string name="choose_from_gallery">Choose from Gallery</string>
 </resources>

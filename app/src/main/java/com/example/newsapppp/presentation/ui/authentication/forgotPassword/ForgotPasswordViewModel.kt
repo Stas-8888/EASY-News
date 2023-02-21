@@ -32,7 +32,7 @@ class ForgotPasswordViewModel @Inject constructor(
                     .addOnSuccessListener {
                         emitShared(ForgotPasswordAction.Message(R.string.email_sent))
                     }.addOnFailureListener {
-                        emitShared(ForgotPasswordAction.Message(it.message?.toInt() ?: 0))
+                        emitShared(ForgotPasswordAction.Message(R.string.wrong_email))
                     }
             }
         }
