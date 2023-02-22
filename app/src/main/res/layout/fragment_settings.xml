@@ -38,7 +38,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/btImage"
+        android:id="@+id/profile_image"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="32dp"
@@ -54,10 +54,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="50dp"
-        android:layout_toEndOf="@id/btImage"
+        android:layout_toEndOf="@id/profile_image"
         android:text="@string/Name"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/btImage"
+        app:layout_constraintStart_toEndOf="@+id/profile_image"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
@@ -66,7 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvUserName"
         android:layout_marginTop="1dp"
-        android:layout_toEndOf="@id/btImage"
+        android:layout_toEndOf="@id/profile_image"
         android:text="@string/Edit"
         android:textColor="@color/grayDark"
         android:textSize="12sp"
@@ -78,7 +78,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvUserName"
-        android:layout_toEndOf="@id/btImage"
+        android:layout_toEndOf="@id/profile_image"
         android:text="@string/email"
         android:textColor="@color/grayDark"
         android:textSize="12sp"

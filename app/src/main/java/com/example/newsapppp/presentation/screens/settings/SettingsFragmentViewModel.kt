@@ -94,5 +94,12 @@ class SettingsFragmentViewModel @Inject constructor(
             }
         }
     }
+
+    fun onProfileImageClicked(item: MenuItem, launchGallery: Unit){
+        when (item.itemId) {
+            R.id.galleryMenu -> launchGallery
+            R.id.cameraMenu -> {}
+        }
+    }
 }
 

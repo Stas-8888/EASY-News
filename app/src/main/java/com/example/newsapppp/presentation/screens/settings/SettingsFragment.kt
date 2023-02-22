@@ -49,14 +49,11 @@ class SettingsFragment :
             viewModel.onSwitchDayNightClicked(isNightMode)
         }
 
-        btImage.setOnClickListener {
-            val popupMenu = PopupMenu(context, btImage)
+        profileImage.setOnClickListener {
+            val popupMenu = PopupMenu(context, profileImage)
             popupMenu.menuInflater.inflate(R.menu.profile_photo_storage, popupMenu.menu)
             popupMenu.setOnMenuItemClickListener { item ->
-                when (item.itemId) {
-                    R.id.galleryMenu -> launchGallery()
-                    R.id.cameraMenu -> {}
-                }
+                viewModel.onProfileImageClicked(item, launchGallery())
                 true
             }
             popupMenu.show()
