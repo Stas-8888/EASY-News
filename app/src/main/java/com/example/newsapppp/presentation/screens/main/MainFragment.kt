@@ -2,6 +2,7 @@ package com.example.newsapppp.presentation.screens.main
 
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.view.animation.TranslateAnimation
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -40,6 +41,8 @@ class MainFragment :
 
     override fun onClickListener() = with(binding) {
         btSettings.setOnClickListener {
+            val animAlpha = AnimationUtils.loadAnimation(requireContext(), R.anim.item_anim)
+            btSettings.startAnimation(animAlpha)
             viewModel.onBtSettingsClicked()
         }
         newsAdapter.setOnItemClickListener {
