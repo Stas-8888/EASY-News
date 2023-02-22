@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.PopupMenu
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -40,6 +41,8 @@ class SettingsFragment :
             findNavController().navigateUp()
         }
         imCountry.setOnClickListener {
+            val animAlpha = AnimationUtils.loadAnimation(requireContext(), R.anim.fab_explode)
+            imCountry.startAnimation(animAlpha)
             showPopup(imCountry)
         }
         tvEdit.setOnClickListener {

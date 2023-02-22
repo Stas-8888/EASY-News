@@ -23,6 +23,7 @@ class SignInFragment :
     }
 
     override fun onClickListener() = with(binding) {
+        val click = AnimationUtils.loadAnimation(context, R.anim.fab_explode)
         edLogin.textChangeListener {
             viewModel.isEmailChanged(emailText())
             hideKeyboard(requireActivity(), edLogin)
@@ -38,9 +39,11 @@ class SignInFragment :
             viewModel.onForgotPasswordButtonClicked()
         }
         btSignUp.setOnClickListener {
+            btSignUp.startAnimation(click)
             viewModel.onSignUpButtonClicked()
         }
         btSkip.setOnClickListener {
+            btSkip.startAnimation(click)
             viewModel.onSkipButtonClicked()
         }
     }
@@ -70,5 +73,8 @@ class SignInFragment :
         btSignIn.startAnimation(animAlpha)
         titleIcon.startAnimation(animAlpha)
         appTitle.startAnimation(animAlpha)
+        btSignUp.startAnimation(animAlpha)
+        btSkip.startAnimation(animAlpha)
+        btForgotPassword.startAnimation(animAlpha)
     }
 }
