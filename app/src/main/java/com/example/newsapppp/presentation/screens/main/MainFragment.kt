@@ -2,6 +2,7 @@ package com.example.newsapppp.presentation.screens.main
 
 import android.os.Bundle
 import android.view.View
+import android.view.animation.TranslateAnimation
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.paging.LoadState
@@ -30,9 +31,10 @@ class MainFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupTabLayout()
+        setupAnimation()
         setupRecyclerView()
         viewModel.interceptorErrors()
-        setupTabLayout()
         viewModel.setupUi(categories.first())
     }
 
@@ -118,6 +120,18 @@ class MainFragment :
             }
         })
         fabUp.setOnClickListener { rvNews.smoothScrollToPosition(0) }
+    }
+
+    private fun setupAnimation() = with(binding) {
+        appName.startAnimation(TranslateAnimation(0f, 0f, -100f, 0f).apply {
+            duration = 1000
+        })
+        tvCountry.startAnimation(TranslateAnimation(0f, 0f, 100f, 0f).apply {
+            duration = 1000
+        })
+        btSettings.startAnimation(TranslateAnimation(200f, 0f, 0f, 0f).apply {
+            duration = 1000
+        })
     }
 
     val categories = listOf(

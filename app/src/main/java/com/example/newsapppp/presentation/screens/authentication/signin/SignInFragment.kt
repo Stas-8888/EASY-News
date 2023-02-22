@@ -1,5 +1,6 @@
 package com.example.newsapppp.presentation.screens.authentication.signin
 
+import android.view.animation.TranslateAnimation
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.databinding.FragmentSignInBinding
 import com.example.newsapppp.presentation.extensions.*
@@ -14,6 +15,9 @@ class SignInFragment :
     override val viewModel by viewModels<SignInViewModel>()
 
     override fun onClickListener() = with(binding) {
+        binding.appTitle.startAnimation(TranslateAnimation(0f, 0f, -160f, 0f).apply {
+            duration = 1000
+        })
         edLogin.textChangeListener {
             viewModel.isEmailChanged(emailText())
             hideKeyboard(requireActivity(), edLogin)
