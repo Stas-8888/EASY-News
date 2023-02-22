@@ -63,7 +63,7 @@ class SignUpFragment :
                     fullNameContainer.helperText = state.name
                     emailContainer.helperText = state.email
                     passwordContainer.helperText = state.password
-                    loginPasswordContainer.helperText = state.repeatPassword
+                    passwordContainer.helperText = state.repeatPassword
                 }
             }
         }

@@ -1,7 +1,10 @@
 package com.example.newsapppp.presentation.screens.authentication.signin
 
-import android.view.animation.TranslateAnimation
+import android.os.Bundle
+import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.viewModels
+import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSignInBinding
 import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.screens.base.BaseFragment
@@ -14,10 +17,12 @@ class SignInFragment :
     ) {
     override val viewModel by viewModels<SignInViewModel>()
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupUiAnimation()
+    }
+
     override fun onClickListener() = with(binding) {
-        binding.appTitle.startAnimation(TranslateAnimation(0f, 0f, -160f, 0f).apply {
-            duration = 1000
-        })
         edLogin.textChangeListener {
             viewModel.isEmailChanged(emailText())
             hideKeyboard(requireActivity(), edLogin)
@@ -47,7 +52,7 @@ class SignInFragment :
         when (state) {
             is SignInState.Loading -> loginProgress.visibility(state.loading)
             is SignInState.CheckEmail -> emailContainer.helperText = state.data
-            is SignInState.CheckPassword -> loginPasswordContainer.helperText = state.data
+            is SignInState.CheckPassword -> passwordContainer.helperText = state.data
         }
     }
 
@@ -56,5 +61,14 @@ class SignInFragment :
             is SignInAction.Navigate -> navigateDirections(actions.navigateTo)
             is SignInAction.ShowMessage -> showSnackBar(actions.message)
         }
+    }
+
+    private fun setupUiAnimation() = with(binding) {
+        val animAlpha = AnimationUtils.loadAnimation(context, R.anim.fade_in)
+        emailContainer.startAnimation(animAlpha)
+        passwordContainer.startAnimation(animAlpha)
+        btSignIn.startAnimation(animAlpha)
+        titleIcon.startAnimation(animAlpha)
+        appTitle.startAnimation(animAlpha)
     }
 }
