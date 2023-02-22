@@ -61,7 +61,7 @@ class SignUpViewModel @Inject constructor(
                     }
                     .addOnFailureListener {
                         when (it) {
-                            is FirebaseAuthWeakPasswordException -> message(R.string.password_lengs_6)
+                            is FirebaseAuthWeakPasswordException -> message(R.string.password_lengs)
                             is FirebaseAuthInvalidCredentialsException -> message(R.string.invalid_email)
                             is FirebaseAuthUserCollisionException -> message(R.string.email_registered)
                             else -> message(R.string.invalid_authentication)

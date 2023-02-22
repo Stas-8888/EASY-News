@@ -15,7 +15,7 @@ class ValidationRepository @Inject constructor(
             return manageResources.string(R.string.empty_email)
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            return manageResources.string(R.string.InvalidEmail)
+            return manageResources.string(R.string.wrong_email)
         }
         return manageResources.string(R.string.successful)
     }
@@ -25,13 +25,13 @@ class ValidationRepository @Inject constructor(
             return manageResources.string(R.string.empty_password)
         }
         if (passwordText.length < 6) {
-            return manageResources.string(R.string.MinimumCharacter)
+            return manageResources.string(R.string.minimum_character)
         }
         if (!passwordText.matches(".*[A-Z].*".toRegex())) {
-            return manageResources.string(R.string.Uppercase)
+            return manageResources.string(R.string.uppercase)
         }
         if (!passwordText.matches(".*[a-z].*".toRegex())) {
-            return manageResources.string(R.string.Lowercase)
+            return manageResources.string(R.string.lowercase)
         }
         return manageResources.string(R.string.successful)
     }
@@ -45,7 +45,7 @@ class ValidationRepository @Inject constructor(
 
     override fun fullName(fullName: String): String {
         if (fullName.length < 6) {
-            return manageResources.string(R.string.MinimumCharacter)
+            return manageResources.string(R.string.minimum_character)
         }
         return manageResources.string(R.string.successful)
     }

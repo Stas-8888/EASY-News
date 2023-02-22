@@ -107,7 +107,7 @@ class SettingsFragment :
         binding.apply {
             val name = edNewListName.text
             if (name.isNotEmpty()) {
-                bCreate.text = getString(R.string.Update)
+                bCreate.text = getString(R.string.update)
             }
             bCreate.setOnClickListener {
                 val listName = edNewListName.text.toString()

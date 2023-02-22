@@ -6,11 +6,11 @@
         android:icon="@drawable/ic_breaking_news" />
 
     <item android:id="@+id/searchFragment"
-        android:title="@string/Find"
+        android:title="@string/find"
         android:icon="@drawable/ic_all_news" />
 
     <item android:id="@+id/saveFragment"
-        android:title="@string/Saved"
+        android:title="@string/saved"
         android:icon="@drawable/ic_favorite_border" />
 
 </menu>

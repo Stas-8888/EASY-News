@@ -75,22 +75,22 @@ class SettingsFragmentViewModel @Inject constructor(
             R.id.us -> {
                 saveCountryFlag(USA)
                 emit(SettingsState.SetCurrentCountry(R.drawable.usa))
-                emitShared((SettingsAction.ShowMessage(R.string.American_News)))
+                emitShared((SettingsAction.ShowMessage(R.string.american_news)))
             }
             R.id.ru -> {
                 saveCountryFlag(RUSSIA)
                 emit(SettingsState.SetCurrentCountry(R.drawable.russia))
-                emitShared(SettingsAction.ShowMessage(R.string.Russia_News))
+                emitShared(SettingsAction.ShowMessage(R.string.russia_news))
             }
             R.id.germany -> {
                 saveCountryFlag(GERMANY)
                 emit(SettingsState.SetCurrentCountry(R.drawable.germany))
-                emitShared(SettingsAction.ShowMessage(R.string.Germany_News))
+                emitShared(SettingsAction.ShowMessage(R.string.germany_news))
             }
             R.id.egipt -> {
                 saveCountryFlag(EGYPT)
                 emit(SettingsState.SetCurrentCountry(R.drawable.egypt))
-                emitShared(SettingsAction.ShowMessage(R.string.Egypt_News))
+                emitShared(SettingsAction.ShowMessage(R.string.egypt_news))
             }
         }
     }

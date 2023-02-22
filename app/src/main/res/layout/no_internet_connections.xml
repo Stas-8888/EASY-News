@@ -46,7 +46,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="15dp"
         android:fontFamily="serif"
-        android:text="Check your connections and try again"
+        android:text="@string/check_your_connections_and_try_again"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="@color/white"

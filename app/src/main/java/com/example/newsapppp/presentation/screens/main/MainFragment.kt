@@ -94,10 +94,10 @@ class MainFragment :
     }
 
     private fun setupTabLayout() = with(binding) {
-        tabMain.addTab(tabMain.newTab().setText((R.string.Main_news)))
-        tabMain.addTab(tabMain.newTab().setText((R.string.Sport)))
-        tabMain.addTab(tabMain.newTab().setText((R.string.Science)))
-        tabMain.addTab(tabMain.newTab().setText((R.string.Entertainment)))
+        tabMain.addTab(tabMain.newTab().setText((R.string.main_news)))
+        tabMain.addTab(tabMain.newTab().setText((R.string.sport)))
+        tabMain.addTab(tabMain.newTab().setText((R.string.science)))
+        tabMain.addTab(tabMain.newTab().setText((R.string.entertainment)))
         tabMain.addOnTabSelectedListener(object : SimpleTabSelectedListener() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewModel.setupUi(categories[tab.position])

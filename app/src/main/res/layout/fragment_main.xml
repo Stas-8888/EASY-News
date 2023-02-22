@@ -16,7 +16,7 @@
         android:elevation="4.5dp"
         android:paddingStart="6dp"
         android:paddingEnd="6dp"
-        android:text="@string/My_News"
+        android:text="@string/my_news"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"

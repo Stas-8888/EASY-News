@@ -19,19 +19,15 @@
             android:id="@+id/snackbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|left|start"
+            android:layout_gravity="center|left"
             android:layout_weight="1"
             android:ellipsize="end"
             android:textColor="@color/white"
-            android:gravity="center_vertical|right"
             android:maxLines="@integer/design_snackbar_text_max_lines"
-            android:paddingLeft="@dimen/design_snackbar_padding_horizontal"
-            android:text="Default"
+            android:paddingStart="@dimen/design_snackbar_padding_horizontal"
+            android:text="@string/default_name"
             android:textAppearance="@style/TextAppearance.Design.Snackbar.Message" />
 
-<!--        android:paddingTop="@dimen/design_snackbar_padding_vertical"-->
-<!--        android:paddingRight="@dimen/design_snackbar_padding_horizontal"-->
-<!--        android:paddingBottom="@dimen/design_snackbar_padding_vertical"-->
         <Button
             android:id="@+id/snackbar_action"
             style="?attr/borderlessButtonStyle"
@@ -39,8 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|right|end"
             android:layout_marginStart="@dimen/design_snackbar_extra_spacing_horizontal"
-            android:layout_marginLeft="@dimen/design_snackbar_extra_spacing_horizontal"
-            android:paddingRight="@dimen/design_snackbar_padding_horizontal"
+            android:paddingEnd="@dimen/design_snackbar_padding_horizontal"
             android:text="ok"
             android:textColor="?attr/colorAccent"
             android:visibility="visible" />
