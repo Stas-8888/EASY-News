@@ -2,10 +2,12 @@ package com.example.newsapppp.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
+import com.example.newsapppp.R
 import com.example.newsapppp.core.DateFormat.dateFormat
 import com.example.newsapppp.databinding.ItemLayoutBinding
 import com.example.newsapppp.presentation.model.Article
@@ -28,6 +30,8 @@ class NewsPagerAdapter :
 
         holder.itemView.apply {
             with(holder.binding) {
+                val animAlpha = AnimationUtils.loadAnimation(context, R.anim.fade_in)
+                tvPublishedAt.startAnimation(animAlpha)
                 imArticleImage.load(article?.urlToImage) {
                     crossfade(true)
                     crossfade(1000)
