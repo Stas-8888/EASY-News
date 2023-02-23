@@ -45,7 +45,7 @@ class SettingsFragmentViewModel @Inject constructor(
 
     fun setupUi() {
         emit(
-            SettingsState.SetupUi(
+            SettingsState.ShowUi(
                 theme = !getThemes(Unit),
                 email = firebaseAuth.currentUser?.email ?: "Email address",
                 flag = when (getCountryFlag(Unit)) {

@@ -31,7 +31,7 @@ class MainFragmentViewModel @Inject constructor(
             val data =
                 it.filter { article -> article.urlToImage != null && article.title != null }
             emit(
-                MainState.SetupUI(
+                MainState.ShowUI(
                     article = mapper.mapToPagingArticle(data),
                     countryFlag = getCountryFlag(Unit)
                 )

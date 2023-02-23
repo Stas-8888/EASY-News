@@ -2,7 +2,6 @@ package com.example.newsapppp.presentation.screens.main
 
 import android.os.Bundle
 import android.view.View
-import android.view.animation.AnimationUtils
 import android.view.animation.TranslateAnimation
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -13,9 +12,8 @@ import com.example.newsapppp.R
 import com.example.newsapppp.core.SimpleTabSelectedListener
 import com.example.newsapppp.databinding.FragmentMainBinding
 import com.example.newsapppp.presentation.adapters.NewsPagerAdapter
+import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.extensions.invisible
-import com.example.newsapppp.presentation.extensions.navigateDirections
-import com.example.newsapppp.presentation.extensions.showSnackBarString
 import com.example.newsapppp.presentation.extensions.visible
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
@@ -41,8 +39,7 @@ class MainFragment :
 
     override fun onClickListener() = with(binding) {
         btSettings.setOnClickListener {
-            val animAlpha = AnimationUtils.loadAnimation(requireContext(), R.anim.item_anim)
-            btSettings.startAnimation(animAlpha)
+            btSettings.clickAnim()
             viewModel.onBtSettingsClicked()
         }
         newsAdapter.setOnItemClickListener {
@@ -83,7 +80,7 @@ class MainFragment :
     override fun observerState(state: MainState) = with(binding) {
         when (state) {
             is MainState.ShowLoading -> {}
-            is MainState.SetupUI -> {
+            is MainState.ShowUI -> {
                 newsAdapter.submitData(lifecycle, state.article)
                 tvCountry.text = state.countryFlag
             }

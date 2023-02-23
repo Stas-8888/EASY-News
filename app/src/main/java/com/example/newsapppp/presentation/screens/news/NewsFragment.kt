@@ -49,7 +49,7 @@ class NewsFragment :
 
     override fun observerState(state: NewsState) {
         when (state) {
-            is NewsState.SetupFavoriteIcon -> setImageResource(state.favoriteIcon)
+            is NewsState.ShowFavoriteIcon -> setImageResource(state.favoriteIcon)
         }
     }
 

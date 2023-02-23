@@ -1,5 +1,5 @@
 package com.example.newsapppp.presentation.screens.news
 
 sealed class NewsState {
-    data class SetupFavoriteIcon(val favoriteIcon: Int) : NewsState()
+    data class ShowFavoriteIcon(val favoriteIcon: Int) : NewsState()
 }

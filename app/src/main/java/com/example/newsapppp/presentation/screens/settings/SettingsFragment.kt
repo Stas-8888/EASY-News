@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.animation.AnimationUtils
 import android.widget.PopupMenu
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSettingsBinding
 import com.example.newsapppp.databinding.NewNameDialogBinding
+import com.example.newsapppp.presentation.extensions.clickAnim
 import com.example.newsapppp.presentation.extensions.navigateDirections
 import com.example.newsapppp.presentation.extensions.showSnackBar
 import com.example.newsapppp.presentation.extensions.showSnackBarCansel
@@ -41,8 +41,7 @@ class SettingsFragment :
             findNavController().navigateUp()
         }
         imCountry.setOnClickListener {
-            val animAlpha = AnimationUtils.loadAnimation(requireContext(), R.anim.fab_explode)
-            imCountry.startAnimation(animAlpha)
+            imCountry.clickAnim()
             showPopup(imCountry)
         }
         tvEdit.setOnClickListener {
@@ -82,10 +81,10 @@ class SettingsFragment :
 
     override fun observerState(state: SettingsState) = with(binding) {
         when (state) {
-            is SettingsState.SetupUi -> {
+            is SettingsState.ShowUi -> {
                 tvEmail.text = state.email
-                switchDayNight.isChecked = state.theme
                 imCountry.setImageResource(state.flag)
+                switchDayNight.isChecked = state.theme
             }
             is SettingsState.SetCurrentCountry -> imCountry.setImageResource(state.countryFlag)
         }

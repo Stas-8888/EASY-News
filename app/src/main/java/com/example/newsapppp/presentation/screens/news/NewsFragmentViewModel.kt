@@ -29,14 +29,14 @@ class NewsFragmentViewModel @Inject constructor(
     private val favoritesIconSelected = R.drawable.ic_favorite
     private val favoritesIconUnselected = R.drawable.ic_favorite_border
     override val _state =
-        MutableStateFlow<NewsState>(NewsState.SetupFavoriteIcon(favoritesIconUnselected))
+        MutableStateFlow<NewsState>(NewsState.ShowFavoriteIcon(favoritesIconUnselected))
     override val _shared = MutableSharedFlow<NewsAction>()
 
     fun setupFavoriteIcon(article: Article) = launchCoroutine {
         if (isFavorite != getFavorite(article.url)) {
-            _state.emit(NewsState.SetupFavoriteIcon(favoritesIconSelected))
+            _state.emit(NewsState.ShowFavoriteIcon(favoritesIconSelected))
         } else {
-            _state.emit(NewsState.SetupFavoriteIcon(favoritesIconUnselected))
+            _state.emit(NewsState.ShowFavoriteIcon(favoritesIconUnselected))
         }
     }
 

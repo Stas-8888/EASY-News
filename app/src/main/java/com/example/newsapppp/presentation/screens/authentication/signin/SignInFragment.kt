@@ -2,9 +2,7 @@ package com.example.newsapppp.presentation.screens.authentication.signin
 
 import android.os.Bundle
 import android.view.View
-import android.view.animation.AnimationUtils
 import androidx.fragment.app.viewModels
-import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSignInBinding
 import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.screens.base.BaseFragment
@@ -23,7 +21,6 @@ class SignInFragment :
     }
 
     override fun onClickListener() = with(binding) {
-        val click = AnimationUtils.loadAnimation(context, R.anim.fab_explode)
         edLogin.textChangeListener {
             viewModel.isEmailChanged(emailText())
             hideKeyboard(requireActivity(), edLogin)
@@ -33,17 +30,18 @@ class SignInFragment :
             hideKeyboard(requireActivity(), edLoginPassword)
         }
         btSignIn.setOnClickListener {
+            btSignIn.shake()
             viewModel.onSignInButtonClicked(emailText(), passwordText())
         }
         btForgotPassword.setOnClickListener {
             viewModel.onForgotPasswordButtonClicked()
         }
         btSignUp.setOnClickListener {
-            btSignUp.startAnimation(click)
+            btSignUp.clickAnim()
             viewModel.onSignUpButtonClicked()
         }
         btSkip.setOnClickListener {
-            btSkip.startAnimation(click)
+            btSkip.clickAnim()
             viewModel.onSkipButtonClicked()
         }
     }
@@ -67,14 +65,13 @@ class SignInFragment :
     }
 
     private fun setupUiAnimation() = with(binding) {
-        val animAlpha = AnimationUtils.loadAnimation(context, R.anim.fade_in)
-        emailContainer.startAnimation(animAlpha)
-        passwordContainer.startAnimation(animAlpha)
-        btSignIn.startAnimation(animAlpha)
-        titleIcon.startAnimation(animAlpha)
-        appTitle.startAnimation(animAlpha)
-        btSignUp.startAnimation(animAlpha)
-        btSkip.startAnimation(animAlpha)
-        btForgotPassword.startAnimation(animAlpha)
+        passwordContainer.fadeIn()
+        btForgotPassword.fadeIn()
+        emailContainer.fadeIn()
+        titleIcon.fadeIn()
+        btSignIn.fadeIn()
+        appTitle.fadeIn()
+        btSignUp.fadeIn()
+        btSkip.fadeIn()
     }
 }
