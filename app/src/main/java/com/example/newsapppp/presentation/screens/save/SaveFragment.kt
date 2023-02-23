@@ -9,9 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapppp.databinding.FragmentSaveBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
-import com.example.newsapppp.presentation.extensions.navigateDirections
-import com.example.newsapppp.presentation.extensions.showDeleteDialog
-import com.example.newsapppp.presentation.extensions.showSnackBar
+import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.extensions.visible
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,6 +32,7 @@ class SaveFragment :
     override fun onClickListener() {
         with(binding) {
             btDeleteAll.setOnClickListener {
+                it.clickAnim()
                 showDeleteDialog({ viewModel.onDeleteAllArticleClicked() }, { })
             }
             newsAdapter.setOnItemClickListener {

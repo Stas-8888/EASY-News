@@ -27,6 +27,8 @@ fun Fragment.navigateTo(where: Int) = findNavController().navigate(where)
 
 fun Fragment.navigateDirections(where: NavDirections) = findNavController().navigate(where)
 
+fun Fragment.backPress() = findNavController().navigateUp()
+
 fun Fragment.launchWhenStarted(block: suspend CoroutineScope.() -> Unit) {
     viewLifecycleOwner.lifecycleScope.launchWhenStarted(block)
 }

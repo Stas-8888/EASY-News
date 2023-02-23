@@ -8,14 +8,10 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.PopupMenu
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSettingsBinding
 import com.example.newsapppp.databinding.NewNameDialogBinding
-import com.example.newsapppp.presentation.extensions.clickAnim
-import com.example.newsapppp.presentation.extensions.navigateDirections
-import com.example.newsapppp.presentation.extensions.showSnackBar
-import com.example.newsapppp.presentation.extensions.showSnackBarCansel
+import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,10 +34,11 @@ class SettingsFragment :
             viewModel.onAccountClicked()
         }
         toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
+            it.bump()
+            backPress()
         }
         imCountry.setOnClickListener {
-            imCountry.clickAnim()
+            it.clickAnim()
             showPopup(imCountry)
         }
         tvEdit.setOnClickListener {

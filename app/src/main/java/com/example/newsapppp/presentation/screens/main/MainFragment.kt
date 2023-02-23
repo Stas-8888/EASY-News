@@ -39,7 +39,7 @@ class MainFragment :
 
     override fun onClickListener() = with(binding) {
         btSettings.setOnClickListener {
-            btSettings.clickAnim()
+            it.clickAnim()
             viewModel.onBtSettingsClicked()
         }
         newsAdapter.setOnItemClickListener {

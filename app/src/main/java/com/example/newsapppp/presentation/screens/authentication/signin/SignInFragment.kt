@@ -30,18 +30,18 @@ class SignInFragment :
             hideKeyboard(requireActivity(), edLoginPassword)
         }
         btSignIn.setOnClickListener {
-            btSignIn.shake()
+            it.shake()
             viewModel.onSignInButtonClicked(emailText(), passwordText())
         }
         btForgotPassword.setOnClickListener {
             viewModel.onForgotPasswordButtonClicked()
         }
         btSignUp.setOnClickListener {
-            btSignUp.clickAnim()
+            it.clickAnim()
             viewModel.onSignUpButtonClicked()
         }
         btSkip.setOnClickListener {
-            btSkip.clickAnim()
+            it.clickAnim()
             viewModel.onSkipButtonClicked()
         }
     }

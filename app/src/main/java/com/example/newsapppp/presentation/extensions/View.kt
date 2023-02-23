@@ -2,6 +2,7 @@ package com.example.newsapppp.presentation.extensions
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.util.TypedValue
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -49,10 +50,10 @@ fun View.slideUp() {
     }
 }
 
-
-fun View.shake() = ObjectAnimator.ofFloat(this, "translationX", 0F, -15F, 15F, -10F, 10F, -5F, 5F, 0F)
-    .setDuration(500)
-    .start()
+fun View.shake() =
+    ObjectAnimator.ofFloat(this, "translationX", 0F, -15F, 15F, -10F, 10F, -5F, 5F, 0F)
+        .setDuration(500)
+        .start()
 
 fun View.fadeIn(): ObjectAnimator = ObjectAnimator.ofFloat(this, View.ALPHA, 0f, 1f).apply {
     duration = 1000
@@ -71,6 +72,11 @@ fun View.bump(action: () -> Unit = {}) {
     }
 }
 
-fun View.clickAnim(){
+fun View.clickAnim() {
     startAnimation(AnimationUtils.loadAnimation(context, R.anim.fab_explode))
+}
+
+fun View.addRipple() = with(TypedValue()) {
+    context.theme.resolveAttribute(R.color.colorRed, this, true)
+    setBackgroundResource(resourceId)
 }
