@@ -13,8 +13,6 @@ import com.example.newsapppp.core.SimpleTabSelectedListener
 import com.example.newsapppp.databinding.FragmentMainBinding
 import com.example.newsapppp.presentation.adapters.NewsPagerAdapter
 import com.example.newsapppp.presentation.extensions.*
-import com.example.newsapppp.presentation.extensions.invisible
-import com.example.newsapppp.presentation.extensions.visible
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,8 +31,8 @@ class MainFragment :
         setupTabLayout()
         setupAnimation()
         setupRecyclerView()
+        viewModel.setupUi()
         viewModel.interceptorErrors()
-        viewModel.setupUi(categories.first())
     }
 
     override fun onClickListener() = with(binding) {
@@ -102,7 +100,7 @@ class MainFragment :
         tabMain.addTab(tabMain.newTab().setText((R.string.entertainment)))
         tabMain.addOnTabSelectedListener(object : SimpleTabSelectedListener() {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                viewModel.setupUi(categories[tab.position])
+                viewModel.setupTabLayout(tab)
             }
         })
     }
@@ -133,13 +131,4 @@ class MainFragment :
             duration = 1000
         })
     }
-
-    val categories = listOf(
-        "Technology",
-        "Sports",
-        "Science",
-        "Entertainment",
-        "Business",
-        "Health",
-    )
 }

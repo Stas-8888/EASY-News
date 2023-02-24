@@ -33,7 +33,7 @@ class SaveFragment :
         with(binding) {
             btDeleteAll.setOnClickListener {
                 it.clickAnim()
-                showDeleteDialog({ viewModel.onDeleteAllArticleClicked() }, { })
+                showDeleteDialog({ viewModel.onDeleteAllClicked() }, { })
             }
             newsAdapter.setOnItemClickListener {
                 viewModel.onNewsAdapterItemClicked(it)

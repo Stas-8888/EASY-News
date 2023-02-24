@@ -57,7 +57,7 @@ class SaveFragmentViewModel @Inject constructor(
         saveFavorite.saveFavorite(article.url, false)
     }
 
-    fun onDeleteAllArticleClicked() = launchCoroutine {
+    fun onDeleteAllClicked() = launchCoroutine {
         getLocalArticle(Unit).collect {
             if (it.isNotEmpty()) {
                 sharedPrefRepository.deleteAllFavorite()
