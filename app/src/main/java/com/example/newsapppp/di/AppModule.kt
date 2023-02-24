@@ -1,9 +1,9 @@
 package com.example.newsapppp.di
 
 import com.example.newsapppp.BuildConfig
-import com.example.newsapppp.data.network.interceptor.ErrorsInterceptorContract
-import com.example.newsapppp.data.network.interceptor.RestErrorInterceptor
-import com.example.newsapppp.data.network.service.ApiService
+import com.example.newsapppp.data.remote.interceptor.ErrorsInterceptorContract
+import com.example.newsapppp.data.remote.interceptor.RestErrorInterceptor
+import com.example.newsapppp.data.remote.service.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

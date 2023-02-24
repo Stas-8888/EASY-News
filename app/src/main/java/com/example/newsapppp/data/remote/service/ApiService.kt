@@ -1,7 +1,7 @@
-package com.example.newsapppp.data.network.service
+package com.example.newsapppp.data.remote.service
 
 import com.example.newsapppp.BuildConfig
-import com.example.newsapppp.data.network.model.NewsResponseRemote
+import com.example.newsapppp.data.remote.model.NewsResponseRemote
 import retrofit2.http.GET
 import retrofit2.http.Query
 

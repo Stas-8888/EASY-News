@@ -4,8 +4,8 @@ import com.example.newsapppp.core.DispatcherRepository
 import com.example.newsapppp.core.DispatcherRepositoryContract
 import com.example.newsapppp.core.ProvideResources
 import com.example.newsapppp.core.ProvideResourcesContract
-import com.example.newsapppp.data.network.interceptor.ErrorsInterceptor
-import com.example.newsapppp.data.network.interceptor.ErrorsInterceptorContract
+import com.example.newsapppp.data.remote.interceptor.ErrorsInterceptor
+import com.example.newsapppp.data.remote.interceptor.ErrorsInterceptorContract
 import com.example.newsapppp.data.repository.*
 import com.example.newsapppp.domain.repository.*
 import com.google.firebase.auth.FirebaseAuth
@@ -47,11 +47,11 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideArticleRepository(impl: ArticleRepository): ArticleRepositoryContract = impl
+    fun provideArticleRepository(impl: ArticleRemoteRepository): ArticleRemoteRepositoryContract = impl
 
     @Provides
     @Singleton
-    fun provideDbRepository(impl: ArticleLocalSourceRepository): DataBaseRepositoryContract = impl
+    fun provideDbRepository(impl: ArticleLocalSourceRepository): ArticleLocalSourceRepositoryContract = impl
 
     @Provides
     @Singleton

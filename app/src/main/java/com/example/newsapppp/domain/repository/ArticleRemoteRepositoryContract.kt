@@ -5,7 +5,7 @@ import com.example.newsapppp.domain.model.ArticleModel
 import com.example.newsapppp.domain.model.NewsResponseModel
 import kotlinx.coroutines.flow.Flow
 
-interface ArticleRepositoryContract {
+interface ArticleRemoteRepositoryContract {
 
     suspend fun getNews(category: String): Flow<PagingData<ArticleModel>>
 

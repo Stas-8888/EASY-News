@@ -3,7 +3,7 @@ package com.example.newsapppp.data.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.newsapppp.data.mapper.NewsResponseMapper
-import com.example.newsapppp.data.network.service.ApiService
+import com.example.newsapppp.data.remote.service.ApiService
 import com.example.newsapppp.domain.model.ArticleModel
 import retrofit2.HttpException
 

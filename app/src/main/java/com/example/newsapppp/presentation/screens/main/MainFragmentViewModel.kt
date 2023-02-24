@@ -3,7 +3,7 @@ package com.example.newsapppp.presentation.screens.main
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import androidx.paging.filter
-import com.example.newsapppp.data.network.interceptor.ErrorsInterceptorContract
+import com.example.newsapppp.data.remote.interceptor.ErrorsInterceptorContract
 import com.example.newsapppp.domain.interactors.articleremote.GetNewsUseCase
 import com.example.newsapppp.domain.interactors.preference.GetCountryFlagUseCase
 import com.example.newsapppp.presentation.extensions.launchCoroutine
@@ -70,6 +70,12 @@ class MainFragmentViewModel @Inject constructor(
             emit(MainState.BottomVisibility(false)) else emit(MainState.BottomVisibility(true))
     }
 
+    fun onBtSettingsClicked() {
+        emitShared(
+            MainAction.Navigate(MainFragmentDirections.actionMainFragmentToSettingsFragment())
+        )
+    }
+
     fun onNewsAdapterClicked(article: Article) {
         emitShared(
             MainAction.Navigate(
@@ -77,12 +83,6 @@ class MainFragmentViewModel @Inject constructor(
                     article
                 )
             )
-        )
-    }
-
-    fun onBtSettingsClicked() {
-        emitShared(
-            MainAction.Navigate(MainFragmentDirections.actionMainFragmentToSettingsFragment())
         )
     }
 }

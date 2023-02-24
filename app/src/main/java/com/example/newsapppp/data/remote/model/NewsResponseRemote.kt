@@ -1,4 +1,4 @@
-package com.example.newsapppp.data.network.model
+package com.example.newsapppp.data.remote.model
 
 data class NewsResponseRemote(
     val articles: List<ArticleRemote>,

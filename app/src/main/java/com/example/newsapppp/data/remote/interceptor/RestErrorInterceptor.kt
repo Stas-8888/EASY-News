@@ -1,4 +1,4 @@
-package com.example.newsapppp.data.network.interceptor
+package com.example.newsapppp.data.remote.interceptor
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

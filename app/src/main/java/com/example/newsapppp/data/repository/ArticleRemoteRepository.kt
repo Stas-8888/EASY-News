@@ -5,20 +5,20 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.newsapppp.core.DispatcherRepositoryContract
 import com.example.newsapppp.data.mapper.NewsResponseMapper
-import com.example.newsapppp.data.network.service.ApiService
+import com.example.newsapppp.data.remote.service.ApiService
 import com.example.newsapppp.data.paging.ArticlePagingSource
 import com.example.newsapppp.domain.model.ArticleModel
 import com.example.newsapppp.domain.model.NewsResponseModel
-import com.example.newsapppp.domain.repository.ArticleRepositoryContract
+import com.example.newsapppp.domain.repository.ArticleRemoteRepositoryContract
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class ArticleRepository @Inject constructor(
+class ArticleRemoteRepository @Inject constructor(
     private val apiService: ApiService,
     private val mapper: NewsResponseMapper,
     private val sharedPref: SharedPrefRepository,
     private val dispatcher: DispatcherRepositoryContract,
-) : ArticleRepositoryContract {
+) : ArticleRemoteRepositoryContract {
 
     override suspend fun getNews(category: String): Flow<PagingData<ArticleModel>> {
         return dispatcher.io {
