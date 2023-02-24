@@ -1,7 +1,5 @@
 package com.example.newsapppp.presentation.screens.authentication.signin
 
-import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.databinding.FragmentSignInBinding
 import com.example.newsapppp.presentation.extensions.*
@@ -14,11 +12,6 @@ class SignInFragment :
         FragmentSignInBinding::inflate
     ) {
     override val viewModel by viewModels<SignInViewModel>()
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupUiAnimation()
-    }
 
     override fun onClickListener() = with(binding) {
         edLogin.textChangeListener {
@@ -62,16 +55,5 @@ class SignInFragment :
             is SignInAction.Navigate -> navigateDirections(actions.navigateTo)
             is SignInAction.ShowMessage -> showSnackBar(actions.message)
         }
-    }
-
-    private fun setupUiAnimation() = with(binding) {
-        passwordContainer.fadeIn()
-        btForgotPassword.fadeIn()
-        emailContainer.fadeIn()
-        titleIcon.fadeIn()
-        btSignIn.fadeIn()
-        appTitle.fadeIn()
-        btSignUp.fadeIn()
-        btSkip.fadeIn()
     }
 }

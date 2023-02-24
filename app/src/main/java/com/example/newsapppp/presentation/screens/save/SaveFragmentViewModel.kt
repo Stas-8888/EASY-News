@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SaveFragmentViewModel @Inject constructor(
-    private val sharedPrefRepository: SharedPrefRepositoryContract,
+    private val sharedPref: SharedPrefRepositoryContract,
     private val getLocalArticle: GetLocalArticleUseCase,
     private val deleteArticle: DeleteArticleUseCase,
     private val saveFavorite: SaveFavoriteUseCase,
@@ -60,7 +60,7 @@ class SaveFragmentViewModel @Inject constructor(
     fun onDeleteAllClicked() = launchCoroutine {
         getLocalArticle(Unit).collect {
             if (it.isNotEmpty()) {
-                sharedPrefRepository.deleteAllFavorite()
+                sharedPref.deleteAllFavorite()
                 deleteAll(Unit)
             } else {
                 emitShared(SaveAction.ShowMessage(R.string.empty_list))

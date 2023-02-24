@@ -13,7 +13,7 @@ import javax.inject.Inject
 class ArticleLocalSourceRepository @Inject constructor(
     private val newsDao: NewsDao,
     private val mapper: EntityMapper,
-    private val newsMapper: NewsResponseMapper,
+    private val newsResponseMapper: NewsResponseMapper,
     private val dispatcher: DispatcherRepositoryContract
 ) : ArticleLocalSourceRepositoryContract {
 
@@ -30,6 +30,6 @@ class ArticleLocalSourceRepository @Inject constructor(
     }
 
     override fun getAllArticles(): Flow<List<ArticleModel>> {
-        return newsDao.getAllArticles().map { newsMapper.fromArticleEntityToArticleModel(it) }
+        return newsDao.getAllArticles().map { newsResponseMapper.fromArticleEntityToArticleModel(it) }
     }
 }
