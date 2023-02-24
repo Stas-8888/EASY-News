@@ -28,11 +28,12 @@ class MainFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupTabLayout()
-        setupAnimation()
+        viewModel.interceptorErrors()
+        binding.mainScreen.fadeIn()
         setupRecyclerView()
         viewModel.setupUi()
-        viewModel.interceptorErrors()
+        setupTabLayout()
+        setupAnimation()
     }
 
     override fun onClickListener() = with(binding) {
@@ -41,6 +42,7 @@ class MainFragment :
             viewModel.onBtSettingsClicked()
         }
         newsAdapter.setOnItemClickListener {
+            mainScreen.fadeOut()
             viewModel.onNewsAdapterClicked(it)
         }
         swipeToRefresh.setOnRefreshListener {

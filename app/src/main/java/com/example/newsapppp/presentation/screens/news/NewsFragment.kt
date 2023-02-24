@@ -6,10 +6,7 @@ import android.webkit.WebViewClient
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.newsapppp.databinding.FragmentNewsBinding
-import com.example.newsapppp.presentation.extensions.backPress
-import com.example.newsapppp.presentation.extensions.clickAnim
-import com.example.newsapppp.presentation.extensions.showAlertUpDialog
-import com.example.newsapppp.presentation.extensions.showSnackBar
+import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,6 +22,7 @@ class NewsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.setupFavoriteIcon(article)
+        binding.newsScreen.fadeIn()
         setupWebView()
     }
 
@@ -34,6 +32,7 @@ class NewsFragment :
             viewModel.onFavoriteIconClicked(article)
         }
         toolbar.setNavigationOnClickListener {
+            newsScreen.fadeOut()
             backPress()
         }
     }

@@ -4,7 +4,6 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.util.TypedValue
 import android.view.View
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.core.animation.doOnEnd
 import com.example.newsapppp.R
@@ -19,19 +18,6 @@ internal fun View.visible() {
 
 internal fun View.visibility(data: Boolean) {
     visibility = if (data) View.VISIBLE else View.INVISIBLE
-}
-
-internal fun View.startAnim(animation: Animation, onEnd: () -> Unit = {}) {
-    animation.setAnimationListener(object : Animation.AnimationListener {
-        override fun onAnimationStart(animation: Animation?) = Unit
-
-        override fun onAnimationEnd(animation: Animation?) {
-            onEnd()
-        }
-
-        override fun onAnimationRepeat(animation: Animation?) = Unit
-    })
-    startAnimation(animation)
 }
 
 fun View.slideDown() {
@@ -56,7 +42,12 @@ fun View.shake() =
         .start()
 
 fun View.fadeIn(): ObjectAnimator = ObjectAnimator.ofFloat(this, View.ALPHA, 0f, 1f).apply {
-    duration = 1000
+    duration = 250
+    start()
+}
+
+fun View.fadeOut(): ObjectAnimator = ObjectAnimator.ofFloat(this, View.ALPHA, 1f, 0f).apply {
+    duration = 250
     start()
 }
 
