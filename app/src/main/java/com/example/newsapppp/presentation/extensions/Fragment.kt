@@ -23,8 +23,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.tapadoo.alerter.Alerter
 import kotlinx.coroutines.CoroutineScope
 
-fun Fragment.navigateTo(where: Int) = findNavController().navigate(where)
-
 fun Fragment.navigateDirections(where: NavDirections) = findNavController().navigate(where)
 
 fun Fragment.backPress() = findNavController().navigateUp()

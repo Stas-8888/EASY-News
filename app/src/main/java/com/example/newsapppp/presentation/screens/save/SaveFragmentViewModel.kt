@@ -3,7 +3,7 @@ package com.example.newsapppp.presentation.screens.save
 import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.localsource.DeleteAllUseCase
 import com.example.newsapppp.domain.interactors.localsource.DeleteArticleUseCase
-import com.example.newsapppp.domain.interactors.localsource.GetRoomArticleUseCase
+import com.example.newsapppp.domain.interactors.localsource.GetLocalArticleUseCase
 import com.example.newsapppp.domain.interactors.preference.SaveFavoriteUseCase
 import com.example.newsapppp.domain.repository.SharedPrefRepositoryContract
 import com.example.newsapppp.presentation.extensions.launchCoroutine
@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SaveFragmentViewModel @Inject constructor(
     private val sharedPrefRepository: SharedPrefRepositoryContract,
-    private val getRoomArticle: GetRoomArticleUseCase,
+    private val getLocalArticle: GetLocalArticleUseCase,
     private val deleteArticle: DeleteArticleUseCase,
     private val saveFavorite: SaveFavoriteUseCase,
     private val deleteAll: DeleteAllUseCase,
@@ -29,7 +29,7 @@ class SaveFragmentViewModel @Inject constructor(
     override val _shared = MutableSharedFlow<SaveAction>()
 
     fun setupAllNews() = launchCoroutine {
-        getRoomArticle(Unit).collect {
+        getLocalArticle(Unit).collect {
             if (it.isNotEmpty()) {
                 emit(
                     SaveState.ShowArticles(
@@ -58,8 +58,14 @@ class SaveFragmentViewModel @Inject constructor(
     }
 
     fun onDeleteAllArticleClicked() = launchCoroutine {
-        sharedPrefRepository.deleteAllFavorite()
-        deleteAll(Unit)
+        getLocalArticle(Unit).collect {
+            if (it.isNotEmpty()) {
+                sharedPrefRepository.deleteAllFavorite()
+                deleteAll(Unit)
+            } else {
+                emitShared(SaveAction.ShowMessage(R.string.empty_list))
+            }
+        }
     }
 
     fun onItemSwiped(article: Article, position: Int) {

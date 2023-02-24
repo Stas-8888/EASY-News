@@ -65,8 +65,8 @@ class SaveFragment :
                     { newsAdapter.notifyItemChanged(actions.position) })
             }
             is SaveAction.Navigate -> navigateDirections(actions.navigateTo)
+            is SaveAction.ShowMessage -> showSnackBar(actions.message)
         }
-
     }
 
     private fun swipeToDelete() = with(binding) {
