@@ -29,7 +29,6 @@ class MainFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.interceptorErrors()
-        binding.mainScreen.fadeIn()
         setupRecyclerView()
         viewModel.setupUi()
         setupTabLayout()
@@ -123,6 +122,7 @@ class MainFragment :
     }
 
     private fun setupAnimation() = with(binding) {
+        mainScreen.fadeIn()
         appName.startAnimation(TranslateAnimation(0f, 0f, -100f, 0f).apply {
             duration = 1000
         })
