@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorBackground"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="@dimen/dp_10">
 
             <TextView
                 android:id="@+id/appTitle"
@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/change_name"
-                android:textSize="20sp"
+                android:textSize="@dimen/sp_20"
                 android:textStyle="bold" />
 
             <EditText

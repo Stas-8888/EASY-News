@@ -10,7 +10,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/dp_20"
         android:src="@drawable/ic_baseline_signal_wifi_off_24"
         app:tint="@color/white" />
 
@@ -27,37 +27,37 @@
         android:id="@+id/internet_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="@dimen/dp_15"
         android:layout_marginTop="25dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="@dimen/dp_15"
         android:fontFamily="serif"
         android:text="@string/no_internet_connections"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="@dimen/sp_16"
         android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginStart="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginEnd="@dimen/dp_15"
         android:fontFamily="serif"
         android:text="@string/check_your_connections_and_try_again"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="@color/white"
-        android:textSize="15sp" />
+        android:textSize="@dimen/sp_15" />
 
     <Button
         android:id="@+id/bt_try_again"
         android:layout_width="220dp"
         android:layout_height="50dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginBottom="@dimen/dp_16"
         android:backgroundTint="@color/white"
         android:text="OK"
         android:textAllCaps="false"
