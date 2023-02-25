@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.newsapppp"
-        minSdk 21
+        minSdk 24
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -95,12 +95,6 @@ dependencies {
 
     //Paging
     implementation "androidx.paging:paging-runtime-ktx:3.2.0-alpha04"
-
-    // SSP-SDP library
-    implementation 'com.intuit.ssp:ssp-android:1.1.0'
-    implementation 'com.intuit.sdp:sdp-android:1.1.0'
-
-    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.1.0'
     implementation 'androidx.work:work-runtime-ktx:2.8.0'

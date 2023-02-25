@@ -38,6 +38,12 @@
     <string name="empty_list">You don\'t have save items</string>
     <string name="server_error">Server not available</string>
 
+    <string name="login_or_sign_up">Login or Sign up</string>
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="continue_with_facebook">Continue with Facebook</string>
+    <string name="continue_with_email">Continue with Email Address</string>
+    <string name="terms_and_policy">By continuing, you agree to our &lt;a href=\"https://vroomvroom.store/en/content/termsandconditions\"&gt;Terms and Conditions&lt;/a&gt; and &lt;a href=\"https://vroomvroom.store/en/page/admin/privacypolicy\"&gt;Privacy Policy&lt;/a&gt;.</string>
+
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
     <string name="no_acc">Don’t have any account?</string>

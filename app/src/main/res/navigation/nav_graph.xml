@@ -77,6 +77,11 @@
         <action
             android:id="@+id/action_settingsFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_authBottomSheetFragment"
+            app:destination="@id/authBottomSheetFragment"
+            app:enterAnim="@anim/right_in"
+            app:exitAnim="@anim/left_out" />
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
@@ -137,4 +142,13 @@
         android:id="@+id/forgotPasswordFragment"
         android:name="com.example.newsapppp.presentation.screens.authentication.forgotPassword.ForgotPasswordFragment"
         tools:layout="@layout/fragment_forgot_password" />
+    <dialog
+        android:id="@+id/authBottomSheetFragment"
+        android:name="com.example.newsapppp.presentation.screens.authentication.bottomsheet.AuthBottomSheetFragment"
+        android:label="fragment_auth_bottom_sheet"
+        tools:layout="@layout/fragment_auth_bottom_sheet" >
+        <action
+            android:id="@+id/action_authBottomSheetFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </dialog>
 </navigation>

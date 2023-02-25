@@ -66,7 +66,7 @@ class SettingsFragmentViewModel @Inject constructor(
                 true
             ) { firebaseAuth.signOut() })
         } else {
-            emitShared(SettingsAction.Navigate(SettingsFragmentDirections.actionSettingsFragmentToSignInFragment()))
+            emitShared(SettingsAction.Navigate(SettingsFragmentDirections.actionSettingsFragmentToAuthBottomSheetFragment()))
         }
     }
 
