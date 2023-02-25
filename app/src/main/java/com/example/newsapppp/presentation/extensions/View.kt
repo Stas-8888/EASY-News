@@ -2,9 +2,11 @@ package com.example.newsapppp.presentation.extensions
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.util.TypedValue
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.view.inputmethod.InputMethodManager
 import androidx.core.animation.doOnEnd
 import com.example.newsapppp.R
 
@@ -70,4 +72,16 @@ fun View.clickAnim() {
 fun View.addRipple() = with(TypedValue()) {
     context.theme.resolveAttribute(R.color.colorRed, this, true)
     setBackgroundResource(resourceId)
+}
+
+fun View.showKeyboard() {
+    val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    requestFocus()
+    inputMethodManager.showSoftInput(this, 0)
+}
+
+fun View.hideKeyboard() {
+    (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).apply {
+        hideSoftInputFromWindow(windowToken, 0)
+    }
 }

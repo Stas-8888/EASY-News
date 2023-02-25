@@ -15,26 +15,28 @@ class SignInFragment :
 
     override fun onClickListener() = with(binding) {
         edLogin.afterTextChanged {
-            viewModel.isEmailChanged(emailText())
-            hideKeyboard(requireActivity(), edLogin)
+            viewModel.isEmailChanged(it)
         }
         edLoginPassword.afterTextChanged {
-            viewModel.isPasswordChanged(passwordText())
-            hideKeyboard(requireActivity(), edLoginPassword)
+            viewModel.isPasswordChanged(it)
         }
         btSignIn.setOnClickListener {
             it.shake()
+            it.hideKeyboard()
             viewModel.onSignInButtonClicked(emailText(), passwordText())
         }
         btForgotPassword.setOnClickListener {
+            it.hideKeyboard()
             viewModel.onForgotPasswordButtonClicked()
         }
         btSignUp.setOnClickListener {
             it.clickAnim()
+            it.hideKeyboard()
             viewModel.onSignUpButtonClicked()
         }
         btSkip.setOnClickListener {
             it.clickAnim()
+            it.hideKeyboard()
             viewModel.onSkipButtonClicked()
         }
     }

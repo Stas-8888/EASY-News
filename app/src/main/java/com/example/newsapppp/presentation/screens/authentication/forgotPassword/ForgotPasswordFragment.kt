@@ -4,6 +4,7 @@ import androidx.fragment.app.viewModels
 import com.example.newsapppp.databinding.FragmentForgotPasswordBinding
 import com.example.newsapppp.presentation.extensions.showSnackBar
 import com.example.newsapppp.presentation.extensions.afterTextChanged
+import com.example.newsapppp.presentation.extensions.hideKeyboard
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,8 +17,9 @@ class ForgotPasswordFragment :
     override val viewModel by viewModels<ForgotPasswordViewModel>()
 
     override fun onClickListener() = with(binding) {
-        edEmail.afterTextChanged { viewModel.isEmailChanged(emailText()) }
+        edEmail.afterTextChanged { viewModel.isEmailChanged(it) }
         btForgotPassword.setOnClickListener {
+            it.hideKeyboard()
             viewModel.onForgotPasswordClicked(emailText())
         }
     }
