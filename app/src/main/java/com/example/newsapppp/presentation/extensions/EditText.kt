@@ -1,14 +1,17 @@
 package com.example.newsapppp.presentation.extensions
 
 import android.text.Editable
+import android.text.TextWatcher
 import android.widget.EditText
-import com.example.newsapppp.core.TextChangeListener
 
-inline fun EditText.textChangeListener(crossinline action: () -> Unit) {
-
-    addTextChangedListener(object : TextChangeListener() {
+inline fun EditText.afterTextChanged(crossinline afterTextChanged: (String) -> Unit) {
+    this.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
-            action.invoke()
+            afterTextChanged.invoke(s.toString())
         }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
     })
 }

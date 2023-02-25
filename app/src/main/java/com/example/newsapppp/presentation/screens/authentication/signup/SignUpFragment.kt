@@ -5,7 +5,7 @@ import com.example.newsapppp.databinding.FragmentSignUpBinding
 import com.example.newsapppp.presentation.extensions.invisible
 import com.example.newsapppp.presentation.extensions.navigateDirections
 import com.example.newsapppp.presentation.extensions.showSnackBar
-import com.example.newsapppp.presentation.extensions.textChangeListener
+import com.example.newsapppp.presentation.extensions.afterTextChanged
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,10 +31,10 @@ class SignUpFragment :
             )
         }
 
-        fullName.textChangeListener { isValid() }
-        email.textChangeListener { isValid() }
-        edPassword.textChangeListener { isValid() }
-        confirmPassword.textChangeListener { isValid() }
+        fullName.afterTextChanged { isValid() }
+        email.afterTextChanged { isValid() }
+        edPassword.afterTextChanged { isValid() }
+        confirmPassword.afterTextChanged { isValid() }
         btSignIn.setOnClickListener { viewModel.onSignInBottomClicked() }
     }
 

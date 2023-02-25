@@ -14,11 +14,11 @@ class SignInFragment :
     override val viewModel by viewModels<SignInViewModel>()
 
     override fun onClickListener() = with(binding) {
-        edLogin.textChangeListener {
+        edLogin.afterTextChanged {
             viewModel.isEmailChanged(emailText())
             hideKeyboard(requireActivity(), edLogin)
         }
-        edLoginPassword.textChangeListener {
+        edLoginPassword.afterTextChanged {
             viewModel.isPasswordChanged(passwordText())
             hideKeyboard(requireActivity(), edLoginPassword)
         }
