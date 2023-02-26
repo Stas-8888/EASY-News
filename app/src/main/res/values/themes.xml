@@ -13,6 +13,7 @@
         <item name="android:statusBarColor">@color/colorRedBackground</item>
         <item name="android:windowIsTranslucent">true</item>
         <!-- Customize your theme here. -->
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
 
     </style>
 
@@ -23,6 +24,16 @@
         <item name="android:textColorSecondary">@color/white</item>
         <!-- toolbar title colorModel -->
         <item name="titleTextColor">@color/white</item>
+    </style>
+
+    <style name="AppBottomSheetDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottom_sheet_dialog_shape</item>
     </style>
 
 </resources>
