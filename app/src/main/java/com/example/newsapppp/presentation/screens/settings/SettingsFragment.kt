@@ -2,11 +2,13 @@ package com.example.newsapppp.presentation.screens.settings
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.PopupMenu
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSettingsBinding
@@ -15,14 +17,13 @@ import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
-const val PICK_IMAGE_REQUEST = 71
-
 @AndroidEntryPoint
 class SettingsFragment :
     BaseFragment<SettingsState, SettingsAction, FragmentSettingsBinding, SettingsFragmentViewModel>(
         FragmentSettingsBinding::inflate
     ) {
     override val viewModel by viewModels<SettingsFragmentViewModel>()
+    private var mImageUri: Uri? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,21 +50,33 @@ class SettingsFragment :
         }
 
         profileImage.setOnClickListener {
+            profileImage.clickAnim()
             val popupMenu = PopupMenu(context, profileImage)
             popupMenu.menuInflater.inflate(R.menu.profile_photo_storage, popupMenu.menu)
             popupMenu.setOnMenuItemClickListener { item ->
-                viewModel.onProfileImageClicked(item, launchGallery())
+                viewModel.onProfileImageClicked(item, selectImageFromGallery())
                 true
             }
             popupMenu.show()
         }
     }
 
-    private fun launchGallery() {
+    private fun selectImageFromGallery() {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST)
+        resultLauncher.launch(Intent.createChooser(intent, "Select Picture"))
+    }
+
+    private val resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            mImageUri = result.data?.data
+            showUserImage()
+        }
+
+    private fun showUserImage() {
+        if (mImageUri != null)
+            binding.profileImage.setImageURI(mImageUri)
     }
 
     override fun observerShared(actions: SettingsAction) {

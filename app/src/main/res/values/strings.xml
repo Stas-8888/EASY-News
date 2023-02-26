@@ -38,7 +38,6 @@
     <string name="empty_list">You don\'t have save items</string>
     <string name="server_error">Server not available</string>
 
-    <string name="login_or_sign_up">Login or Sign up</string>
     <string name="continue_with_google">Continue with Google</string>
     <string name="continue_with_facebook">Continue with Facebook</string>
     <string name="continue_with_email">Continue with Email Address</string>
