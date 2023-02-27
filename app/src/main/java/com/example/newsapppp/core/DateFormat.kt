@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object DateFormat {
-
     fun dateFormat(dateNews: String?): String? {
         val isDate: String?
         val dateFormat = SimpleDateFormat("dd MMMM, yyyy", Locale(getCountry()))
