@@ -43,7 +43,6 @@ class AuthBottomSheetFragment : BottomSheetDialogFragment() {
             when (state) {
                 is SheetState.Loading -> {}
                 is SheetState.ShowMessage -> binding.tvPolicy.text = state.message
-
             }
         }
     }

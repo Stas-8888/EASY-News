@@ -22,4 +22,16 @@
     <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/bottom_sheet_dialog_shape</item>
     </style>
+
+    <style name="RoundOutlinedButton" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="DeclineOutlinedButton" parent="RoundOutlinedButton">
+        <item name="cornerRadius">@dimen/dp_16</item>
+        <item name="strokeColor">@color/red</item>
+        <item name="android:insetTop">@dimen/dp_0</item>
+        <item name="android:insetBottom">@dimen/dp_0</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
 </resources>
