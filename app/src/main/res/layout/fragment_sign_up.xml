@@ -41,7 +41,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/fullNameContainer"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_24"
             android:layout_marginTop="@dimen/dp_60"
@@ -77,7 +77,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/emailContainer"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_24"
             android:layout_marginEnd="@dimen/dp_24"
@@ -112,7 +112,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordContainer"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_24"
             android:layout_marginEnd="@dimen/dp_24"
@@ -151,7 +151,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/password_container"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:textColorHint="@color/grayDark"
             app:boxCornerRadiusBottomEnd="@dimen/dp_10"
@@ -183,7 +183,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/register_button"
             style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_24"
             android:background="@drawable/button"

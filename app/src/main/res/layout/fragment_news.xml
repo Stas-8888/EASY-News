@@ -10,7 +10,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         style="@style/Toolbar"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
         app:contentInsetStartWithNavigation="0dp"
@@ -41,7 +41,7 @@
     <WebView
         android:id="@+id/webView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/dp_0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

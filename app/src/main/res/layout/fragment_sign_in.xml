@@ -50,7 +50,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailContainer"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_24"
         android:layout_marginEnd="@dimen/dp_24"
@@ -85,7 +85,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/password_container"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_8"
         android:textColorHint="@color/grayDark"
@@ -129,7 +129,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btSignIn"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_18"
         android:background="@drawable/button"
@@ -170,7 +170,7 @@
         android:id="@+id/bt_skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="@dimen/dp_60"
         android:layout_marginEnd="43dp"
         android:text="@string/skip"
         android:textColor="@color/grey_one"

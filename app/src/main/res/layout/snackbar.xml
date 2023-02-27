@@ -23,7 +23,7 @@
             android:layout_weight="1"
             android:ellipsize="end"
             android:textColor="@color/white"
-            android:maxLines="@integer/design_snackbar_text_max_lines"
+            android:maxLines="1"
             android:paddingStart="@dimen/design_snackbar_padding_horizontal"
             android:text="@string/default_name"
             android:textAppearance="@style/TextAppearance.Design.Snackbar.Message" />

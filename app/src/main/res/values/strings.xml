@@ -107,4 +107,6 @@
     <string name="check_your_connections_and_try_again">Check your connections and try again</string>
     <string name="delete_all">Удалить всё ?</string>
     <string name="default_name">Default</string>
+    <string name="type_for_switch">Нажмите, что бы переключить</string>
+    <string name="old_news">Странна новостей?</string>
 </resources>

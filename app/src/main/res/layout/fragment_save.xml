@@ -10,10 +10,10 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         style="@style/Toolbar"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
-        app:contentInsetStartWithNavigation="0dp"
+        app:contentInsetStartWithNavigation="@dimen/dp_0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -50,7 +50,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSavedNews"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/dp_0"
         android:layoutAnimation="@anim/item_layout_animation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +59,7 @@
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progress_bar"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_3"
         android:indeterminate="true"
