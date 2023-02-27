@@ -17,7 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.example.newsapppp.R
-import com.example.newsapppp.databinding.DeleteDialog3Binding
+import com.example.newsapppp.databinding.DeleteDialogBinding
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.tapadoo.alerter.Alerter
@@ -74,7 +74,7 @@ fun Fragment.showSnackBarString(title: String?) {
 fun Fragment.showDeleteDialog(onSuccess: () -> Unit, noteSuccess: () -> Unit) {
     var dialog: AlertDialog? = null
     val builder = AlertDialog.Builder(context)
-    val binding = DeleteDialog3Binding.inflate(LayoutInflater.from(context))
+    val binding = DeleteDialogBinding.inflate(LayoutInflater.from(context))
 
     builder.setView(binding.root)
     binding.apply {

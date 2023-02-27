@@ -1,15 +1,15 @@
-package com.example.newsapppp.presentation.screens.save
+package com.example.newsapppp.presentation.screens.favorite
 
 import com.example.newsapppp.presentation.model.Article
 
-sealed class SaveState {
+sealed class FavoriteState {
 
-    object ShowLoading : SaveState()
+    object ShowLoading : FavoriteState()
 
     data class ShowArticles(
         val articles: List<Article>,
         val progressBar: Boolean,
         val state: Boolean,
         val exception: Int?
-    ) : SaveState()
+    ) : FavoriteState()
 }

@@ -31,8 +31,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_mainFragment_to_saveFragment"
-            app:destination="@id/saveFragment" />
+            android:id="@+id/action_mainFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/newsFragment"
@@ -44,12 +44,12 @@
             app:argType="com.example.newsapppp.presentation.model.Article" />
     </fragment>
     <fragment
-        android:id="@+id/saveFragment"
-        android:name="com.example.newsapppp.presentation.screens.save.SaveFragment"
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.newsapppp.presentation.screens.favorite.FavoriteFragment"
         android:label="Мои Новости"
-        tools:layout="@layout/fragment_save">
+        tools:layout="@layout/fragment_favorite">
         <action
-            android:id="@+id/action_saveFragment_to_newsFragment"
+            android:id="@+id/action_favoriteFragment_to_newsFragment"
             app:destination="@id/newsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"

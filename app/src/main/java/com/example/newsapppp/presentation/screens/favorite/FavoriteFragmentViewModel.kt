@@ -1,4 +1,4 @@
-package com.example.newsapppp.presentation.screens.save
+package com.example.newsapppp.presentation.screens.favorite
 
 import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.localsource.DeleteAllUseCase
@@ -16,23 +16,23 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class SaveFragmentViewModel @Inject constructor(
+class FavoriteFragmentViewModel @Inject constructor(
     private val sharedPref: SharedPrefRepositoryContract,
     private val getLocalArticle: GetLocalArticleUseCase,
     private val deleteArticle: DeleteArticleUseCase,
     private val saveFavorite: SaveFavoriteUseCase,
     private val deleteAll: DeleteAllUseCase,
     private val mapper: ArticleMapper
-) : BaseViewModel<SaveState, SaveAction>() {
+) : BaseViewModel<FavoriteState, FavoriteAction>() {
 
-    override val _state = MutableStateFlow<SaveState>(SaveState.ShowLoading)
-    override val _shared = MutableSharedFlow<SaveAction>()
+    override val _state = MutableStateFlow<FavoriteState>(FavoriteState.ShowLoading)
+    override val _shared = MutableSharedFlow<FavoriteAction>()
 
     fun setupAllNews() = launchCoroutine {
         getLocalArticle(Unit).collect {
             if (it.isNotEmpty()) {
                 emit(
-                    SaveState.ShowArticles(
+                    FavoriteState.ShowArticles(
                         articles = mapper.mapToListArticle(it),
                         progressBar = false,
                         state = false,
@@ -41,7 +41,7 @@ class SaveFragmentViewModel @Inject constructor(
                 )
             } else {
                 emit(
-                    SaveState.ShowArticles(
+                    FavoriteState.ShowArticles(
                         articles = emptyList(),
                         progressBar = false,
                         state = true,
@@ -63,19 +63,19 @@ class SaveFragmentViewModel @Inject constructor(
                 sharedPref.deleteAllFavorite()
                 deleteAll(Unit)
             } else {
-                emitShared(SaveAction.ShowMessage(R.string.empty_list))
+                emitShared(FavoriteAction.ShowMessage(R.string.empty_list))
             }
         }
     }
 
     fun onItemSwiped(article: Article, position: Int) {
-        emitShared(SaveAction.ShowDeleteDialog(article, position))
+        emitShared(FavoriteAction.ShowDeleteDialog(article, position))
     }
 
     fun onNewsAdapterItemClicked(article: Article) = launchCoroutine {
         emitShared(
-            SaveAction.Navigate(
-                SaveFragmentDirections.actionSaveFragmentToNewsFragment(
+            FavoriteAction.Navigate(
+                FavoriteFragmentDirections.actionFavoriteFragmentToNewsFragment(
                     article
                 )
             )

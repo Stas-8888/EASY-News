@@ -9,7 +9,7 @@
         android:title="@string/find"
         android:icon="@drawable/ic_all_news" />
 
-    <item android:id="@+id/saveFragment"
+    <item android:id="@+id/favoriteFragment"
         android:title="@string/saved"
         android:icon="@drawable/ic_favorite_border" />
 

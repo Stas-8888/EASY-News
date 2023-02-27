@@ -15,7 +15,7 @@ class MainActivityViewModel : ViewModel() {
 
     fun setupBottomNavigation(destination: NavDestination) = viewModelScope.launch {
         when (destination.id) {
-            R.id.saveFragment,
+            R.id.favoriteFragment,
             R.id.mainFragment,
             R.id.searchFragment -> _state.emit(MainActivityState.Success)
             else -> _state.emit(MainActivityState.Failure)

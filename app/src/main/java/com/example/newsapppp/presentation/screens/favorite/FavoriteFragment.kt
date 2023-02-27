@@ -1,4 +1,4 @@
-package com.example.newsapppp.presentation.screens.save
+package com.example.newsapppp.presentation.screens.favorite
 
 import android.os.Bundle
 import android.view.View
@@ -7,20 +7,19 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.newsapppp.databinding.FragmentSaveBinding
+import com.example.newsapppp.databinding.FragmentFavoriteBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
 import com.example.newsapppp.presentation.extensions.*
-import com.example.newsapppp.presentation.extensions.visible
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SaveFragment :
-    BaseFragment<SaveState, SaveAction, FragmentSaveBinding, SaveFragmentViewModel>(
-        FragmentSaveBinding::inflate
+class FavoriteFragment :
+    BaseFragment<FavoriteState, FavoriteAction, FragmentFavoriteBinding, FavoriteFragmentViewModel>(
+        FragmentFavoriteBinding::inflate
     ) {
     private val newsAdapter by lazy { NewsAdapter() }
-    override val viewModel by viewModels<SaveFragmentViewModel>()
+    override val viewModel by viewModels<FavoriteFragmentViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,13 +40,13 @@ class SaveFragment :
         }
     }
 
-    override fun observerState(state: SaveState) {
+    override fun observerState(state: FavoriteState) {
         with(binding) {
             when (state) {
-                is SaveState.ShowLoading -> {
+                is FavoriteState.ShowLoading -> {
                     progressBar.visible()
                 }
-                is SaveState.ShowArticles -> {
+                is FavoriteState.ShowArticles -> {
                     newsAdapter.submitList(state.articles)
                     progressBar.isVisible = state.progressBar
                     tvBackgroundText.isVisible = state.state
@@ -57,15 +56,15 @@ class SaveFragment :
         }
     }
 
-    override fun observerShared(actions: SaveAction) {
+    override fun observerShared(actions: FavoriteAction) {
         when (actions) {
-            is SaveAction.ShowDeleteDialog -> {
+            is FavoriteAction.ShowDeleteDialog -> {
                 showDeleteDialog(
                     { viewModel.deleteArticle(actions.article) },
                     { newsAdapter.notifyItemChanged(actions.position) })
             }
-            is SaveAction.Navigate -> navigateDirections(actions.navigateTo)
-            is SaveAction.ShowMessage -> showSnackBar(actions.message)
+            is FavoriteAction.Navigate -> navigateDirections(actions.navigateTo)
+            is FavoriteAction.ShowMessage -> showSnackBar(actions.message)
         }
     }
 
