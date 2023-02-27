@@ -12,14 +12,14 @@
         android:layout_marginTop="7dp"
         android:layout_marginRight="11dp"
         android:layout_marginBottom="@dimen/dp_6"
-        android:background="@color/colorcardview"
+        android:background="@color/color_card_view"
         app:cardCornerRadius="@dimen/dp_10"
         app:cardElevation="@dimen/cardview_default_elevation">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorcardview">
+            android:background="@color/color_card_view">
 
             <ImageView
                 android:id="@+id/imArticleImage"

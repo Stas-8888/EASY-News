@@ -17,7 +17,8 @@
     <color name="colorAccent">#1e344b</color>
     <!--    #f9f9fa -->
     <color name="colorBackground">@color/white</color>
-    <color name="colorcardview">#FFFFFFFF</color>
+    <color name="bottomSheetBackground">@color/white</color>
+    <color name="color_card_view">#FFFFFFFF</color>
     <color name="colorTabLayout">@color/colorBackground</color>
     <color name="tabTextColor">#858585</color>
     <color name="tabIndicatorColor">@color/colorPrimaryDark</color>
@@ -25,7 +26,7 @@
     <color name="colorTextTitle">#262626</color>
     <color name="colorMain">#00BCD4</color>
 
-    <color name="RedColor">#FF5722</color>
+    <color name="red_color">#FF5722</color>
     <color name="g_line_color">#22858EAC</color>
     <color name="blackLight">#2a2a2a</color>
     <color name="grayDark">#707070</color>
