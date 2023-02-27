@@ -5,7 +5,7 @@
     android:id="@+id/mainScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
+    android:background="@color/color_background"
     tools:context=".presentation.screens.main.MainFragment">
 
     <com.google.android.material.textview.MaterialTextView
@@ -29,16 +29,16 @@
         android:id="@+id/tabMain"
         android:layout_width="@dimen/dp_0"
         android:layout_height="@dimen/dp_40"
-        android:background="@color/colorTabLayout"
+        android:background="@color/color_tab_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:tabGravity="fill"
-        app:tabIndicatorColor="@color/tabIndicatorColor"
+        app:tabIndicatorColor="@color/tab_indicator_color"
         app:tabIndicatorFullWidth="true"
         app:tabMode="auto"
-        app:tabSelectedTextColor="@color/colorPrimaryDark"
-        app:tabTextColor="@color/tabTextColor" />
+        app:tabSelectedTextColor="@color/color_primary_dark"
+        app:tabTextColor="@color/tab_text_color" />
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progress_bar"
@@ -51,7 +51,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/swipeToRefresh"
-        app:trackColor="@color/colorRed"
+        app:trackColor="@color/color_red"
         app:trackCornerRadius="@dimen/dp_5"
         app:trackThickness="@dimen/dp_4" />
 
@@ -155,7 +155,7 @@
         android:focusable="true"
         android:src="@drawable/ic_arrow_up_white_24"
         android:visibility="gone"
-        app:backgroundTint="@color/colorRed"
+        app:backgroundTint="@color/color_red"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

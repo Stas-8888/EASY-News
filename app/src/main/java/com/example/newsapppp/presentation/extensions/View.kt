@@ -70,7 +70,7 @@ fun View.clickAnim() {
 }
 
 fun View.addRipple() = with(TypedValue()) {
-    context.theme.resolveAttribute(R.color.colorRed, this, true)
+    context.theme.resolveAttribute(R.color.color_red, this, true)
     setBackgroundResource(resourceId)
 }
 

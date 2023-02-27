@@ -61,5 +61,5 @@
         android:backgroundTint="@color/white"
         android:text="OK"
         android:textAllCaps="false"
-        android:textColor="@color/colorTextSubtitle" />
+        android:textColor="@color/color_text_subtitle" />
 </LinearLayout>

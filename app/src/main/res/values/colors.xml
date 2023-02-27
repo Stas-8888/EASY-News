@@ -12,28 +12,27 @@
     <color name="gray">#A5A5A5</color>
 
     <color name="colorPrimary">#ea474a</color>
-    <color name="colorPrimaryDark">#E30105</color>
-    <color name="colorRed">#E30105</color>
-    <color name="colorAccent">#1e344b</color>
-    <!--    #f9f9fa -->
-    <color name="colorBackground">@color/white</color>
-    <color name="bottomSheetBackground">@color/white</color>
+    <color name="color_primary_dark">#E30105</color>
+    <color name="color_red">#E30105</color>
+    <color name="color_accent">#1e344b</color>
+
+    <color name="color_background">@color/white</color>
+    <color name="bottom_sheet_background">@color/white</color>
     <color name="color_card_view">#FFFFFFFF</color>
-    <color name="colorTabLayout">@color/colorBackground</color>
-    <color name="tabTextColor">#858585</color>
-    <color name="tabIndicatorColor">@color/colorPrimaryDark</color>
-    <color name="colorTextSubtitle">#4e4e4e</color>
-    <color name="colorTextTitle">#262626</color>
+    <color name="color_tab_layout">@color/color_background</color>
+    <color name="tab_text_color">#858585</color>
+    <color name="tab_indicator_color">@color/color_primary_dark</color>
+    <color name="color_text_subtitle">#4e4e4e</color>
+    <color name="color_text_title">#262626</color>
     <color name="colorMain">#00BCD4</color>
 
     <color name="red_color">#FF5722</color>
     <color name="g_line_color">#22858EAC</color>
     <color name="blackLight">#2a2a2a</color>
-    <color name="grayDark">#707070</color>
+    <color name="gray_dark">#707070</color>
 
     <color name="reply_blue_700">#344955</color>
     <color name="reply_blue_800">#232f34</color>
-
 
     <color name="green">#0ACF83</color>
     <color name="accent">#FFC120</color>
@@ -42,10 +41,10 @@
     <color name="grey_light_one">#F3F3F3</color>
     <color name="grey_light_two">#F6F6F6</color>
 
-    <color name="colorError">#d32f2f</color>
-    <color name="colorSecondary">#ffd600</color>
+    <color name="color_error">#d32f2f</color>
+    <color name="color_secondary">#ffd600</color>
 
-    <color name="colorRedBackground">#E30105</color>
+    <color name="color_red_background">#E30105</color>
     <color name="background_text">#74EFEFEF</color>
 
 </resources>

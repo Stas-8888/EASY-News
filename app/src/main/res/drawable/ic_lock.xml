@@ -8,13 +8,13 @@
       android:strokeLineJoin="round"
       android:strokeWidth="1.56522"
       android:fillColor="#00000000"
-      android:strokeColor="@color/colorRed"
+      android:strokeColor="@color/color_red"
       android:strokeLineCap="round"/>
   <path
       android:pathData="M5.833,9.167V5.833C5.833,4.728 6.272,3.668 7.054,2.887C7.835,2.106 8.895,1.667 10,1.667C11.105,1.667 12.165,2.106 12.946,2.887C13.728,3.668 14.167,4.728 14.167,5.833V9.167"
       android:strokeLineJoin="round"
       android:strokeWidth="1.56522"
       android:fillColor="#00000000"
-      android:strokeColor="@color/colorRed"
+      android:strokeColor="@color/color_red"
       android:strokeLineCap="round"/>
 </vector>

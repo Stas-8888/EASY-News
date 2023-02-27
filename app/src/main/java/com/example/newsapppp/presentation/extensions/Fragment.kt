@@ -42,13 +42,13 @@ fun Fragment.showSnackBarCansel(
 ) {
     val sb = Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG)
     if (isError)
-        sb.setBackgroundTint(loadColor(R.color.colorRed))
+        sb.setBackgroundTint(loadColor(R.color.color_red))
             .setTextColor(loadColor(R.color.white))
             .setAction("Ok") {
                 action()
             }.show()
     else
-        sb.setBackgroundTint(loadColor(R.color.colorSecondary))
+        sb.setBackgroundTint(loadColor(R.color.color_secondary))
             .setTextColor(loadColor(R.color.black))
             .setAction("Cancel") {
                 action()
@@ -58,7 +58,7 @@ fun Fragment.showSnackBarCansel(
 fun Fragment.showSnackBar(title: Int) {
     Snackbar.make(requireView(), title, 1800)
         .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
-        .setBackgroundTint(loadColor(R.color.colorRedBackground))
+        .setBackgroundTint(loadColor(R.color.color_red_background))
         .setTextColor(Color.WHITE)
         .show()
 }
@@ -66,7 +66,7 @@ fun Fragment.showSnackBar(title: Int) {
 fun Fragment.showSnackBarString(title: String?) {
     Snackbar.make(requireView(), title.toString(), 1800)
         .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
-        .setBackgroundTint(loadColor(R.color.colorRedBackground))
+        .setBackgroundTint(loadColor(R.color.color_red_background))
         .setTextColor(Color.WHITE)
         .show()
 }
@@ -102,7 +102,7 @@ fun Fragment.showAlertUpDialog(title: Int) {
             .setTitle(title)
             .setIcon(R.drawable.ic_breaking_news)
             .enableSwipeToDismiss()
-            .setBackgroundResource(R.color.colorRedBackground)
+            .setBackgroundResource(R.color.color_red_background)
             .show()
     }
 }

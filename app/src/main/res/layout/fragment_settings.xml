@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground">
+    android:background="@color/color_background">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -68,7 +68,7 @@
         android:layout_marginTop="@dimen/dp_1"
         android:layout_toEndOf="@id/profile_image"
         android:text="@string/edit"
-        android:textColor="@color/grayDark"
+        android:textColor="@color/gray_dark"
         android:textSize="@dimen/sp_12"
         app:layout_constraintStart_toStartOf="@+id/tvUserName"
         app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
@@ -80,7 +80,7 @@
         android:layout_below="@id/tvUserName"
         android:layout_toEndOf="@id/profile_image"
         android:text="@string/email"
-        android:textColor="@color/grayDark"
+        android:textColor="@color/gray_dark"
         android:textSize="@dimen/sp_12"
         app:layout_constraintStart_toStartOf="@+id/tvUserName"
         app:layout_constraintTop_toBottomOf="@+id/tvEdit" />
