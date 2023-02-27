@@ -173,7 +173,7 @@
                 android:id="@+id/confirm_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/password"
+                android:hint="@string/repeat_password"
                 android:inputType="textPassword"
                 android:maxLength="14"
                 android:textColor="@color/color_red_background" />
