@@ -35,7 +35,6 @@ class NotificationWorker @Inject constructor(context: Context, workerParameters:
             0, intent, 0
         )
 
-        //ToDO: remove hardcode
         val notification = NotificationCompat.Builder(
             applicationContext,
             CHANNEL_ID

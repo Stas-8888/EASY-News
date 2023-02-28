@@ -55,22 +55,25 @@ class MainFragment :
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(requireContext())
             rvNews.setHasFixedSize(true)
-            toFirstRecyclerPosition()
+            onScrollRecyclerViewListener()
+            adapterLoadState()
+        }
+    }
 
-            newsAdapter.addLoadStateListener { loadState ->
-                when (val data = loadState.refresh) {
-                    is LoadState.Error -> {
-                        progressBar.invisible()
-                        showSnackBarString(data.error.message ?: "Some Error")
-                    }
-                    is LoadState.Loading -> {
-                        progressBar.visible()
-                        tvCenterText.visible()
-                    }
-                    is LoadState.NotLoading -> {
-                        progressBar.invisible()
-                        tvCenterText.invisible()
-                    }
+    private fun adapterLoadState() = with(binding) {
+        newsAdapter.addLoadStateListener { loadState ->
+            when (val data = loadState.refresh) {
+                is LoadState.Error -> {
+                    progressBar.invisible()
+                    showSnackBarString(data.error.message ?: "Some Error")
+                }
+                is LoadState.Loading -> {
+                    progressBar.visible()
+                    tvCenterText.visible()
+                }
+                is LoadState.NotLoading -> {
+                    progressBar.invisible()
+                    tvCenterText.invisible()
                 }
             }
         }
@@ -106,16 +109,16 @@ class MainFragment :
         })
     }
 
-    private fun getFirstNewsPosition(): Int {
+    private fun getFirstItemPosition(): Int {
         return (binding.rvNews.layoutManager as? LinearLayoutManager)?.findFirstVisibleItemPosition()
             ?: 0
     }
 
-    private fun toFirstRecyclerPosition() = with(binding) {
+    private fun onScrollRecyclerViewListener() = with(binding) {
         rvNews.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                viewModel.showOrHideFloatButton(getFirstNewsPosition())
+                viewModel.showOrHideFloatButton(getFirstItemPosition())
             }
         })
         fabUp.setOnClickListener { rvNews.smoothScrollToPosition(0) }

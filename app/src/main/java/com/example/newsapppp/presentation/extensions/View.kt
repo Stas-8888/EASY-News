@@ -69,11 +69,6 @@ fun View.clickAnim() {
     startAnimation(AnimationUtils.loadAnimation(context, R.anim.fab_explode))
 }
 
-fun View.addRipple() = with(TypedValue()) {
-    context.theme.resolveAttribute(R.color.color_red, this, true)
-    setBackgroundResource(resourceId)
-}
-
 fun View.showKeyboard() {
     val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     requestFocus()
