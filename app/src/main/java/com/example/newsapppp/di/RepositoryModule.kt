@@ -1,9 +1,6 @@
 package com.example.newsapppp.di
 
-import com.example.newsapppp.core.DispatcherRepository
-import com.example.newsapppp.core.DispatcherRepositoryContract
-import com.example.newsapppp.core.ProvideResources
-import com.example.newsapppp.core.ProvideResourcesContract
+import com.example.newsapppp.core.*
 import com.example.newsapppp.data.remote.interceptor.ErrorsInterceptor
 import com.example.newsapppp.data.remote.interceptor.ErrorsInterceptorContract
 import com.example.newsapppp.data.repository.*
@@ -18,6 +15,10 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object RepositoryModule {
+
+    @Provides
+    @Singleton
+    fun providesNetworkHandler(impl: NetworkHandler): NetworkHandlerContract = impl
 
     @Provides
     @Singleton

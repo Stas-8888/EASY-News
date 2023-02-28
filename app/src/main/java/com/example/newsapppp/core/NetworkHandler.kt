@@ -5,14 +5,14 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Injectable class which returns information about the network connection state.
  */
-@Singleton
-class NetworkHandler @Inject constructor(@ApplicationContext private val context: Context) {
-    fun isNetworkAvailable(): Boolean {
+
+class NetworkHandler @Inject constructor(@ApplicationContext private val context: Context) :
+    NetworkHandlerContract {
+    override fun isNetworkAvailable(): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 

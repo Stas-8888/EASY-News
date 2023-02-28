@@ -15,15 +15,17 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.example.newsapppp.R
 import com.example.newsapppp.presentation.screens.activity.MainActivity
+import javax.inject.Inject
 
-class NotificationWorker(context: Context, workerParameters: WorkerParameters) : Worker(context, workerParameters) {
+class NotificationWorker @Inject constructor(context: Context, workerParameters: WorkerParameters) :
+    Worker(context, workerParameters), NotificationServiceContract {
 
     override fun doWork(): Result {
         showNotification()
         return Result.success()
     }
 
-    private fun showNotification() {
+    override fun showNotification() {
         val intent = Intent(applicationContext, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }

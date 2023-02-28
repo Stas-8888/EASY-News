@@ -1,7 +1,7 @@
 package com.example.newsapppp.presentation.screens.search
 
 import com.example.newsapppp.R
-import com.example.newsapppp.core.NetworkHandler
+import com.example.newsapppp.core.NetworkHandlerContract
 import com.example.newsapppp.domain.interactors.articleremote.SearchNewsUseCase
 import com.example.newsapppp.presentation.extensions.launchCoroutine
 import com.example.newsapppp.presentation.mapper.ArticleMapper
@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchFragmentViewModel @Inject constructor(
     private val searchNewsUseCase: SearchNewsUseCase,
-    private val network: NetworkHandler,
+    private val network: NetworkHandlerContract,
     private val mapper: ArticleMapper,
 ) : BaseViewModel<SearchState, SearchAction>() {
 
@@ -24,12 +24,12 @@ class SearchFragmentViewModel @Inject constructor(
 
     fun searchTextListener(searchQuery: String) = launchCoroutine {
         if (network.isNetworkAvailable()) {
-        if (searchQuery.isNotEmpty()) {
-            val data = searchNewsUseCase(searchQuery).articlesModel
-            emit(SearchState.ShowArticles(mapper.mapToListArticle(data)))
-        } else {
-            emitShared(SearchAction.ShowMessage(R.string.server_error))
-        }
+            if (searchQuery.isNotEmpty()) {
+                val data = searchNewsUseCase(searchQuery).articlesModel
+                emit(SearchState.ShowArticles(mapper.mapToListArticle(data)))
+            } else {
+                emitShared(SearchAction.ShowMessage(R.string.server_error))
+            }
         } else {
             emitShared(SearchAction.ShowNetworkConnections(R.string.internet_disconnected))
         }
