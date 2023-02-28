@@ -1,6 +1,6 @@
 package com.example.newsapppp.data.repository
 
-import com.example.newsapppp.core.DispatcherRepositoryContract
+import com.example.newsapppp.core.dispatcher.DispatcherRepositoryContract
 import com.example.newsapppp.domain.repository.AuthenticationRepositoryContract
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult

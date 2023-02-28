@@ -1,6 +1,12 @@
 package com.example.newsapppp.di
 
 import com.example.newsapppp.core.*
+import com.example.newsapppp.core.dispatcher.DispatcherRepository
+import com.example.newsapppp.core.dispatcher.DispatcherRepositoryContract
+import com.example.newsapppp.core.network.NetworkHandler
+import com.example.newsapppp.core.network.NetworkHandlerContract
+import com.example.newsapppp.core.resources.ProvideResources
+import com.example.newsapppp.core.resources.ProvideResourcesContract
 import com.example.newsapppp.data.remote.interceptor.ErrorsInterceptor
 import com.example.newsapppp.data.remote.interceptor.ErrorsInterceptorContract
 import com.example.newsapppp.data.repository.*

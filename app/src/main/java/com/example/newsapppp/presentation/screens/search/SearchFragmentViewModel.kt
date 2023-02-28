@@ -1,7 +1,7 @@
 package com.example.newsapppp.presentation.screens.search
 
 import com.example.newsapppp.R
-import com.example.newsapppp.core.NetworkHandlerContract
+import com.example.newsapppp.core.network.NetworkHandlerContract
 import com.example.newsapppp.domain.interactors.articleremote.SearchNewsUseCase
 import com.example.newsapppp.presentation.extensions.launchCoroutine
 import com.example.newsapppp.presentation.mapper.ArticleMapper

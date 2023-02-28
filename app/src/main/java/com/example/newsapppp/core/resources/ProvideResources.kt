@@ -1,4 +1,4 @@
-package com.example.newsapppp.core
+package com.example.newsapppp.core.resources
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext

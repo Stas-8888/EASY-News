@@ -2,7 +2,7 @@ package com.example.newsapppp.data.repository
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
-import com.example.newsapppp.core.DispatcherRepositoryContract
+import com.example.newsapppp.core.dispatcher.DispatcherRepositoryContract
 import com.example.newsapppp.domain.repository.SharedPrefRepositoryContract
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject

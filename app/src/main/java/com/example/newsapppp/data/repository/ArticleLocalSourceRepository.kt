@@ -1,6 +1,6 @@
 package com.example.newsapppp.data.repository
 
-import com.example.newsapppp.core.DispatcherRepositoryContract
+import com.example.newsapppp.core.dispatcher.DispatcherRepositoryContract
 import com.example.newsapppp.data.db.NewsDao
 import com.example.newsapppp.data.mapper.EntityMapper
 import com.example.newsapppp.data.mapper.NewsResponseMapper

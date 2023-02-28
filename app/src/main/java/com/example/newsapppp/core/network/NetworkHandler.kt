@@ -1,4 +1,4 @@
-package com.example.newsapppp.core
+package com.example.newsapppp.core.network
 
 import android.content.Context
 import android.net.ConnectivityManager

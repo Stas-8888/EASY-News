@@ -1,4 +1,4 @@
-package com.example.newsapppp.core
+package com.example.newsapppp.core.dispatcher
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

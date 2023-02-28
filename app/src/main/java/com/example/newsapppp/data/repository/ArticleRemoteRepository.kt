@@ -3,7 +3,7 @@ package com.example.newsapppp.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.example.newsapppp.core.DispatcherRepositoryContract
+import com.example.newsapppp.core.dispatcher.DispatcherRepositoryContract
 import com.example.newsapppp.data.mapper.NewsResponseMapper
 import com.example.newsapppp.data.remote.service.ApiService
 import com.example.newsapppp.data.paging.ArticlePagingSource

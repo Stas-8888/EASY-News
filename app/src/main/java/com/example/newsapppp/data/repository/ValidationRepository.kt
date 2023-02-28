@@ -2,7 +2,7 @@ package com.example.newsapppp.data.repository
 
 import android.util.Patterns
 import com.example.newsapppp.R
-import com.example.newsapppp.core.ProvideResourcesContract
+import com.example.newsapppp.core.resources.ProvideResourcesContract
 import com.example.newsapppp.domain.repository.ValidationRepositoryContract
 import javax.inject.Inject
 
