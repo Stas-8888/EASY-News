@@ -89,6 +89,7 @@ fun Fragment.showDeleteDialog(onSuccess: () -> Unit, noteSuccess: () -> Unit) {
         setCanceledOnTouchOutside(false)
         window?.setBackgroundDrawable(null)
         window?.setBackgroundDrawableResource(android.R.color.transparent)
+        window?.attributes?.windowAnimations = R.style.DialogAnimation
         show()
     }
 }

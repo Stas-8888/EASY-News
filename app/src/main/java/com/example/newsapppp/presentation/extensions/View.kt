@@ -2,12 +2,15 @@ package com.example.newsapppp.presentation.extensions
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.content.Context
-import android.util.TypedValue
 import android.view.View
+import android.view.animation.AccelerateInterpolator
 import android.view.animation.AnimationUtils
+import android.view.animation.DecelerateInterpolator
 import android.view.inputmethod.InputMethodManager
 import androidx.core.animation.doOnEnd
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import com.example.newsapppp.R
 
 internal fun View.invisible() {
@@ -79,4 +82,71 @@ fun View.hideKeyboard() {
     (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).apply {
         hideSoftInputFromWindow(windowToken, 0)
     }
+}
+
+fun View.fadeOutAnimation(duration: Long = 300, visibility: Int = View.INVISIBLE, completion: (() -> Unit)? = null) {
+    animate()
+        .alpha(0f)
+        .setDuration(duration)
+        .withEndAction {
+            this.visibility = visibility
+            completion?.let {
+                it()
+            }
+        }
+}
+
+fun View.fadeInAnimation(duration: Long = 300, completion: (() -> Unit)? = null) {
+    alpha = 0f
+    visibility = View.VISIBLE
+    animate()
+        .alpha(1f)
+        .setDuration(duration)
+        .withEndAction {
+            completion?.let {
+                it()
+            }
+        }
+}
+
+fun View.slideOutAnimation(duration: Long = 300, delay: Long = 0L, visibility: Int = View.INVISIBLE, completion: (() -> Unit)? = null) {
+    animate()
+        .translationX(-50F)
+        .alpha(0f)
+        .setDuration(duration)
+        .setStartDelay(delay)
+        .setInterpolator(AccelerateInterpolator())
+        .withEndAction {
+            this.visibility = visibility
+            completion?.let {
+                it()
+            }
+        }
+}
+
+fun View.slideInAnimation(duration: Long = 300, delay: Long = 0L, completion: (() -> Unit)? = null) {
+    translationX = 50F
+    visibility = View.VISIBLE
+    animate()
+        .translationX(0f)
+        .alpha(1f)
+        .setDuration(duration)
+        .setStartDelay(delay)
+        .setInterpolator(DecelerateInterpolator())
+        .withEndAction {
+            completion?.let {
+                it()
+            }
+        }
+}
+
+fun View.animateElevation(elevation: Float): ValueAnimator? {
+    val valueAnimator = ValueAnimator.ofFloat(0F, elevation)
+    valueAnimator.interpolator = LinearOutSlowInInterpolator()
+    valueAnimator.duration = 5000
+    valueAnimator.addUpdateListener { animation ->
+        this.elevation = animation.animatedValue as Float
+    }
+    valueAnimator.start()
+    return valueAnimator
 }

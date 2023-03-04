@@ -17,6 +17,24 @@
 
     </style>
 
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottom_sheet_dialog_shape</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/dialog_in</item>
+        <item name="android:windowExitAnimation">@anim/dialog_out</item>
+    </style>
+
+    <style name="PopupAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:windowExitAnimation">@anim/slide_in_left</item>
+    </style>
+
     <style name="Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
         <!-- navigation icon colorModel -->
         <item name="colorControlNormal">@color/white</item>
@@ -24,14 +42,6 @@
         <item name="android:textColorSecondary">@color/white</item>
         <!-- toolbar title colorModel -->
         <item name="titleTextColor">@color/white</item>
-    </style>
-
-    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/AppModalStyle</item>
-    </style>
-
-    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/bottom_sheet_dialog_shape</item>
     </style>
 
     <style name="RoundOutlinedButton" parent="Widget.Material3.Button.OutlinedButton">

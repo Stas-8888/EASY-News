@@ -29,6 +29,7 @@ class AuthBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        dialog?.window?.attributes?.windowAnimations = R.style.AppBottomSheetDialogTheme
         observeOnShared()
         observeOnState()
         viewModel.setupUi()

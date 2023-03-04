@@ -131,6 +131,7 @@ class SettingsFragment :
         }
         dialog = builder.create().apply {
             window?.setBackgroundDrawable(null)
+            window?.attributes?.windowAnimations = R.style.DialogAnimation
             show()
         }
     }

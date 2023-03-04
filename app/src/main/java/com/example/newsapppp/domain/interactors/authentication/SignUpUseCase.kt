@@ -7,11 +7,7 @@ import javax.inject.Inject
 
 class SignUpUseCase @Inject constructor(val repo: AuthenticationRepositoryContract) {
 
-    suspend fun signUp(
-        user: String,
-        email: String,
-        password: String,
-    ): Task<AuthResult> {
+    suspend fun signUp(user: String, email: String, password: String): Task<AuthResult> {
         return repo.signup(user, email, password)
     }
 }
