@@ -10,6 +10,7 @@
     <color name="red">#A30000</color>
     <color name="blue_facebook">#4267B2</color>
     <color name="gray">#A5A5A5</color>
+    <color name="text_headline">#434343</color>
 
     <color name="colorPrimary">#ea474a</color>
     <color name="color_primary_dark">#E30105</color>

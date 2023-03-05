@@ -25,20 +25,18 @@ class NewsAdapter : ListAdapter<Article, NewsAdapter.ArticleViewHolder>(NewsItem
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         val article = getItem(position)
 
-        holder.itemView.apply {
-            with(holder.binding) {
-                imArticleImage.load(article.urlToImage) {
-                    crossfade(true)
-                    crossfade(1000)
-                    transformations(RoundedCornersTransformation(30f))
-                }
-                tvTitle.text = article.title
-                author.text = article.author
-                tvDescription.text = article.description
-                tvPublishedAt.text = dateFormat(article.publishedAt)
-                setOnClickListener {
-                    onItemClickListener?.invoke(article)
-                }
+        holder.binding.apply {
+            imArticleImage.load(article.urlToImage) {
+                crossfade(true)
+                crossfade(1000)
+                transformations(RoundedCornersTransformation(30f))
+            }
+            tvTitle.text = article.title
+            author.text = article.author
+            tvDescription.text = article.description
+            tvPublishedAt.text = dateFormat(article.publishedAt)
+            holder.itemView.setOnClickListener {
+                onItemClickListener?.invoke(article)
             }
         }
     }
