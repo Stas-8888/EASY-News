@@ -4,6 +4,7 @@ import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.authentication.SignInUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidateEmailUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidatePasswordUseCase
+import com.example.newsapppp.domain.model.UserModel
 import com.example.newsapppp.presentation.extensions.launchCoroutine
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,12 +22,12 @@ class SignInViewModel @Inject constructor(
     override val _state = MutableStateFlow<SignInState<String>>(SignInState.Loading(false))
     override val _shared = MutableSharedFlow<SignInAction>()
 
-    fun onSignInButtonClicked(email: String, password: String) = launchCoroutine {
+    fun onSignInButtonClicked(user: UserModel) = launchCoroutine {
         when {
-            email.isEmpty() -> emitShared(SignInAction.ShowMessage(R.string.empty_email))
-            password.isEmpty() -> emitShared(SignInAction.ShowMessage(R.string.empty_password))
+            user.email.isEmpty() -> emitShared(SignInAction.ShowMessage(R.string.empty_email))
+            user.password.isEmpty() -> emitShared(SignInAction.ShowMessage(R.string.empty_password))
             else -> {
-                signIn.signIn(email, password)
+                signIn.signIn(user)
                     .addOnSuccessListener {
                         emit(SignInState.Loading(true))
                         emitShared(SignInAction.ShowMessage(R.string.successfully_sign_in))

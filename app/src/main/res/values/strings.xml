@@ -47,7 +47,7 @@
     <string name="sign_up">Sign Up</string>
     <string name="no_acc">Don’t have any account?</string>
 
-    <string name="forgot_password">Forgot Password.</string>
+    <string name="forgot_password">Forgot Password</string>
     <string name="password">Password</string>
     <string name="repeat_password">Repeat Password</string>
     <string name="username">Email</string>
@@ -59,7 +59,7 @@
     <string name="valid_email_false">Invalid Email Address</string>
     <string name="email">Email</string>
     <string name="required">required</string>
-    <string name="sign">Sign In to account.</string>
+    <string name="sign">Sign In to account</string>
     <string name="forgot_password_text">Enter email address.</string>
 
     <!-- Error Strings -->
@@ -71,7 +71,7 @@
     <string name="authentication_failed">Authentication failed, Wrong email or password</string>
     <string name="wrong_email_password">Wrong Email or Password</string>
     <string name="title_title">Glad to see you. Check our news, it\'s easy to do</string>
-    <string name="skip">Skip</string>
+    <string name="skip">skip</string>
     <string name="sign_up_here">If you have an account? Sign In here</string>
     <string name="create_account">Create Account.</string>
     <string name="exceptions">Exceptions</string>

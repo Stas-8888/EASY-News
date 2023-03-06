@@ -6,6 +6,7 @@ import com.example.newsapppp.domain.interactors.authentication.validation.FullNa
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidateEmailUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidatePasswordUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidateRepeatedPasswordUseCase
+import com.example.newsapppp.domain.model.UserModel
 import com.example.newsapppp.presentation.extensions.launchCoroutine
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -45,16 +46,12 @@ class SignUpViewModel @Inject constructor(
         )
     }
 
-    fun onSignUnButtonClicked(
-        name: String,
-        email: String,
-        password: String,
-    ) = launchCoroutine {
+    fun onSignUnButtonClicked(user: UserModel) = launchCoroutine {
         when {
-            email.isEmpty() -> message(R.string.empty_email)
-            password.isEmpty() -> message(R.string.empty_password)
+            user.email.isEmpty() -> message(R.string.empty_email)
+            user.password.isEmpty() -> message(R.string.empty_password)
             else -> {
-                signUpUseCase.signUp(name, email, password)
+                signUpUseCase.signUp(user)
                     .addOnSuccessListener {
                         message(R.string.successfully_register)
                         emitShared(SignUpAction.Navigate(SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()))
@@ -79,7 +76,7 @@ class SignUpViewModel @Inject constructor(
         return emitShared(SignUpAction.ShowMessage(message))
     }
 
-    fun notEnabledYet(){
+    fun notEnabledYet() {
         emitShared(SignUpAction.ShowMessage(R.string.not_enabled_yet))
     }
 }

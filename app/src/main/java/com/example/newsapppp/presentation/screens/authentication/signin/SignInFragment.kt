@@ -2,6 +2,7 @@ package com.example.newsapppp.presentation.screens.authentication.signin
 
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.databinding.FragmentSignInBinding
+import com.example.newsapppp.domain.model.UserModel
 import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +24,9 @@ class SignInFragment :
         btSignIn.setOnClickListener {
             it.shake()
             it.hideKeyboard()
-            viewModel.onSignInButtonClicked(emailText(), passwordText())
+            viewModel.onSignInButtonClicked(
+                UserModel(email = emailText(), password = passwordText())
+            )
         }
         btForgotPassword.setOnClickListener {
             it.hideKeyboard()

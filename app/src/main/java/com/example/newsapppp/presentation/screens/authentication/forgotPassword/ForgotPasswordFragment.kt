@@ -2,9 +2,10 @@ package com.example.newsapppp.presentation.screens.authentication.forgotPassword
 
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.databinding.FragmentForgotPasswordBinding
-import com.example.newsapppp.presentation.extensions.showSnackBar
+import com.example.newsapppp.domain.model.UserModel
 import com.example.newsapppp.presentation.extensions.afterTextChanged
 import com.example.newsapppp.presentation.extensions.hideKeyboard
+import com.example.newsapppp.presentation.extensions.showSnackBar
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,7 +21,7 @@ class ForgotPasswordFragment :
         edEmail.afterTextChanged { viewModel.isEmailChanged(it) }
         btForgotPassword.setOnClickListener {
             it.hideKeyboard()
-            viewModel.onForgotPasswordClicked(emailText())
+            viewModel.onForgotPasswordClicked(UserModel(email = emailText()))
         }
     }
 

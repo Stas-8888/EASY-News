@@ -2,6 +2,7 @@ package com.example.newsapppp.presentation.screens.authentication.signup
 
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.databinding.FragmentSignUpBinding
+import com.example.newsapppp.domain.model.UserModel
 import com.example.newsapppp.presentation.extensions.invisible
 import com.example.newsapppp.presentation.extensions.navigateDirections
 import com.example.newsapppp.presentation.extensions.showSnackBar
@@ -25,9 +26,7 @@ class SignUpFragment :
         }
         registerButton.setOnClickListener {
             viewModel.onSignUnButtonClicked(
-                fullNameText(),
-                emailText(),
-                passwordText(),
+                UserModel(email = emailText(), password = passwordText())
             )
         }
 
