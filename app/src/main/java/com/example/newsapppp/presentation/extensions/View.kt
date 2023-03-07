@@ -150,3 +150,9 @@ fun View.animateElevation(elevation: Float): ValueAnimator? {
     valueAnimator.start()
     return valueAnimator
 }
+
+fun View.showWithAnimate(anim: Int){
+    animation = AnimationUtils.loadAnimation(context, anim).apply {
+        start()
+    }
+}

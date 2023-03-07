@@ -125,6 +125,7 @@ class MainFragment :
     }
 
     private fun setupAnimation() = with(binding) {
+        tabMain.showWithAnimate(R.anim.fade_in)
         mainScreen.fadeIn()
         appName.startAnimation(TranslateAnimation(0f, 0f, -100f, 0f).apply {
             duration = 1000

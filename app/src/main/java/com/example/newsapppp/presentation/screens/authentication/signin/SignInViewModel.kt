@@ -50,6 +50,5 @@ class SignInViewModel @Inject constructor(
 
     fun isEmailChanged(email: String) = emit(SignInState.CheckEmail(validateEmail(email)))
 
-    fun isPasswordChanged(password: String) =
-        emit(SignInState.CheckPassword(validatePassword(password)))
+    fun isPasswordChanged(password: String) = emit(SignInState.CheckPassword(validatePassword(password)))
 }

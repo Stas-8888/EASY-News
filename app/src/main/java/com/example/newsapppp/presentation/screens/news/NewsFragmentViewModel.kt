@@ -34,9 +34,9 @@ class NewsFragmentViewModel @Inject constructor(
 
     fun setupFavoriteIcon(article: Article) = launchCoroutine {
         if (isFavorite != getFavorite(article.url)) {
-            _state.emit(NewsState.ShowFavoriteIcon(favoritesIconSelected))
+            emit(NewsState.ShowFavoriteIcon(favoritesIconSelected))
         } else {
-            _state.emit(NewsState.ShowFavoriteIcon(favoritesIconUnselected))
+            emit(NewsState.ShowFavoriteIcon(favoritesIconUnselected))
         }
     }
 

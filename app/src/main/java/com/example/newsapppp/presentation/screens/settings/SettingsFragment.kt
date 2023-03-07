@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.animation.TranslateAnimation
 import android.widget.PopupMenu
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
@@ -28,6 +29,7 @@ class SettingsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.setupUi()
+        setupViewAnimation()
     }
 
     override fun onClickListener() = with(binding) {
@@ -134,5 +136,20 @@ class SettingsFragment :
             window?.attributes?.windowAnimations = R.style.DialogAnimation
             show()
         }
+    }
+
+    private fun setupViewAnimation() = with(binding) {
+        tvVersion.showWithAnimate(R.anim.fade_in)
+        toolbar.startAnimation(TranslateAnimation(1000f, 0f, 0f, 0f).apply {
+            duration = 800
+        })
+
+        toolbar.animate()
+            .scaleX(0.1f)
+            .scaleY(0.1f)
+            .withEndAction {
+                toolbar.animate().scaleX(1.0f).scaleY(1.0f).start()
+            }
+            .start()
     }
 }

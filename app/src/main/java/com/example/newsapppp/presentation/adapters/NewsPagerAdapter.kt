@@ -30,8 +30,8 @@ class NewsPagerAdapter :
 
         holder.itemView.apply {
             with(holder.binding) {
-                val animAlpha = AnimationUtils.loadAnimation(context, R.anim.fade_in)
-                tvPublishedAt.startAnimation(animAlpha)
+                val fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in)
+                tvPublishedAt.startAnimation(fadeIn)
                 imArticleImage.load(article?.urlToImage) {
                     crossfade(true)
                     crossfade(1000)
