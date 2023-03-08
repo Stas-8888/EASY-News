@@ -20,9 +20,13 @@ class SignInViewModel @Inject constructor(
     private val validatePassword: ValidatePasswordUseCase
 ) : BaseViewModel<SignInState<String>, SignInAction>() {
 
+    // MutableStateFlow used to hold the state of the SignIn screen
     override val _state = MutableStateFlow<SignInState<String>>(SignInState.Loading(false))
+
+    // MutableSharedFlow used to emit actions to be observed by the SignInFragment
     override val _shared = MutableSharedFlow<SignInAction>()
 
+    // Called when the user clicks on the Sign In button
     fun onSignInButtonClicked(user: UserModel) = viewModeLaunch {
         when {
             user.email.isEmpty() -> emitShared(SignInAction.ShowMessage(R.string.empty_email))
@@ -38,17 +42,22 @@ class SignInViewModel @Inject constructor(
         }
     }
 
+    // Called when the user clicks on the Skip button
     fun onSkipButtonClicked() =
         emitShared(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment()))
 
+    // Called when the user clicks on the Sign Up button
     fun onSignUpButtonClicked() =
         emitShared(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment()))
 
+    // Called when the user clicks on the Forgot Password button
     fun onForgotPasswordButtonClicked() =
         emitShared(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToForgotPasswordFragment()))
 
+    // Called when the email EditText text changes
     fun isEmailChanged(email: String) = emit(SignInState.CheckEmail(validateEmail(email)))
 
+    // Called when the password EditText text changes
     fun isPasswordChanged(password: String) =
         emit(SignInState.CheckPassword(validatePassword(password)))
 }
