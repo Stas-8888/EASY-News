@@ -29,6 +29,7 @@ class SignUpViewModel @Inject constructor(
     override val _state = MutableStateFlow<SignUpState<String>>(SignUpState.Loading)
     override val _shared = MutableSharedFlow<SignUpAction>()
 
+    // Check the validation of the fields entered by the user
     fun checkValidationFields(user: UserModel) {
         emit(
             SignUpState.CheckState(
@@ -40,6 +41,7 @@ class SignUpViewModel @Inject constructor(
         )
     }
 
+    // Perform sign-up operation
     fun onSignUnButtonClicked(user: UserModel) = viewModeLaunch {
         when {
             user.email.isEmpty() -> message(R.string.empty_email)
@@ -59,6 +61,7 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
+    // Handle the sign-in button click event
     fun onSignInBottomClicked() {
         val action = SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()
         emitShared(SignUpAction.Navigate(action))

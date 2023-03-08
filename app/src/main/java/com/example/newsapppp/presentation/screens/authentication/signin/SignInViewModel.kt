@@ -19,10 +19,7 @@ class SignInViewModel @Inject constructor(
     private val validatePassword: ValidatePasswordUseCase
 ) : BaseViewModel<SignInState<String>, SignInAction>() {
 
-    // MutableStateFlow used to hold the state of the SignIn screen
     override val _state = MutableStateFlow<SignInState<String>>(SignInState.Loading(false))
-
-    // MutableSharedFlow used to emit actions of the SignInFragment
     override val _shared = MutableSharedFlow<SignInAction>()
 
     // Called when the user clicks on the Sign In button
