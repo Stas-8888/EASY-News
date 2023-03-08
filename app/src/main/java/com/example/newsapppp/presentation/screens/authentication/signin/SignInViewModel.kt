@@ -10,6 +10,7 @@ import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,15 +27,13 @@ class SignInViewModel @Inject constructor(
         when {
             user.email.isEmpty() -> emitShared(SignInAction.ShowMessage(R.string.empty_email))
             user.password.isEmpty() -> emitShared(SignInAction.ShowMessage(R.string.empty_password))
-            else -> {
-                signIn.signIn(user)
-                    .addOnSuccessListener {
-                        emit(SignInState.Loading(true))
-                        emitShared(SignInAction.ShowMessage(R.string.successfully_sign_in))
-                        emitShared(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment()))
-                    }.addOnFailureListener {
-                        emitShared(SignInAction.ShowMessage(R.string.authentication_failed))
-                    }
+            else -> try {
+                signIn.signIn(user).await()
+                emit(SignInState.Loading(true))
+                emitShared(SignInAction.ShowMessage(R.string.successfully_sign_in))
+                emitShared(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment()))
+            } catch (e: Exception) {
+                emitShared(SignInAction.ShowMessage(R.string.authentication_failed))
             }
         }
     }
@@ -50,5 +49,6 @@ class SignInViewModel @Inject constructor(
 
     fun isEmailChanged(email: String) = emit(SignInState.CheckEmail(validateEmail(email)))
 
-    fun isPasswordChanged(password: String) = emit(SignInState.CheckPassword(validatePassword(password)))
+    fun isPasswordChanged(password: String) =
+        emit(SignInState.CheckPassword(validatePassword(password)))
 }
