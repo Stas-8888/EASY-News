@@ -37,7 +37,7 @@ class SearchFragment :
             }
         }
         newsAdapter.setOnItemClickListener {
-            viewModel.onItemClicked(it)
+            viewModel.onItemAdapterClicked(it)
         }
     }
 
@@ -52,7 +52,7 @@ class SearchFragment :
         when (actions) {
             is SearchAction.ShowMessage -> showSnackBar(actions.message)
             is SearchAction.Navigate -> navigateDirections(actions.navigateTo)
-            is SearchAction.ShowNetworkConnections -> internetConnectionDialog(getString(actions.message))
+            is SearchAction.ShowNetworkDialog -> internetConnectionDialog(getString(actions.message))
         }
     }
 }

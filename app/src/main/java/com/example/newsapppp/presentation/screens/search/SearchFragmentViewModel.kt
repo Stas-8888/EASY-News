@@ -31,17 +31,12 @@ class SearchFragmentViewModel @Inject constructor(
                 emitShared(SearchAction.ShowMessage(R.string.server_error))
             }
         } else {
-            emitShared(SearchAction.ShowNetworkConnections(R.string.internet_disconnected))
+            emitShared(SearchAction.ShowNetworkDialog(R.string.internet_disconnected))
         }
     }
 
-    fun onItemClicked(article: Article) {
-        emitShared(
-            SearchAction.Navigate(
-                SearchFragmentDirections.actionSearchFragmentToNewsFragment(
-                    article
-                )
-            )
-        )
+    fun onItemAdapterClicked(article: Article) {
+        val action = SearchFragmentDirections.actionSearchFragmentToNewsFragment(article)
+        emitShared(SearchAction.Navigate(action))
     }
 }

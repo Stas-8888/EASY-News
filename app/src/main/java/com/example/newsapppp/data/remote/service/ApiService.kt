@@ -8,6 +8,7 @@ import retrofit2.http.Query
 private const val API_KEY = BuildConfig.API_KEY
 
 interface ApiService {
+
     @GET("v2/top-headlines")
     suspend fun getBreakingNews(
         @Query("page") page: Int = 0,

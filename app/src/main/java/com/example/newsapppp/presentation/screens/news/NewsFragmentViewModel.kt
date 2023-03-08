@@ -26,18 +26,16 @@ class NewsFragmentViewModel @Inject constructor(
 ) : BaseViewModel<NewsState, NewsAction>() {
 
     private var isFavorite = false
-    private val favoritesIconSelected = R.drawable.ic_favorite
-    private val favoritesIconUnselected = R.drawable.ic_favorite_border
+    private val favoriteIconSelected = R.drawable.ic_favorite
+    private val favoriteIconUnselected = R.drawable.ic_favorite_border
     override val _state =
-        MutableStateFlow<NewsState>(NewsState.ShowFavoriteIcon(favoritesIconUnselected))
+        MutableStateFlow<NewsState>(NewsState.ShowFavoriteIcon(favoriteIconUnselected))
     override val _shared = MutableSharedFlow<NewsAction>()
 
     fun setupFavoriteIcon(article: Article) = viewModeLaunch {
-        if (isFavorite != getFavorite(article.url)) {
-            emit(NewsState.ShowFavoriteIcon(favoritesIconSelected))
-        } else {
-            emit(NewsState.ShowFavoriteIcon(favoritesIconUnselected))
-        }
+        val icon = if (isFavorite != getFavorite(article.url))
+            favoriteIconSelected else favoriteIconUnselected
+        emit(NewsState.ShowFavoriteIcon(icon))
     }
 
     fun onFavoriteIconClicked(article: Article) = viewModeLaunch {
@@ -45,11 +43,11 @@ class NewsFragmentViewModel @Inject constructor(
             if (isFavorite == getFavorite(article.url)) {
                 insertArticle(mapper.mapToModel(article))
                 saveFavorite.saveFavorite(article.url, true)
-                emitShared(NewsAction.ShowFavoriteIcon(R.string.add_article, favoritesIconSelected))
+                emitShared(NewsAction.ShowFavoriteIcon(R.string.add_article, favoriteIconSelected))
             } else {
                 deleteArticle(mapper.mapToModel(article))
                 saveFavorite.saveFavorite(article.url, false)
-                emitShared(NewsAction.ShowFavoriteIcon(R.string.delete_article, favoritesIconUnselected))
+                emitShared(NewsAction.ShowFavoriteIcon(R.string.delete_article, favoriteIconUnselected))
             }
         } else {
             emitShared(NewsAction.ShowMessage(R.string.error_registered))

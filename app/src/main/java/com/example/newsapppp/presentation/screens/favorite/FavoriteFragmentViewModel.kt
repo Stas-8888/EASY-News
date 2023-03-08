@@ -73,12 +73,7 @@ class FavoriteFragmentViewModel @Inject constructor(
     }
 
     fun onNewsAdapterItemClicked(article: Article) = viewModeLaunch {
-        emitShared(
-            FavoriteAction.Navigate(
-                FavoriteFragmentDirections.actionFavoriteFragmentToNewsFragment(
-                    article
-                )
-            )
-        )
+        val action =  FavoriteFragmentDirections.actionFavoriteFragmentToNewsFragment(article)
+        emitShared(FavoriteAction.Navigate(action))
     }
 }
