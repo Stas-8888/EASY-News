@@ -28,6 +28,7 @@ class FavoriteFragmentViewModel @Inject constructor(
     override val _state = MutableStateFlow<FavoriteState>(FavoriteState.ShowLoading)
     override val _shared = MutableSharedFlow<FavoriteAction>()
 
+    // Function to setup all news in the favorite list
     fun setupAllNews() = viewModeLaunch {
         getLocalArticle(Unit).collect {
             if (it.isNotEmpty()) {
@@ -52,11 +53,13 @@ class FavoriteFragmentViewModel @Inject constructor(
         }
     }
 
+    // This function deletes item from the locally stored favorites.
     fun deleteArticle(article: Article) = viewModeLaunch {
         deleteArticle(mapper.mapToModel(article))
         saveFavorite.saveFavorite(article.url, false)
     }
 
+    // This function deletes all article from the locally stored favorites.
     fun onDeleteAllClicked() = viewModeLaunch {
         getLocalArticle(Unit).collect {
             if (it.isNotEmpty()) {
@@ -68,10 +71,12 @@ class FavoriteFragmentViewModel @Inject constructor(
         }
     }
 
+    // Function to handle the swipe gesture on a favorite list item
     fun onItemSwiped(article: Article, position: Int) {
         emitShared(FavoriteAction.ShowDeleteDialog(article, position))
     }
 
+    // Function to handle the click event on a adapter item.
     fun onNewsAdapterItemClicked(article: Article) = viewModeLaunch {
         val action =  FavoriteFragmentDirections.actionFavoriteFragmentToNewsFragment(article)
         emitShared(FavoriteAction.Navigate(action))

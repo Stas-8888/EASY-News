@@ -21,6 +21,7 @@ class SplashViewModel @Inject constructor(
     override val _state = MutableStateFlow<SplashState>(SplashState.Success)
     override val _shared = MutableSharedFlow<SplashAction>()
 
+    // Sets the day/night mode of the app.
     fun setupDayNightMode() {
         if (getSwitchPosition(Unit)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
@@ -29,12 +30,14 @@ class SplashViewModel @Inject constructor(
         }
     }
 
+    // This function navigates to the login fragment after a delay of 3 seconds.
     fun navigateToLoginFragment() = viewModeLaunch {
         delay(TimeUnit.SECONDS.toMillis(3))
-        if (firebaseAuth.currentUser != null) {
-            emitShared(SplashAction.Navigate(SplashFragmentDirections.actionSplashFragmentToMainFragment()))
+        val direction = if (firebaseAuth.currentUser != null) {
+            SplashFragmentDirections.actionSplashFragmentToMainFragment()
         } else {
-            emitShared(SplashAction.Navigate(SplashFragmentDirections.actionSplashFragmentToLoginFragment()))
+            SplashFragmentDirections.actionSplashFragmentToLoginFragment()
         }
+        emitShared(SplashAction.Navigate(direction))
     }
 }
