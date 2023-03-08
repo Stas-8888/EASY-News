@@ -5,7 +5,7 @@ import com.example.newsapppp.domain.interactors.localsource.DeleteArticleUseCase
 import com.example.newsapppp.domain.interactors.localsource.InsertArticleUseCase
 import com.example.newsapppp.domain.interactors.preference.GetFavoriteUseCase
 import com.example.newsapppp.domain.interactors.preference.SaveFavoriteUseCase
-import com.example.newsapppp.presentation.extensions.launchCoroutine
+import com.example.newsapppp.presentation.extensions.viewModeLaunch
 import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
@@ -32,7 +32,7 @@ class NewsFragmentViewModel @Inject constructor(
         MutableStateFlow<NewsState>(NewsState.ShowFavoriteIcon(favoritesIconUnselected))
     override val _shared = MutableSharedFlow<NewsAction>()
 
-    fun setupFavoriteIcon(article: Article) = launchCoroutine {
+    fun setupFavoriteIcon(article: Article) = viewModeLaunch {
         if (isFavorite != getFavorite(article.url)) {
             emit(NewsState.ShowFavoriteIcon(favoritesIconSelected))
         } else {
@@ -40,7 +40,7 @@ class NewsFragmentViewModel @Inject constructor(
         }
     }
 
-    fun onFavoriteIconClicked(article: Article) = launchCoroutine {
+    fun onFavoriteIconClicked(article: Article) = viewModeLaunch {
         if (firebaseAuth.currentUser != null) {
             if (isFavorite == getFavorite(article.url)) {
                 insertArticle(mapper.mapToModel(article))

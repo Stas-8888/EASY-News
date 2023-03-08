@@ -7,7 +7,7 @@ import com.example.newsapppp.domain.interactors.preference.GetCountryFlagUseCase
 import com.example.newsapppp.domain.interactors.preference.GetSwitchPositionUseCase
 import com.example.newsapppp.domain.interactors.preference.SaveCountryFlagUseCase
 import com.example.newsapppp.domain.interactors.preference.SaveSwitchPositionUseCase
-import com.example.newsapppp.presentation.extensions.launchCoroutine
+import com.example.newsapppp.presentation.extensions.viewModeLaunch
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,7 +33,7 @@ class SettingsFragmentViewModel @Inject constructor(
         MutableStateFlow<SettingsState>(SettingsState.SetCurrentCountry(R.drawable.usa))
     override val _shared = MutableSharedFlow<SettingsAction>()
 
-    fun onSwitchDayNightClicked(enabled: Boolean) = launchCoroutine {
+    fun onSwitchDayNightClicked(enabled: Boolean) = viewModeLaunch {
         if (enabled) {
             saveSwitchPosition(false)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -59,7 +59,7 @@ class SettingsFragmentViewModel @Inject constructor(
         )
     }
 
-    fun onAccountClicked() = launchCoroutine {
+    fun onAccountClicked() = viewModeLaunch {
         if (firebaseAuth.currentUser != null) {
             emitShared(SettingsAction.ShowAccount(
                 "Do you, want to sign out?",
@@ -70,7 +70,7 @@ class SettingsFragmentViewModel @Inject constructor(
         }
     }
 
-    fun setupPopupMenu(item: MenuItem) = launchCoroutine {
+    fun setupPopupMenu(item: MenuItem) = viewModeLaunch {
         when (item.itemId) {
             R.id.us -> {
                 saveCountryFlag(USA)
@@ -95,9 +95,9 @@ class SettingsFragmentViewModel @Inject constructor(
         }
     }
 
-    fun onProfileImageClicked(item: MenuItem, launchGallery: Unit){
+    fun onProfileImageClicked(item: MenuItem, launchGallery: () -> Unit){
         when (item.itemId) {
-            R.id.galleryMenu -> launchGallery
+            R.id.galleryMenu -> launchGallery.invoke()
             R.id.cameraMenu -> {}
         }
     }

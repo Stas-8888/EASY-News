@@ -2,7 +2,7 @@ package com.example.newsapppp.presentation.screens.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.newsapppp.presentation.extensions.launchCoroutine
+import com.example.newsapppp.presentation.extensions.viewModeLaunch
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -26,7 +26,7 @@ abstract class BaseViewModel<S, A> : ViewModel() {
      *
      * @param state - [S].
      */
-    fun emit(state: S) = launchCoroutine {
+    fun emit(state: S) = viewModeLaunch {
         _state.emit(state)
     }
 
@@ -35,7 +35,7 @@ abstract class BaseViewModel<S, A> : ViewModel() {
      *
      * @param action - [A].
      */
-    fun emitShared(action: A) = launchCoroutine {
+    fun emitShared(action: A) = viewModeLaunch {
         _shared.emit(action)
     }
 }

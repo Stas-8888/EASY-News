@@ -2,7 +2,7 @@ package com.example.newsapppp.presentation.screens.splash
 
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.newsapppp.domain.interactors.preference.GetSwitchPositionUseCase
-import com.example.newsapppp.presentation.extensions.launchCoroutine
+import com.example.newsapppp.presentation.extensions.viewModeLaunch
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,7 +29,7 @@ class SplashViewModel @Inject constructor(
         }
     }
 
-    fun navigateToLoginFragment() = launchCoroutine {
+    fun navigateToLoginFragment() = viewModeLaunch {
         delay(TimeUnit.SECONDS.toMillis(3))
         if (firebaseAuth.currentUser != null) {
             emitShared(SplashAction.Navigate(SplashFragmentDirections.actionSplashFragmentToMainFragment()))

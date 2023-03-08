@@ -5,7 +5,7 @@ import com.example.newsapppp.domain.interactors.authentication.SignInUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidateEmailUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidatePasswordUseCase
 import com.example.newsapppp.domain.model.UserModel
-import com.example.newsapppp.presentation.extensions.launchCoroutine
+import com.example.newsapppp.presentation.extensions.viewModeLaunch
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -22,7 +22,7 @@ class SignInViewModel @Inject constructor(
     override val _state = MutableStateFlow<SignInState<String>>(SignInState.Loading(false))
     override val _shared = MutableSharedFlow<SignInAction>()
 
-    fun onSignInButtonClicked(user: UserModel) = launchCoroutine {
+    fun onSignInButtonClicked(user: UserModel) = viewModeLaunch {
         when {
             user.email.isEmpty() -> emitShared(SignInAction.ShowMessage(R.string.empty_email))
             user.password.isEmpty() -> emitShared(SignInAction.ShowMessage(R.string.empty_password))

@@ -56,7 +56,7 @@ class SettingsFragment :
             val popupMenu = PopupMenu(context, profileImage)
             popupMenu.menuInflater.inflate(R.menu.profile_photo_storage, popupMenu.menu)
             popupMenu.setOnMenuItemClickListener { item ->
-                viewModel.onProfileImageClicked(item, selectImageFromGallery())
+                viewModel.onProfileImageClicked(item) { selectImageFromGallery() }
                 true
             }
             popupMenu.show()
@@ -64,19 +64,19 @@ class SettingsFragment :
     }
 
     private fun selectImageFromGallery() {
-        val intent = Intent()
-        intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
+        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+            type = "image/*"
+        }
         resultLauncher.launch(Intent.createChooser(intent, "Select Picture"))
     }
 
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             mImageUri = result.data?.data
-            showUserImage()
+            showSelectedImage()
         }
 
-    private fun showUserImage() {
+    private fun showSelectedImage() {
         if (mImageUri != null)
             binding.profileImage.setImageURI(mImageUri)
     }

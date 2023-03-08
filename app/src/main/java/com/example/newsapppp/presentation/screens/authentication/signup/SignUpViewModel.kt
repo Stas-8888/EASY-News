@@ -7,7 +7,7 @@ import com.example.newsapppp.domain.interactors.authentication.validation.Valida
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidatePasswordUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidateRepeatedPasswordUseCase
 import com.example.newsapppp.domain.model.UserModel
-import com.example.newsapppp.presentation.extensions.launchCoroutine
+import com.example.newsapppp.presentation.extensions.viewModeLaunch
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -46,7 +46,7 @@ class SignUpViewModel @Inject constructor(
         )
     }
 
-    fun onSignUnButtonClicked(user: UserModel) = launchCoroutine {
+    fun onSignUnButtonClicked(user: UserModel) = viewModeLaunch {
         when {
             user.email.isEmpty() -> message(R.string.empty_email)
             user.password.isEmpty() -> message(R.string.empty_password)

@@ -6,7 +6,7 @@ import com.example.newsapppp.domain.interactors.localsource.DeleteArticleUseCase
 import com.example.newsapppp.domain.interactors.localsource.GetLocalArticleUseCase
 import com.example.newsapppp.domain.interactors.preference.SaveFavoriteUseCase
 import com.example.newsapppp.domain.repository.SharedPrefRepositoryContract
-import com.example.newsapppp.presentation.extensions.launchCoroutine
+import com.example.newsapppp.presentation.extensions.viewModeLaunch
 import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
@@ -28,7 +28,7 @@ class FavoriteFragmentViewModel @Inject constructor(
     override val _state = MutableStateFlow<FavoriteState>(FavoriteState.ShowLoading)
     override val _shared = MutableSharedFlow<FavoriteAction>()
 
-    fun setupAllNews() = launchCoroutine {
+    fun setupAllNews() = viewModeLaunch {
         getLocalArticle(Unit).collect {
             if (it.isNotEmpty()) {
                 emit(
@@ -52,12 +52,12 @@ class FavoriteFragmentViewModel @Inject constructor(
         }
     }
 
-    fun deleteArticle(article: Article) = launchCoroutine {
+    fun deleteArticle(article: Article) = viewModeLaunch {
         deleteArticle(mapper.mapToModel(article))
         saveFavorite.saveFavorite(article.url, false)
     }
 
-    fun onDeleteAllClicked() = launchCoroutine {
+    fun onDeleteAllClicked() = viewModeLaunch {
         getLocalArticle(Unit).collect {
             if (it.isNotEmpty()) {
                 sharedPref.deleteAllFavorite()
@@ -72,7 +72,7 @@ class FavoriteFragmentViewModel @Inject constructor(
         emitShared(FavoriteAction.ShowDeleteDialog(article, position))
     }
 
-    fun onNewsAdapterItemClicked(article: Article) = launchCoroutine {
+    fun onNewsAdapterItemClicked(article: Article) = viewModeLaunch {
         emitShared(
             FavoriteAction.Navigate(
                 FavoriteFragmentDirections.actionFavoriteFragmentToNewsFragment(

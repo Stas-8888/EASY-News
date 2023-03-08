@@ -3,7 +3,7 @@ package com.example.newsapppp.presentation.screens.search
 import com.example.newsapppp.R
 import com.example.newsapppp.core.network.NetworkHandlerContract
 import com.example.newsapppp.domain.interactors.articleremote.SearchNewsUseCase
-import com.example.newsapppp.presentation.extensions.launchCoroutine
+import com.example.newsapppp.presentation.extensions.viewModeLaunch
 import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
@@ -22,7 +22,7 @@ class SearchFragmentViewModel @Inject constructor(
     override val _state = MutableStateFlow<SearchState>(SearchState.Loading)
     override val _shared = MutableSharedFlow<SearchAction>()
 
-    fun searchTextListener(searchQuery: String) = launchCoroutine {
+    fun searchTextListener(searchQuery: String) = viewModeLaunch {
         if (network.isNetworkAvailable()) {
             if (searchQuery.isNotEmpty()) {
                 val data = searchNewsUseCase(searchQuery).articlesModel
