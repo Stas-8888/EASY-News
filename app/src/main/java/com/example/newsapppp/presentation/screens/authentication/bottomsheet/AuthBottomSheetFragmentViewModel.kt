@@ -19,21 +19,16 @@ class AuthBottomSheetFragmentViewModel @Inject constructor(
     override val _shared = MutableSharedFlow<SheetAction>()
 
     fun setupUi() {
-        emit(
-            SheetState.ShowMessage(
-                Html.fromHtml(
-                    provideResources.string(R.string.terms_and_policy),
-                    HtmlCompat.FROM_HTML_MODE_COMPACT
-                )
-            )
+        val action = Html.fromHtml(
+            provideResources.string(R.string.terms_and_policy),
+            HtmlCompat.FROM_HTML_MODE_COMPACT
         )
+        emit(SheetState.ShowMessage(action))
     }
 
     fun onBtnEmailAddressClicked() {
-        emitShared(
-            SheetAction.Navigate(
-                AuthBottomSheetFragmentDirections.actionAuthBottomSheetFragmentToSignInFragment()
-            )
-        )
+        val action =
+            AuthBottomSheetFragmentDirections.actionAuthBottomSheetFragmentToSignInFragment()
+        emitShared(SheetAction.Navigate(action))
     }
 }
