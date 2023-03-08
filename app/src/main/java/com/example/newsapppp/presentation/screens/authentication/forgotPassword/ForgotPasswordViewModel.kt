@@ -23,18 +23,14 @@ class ForgotPasswordViewModel @Inject constructor(
     fun onForgotPasswordClicked(user: UserModel) = viewModeLaunch {
         when {
             user.email.isEmpty() -> emitShared(ForgotPasswordAction.ShowMessage(R.string.empty_email))
-            else -> {
+            else -> try {
                 forgotPassword(user)
-                    .addOnSuccessListener {
-                        emitShared(ForgotPasswordAction.ShowMessage(R.string.email_sent))
-                    }.addOnFailureListener {
-                        emitShared(ForgotPasswordAction.ShowMessage(R.string.wrong_email))
-                    }
+                emitShared(ForgotPasswordAction.ShowMessage(R.string.email_sent))
+            } catch (e: Exception) {
+                emitShared(ForgotPasswordAction.ShowMessage(R.string.wrong_email))
             }
         }
     }
 
-    fun isEmailChanged(email: String) {
-        emit(ForgotPasswordState.CheckEmail(validateEmail(email)))
-    }
+    fun isEmailChanged(email: String) = emit(ForgotPasswordState.CheckEmail(validateEmail(email)))
 }

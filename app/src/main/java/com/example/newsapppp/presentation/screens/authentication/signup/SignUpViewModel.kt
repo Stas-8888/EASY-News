@@ -13,7 +13,6 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
@@ -30,18 +29,13 @@ class SignUpViewModel @Inject constructor(
     override val _state = MutableStateFlow<SignUpState<String>>(SignUpState.Loading)
     override val _shared = MutableSharedFlow<SignUpAction>()
 
-    fun checkValidationFields(
-        name: String,
-        email: String,
-        password: String,
-        repeatedPassword: String
-    ) {
+    fun checkValidationFields(user: UserModel) {
         emit(
             SignUpState.CheckState(
-                fullName(name),
-                validateEmail(email),
-                validatePassword(password),
-                validateRepeatedPassword.validateRepeatedPassword(password, repeatedPassword)
+                fullName(user.user),
+                validateEmail(user.email),
+                validatePassword(user.password),
+                validateRepeatedPassword.invoke(user.password, user.repeatedPassword)
             )
         )
     }
@@ -50,33 +44,26 @@ class SignUpViewModel @Inject constructor(
         when {
             user.email.isEmpty() -> message(R.string.empty_email)
             user.password.isEmpty() -> message(R.string.empty_password)
-            else -> {
-                signUpUseCase.signUp(user)
-                    .addOnSuccessListener {
-                        message(R.string.successfully_register)
-                        emitShared(SignUpAction.Navigate(SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()))
-                    }
-                    .addOnFailureListener {
-                        when (it) {
-                            is FirebaseAuthWeakPasswordException -> message(R.string.password_lengs)
-                            is FirebaseAuthInvalidCredentialsException -> message(R.string.invalid_email)
-                            is FirebaseAuthUserCollisionException -> message(R.string.email_registered)
-                            else -> message(R.string.invalid_authentication)
-                        }
-                    }
+            else -> try {
+                signUpUseCase(user)
+                message(R.string.successfully_register)
+                emitShared(SignUpAction.Navigate(SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()))
+            } catch (e: Exception) {
+                when (e) {
+                    is FirebaseAuthWeakPasswordException -> message(R.string.password_lengs)
+                    is FirebaseAuthInvalidCredentialsException -> message(R.string.invalid_email)
+                    is FirebaseAuthUserCollisionException -> message(R.string.email_registered)
+                    else -> message(R.string.invalid_authentication)
+                }
             }
         }
     }
 
     fun onSignInBottomClicked() {
-        emitShared(SignUpAction.Navigate(SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()))
+        val action = SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()
+        emitShared(SignUpAction.Navigate(action))
     }
 
-    private fun message(message: Int): Job {
-        return emitShared(SignUpAction.ShowMessage(message))
-    }
-
-    fun notEnabledYet() {
-        emitShared(SignUpAction.ShowMessage(R.string.not_enabled_yet))
-    }
+    private fun message(message: Int) = emitShared(SignUpAction.ShowMessage(message))
+    fun onNotEnabledBottomClicked() = emitShared(SignUpAction.ShowMessage(R.string.not_enabled_yet))
 }

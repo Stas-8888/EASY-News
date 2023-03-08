@@ -3,10 +3,10 @@ package com.example.newsapppp.presentation.screens.authentication.signup
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.databinding.FragmentSignUpBinding
 import com.example.newsapppp.domain.model.UserModel
+import com.example.newsapppp.presentation.extensions.afterTextChanged
 import com.example.newsapppp.presentation.extensions.invisible
 import com.example.newsapppp.presentation.extensions.navigateDirections
 import com.example.newsapppp.presentation.extensions.showSnackBar
-import com.example.newsapppp.presentation.extensions.afterTextChanged
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,10 +19,10 @@ class SignUpFragment :
 
     override fun onClickListener() = with(binding) {
         btGoogle.setOnClickListener {
-            viewModel.notEnabledYet()
+            viewModel.onNotEnabledBottomClicked()
         }
         btFaceBook.setOnClickListener {
-            viewModel.notEnabledYet()
+            viewModel.onNotEnabledBottomClicked()
         }
         registerButton.setOnClickListener {
             viewModel.onSignUnButtonClicked(
@@ -39,10 +39,12 @@ class SignUpFragment :
 
     private fun isValid() {
         viewModel.checkValidationFields(
-            fullNameText(),
-            emailText(),
-            passwordText(),
-            repeatPasswordText()
+            UserModel(
+                user = fullNameText(),
+                email = emailText(),
+                password = passwordText(),
+                repeatedPassword = repeatPasswordText()
+            )
         )
     }
 

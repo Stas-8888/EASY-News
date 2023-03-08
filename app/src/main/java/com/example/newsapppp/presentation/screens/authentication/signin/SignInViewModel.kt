@@ -10,7 +10,6 @@ import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,7 +22,7 @@ class SignInViewModel @Inject constructor(
     // MutableStateFlow used to hold the state of the SignIn screen
     override val _state = MutableStateFlow<SignInState<String>>(SignInState.Loading(false))
 
-    // MutableSharedFlow used to emit actions to be observed by the SignInFragment
+    // MutableSharedFlow used to emit actions of the SignInFragment
     override val _shared = MutableSharedFlow<SignInAction>()
 
     // Called when the user clicks on the Sign In button
@@ -32,7 +31,7 @@ class SignInViewModel @Inject constructor(
             user.email.isEmpty() -> emitShared(SignInAction.ShowMessage(R.string.empty_email))
             user.password.isEmpty() -> emitShared(SignInAction.ShowMessage(R.string.empty_password))
             else -> try {
-                signIn.signIn(user).await()
+                signIn(user)
                 emit(SignInState.Loading(true))
                 emitShared(SignInAction.ShowMessage(R.string.successfully_sign_in))
                 emitShared(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment()))
