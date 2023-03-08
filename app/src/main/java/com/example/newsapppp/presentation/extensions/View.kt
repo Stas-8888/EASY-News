@@ -8,6 +8,7 @@ import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.AnimationUtils
 import android.view.animation.DecelerateInterpolator
+import android.view.animation.TranslateAnimation
 import android.view.inputmethod.InputMethodManager
 import androidx.core.animation.doOnEnd
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
@@ -155,4 +156,10 @@ fun View.showWithAnimate(anim: Int){
     animation = AnimationUtils.loadAnimation(context, anim).apply {
         start()
     }
+}
+
+fun View.translateAnimation(fromX: Float, toX: Float, fromY: Float, toY: Float, duration: Long) {
+    startAnimation(TranslateAnimation(fromX, toX, fromY, toY).apply {
+        this.duration = duration
+    })
 }

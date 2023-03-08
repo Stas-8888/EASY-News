@@ -33,8 +33,8 @@ class MainFragmentViewModel @Inject constructor(
     )
 
     fun setupUi() = viewModeLaunch {
-        val newsFlow = getNews(categories.first()).cachedIn(viewModelScope)
-        newsFlow.collect { articles ->
+        val news = getNews(categories.first()).cachedIn(viewModelScope)
+        news.collect { articles ->
             val filteredArticles = articles.filter { article ->
                 article.urlToImage != null && article.title != null
             }

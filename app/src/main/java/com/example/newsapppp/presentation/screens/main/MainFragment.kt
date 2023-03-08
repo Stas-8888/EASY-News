@@ -125,16 +125,10 @@ class MainFragment :
     }
 
     private fun setupAnimation() = with(binding) {
-        tabMain.showWithAnimate(R.anim.fade_in)
         mainScreen.fadeIn()
-        appName.startAnimation(TranslateAnimation(0f, 0f, -100f, 0f).apply {
-            duration = 1000
-        })
-        tvCountry.startAnimation(TranslateAnimation(0f, 0f, 100f, 0f).apply {
-            duration = 1000
-        })
-        btSettings.startAnimation(TranslateAnimation(200f, 0f, 0f, 0f).apply {
-            duration = 1000
-        })
+        tabMain.showWithAnimate(R.anim.fade_in)
+        appName.translateAnimation(0f, 0f, -100f, 0f, 1000)
+        tvCountry.translateAnimation(0f, 0f, 100f, 0f, 1000)
+        btSettings.translateAnimation(200f, 0f, 0f, 0f, 1000)
     }
 }
