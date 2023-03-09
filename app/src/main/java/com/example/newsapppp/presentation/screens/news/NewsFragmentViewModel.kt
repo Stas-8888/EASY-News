@@ -32,12 +32,14 @@ class NewsFragmentViewModel @Inject constructor(
         MutableStateFlow<NewsState>(NewsState.ShowFavoriteIcon(favoriteIconUnselected))
     override val _shared = MutableSharedFlow<NewsAction>()
 
+    // Sets up the favorite icon in the UI
     fun setupFavoriteIcon(article: Article) = viewModeLaunch {
         val icon = if (isFavorite != getFavorite(article.url))
             favoriteIconSelected else favoriteIconUnselected
         emit(NewsState.ShowFavoriteIcon(icon))
     }
 
+    // Handles click on favorite icon
     fun onFavoriteIconClicked(article: Article) = viewModeLaunch {
         if (firebaseAuth.currentUser != null) {
             if (isFavorite == getFavorite(article.url)) {
