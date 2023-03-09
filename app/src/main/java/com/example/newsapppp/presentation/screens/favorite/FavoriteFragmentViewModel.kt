@@ -32,23 +32,21 @@ class FavoriteFragmentViewModel @Inject constructor(
     fun setupAllNews() = viewModeLaunch {
         getLocalArticle(Unit).collect {
             if (it.isNotEmpty()) {
-                emit(
-                    FavoriteState.ShowArticles(
-                        articles = mapper.mapToListArticle(it),
-                        progressBar = false,
-                        state = false,
-                        exception = null
-                    )
+                val data = FavoriteState.ShowArticles(
+                    articles = mapper.mapToListArticle(it),
+                    progressBar = false,
+                    state = false,
+                    exception = null
                 )
+                emit(data)
             } else {
-                emit(
-                    FavoriteState.ShowArticles(
-                        articles = emptyList(),
-                        progressBar = false,
-                        state = true,
-                        exception = R.string.empty_list
-                    )
+                val data = FavoriteState.ShowArticles(
+                    articles = emptyList(),
+                    progressBar = false,
+                    state = true,
+                    exception = R.string.empty_list
                 )
+                emit(data)
             }
         }
     }
@@ -78,7 +76,7 @@ class FavoriteFragmentViewModel @Inject constructor(
 
     // Function to handle the click event on a adapter item.
     fun onNewsAdapterItemClicked(article: Article) = viewModeLaunch {
-        val action =  FavoriteFragmentDirections.actionFavoriteFragmentToNewsFragment(article)
+        val action = FavoriteFragmentDirections.actionFavoriteFragmentToNewsFragment(article)
         emitShared(FavoriteAction.Navigate(action))
     }
 }
