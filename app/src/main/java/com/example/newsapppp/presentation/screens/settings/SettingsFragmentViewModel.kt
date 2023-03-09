@@ -33,6 +33,7 @@ class SettingsFragmentViewModel @Inject constructor(
         MutableStateFlow<SettingsState>(SettingsState.SetCurrentCountry(R.drawable.usa))
     override val _shared = MutableSharedFlow<SettingsAction>()
 
+    // Update the day/night mode of the app and save the switch position
     fun onSwitchDayNightClicked(enabled: Boolean) = viewModeLaunch {
         if (enabled) {
             saveSwitchPosition(false)
@@ -43,22 +44,23 @@ class SettingsFragmentViewModel @Inject constructor(
         }
     }
 
+    // sets up the UI of the settings screen
     fun setupUi() {
-        emit(
-            SettingsState.ShowUi(
-                theme = !getThemes(Unit),
-                email = firebaseAuth.currentUser?.email ?: "Email address",
-                flag = when (getCountryFlag(Unit)) {
-                    USA -> R.drawable.usa
-                    GERMANY -> R.drawable.germany
-                    RUSSIA -> R.drawable.russia
-                    EGYPT -> R.drawable.egypt
-                    else -> R.drawable.usa
-                }
-            )
+        val ui = SettingsState.ShowUi(
+            theme = !getThemes(Unit),
+            email = firebaseAuth.currentUser?.email ?: "Email address",
+            flag = when (getCountryFlag(Unit)) {
+                USA -> R.drawable.usa
+                GERMANY -> R.drawable.germany
+                RUSSIA -> R.drawable.russia
+                EGYPT -> R.drawable.egypt
+                else -> R.drawable.usa
+            }
         )
+        emit(ui)
     }
 
+    // handles the click on the Account
     fun onAccountClicked() = viewModeLaunch {
         if (firebaseAuth.currentUser != null) {
             emitShared(SettingsAction.ShowAccount(
@@ -66,10 +68,12 @@ class SettingsFragmentViewModel @Inject constructor(
                 true
             ) { firebaseAuth.signOut() })
         } else {
-            emitShared(SettingsAction.Navigate(SettingsFragmentDirections.actionSettingsFragmentToAuthBottomSheetFragment()))
+            val action = SettingsFragmentDirections.actionSettingsFragmentToAuthBottomSheetFragment()
+            emitShared(SettingsAction.Navigate(action))
         }
     }
 
+    // sets up the popup menu of the settings screen
     fun setupPopupMenu(item: MenuItem) = viewModeLaunch {
         when (item.itemId) {
             R.id.us -> {
@@ -95,7 +99,8 @@ class SettingsFragmentViewModel @Inject constructor(
         }
     }
 
-    fun onProfileImageClicked(item: MenuItem, launchGallery: () -> Unit){
+    // handles the click on the profile image options menu
+    fun onProfileImageClicked(item: MenuItem, launchGallery: () -> Unit) {
         when (item.itemId) {
             R.id.galleryMenu -> launchGallery.invoke()
             R.id.cameraMenu -> {}
