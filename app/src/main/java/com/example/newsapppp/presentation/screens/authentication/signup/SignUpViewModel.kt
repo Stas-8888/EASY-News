@@ -31,14 +31,13 @@ class SignUpViewModel @Inject constructor(
 
     // Check the validation of the fields entered by the user
     fun checkValidationFields(user: UserModel) {
-        emit(
-            SignUpState.CheckState(
-                fullName(user.user),
-                validateEmail(user.email),
-                validatePassword(user.password),
-                validateRepeatedPassword.invoke(user.password, user.repeatedPassword)
-            )
+        val data = SignUpState.CheckState(
+            fullName(user.user),
+            validateEmail(user.email),
+            validatePassword(user.password),
+            validateRepeatedPassword.invoke(user.password, user.repeatedPassword)
         )
+        emit(data)
     }
 
     // Perform sign-up operation

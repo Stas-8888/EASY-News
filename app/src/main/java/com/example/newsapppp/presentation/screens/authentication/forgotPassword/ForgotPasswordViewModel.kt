@@ -20,6 +20,7 @@ class ForgotPasswordViewModel @Inject constructor(
     override val _state = MutableStateFlow<ForgotPasswordState<String>>(ForgotPasswordState.Loading)
     override val _shared = MutableSharedFlow<ForgotPasswordAction>()
 
+    // Called when the user clicks on the Forgot Password button
     fun onForgotPasswordClicked(user: UserModel) = viewModeLaunch {
         when {
             user.email.isEmpty() -> emitShared(ForgotPasswordAction.ShowMessage(R.string.empty_email))
@@ -32,5 +33,6 @@ class ForgotPasswordViewModel @Inject constructor(
         }
     }
 
+    // This function is called when the email input is changed to validate the email format
     fun isEmailChanged(email: String) = emit(ForgotPasswordState.CheckEmail(validateEmail(email)))
 }
