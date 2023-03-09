@@ -32,6 +32,7 @@ class MainFragmentViewModel @Inject constructor(
         "Technology", "Sports", "Science", "Entertainment", "Business", "Health"
     )
 
+    // Sets up UI for main fragment with news for first category
     fun setupUi() = viewModeLaunch {
         val news = getNews(categories.first()).cachedIn(viewModelScope)
         news.collect { articles ->
@@ -45,6 +46,7 @@ class MainFragmentViewModel @Inject constructor(
         }
     }
 
+    // Sets up news for a specific tab/category
     fun setupTabLayout(tab: TabLayout.Tab) = viewModeLaunch {
         val category = categories[tab.position]
         val news = getNews(category).cachedIn(viewModelScope)
@@ -56,21 +58,25 @@ class MainFragmentViewModel @Inject constructor(
         }
     }
 
+    // Shows/hides float button based on position of first news article
     fun showOrHideFloatButton(getFirstNewsPosition: Int) {
         val isVisible = getFirstNewsPosition >= 1
         emit(MainState.BottomVisibility(isVisible))
     }
 
+    // Handles click on settings button
     fun onBtSettingsClicked() {
         val action = MainFragmentDirections.actionMainFragmentToSettingsFragment()
         emitShared(MainAction.Navigate(action))
     }
 
+    // Handles click on news article in recycler view
     fun onNewsAdapterClicked(article: Article) {
         val action = MainFragmentDirections.actionMainFragmentToNewsFragment(article)
         emitShared(MainAction.Navigate(action))
     }
 
+    // Intercepts errors from API request and displays error message
     fun interceptorErrors() = viewModeLaunch {
         val errors = interceptorErrors.errorsInterceptor()
         errors.filter { it.isNotEmpty() }.collect {
