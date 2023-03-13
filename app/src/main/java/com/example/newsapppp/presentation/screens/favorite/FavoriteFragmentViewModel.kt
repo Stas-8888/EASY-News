@@ -26,7 +26,7 @@ class FavoriteFragmentViewModel @Inject constructor(
     private val mapper: ArticleMapper
 ) : BaseViewModel<FavoriteState, FavoriteAction>() {
 
-    override val _state = MutableStateFlow<FavoriteState>(FavoriteState.ShowLoading)
+    override val _state = MutableStateFlow<FavoriteState>(FavoriteState.Loading)
     override val _action = MutableSharedFlow<FavoriteAction>()
 
     // Function to setup all news in the favorite list

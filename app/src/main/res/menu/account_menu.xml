@@ -5,7 +5,7 @@
         android:id="@+id/menu_account"
         android:icon="@drawable/ic_account"
         android:iconTint="@color/black"
-        android:title="Account ?"
+        android:title="@string/account"
         app:showAsAction="ifRoom" />
 
 </menu>

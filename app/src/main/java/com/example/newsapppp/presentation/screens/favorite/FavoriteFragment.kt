@@ -5,13 +5,14 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapppp.databinding.FragmentFavoriteBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
 import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+
+const val SWIPE_THRESHOLD = 0.3F
 
 @AndroidEntryPoint
 class FavoriteFragment :
@@ -23,9 +24,9 @@ class FavoriteFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupAdapter()
-        swipeToDelete()
+        initRecyclerView(binding.rvSavedNews, newsAdapter)
         viewModel.setupAllNews()
+        swipeToDelete()
     }
 
     override fun onClickListener() {
@@ -43,7 +44,7 @@ class FavoriteFragment :
     override fun observerState(state: FavoriteState) {
         with(binding) {
             when (state) {
-                is FavoriteState.ShowLoading -> {
+                is FavoriteState.Loading -> {
                     progressBar.visible()
                 }
                 is FavoriteState.ShowArticles -> {
@@ -84,7 +85,7 @@ class FavoriteFragment :
                 return true
             }
 
-            override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder) = 0.3f
+            override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder) = SWIPE_THRESHOLD
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.bindingAdapterPosition
@@ -94,13 +95,6 @@ class FavoriteFragment :
         }
         ItemTouchHelper(itemTouchHelperCallback).apply {
             attachToRecyclerView(rvSavedNews)
-        }
-    }
-
-    private fun setupAdapter() = with(binding) {
-        rvSavedNews.apply {
-            adapter = newsAdapter
-            layoutManager = LinearLayoutManager(requireContext())
         }
     }
 }

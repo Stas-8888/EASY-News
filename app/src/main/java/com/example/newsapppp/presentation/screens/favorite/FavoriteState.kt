@@ -4,7 +4,7 @@ import com.example.newsapppp.presentation.model.Article
 
 sealed class FavoriteState {
 
-    object ShowLoading : FavoriteState()
+    object Loading : FavoriteState()
 
     data class ShowArticles(
         val articles: List<Article>,

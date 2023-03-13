@@ -28,8 +28,10 @@ class MainFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.interceptorErrors()
-        setupRecyclerView()
+        initRecyclerView(binding.rvNews, newsAdapter)
+        onScrollRecyclerViewListener()
         viewModel.setupUi()
+        adapterLoadState()
         setupTabLayout()
         setupAnimation()
     }
@@ -46,16 +48,6 @@ class MainFragment :
         swipeToRefresh.setOnRefreshListener {
             binding.rvNews.adapter = newsAdapter
             swipeToRefresh.isRefreshing = false
-        }
-    }
-
-    private fun setupRecyclerView() = with(binding) {
-        rvNews.apply {
-            adapter = newsAdapter
-            layoutManager = LinearLayoutManager(requireContext())
-            rvNews.setHasFixedSize(true)
-            onScrollRecyclerViewListener()
-            adapterLoadState()
         }
     }
 
