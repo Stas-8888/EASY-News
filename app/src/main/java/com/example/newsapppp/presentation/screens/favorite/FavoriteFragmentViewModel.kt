@@ -29,24 +29,23 @@ class FavoriteFragmentViewModel @Inject constructor(
 
     // Function to setup all news in the favorite list
     fun setupAllNews() = viewModelScope.launch {
-        articleAllCache(Unit).collect {
-            if (it.isNotEmpty()) {
-                val data = FavoriteState.ShowArticles(
-                    articles = mapper.mapToListArticle(it),
+        articleAllCache(Unit).collect { articles ->
+            val data = if (articles.isNotEmpty()) {
+                FavoriteState.ShowArticles(
+                    articles = mapper.mapToListArticle(articles),
                     progressBar = false,
                     state = false,
                     exception = null
                 )
-                emit(data)
             } else {
-                val data = FavoriteState.ShowArticles(
+                FavoriteState.ShowArticles(
                     articles = emptyList(),
                     progressBar = false,
                     state = true,
                     exception = R.string.empty_list
                 )
-                emit(data)
             }
+            emit(data)
         }
     }
 
