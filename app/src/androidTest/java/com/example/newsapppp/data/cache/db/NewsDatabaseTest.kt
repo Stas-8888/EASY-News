@@ -78,6 +78,34 @@ class NewsDatabaseTest {
         assertEquals(0, productFromDb.size)
     }
 
+    @Test
+    fun deleteFactMustReturnEmptyList() = runBlocking {
+        productDao.insertArticle(product)
+        val productFromDb = productDao.getAllArticles().first()
+
+        assertEquals(1, productFromDb.size)
+
+        productDao.deleteArticle(product)
+        val productFromDb2 = productDao.getAllArticles().first()
+
+        assertEquals(0, productFromDb2.size)
+    }
+
+    @Test
+    fun deleteNonExistingFactMustNotAffectDb() = runBlocking {
+        productDao.insertArticle(product)
+        val productFromDb = productDao.getAllArticles().first()
+
+        assertEquals(1, productFromDb.size)
+
+        val nonExistingProduct = product.copy(url = "non-existing-url")
+        productDao.deleteArticle(nonExistingProduct)
+
+        val productFromDb2 = productDao.getAllArticles().first()
+        assertEquals(1, productFromDb2.size)
+        assertEquals(product, productFromDb2.first())
+    }
+
     private val product =
         ArticleEntity(
             url = "",

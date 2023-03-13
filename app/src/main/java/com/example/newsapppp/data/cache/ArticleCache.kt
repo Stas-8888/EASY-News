@@ -4,8 +4,8 @@ import com.example.newsapppp.core.dispatcher.DispatcherRepositoryContract
 import com.example.newsapppp.data.cache.db.dao.NewsDao
 import com.example.newsapppp.data.mapper.EntityMapper
 import com.example.newsapppp.data.mapper.NewsResponseMapper
-import com.example.newsapppp.domain.model.ArticleModel
 import com.example.newsapppp.domain.interactors.articlecache.ArticleCacheContract
+import com.example.newsapppp.domain.model.ArticleModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -30,6 +30,7 @@ class ArticleCache @Inject constructor(
     }
 
     override fun getAllArticles(): Flow<List<ArticleModel>> {
-        return newsDao.getAllArticles().map { newsResponseMapper.fromArticleEntityToArticleModel(it) }
+        return newsDao.getAllArticles()
+            .map { newsResponseMapper.fromArticleEntityToArticleModel(it) }
     }
 }
