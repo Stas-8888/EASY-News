@@ -21,7 +21,7 @@ class AuthenticationRepository @Inject constructor(
         firebaseAuth.createUserWithEmailAndPassword(user.email, user.password)
     }
 
-    override suspend fun forgotPassword(user: UserModel): Unit = dispatcher.io {
+    override suspend fun forgotPassword(user: UserModel): Task<Void> = dispatcher.io {
         firebaseAuth.sendPasswordResetEmail(user.email)
     }
 

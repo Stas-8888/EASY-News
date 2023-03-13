@@ -64,8 +64,7 @@ class SettingsFragmentViewModel @Inject constructor(
     // handles the click on the Account
     fun onAccountClicked() = viewModelScope.launch {
         if (isCurrentUserNull) {
-            val action = SettingsFragmentDirections.actionSettingsFragmentToAuthBottomSheetFragment()
-            emitAction(SettingsAction.Navigate(action))
+            emitAction(SettingsAction.Navigate(SettingsFragmentDirections.actionSettingsFragmentToAuthBottomSheetFragment()))
         } else {
             emitAction(SettingsAction.ShowAccount(
                 provideResources.makeString(R.string.want_sign_out),

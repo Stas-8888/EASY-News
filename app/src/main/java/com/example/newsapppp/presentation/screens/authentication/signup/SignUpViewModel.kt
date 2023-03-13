@@ -19,9 +19,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val validateEmail: ValidateEmailUseCase,
+    private val signUp: SignUpUseCase,
     private val fullName: FullNameUseCase,
-    private val signUpUseCase: SignUpUseCase,
+    private val validateEmail: ValidateEmailUseCase,
     private val validatePassword: ValidatePasswordUseCase,
     private val validateRepeatedPassword: ValidateRepeatedPasswordUseCase,
 ) : BaseViewModel<SignUpState<String>, SignUpAction>() {
@@ -49,7 +49,7 @@ class SignUpViewModel @Inject constructor(
     }
 
     private suspend fun signUpUser(user: UserModel) = try {
-        signUpUseCase(user)
+        signUp(user)
             .addOnSuccessListener {
                 navigateToSignInScreen()
                 emitAction(SignUpAction.ShowMessage(R.string.successfully_register))

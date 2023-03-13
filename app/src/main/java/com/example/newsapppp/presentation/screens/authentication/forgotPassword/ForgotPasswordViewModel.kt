@@ -7,7 +7,6 @@ import com.example.newsapppp.domain.interactors.authentication.validation.Valida
 import com.example.newsapppp.domain.model.UserModel
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,13 +23,19 @@ class ForgotPasswordViewModel @Inject constructor(
     fun onForgotPasswordClicked(user: UserModel) = viewModelScope.launch {
         when {
             user.email.isEmpty() -> emitAction(ForgotPasswordAction.ShowMessage(R.string.empty_email))
-            else -> try {
-                forgotPassword(user)
+            else -> forgotPasswordUser(user)
+        }
+    }
+
+    private suspend fun forgotPasswordUser(user: UserModel) = try {
+        forgotPassword(user)
+            .addOnSuccessListener {
                 emitAction(ForgotPasswordAction.ShowMessage(R.string.email_sent))
-            } catch (e: Exception) {
+            }.addOnFailureListener {
                 emitAction(ForgotPasswordAction.ShowMessage(R.string.wrong_email))
             }
-        }
+    } catch (e: Exception) {
+        emitAction(ForgotPasswordAction.ShowMessage(R.string.wrong_email))
     }
 
     // This function is called when the email input is changed to validate the email format

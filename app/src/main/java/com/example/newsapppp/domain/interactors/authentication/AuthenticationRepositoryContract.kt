@@ -7,6 +7,6 @@ import com.google.firebase.auth.AuthResult
 interface AuthenticationRepositoryContract {
     suspend fun signUp(user: UserModel): Task<AuthResult>
     suspend fun signIn(user: UserModel): Task<AuthResult>
-    suspend fun forgotPassword(user: UserModel)
+    suspend fun forgotPassword(user: UserModel): Task<Void>
     fun logOut()
 }
