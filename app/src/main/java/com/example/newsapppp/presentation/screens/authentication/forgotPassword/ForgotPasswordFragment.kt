@@ -34,7 +34,7 @@ class ForgotPasswordFragment :
         }
     }
 
-    override fun observerShared(actions: ForgotPasswordAction) {
+    override fun observerAction(actions: ForgotPasswordAction) {
         when (actions) {
             is ForgotPasswordAction.ShowMessage -> showSnackBar(actions.message)
         }

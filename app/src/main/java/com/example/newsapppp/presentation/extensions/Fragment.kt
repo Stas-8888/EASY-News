@@ -22,7 +22,7 @@ import kotlinx.coroutines.CoroutineScope
 
 fun Fragment.navigateDirections(where: NavDirections) = findNavController().navigate(where)
 
-fun Fragment.backPress() = findNavController().navigateUp()
+fun Fragment.returnToPreviousScreen() = findNavController().navigateUp()
 
 fun Fragment.launchWhenStarted(block: suspend CoroutineScope.() -> Unit) {
     viewLifecycleOwner.lifecycleScope.launchWhenStarted(block)
@@ -105,7 +105,7 @@ fun Fragment.showAlertUpDialog(title: Int) {
     }
 }
 
-fun Fragment.internetConnectionDialog(status: String) {
+fun Fragment.showInternetConnectionDialog(status: String) {
     Dialog(requireContext()).apply {
         setContentView(R.layout.no_internet_connections)
         val internetStatus = findViewById<TextView>(R.id.internet_status)

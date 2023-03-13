@@ -18,8 +18,8 @@ abstract class BaseViewModel<S, A> : ViewModel() {
     protected abstract val _state: MutableStateFlow<S>
     val state by lazy { _state.asStateFlow() }
 
-    protected abstract val _shared: MutableSharedFlow<A>
-    val shared by lazy { _shared.asSharedFlow() }
+    protected abstract val _action: MutableSharedFlow<A>
+    val action by lazy { _action.asSharedFlow() }
 
     /**
      * Emit new [S] state to [state] in Scope [viewModelScope].
@@ -31,11 +31,11 @@ abstract class BaseViewModel<S, A> : ViewModel() {
     }
 
     /**
-     * Emit new [A] action to [shared].
+     * Emit new [A] action to [action].
      *
      * @param action - [A].
      */
-    fun emitShared(action: A) = viewModelScope.launch {
-        _shared.emit(action)
+    fun emitAction(action: A) = viewModelScope.launch {
+        _action.emit(action)
     }
 }

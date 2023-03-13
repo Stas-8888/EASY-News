@@ -2,7 +2,6 @@ package com.example.newsapppp.presentation.screens.main
 
 import android.os.Bundle
 import android.view.View
-import android.view.animation.TranslateAnimation
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.paging.LoadState
@@ -90,7 +89,7 @@ class MainFragment :
         }
     }
 
-    override fun observerShared(actions: MainAction) {
+    override fun observerAction(actions: MainAction) {
         when (actions) {
             is MainAction.ShowMessage -> showSnackBarString(actions.message)
             is MainAction.Navigate -> navigateDirections(actions.navigateTo)

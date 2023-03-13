@@ -32,7 +32,7 @@ class SettingsFragmentViewModel @Inject constructor(
 
     override val _state =
         MutableStateFlow<SettingsState>(SettingsState.SetCurrentCountry(R.drawable.usa))
-    override val _shared = MutableSharedFlow<SettingsAction>()
+    override val _action = MutableSharedFlow<SettingsAction>()
 
     // Update the day/night mode of the app and save the switch position
     fun onSwitchDayNightClicked(enabled: Boolean) = viewModelScope.launch {
@@ -64,14 +64,14 @@ class SettingsFragmentViewModel @Inject constructor(
     // handles the click on the Account
     fun onAccountClicked() = viewModelScope.launch {
         if (firebaseAuth.currentUser != null) {
-            emitShared(SettingsAction.ShowAccount(
+            emitAction(SettingsAction.ShowAccount(
                 "Do you, want to sign out?",
                 true
             ) { firebaseAuth.signOut() })
         } else {
             val action =
                 SettingsFragmentDirections.actionSettingsFragmentToAuthBottomSheetFragment()
-            emitShared(SettingsAction.Navigate(action))
+            emitAction(SettingsAction.Navigate(action))
         }
     }
 
@@ -81,22 +81,22 @@ class SettingsFragmentViewModel @Inject constructor(
             R.id.us -> {
                 saveCountryFlag(USA)
                 emit(SettingsState.SetCurrentCountry(R.drawable.usa))
-                emitShared((SettingsAction.ShowMessage(R.string.american_news)))
+                emitAction((SettingsAction.ShowMessage(R.string.american_news)))
             }
             R.id.ru -> {
                 saveCountryFlag(RUSSIA)
                 emit(SettingsState.SetCurrentCountry(R.drawable.russia))
-                emitShared(SettingsAction.ShowMessage(R.string.russia_news))
+                emitAction(SettingsAction.ShowMessage(R.string.russia_news))
             }
             R.id.germany -> {
                 saveCountryFlag(GERMANY)
                 emit(SettingsState.SetCurrentCountry(R.drawable.germany))
-                emitShared(SettingsAction.ShowMessage(R.string.germany_news))
+                emitAction(SettingsAction.ShowMessage(R.string.germany_news))
             }
             R.id.egipt -> {
                 saveCountryFlag(EGYPT)
                 emit(SettingsState.SetCurrentCountry(R.drawable.egypt))
-                emitShared(SettingsAction.ShowMessage(R.string.egypt_news))
+                emitAction(SettingsAction.ShowMessage(R.string.egypt_news))
             }
         }
     }

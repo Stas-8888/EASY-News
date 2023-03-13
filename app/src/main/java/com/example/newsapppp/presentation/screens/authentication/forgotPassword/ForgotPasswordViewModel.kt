@@ -19,17 +19,17 @@ class ForgotPasswordViewModel @Inject constructor(
 ) : BaseViewModel<ForgotPasswordState<String>, ForgotPasswordAction>() {
 
     override val _state = MutableStateFlow<ForgotPasswordState<String>>(ForgotPasswordState.Loading)
-    override val _shared = MutableSharedFlow<ForgotPasswordAction>()
+    override val _action = MutableSharedFlow<ForgotPasswordAction>()
 
     // Called when the user clicks on the Forgot Password button
     fun onForgotPasswordClicked(user: UserModel) = viewModelScope.launch {
         when {
-            user.email.isEmpty() -> emitShared(ForgotPasswordAction.ShowMessage(R.string.empty_email))
+            user.email.isEmpty() -> emitAction(ForgotPasswordAction.ShowMessage(R.string.empty_email))
             else -> try {
                 forgotPassword(user)
-                emitShared(ForgotPasswordAction.ShowMessage(R.string.email_sent))
+                emitAction(ForgotPasswordAction.ShowMessage(R.string.email_sent))
             } catch (e: Exception) {
-                emitShared(ForgotPasswordAction.ShowMessage(R.string.wrong_email))
+                emitAction(ForgotPasswordAction.ShowMessage(R.string.wrong_email))
             }
         }
     }

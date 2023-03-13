@@ -22,6 +22,7 @@ class NewsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.setupFavoriteIcon(article)
+        initialToolBar(binding.toolbar)
         binding.newsScreen.fadeIn()
         setupWebView()
     }
@@ -30,10 +31,6 @@ class NewsFragment :
         btFavorite.setOnClickListener {
             it.clickAnim()
             viewModel.onFavoriteIconClicked(article)
-        }
-        toolbar.setNavigationOnClickListener {
-            newsScreen.fadeOut()
-            backPress()
         }
     }
 
@@ -50,7 +47,7 @@ class NewsFragment :
         }
     }
 
-    override fun observerShared(actions: NewsAction) {
+    override fun observerAction(actions: NewsAction) {
         when (actions) {
             is NewsAction.ShowFavoriteIcon -> {
                 setImageResource(actions.favoriteIcon)

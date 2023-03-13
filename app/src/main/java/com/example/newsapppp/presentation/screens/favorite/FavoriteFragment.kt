@@ -56,7 +56,7 @@ class FavoriteFragment :
         }
     }
 
-    override fun observerShared(actions: FavoriteAction) {
+    override fun observerAction(actions: FavoriteAction) {
         when (actions) {
             is FavoriteAction.ShowDeleteDialog -> {
                 showDeleteDialog(

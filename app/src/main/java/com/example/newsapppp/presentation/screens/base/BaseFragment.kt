@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.TranslateAnimation
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.example.newsapppp.presentation.extensions.bump
 import com.example.newsapppp.presentation.extensions.launchWhenStarted
+import com.example.newsapppp.presentation.extensions.returnToPreviousScreen
 import kotlinx.coroutines.flow.collectLatest
 
 /**
@@ -39,7 +42,7 @@ abstract class BaseFragment<State, Action, VB : ViewBinding, VM : BaseViewModel<
         super.onViewCreated(view, savedInstanceState)
         onClickListener()
         observeOnState()
-        observeOnShared()
+        observeOnAction()
     }
 
     private fun observeOnState() = launchWhenStarted {
@@ -48,13 +51,33 @@ abstract class BaseFragment<State, Action, VB : ViewBinding, VM : BaseViewModel<
         }
     }
 
-    private fun observeOnShared() = launchWhenStarted {
-        viewModel.shared.collectLatest { actions ->
-            observerShared(actions)
+    private fun observeOnAction() = launchWhenStarted {
+        viewModel.action.collectLatest { actions ->
+            observerAction(actions)
         }
     }
 
     abstract fun onClickListener()
     abstract fun observerState(state: State)
-    abstract fun observerShared(actions: Action)
+    abstract fun observerAction(actions: Action)
+
+    protected fun initialToolBar(toolBarView: androidx.appcompat.widget.Toolbar) {
+        toolBarView.startAnimation(TranslateAnimation(1000f, 0f, 0f, 0f).apply {
+            duration = 800
+        })
+
+        toolBarView.animate()
+            .scaleX(0.1f)
+            .scaleY(0.1f)
+            .withEndAction {
+                toolBarView.animate().scaleX(1.0f).scaleY(1.0f).start()
+            }
+            .start()
+
+
+        toolBarView.setNavigationOnClickListener {
+            toolBarView.bump()
+            returnToPreviousScreen()
+        }
+    }
 }

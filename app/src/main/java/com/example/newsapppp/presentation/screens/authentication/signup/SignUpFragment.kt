@@ -70,7 +70,7 @@ class SignUpFragment :
         }
     }
 
-    override fun observerShared(actions: SignUpAction) {
+    override fun observerAction(actions: SignUpAction) {
         when (actions) {
             is SignUpAction.Navigate -> navigateDirections(actions.navigateTo)
             is SignUpAction.ShowMessage -> showSnackBar(actions.message)

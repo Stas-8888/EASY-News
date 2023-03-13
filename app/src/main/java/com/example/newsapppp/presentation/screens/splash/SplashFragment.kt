@@ -30,7 +30,7 @@ class SplashFragment :
     }
 
     override fun observerState(state: SplashState) {}
-    override fun observerShared(actions: SplashAction) {
+    override fun observerAction(actions: SplashAction) {
         when (actions) {
             is SplashAction.Navigate -> navigateDirections(actions.navigateTo)
         }

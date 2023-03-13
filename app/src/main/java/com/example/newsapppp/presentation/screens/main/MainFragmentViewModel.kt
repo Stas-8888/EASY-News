@@ -26,7 +26,7 @@ class MainFragmentViewModel @Inject constructor(
 ) : BaseViewModel<MainState, MainAction>() {
 
     override val _state = MutableStateFlow<MainState>(MainState.ShowLoading)
-    override val _shared = MutableSharedFlow<MainAction>()
+    override val _action = MutableSharedFlow<MainAction>()
 
     private val categories = listOf(
         "Technology", "Sports", "Science", "Entertainment", "Business", "Health"
@@ -67,20 +67,20 @@ class MainFragmentViewModel @Inject constructor(
     // Handles click on settings button
     fun onBtSettingsClicked() {
         val action = MainFragmentDirections.actionMainFragmentToSettingsFragment()
-        emitShared(MainAction.Navigate(action))
+        emitAction(MainAction.Navigate(action))
     }
 
     // Handles click on news article in recycler view
     fun onNewsAdapterClicked(article: Article) {
         val action = MainFragmentDirections.actionMainFragmentToNewsFragment(article)
-        emitShared(MainAction.Navigate(action))
+        emitAction(MainAction.Navigate(action))
     }
 
     // Intercepts errors from API request and displays error message
     fun interceptorErrors() = viewModelScope.launch {
         val errors = interceptorErrors.errorsInterceptor()
         errors.filter { it.isNotEmpty() }.collect {
-            emitShared(MainAction.ShowMessage(it))
+            emitAction(MainAction.ShowMessage(it))
         }
     }
 }

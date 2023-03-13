@@ -74,7 +74,8 @@ fun View.clickAnim() {
 }
 
 fun View.showKeyboard() {
-    val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    val inputMethodManager =
+        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     requestFocus()
     inputMethodManager.showSoftInput(this, 0)
 }
@@ -85,7 +86,11 @@ fun View.hideKeyboard() {
     }
 }
 
-fun View.fadeOutAnimation(duration: Long = 300, visibility: Int = View.INVISIBLE, completion: (() -> Unit)? = null) {
+fun View.fadeOutAnimation(
+    duration: Long = 300,
+    visibility: Int = View.INVISIBLE,
+    completion: (() -> Unit)? = null
+) {
     animate()
         .alpha(0f)
         .setDuration(duration)
@@ -110,7 +115,12 @@ fun View.fadeInAnimation(duration: Long = 300, completion: (() -> Unit)? = null)
         }
 }
 
-fun View.slideOutAnimation(duration: Long = 300, delay: Long = 0L, visibility: Int = View.INVISIBLE, completion: (() -> Unit)? = null) {
+fun View.slideOutAnimation(
+    duration: Long = 300,
+    delay: Long = 0L,
+    visibility: Int = View.INVISIBLE,
+    completion: (() -> Unit)? = null
+) {
     animate()
         .translationX(-50F)
         .alpha(0f)
@@ -125,7 +135,11 @@ fun View.slideOutAnimation(duration: Long = 300, delay: Long = 0L, visibility: I
         }
 }
 
-fun View.slideInAnimation(duration: Long = 300, delay: Long = 0L, completion: (() -> Unit)? = null) {
+fun View.slideInAnimation(
+    duration: Long = 300,
+    delay: Long = 0L,
+    completion: (() -> Unit)? = null
+) {
     translationX = 50F
     visibility = View.VISIBLE
     animate()
@@ -152,7 +166,7 @@ fun View.animateElevation(elevation: Float): ValueAnimator? {
     return valueAnimator
 }
 
-fun View.showWithAnimate(anim: Int){
+fun View.showWithAnimate(anim: Int) {
     animation = AnimationUtils.loadAnimation(context, anim).apply {
         start()
     }

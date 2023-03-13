@@ -16,7 +16,7 @@ class AuthBottomSheetFragmentViewModel @Inject constructor(
 ) : BaseViewModel<SheetState, SheetAction>() {
 
     override val _state = MutableStateFlow<SheetState>(SheetState.Loading)
-    override val _shared = MutableSharedFlow<SheetAction>()
+    override val _action = MutableSharedFlow<SheetAction>()
 
     fun setupUi() {
         val action = Html.fromHtml(
@@ -29,6 +29,6 @@ class AuthBottomSheetFragmentViewModel @Inject constructor(
     fun onBtnEmailAddressClicked() {
         val action =
             AuthBottomSheetFragmentDirections.actionAuthBottomSheetFragmentToSignInFragment()
-        emitShared(SheetAction.Navigate(action))
+        emitAction(SheetAction.Navigate(action))
     }
 }

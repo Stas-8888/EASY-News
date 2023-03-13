@@ -49,7 +49,7 @@ class AuthBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun observeOnShared() = launchWhenStarted {
-        viewModel.shared.collectLatest { actions ->
+        viewModel.action.collectLatest { actions ->
             when (actions) {
                 is SheetAction.Navigate -> navigateDirections(actions.navigateTo)
             }

@@ -28,7 +28,7 @@ class SignUpViewModel @Inject constructor(
 ) : BaseViewModel<SignUpState<String>, SignUpAction>() {
 
     override val _state = MutableStateFlow<SignUpState<String>>(SignUpState.Loading)
-    override val _shared = MutableSharedFlow<SignUpAction>()
+    override val _action = MutableSharedFlow<SignUpAction>()
 
     // Check the validation of the fields entered by the user
     fun checkValidationFields(user: UserModel) {
@@ -49,7 +49,7 @@ class SignUpViewModel @Inject constructor(
             else -> try {
                 signUpUseCase(user)
                 message(R.string.successfully_register)
-                emitShared(SignUpAction.Navigate(SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()))
+                emitAction(SignUpAction.Navigate(SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()))
             } catch (e: Exception) {
                 when (e) {
                     is FirebaseAuthWeakPasswordException -> message(R.string.password_lengs)
@@ -64,9 +64,9 @@ class SignUpViewModel @Inject constructor(
     // Handle the sign-in button click event
     fun onSignInBottomClicked() {
         val action = SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()
-        emitShared(SignUpAction.Navigate(action))
+        emitAction(SignUpAction.Navigate(action))
     }
 
-    private fun message(message: Int) = emitShared(SignUpAction.ShowMessage(message))
-    fun onNotEnabledBottomClicked() = emitShared(SignUpAction.ShowMessage(R.string.not_enabled_yet))
+    private fun message(message: Int) = emitAction(SignUpAction.ShowMessage(message))
+    fun onNotEnabledBottomClicked() = emitAction(SignUpAction.ShowMessage(R.string.not_enabled_yet))
 }

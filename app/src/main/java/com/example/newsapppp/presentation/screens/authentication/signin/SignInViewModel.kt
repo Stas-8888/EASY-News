@@ -21,35 +21,35 @@ class SignInViewModel @Inject constructor(
 ) : BaseViewModel<SignInState<String>, SignInAction>() {
 
     override val _state = MutableStateFlow<SignInState<String>>(SignInState.Loading(false))
-    override val _shared = MutableSharedFlow<SignInAction>()
+    override val _action = MutableSharedFlow<SignInAction>()
 
     // Called when the user clicks on the Sign In button
     fun onSignInButtonClicked(user: UserModel) = viewModelScope.launch {
         when {
-            user.email.isEmpty() -> emitShared(SignInAction.ShowMessage(R.string.empty_email))
-            user.password.isEmpty() -> emitShared(SignInAction.ShowMessage(R.string.empty_password))
+            user.email.isEmpty() -> emitAction(SignInAction.ShowMessage(R.string.empty_email))
+            user.password.isEmpty() -> emitAction(SignInAction.ShowMessage(R.string.empty_password))
             else -> try {
                 signIn(user)
                 emit(SignInState.Loading(true))
-                emitShared(SignInAction.ShowMessage(R.string.successfully_sign_in))
-                emitShared(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment()))
+                emitAction(SignInAction.ShowMessage(R.string.successfully_sign_in))
+                emitAction(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment()))
             } catch (e: Exception) {
-                emitShared(SignInAction.ShowMessage(R.string.authentication_failed))
+                emitAction(SignInAction.ShowMessage(R.string.authentication_failed))
             }
         }
     }
 
     // Called when the user clicks on the Skip button
     fun onSkipButtonClicked() =
-        emitShared(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment()))
+        emitAction(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment()))
 
     // Called when the user clicks on the Sign Up button
     fun onSignUpButtonClicked() =
-        emitShared(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment()))
+        emitAction(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment()))
 
     // Called when the user clicks on the Forgot Password button
     fun onForgotPasswordButtonClicked() =
-        emitShared(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToForgotPasswordFragment()))
+        emitAction(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToForgotPasswordFragment()))
 
     // Called when the email EditText text changes
     fun isEmailChanged(email: String) = emit(SignInState.CheckEmail(validateEmail(email)))

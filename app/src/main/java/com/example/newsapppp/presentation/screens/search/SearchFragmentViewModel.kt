@@ -21,7 +21,7 @@ class SearchFragmentViewModel @Inject constructor(
 ) : BaseViewModel<SearchState, SearchAction>() {
 
     override val _state = MutableStateFlow<SearchState>(SearchState.Loading)
-    override val _shared = MutableSharedFlow<SearchAction>()
+    override val _action = MutableSharedFlow<SearchAction>()
 
     // Handles search query text input and displays articles matching the query
     fun searchTextListener(searchQuery: String) = viewModelScope.launch {
@@ -30,16 +30,16 @@ class SearchFragmentViewModel @Inject constructor(
                 val data = searchNewsUseCase(searchQuery).articlesModel
                 emit(SearchState.ShowArticles(mapper.mapToListArticle(data)))
             } else {
-                emitShared(SearchAction.ShowMessage(R.string.server_error))
+                emitAction(SearchAction.ShowMessage(R.string.server_error))
             }
         } else {
-            emitShared(SearchAction.ShowNetworkDialog(R.string.internet_disconnected))
+            emitAction(SearchAction.ShowNetworkDialog(R.string.internet_disconnected))
         }
     }
 
     // Handles click on article item in recycler view and navigates to news fragment
     fun onItemAdapterClicked(article: Article) {
         val action = SearchFragmentDirections.actionSearchFragmentToNewsFragment(article)
-        emitShared(SearchAction.Navigate(action))
+        emitAction(SearchAction.Navigate(action))
     }
 }

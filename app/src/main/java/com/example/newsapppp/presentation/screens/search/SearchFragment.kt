@@ -7,7 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapppp.databinding.FragmentSearchBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
-import com.example.newsapppp.presentation.extensions.internetConnectionDialog
+import com.example.newsapppp.presentation.extensions.showInternetConnectionDialog
 import com.example.newsapppp.presentation.extensions.navigateDirections
 import com.example.newsapppp.presentation.extensions.showSnackBar
 import com.example.newsapppp.presentation.screens.base.BaseFragment
@@ -48,11 +48,11 @@ class SearchFragment :
         }
     }
 
-    override fun observerShared(actions: SearchAction) {
+    override fun observerAction(actions: SearchAction) {
         when (actions) {
             is SearchAction.ShowMessage -> showSnackBar(actions.message)
             is SearchAction.Navigate -> navigateDirections(actions.navigateTo)
-            is SearchAction.ShowNetworkDialog -> internetConnectionDialog(getString(actions.message))
+            is SearchAction.ShowNetworkDialog -> showInternetConnectionDialog(getString(actions.message))
         }
     }
 }
