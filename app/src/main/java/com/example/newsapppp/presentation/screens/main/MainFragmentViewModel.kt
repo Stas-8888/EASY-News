@@ -17,6 +17,10 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+private val categories = listOf(
+    "Technology", "Sports", "Science", "Entertainment", "Business", "Health"
+)
+
 @HiltViewModel
 class MainFragmentViewModel @Inject constructor(
     private val getNews: GetNewsUseCase,
@@ -27,10 +31,6 @@ class MainFragmentViewModel @Inject constructor(
 
     override val _state = MutableStateFlow<MainState>(MainState.ShowLoading)
     override val _action = MutableSharedFlow<MainAction>()
-
-    private val categories = listOf(
-        "Technology", "Sports", "Science", "Entertainment", "Business", "Health"
-    )
 
     // Sets up UI for main fragment with news for first category
     fun setupUi() = viewModelScope.launch {

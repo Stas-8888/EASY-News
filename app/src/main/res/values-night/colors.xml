@@ -21,11 +21,11 @@
     <color name="tab_indicator_color">@color/color_red</color>
     <color name="color_text_subtitle">#4e4e4e</color>
     <color name="color_text_title">#262626</color>
-    <color name="colorMain">#00BCD4</color>
+    <color name="color_main">#00BCD4</color>
 
     <color name="red_color">#FF5722</color>
     <color name="g_line_color">#22858EAC</color>
-    <color name="blackLight">#2a2a2a</color>
+    <color name="black_light">#2a2a2a</color>
     <color name="gray_dark">#707070</color>
 
     <color name="reply_blue_700">#344955</color>

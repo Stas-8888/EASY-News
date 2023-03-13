@@ -28,7 +28,7 @@ class MainFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.interceptorErrors()
-        initRecyclerView(binding.rvNews, newsAdapter)
+        initRecyclerView(recyclerView = binding.rvNews, baseAdapter = newsAdapter)
         onScrollRecyclerViewListener()
         viewModel.setupUi()
         adapterLoadState()
@@ -42,11 +42,9 @@ class MainFragment :
             viewModel.onBtSettingsClicked()
         }
         newsAdapter.setOnItemClickListener {
-            mainScreen.fadeOut()
             viewModel.onNewsAdapterClicked(it)
         }
         swipeToRefresh.setOnRefreshListener {
-            binding.rvNews.adapter = newsAdapter
             swipeToRefresh.isRefreshing = false
         }
     }
@@ -106,8 +104,8 @@ class MainFragment :
     }
 
     private fun getFirstItemPosition(): Int {
-        return (binding.rvNews.layoutManager as? LinearLayoutManager)?.findFirstVisibleItemPosition()
-            ?: 0
+        val layoutManager = binding.rvNews.layoutManager as? LinearLayoutManager
+        return layoutManager?.findFirstVisibleItemPosition() ?: 0
     }
 
     private fun onScrollRecyclerViewListener() = with(binding) {
