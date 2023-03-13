@@ -2,7 +2,6 @@ package com.example.newsapppp.domain.interactors.articleremote
 
 import com.example.newsapppp.domain.model.ArticleModel
 import com.example.newsapppp.domain.model.NewsResponseModel
-import com.example.newsapppp.domain.repository.ArticleRemoteRepositoryContract
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -11,7 +10,7 @@ import org.mockito.kotlin.mock
 
 class SearchNewsUseCaseTest {
 
-    private val mockRepo = mock<ArticleRemoteRepositoryContract>()
+    private val mockRepo = mock<ArticleRemoteContract>()
 
     @Test
     fun `invoke should return expected result`() = runBlocking {

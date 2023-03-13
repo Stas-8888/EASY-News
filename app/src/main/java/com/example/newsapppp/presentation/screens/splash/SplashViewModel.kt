@@ -2,7 +2,7 @@ package com.example.newsapppp.presentation.screens.splash
 
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.viewModelScope
-import com.example.newsapppp.domain.interactors.preference.GetSwitchPositionUseCase
+import com.example.newsapppp.domain.interactors.sharedpreferences.GetSwitchPositionUseCase
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel

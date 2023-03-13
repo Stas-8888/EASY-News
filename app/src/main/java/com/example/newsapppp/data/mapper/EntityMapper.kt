@@ -1,7 +1,7 @@
 package com.example.newsapppp.data.mapper
 
 import com.example.newsapppp.core.BaseMapper
-import com.example.newsapppp.data.db.models.ArticleEntity
+import com.example.newsapppp.data.cache.db.models.ArticleEntity
 import com.example.newsapppp.data.remote.model.ArticleRemote
 import com.example.newsapppp.domain.model.ArticleModel
 import javax.inject.Inject

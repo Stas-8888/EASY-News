@@ -4,10 +4,10 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.R
-import com.example.newsapppp.domain.interactors.preference.GetCountryFlagUseCase
-import com.example.newsapppp.domain.interactors.preference.GetSwitchPositionUseCase
-import com.example.newsapppp.domain.interactors.preference.SaveCountryFlagUseCase
-import com.example.newsapppp.domain.interactors.preference.SaveSwitchPositionUseCase
+import com.example.newsapppp.domain.interactors.sharedpreferences.GetCountryFlagUseCase
+import com.example.newsapppp.domain.interactors.sharedpreferences.GetSwitchPositionUseCase
+import com.example.newsapppp.domain.interactors.sharedpreferences.SaveCountryFlagUseCase
+import com.example.newsapppp.domain.interactors.sharedpreferences.SaveSwitchPositionUseCase
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel

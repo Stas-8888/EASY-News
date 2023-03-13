@@ -45,6 +45,7 @@ class MainFragment :
             viewModel.onNewsAdapterClicked(it)
         }
         swipeToRefresh.setOnRefreshListener {
+            viewModel.setupUi()
             swipeToRefresh.isRefreshing = false
         }
     }

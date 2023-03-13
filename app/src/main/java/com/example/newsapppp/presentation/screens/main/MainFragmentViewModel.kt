@@ -5,7 +5,7 @@ import androidx.paging.cachedIn
 import androidx.paging.filter
 import com.example.newsapppp.data.remote.interceptor.ErrorsInterceptorContract
 import com.example.newsapppp.domain.interactors.articleremote.GetNewsUseCase
-import com.example.newsapppp.domain.interactors.preference.GetCountryFlagUseCase
+import com.example.newsapppp.domain.interactors.sharedpreferences.GetCountryFlagUseCase
 import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.screens.base.BaseViewModel

@@ -7,10 +7,18 @@ import com.example.newsapppp.core.network.NetworkHandler
 import com.example.newsapppp.core.network.NetworkHandlerContract
 import com.example.newsapppp.core.resources.ProvideResources
 import com.example.newsapppp.core.resources.ProvideResourcesContract
+import com.example.newsapppp.data.authentication.AuthenticationRepository
+import com.example.newsapppp.data.authentication.ValidationRepository
+import com.example.newsapppp.data.cache.ArticleCache
+import com.example.newsapppp.data.cache.SharedPreferences
+import com.example.newsapppp.data.remote.ArticleRemote
 import com.example.newsapppp.data.remote.interceptor.ErrorsInterceptor
 import com.example.newsapppp.data.remote.interceptor.ErrorsInterceptorContract
-import com.example.newsapppp.data.repository.*
-import com.example.newsapppp.domain.repository.*
+import com.example.newsapppp.domain.interactors.articlecache.ArticleCacheContract
+import com.example.newsapppp.domain.interactors.articleremote.ArticleRemoteContract
+import com.example.newsapppp.domain.interactors.authentication.AuthenticationRepositoryContract
+import com.example.newsapppp.domain.interactors.authentication.ValidationRepositoryContract
+import com.example.newsapppp.domain.interactors.sharedpreferences.SharedPreferencesContract
 import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
@@ -54,13 +62,13 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideArticleRepository(impl: ArticleRemoteRepository): ArticleRemoteRepositoryContract = impl
+    fun provideArticleRepository(impl: ArticleRemote): ArticleRemoteContract = impl
 
     @Provides
     @Singleton
-    fun provideDbRepository(impl: ArticleLocalSourceRepository): ArticleLocalSourceRepositoryContract = impl
+    fun provideDbRepository(impl: ArticleCache): ArticleCacheContract = impl
 
     @Provides
     @Singleton
-    fun provideSharedPrefRepository(impl: SharedPrefRepository): SharedPrefRepositoryContract = impl
+    fun provideSharedPrefRepository(impl: SharedPreferences): SharedPreferencesContract = impl
 }

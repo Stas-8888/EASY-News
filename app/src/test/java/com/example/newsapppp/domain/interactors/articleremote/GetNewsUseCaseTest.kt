@@ -2,7 +2,6 @@ package com.example.newsapppp.domain.interactors.articleremote
 
 import androidx.paging.PagingData
 import com.example.newsapppp.domain.model.ArticleModel
-import com.example.newsapppp.domain.repository.ArticleRemoteRepositoryContract
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
@@ -13,7 +12,7 @@ import org.mockito.kotlin.whenever
 
 class GetNewsUseCaseTest {
 
-    private val mockRepo = mock<ArticleRemoteRepositoryContract>()
+    private val mockRepo = mock<ArticleRemoteContract>()
 
     @Test
     fun `invoke should return flow of PagingData ArticleModel from repository`() = runBlocking {

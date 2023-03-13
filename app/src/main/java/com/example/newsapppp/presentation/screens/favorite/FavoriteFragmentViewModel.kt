@@ -2,11 +2,11 @@ package com.example.newsapppp.presentation.screens.favorite
 
 import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.R
-import com.example.newsapppp.domain.interactors.localsource.DeleteAllUseCase
-import com.example.newsapppp.domain.interactors.localsource.DeleteArticleUseCase
-import com.example.newsapppp.domain.interactors.localsource.GetLocalArticleUseCase
-import com.example.newsapppp.domain.interactors.preference.SaveFavoriteUseCase
-import com.example.newsapppp.domain.repository.SharedPrefRepositoryContract
+import com.example.newsapppp.domain.interactors.articlecache.DeleteAllUseCase
+import com.example.newsapppp.domain.interactors.articlecache.DeleteArticleUseCase
+import com.example.newsapppp.domain.interactors.articlecache.GetLocalArticleUseCase
+import com.example.newsapppp.domain.interactors.sharedpreferences.SaveFavoriteUseCase
+import com.example.newsapppp.domain.interactors.sharedpreferences.SharedPreferencesContract
 import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavoriteFragmentViewModel @Inject constructor(
-    private val sharedPref: SharedPrefRepositoryContract,
+    private val sharedPref: SharedPreferencesContract,
     private val getLocalArticle: GetLocalArticleUseCase,
     private val deleteArticle: DeleteArticleUseCase,
     private val saveFavorite: SaveFavoriteUseCase,

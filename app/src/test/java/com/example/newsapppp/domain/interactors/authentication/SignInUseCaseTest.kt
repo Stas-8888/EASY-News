@@ -1,7 +1,6 @@
 package com.example.newsapppp.domain.interactors.authentication
 
 import com.example.newsapppp.domain.model.UserModel
-import com.example.newsapppp.domain.repository.AuthenticationRepositoryContract
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Test
