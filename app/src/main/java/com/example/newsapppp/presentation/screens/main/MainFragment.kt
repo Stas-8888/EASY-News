@@ -89,10 +89,15 @@ class MainFragment :
     }
 
     private fun setupTabLayout() = with(binding) {
-        tabMain.addTab(tabMain.newTab().setText((R.string.main_news)))
-        tabMain.addTab(tabMain.newTab().setText((R.string.sport)))
-        tabMain.addTab(tabMain.newTab().setText((R.string.science)))
-        tabMain.addTab(tabMain.newTab().setText((R.string.entertainment)))
+        // Add tabs to the TabLayout
+        tabMain.apply {
+            addTab(newTab().setText(R.string.main_news))
+            addTab(newTab().setText(R.string.sport))
+            addTab(newTab().setText(R.string.science))
+            addTab(newTab().setText(R.string.entertainment))
+        }
+
+        // Set up the listener to handle tab selection events
         tabMain.addOnTabSelectedListener(object : SimpleTabSelectedListener() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewModel.setupTabLayout(tab)
