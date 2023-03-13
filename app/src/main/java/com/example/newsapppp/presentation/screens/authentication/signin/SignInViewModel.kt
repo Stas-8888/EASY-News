@@ -8,7 +8,6 @@ import com.example.newsapppp.domain.interactors.authentication.validation.Valida
 import com.example.newsapppp.domain.model.UserModel
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,9 +28,13 @@ class SignInViewModel @Inject constructor(
             user.password.isEmpty() -> emitAction(SignInAction.ShowMessage(R.string.empty_password))
             else -> try {
                 signIn(user)
-                emit(SignInState.Loading(true))
-                emitAction(SignInAction.ShowMessage(R.string.successfully_sign_in))
-                emitAction(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment()))
+                    .addOnSuccessListener {
+                        emit(SignInState.Loading(true))
+                        emitAction(SignInAction.ShowMessage(R.string.successfully_sign_in))
+                        emitAction(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment()))
+                    }.addOnFailureListener {
+                        emitAction(SignInAction.ShowMessage(R.string.authentication_failed))
+                    }
             } catch (e: Exception) {
                 emitAction(SignInAction.ShowMessage(R.string.authentication_failed))
             }
