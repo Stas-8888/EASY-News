@@ -86,16 +86,6 @@ class SettingsFragment :
         }
     }
 
-    override fun observerAction(actions: SettingsAction) {
-        when (actions) {
-            is SettingsAction.ShowAccount -> {
-                showSnackBarCansel(actions.message, actions.isError, actions.action)
-            }
-            is SettingsAction.Navigate -> navigateDirections(actions.navigateTo)
-            is SettingsAction.ShowMessage -> showSnackBar(actions.message)
-        }
-    }
-
     override fun observerState(state: SettingsState) = with(binding) {
         when (state) {
             is SettingsState.ShowUi -> {
@@ -104,6 +94,16 @@ class SettingsFragment :
                 switchDayNight.isChecked = state.theme
             }
             is SettingsState.SetCurrentCountry -> imCountry.setImageResource(state.countryFlag)
+        }
+    }
+
+    override fun observerAction(actions: SettingsAction) {
+        when (actions) {
+            is SettingsAction.ShowAccount -> {
+                showSnackBarCansel(actions.message, actions.isError, actions.action)
+            }
+            is SettingsAction.Navigate -> navigateDirections(actions.navigateTo)
+            is SettingsAction.ShowMessage -> showSnackBar(actions.message)
         }
     }
 

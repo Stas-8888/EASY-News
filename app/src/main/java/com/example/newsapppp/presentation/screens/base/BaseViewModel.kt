@@ -22,9 +22,7 @@ abstract class BaseViewModel<S, A> : ViewModel() {
     private val _action: MutableSharedFlow<A> = MutableSharedFlow()
     val action by lazy { _action.asSharedFlow() }
 
-    private lateinit var firebaseAuth: FirebaseAuth
-    protected val isCurrentUserNull = firebaseAuth.currentUser != null
-
+    protected val isCurrentUserNull by lazy { FirebaseAuth.getInstance().currentUser == null }
 
     /**
      * Emit new [S] state to [state] in Scope [viewModelScope].
