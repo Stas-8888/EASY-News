@@ -6,7 +6,6 @@ import androidx.paging.filter
 import com.example.newsapppp.data.remote.interceptor.ErrorsInterceptorContract
 import com.example.newsapppp.domain.interactors.articleremote.GetNewsUseCase
 import com.example.newsapppp.domain.interactors.preference.GetCountryFlagUseCase
-import com.example.newsapppp.presentation.extensions.viewModeLaunch
 import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
@@ -15,6 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,7 +33,7 @@ class MainFragmentViewModel @Inject constructor(
     )
 
     // Sets up UI for main fragment with news for first category
-    fun setupUi() = viewModeLaunch {
+    fun setupUi() = viewModelScope.launch {
         val news = getNews(categories.first()).cachedIn(viewModelScope)
         news.collect { articles ->
             val filteredArticles = articles.filter { article ->
@@ -47,7 +47,7 @@ class MainFragmentViewModel @Inject constructor(
     }
 
     // Sets up news for a specific tab/category
-    fun setupTabLayout(tab: TabLayout.Tab) = viewModeLaunch {
+    fun setupTabLayout(tab: TabLayout.Tab) = viewModelScope.launch {
         val category = categories[tab.position]
         val news = getNews(category).cachedIn(viewModelScope)
         news.collect { articles ->
@@ -77,7 +77,7 @@ class MainFragmentViewModel @Inject constructor(
     }
 
     // Intercepts errors from API request and displays error message
-    fun interceptorErrors() = viewModeLaunch {
+    fun interceptorErrors() = viewModelScope.launch {
         val errors = interceptorErrors.errorsInterceptor()
         errors.filter { it.isNotEmpty() }.collect {
             emitShared(MainAction.ShowMessage(it))

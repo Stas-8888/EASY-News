@@ -1,5 +1,6 @@
 package com.example.newsapppp.presentation.screens.authentication.signup
 
+import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.authentication.SignUpUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.FullNameUseCase
@@ -7,7 +8,6 @@ import com.example.newsapppp.domain.interactors.authentication.validation.Valida
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidatePasswordUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidateRepeatedPasswordUseCase
 import com.example.newsapppp.domain.model.UserModel
-import com.example.newsapppp.presentation.extensions.viewModeLaunch
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -41,7 +42,7 @@ class SignUpViewModel @Inject constructor(
     }
 
     // Perform sign-up operation
-    fun onSignUnButtonClicked(user: UserModel) = viewModeLaunch {
+    fun onSignUnButtonClicked(user: UserModel) = viewModelScope.launch {
         when {
             user.email.isEmpty() -> message(R.string.empty_email)
             user.password.isEmpty() -> message(R.string.empty_password)

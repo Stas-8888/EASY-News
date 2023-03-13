@@ -2,17 +2,18 @@ package com.example.newsapppp.presentation.screens.settings
 
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.preference.GetCountryFlagUseCase
 import com.example.newsapppp.domain.interactors.preference.GetSwitchPositionUseCase
 import com.example.newsapppp.domain.interactors.preference.SaveCountryFlagUseCase
 import com.example.newsapppp.domain.interactors.preference.SaveSwitchPositionUseCase
-import com.example.newsapppp.presentation.extensions.viewModeLaunch
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 private const val USA = "us"
@@ -34,7 +35,7 @@ class SettingsFragmentViewModel @Inject constructor(
     override val _shared = MutableSharedFlow<SettingsAction>()
 
     // Update the day/night mode of the app and save the switch position
-    fun onSwitchDayNightClicked(enabled: Boolean) = viewModeLaunch {
+    fun onSwitchDayNightClicked(enabled: Boolean) = viewModelScope.launch {
         if (enabled) {
             saveSwitchPosition(false)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -61,20 +62,21 @@ class SettingsFragmentViewModel @Inject constructor(
     }
 
     // handles the click on the Account
-    fun onAccountClicked() = viewModeLaunch {
+    fun onAccountClicked() = viewModelScope.launch {
         if (firebaseAuth.currentUser != null) {
             emitShared(SettingsAction.ShowAccount(
                 "Do you, want to sign out?",
                 true
             ) { firebaseAuth.signOut() })
         } else {
-            val action = SettingsFragmentDirections.actionSettingsFragmentToAuthBottomSheetFragment()
+            val action =
+                SettingsFragmentDirections.actionSettingsFragmentToAuthBottomSheetFragment()
             emitShared(SettingsAction.Navigate(action))
         }
     }
 
     // sets up the popup menu of the settings screen
-    fun setupPopupMenu(item: MenuItem) = viewModeLaunch {
+    fun setupPopupMenu(item: MenuItem) = viewModelScope.launch {
         when (item.itemId) {
             R.id.us -> {
                 saveCountryFlag(USA)

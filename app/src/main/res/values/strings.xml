@@ -100,7 +100,7 @@
     <string name="not_enabled_yet">Not Enabled Yet</string>
     <string name="want_delete">ХОТИТЕ УДАЛИТЬ ?</string>
     <string name="delete">Удалить</string>
-    <string name="cansel">Отменить</string>
+    <string name="cancel">Отменить</string>
     <string name="cant_return">без возврата</string>
     <string name="take_a_photo">Take a Photo</string>
     <string name="choose_from_gallery">Choose from Gallery</string>

@@ -82,7 +82,7 @@
             android:layout_marginBottom="@dimen/dp_6"
             android:backgroundTint="@color/color_background"
             android:fontFamily="@font/worksansmedium"
-            android:text="@string/cansel"
+            android:text="@string/cancel"
             android:textColor="@color/color_primary_dark"
             app:cornerRadius="@dimen/dp_5"
             app:layout_constraintBottom_toBottomOf="parent"

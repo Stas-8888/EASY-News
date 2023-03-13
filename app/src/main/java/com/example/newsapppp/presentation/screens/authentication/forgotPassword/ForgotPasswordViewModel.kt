@@ -1,14 +1,15 @@
 package com.example.newsapppp.presentation.screens.authentication.forgotPassword
 
+import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.authentication.ForgotPasswordUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidateEmailUseCase
 import com.example.newsapppp.domain.model.UserModel
-import com.example.newsapppp.presentation.extensions.viewModeLaunch
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,7 +22,7 @@ class ForgotPasswordViewModel @Inject constructor(
     override val _shared = MutableSharedFlow<ForgotPasswordAction>()
 
     // Called when the user clicks on the Forgot Password button
-    fun onForgotPasswordClicked(user: UserModel) = viewModeLaunch {
+    fun onForgotPasswordClicked(user: UserModel) = viewModelScope.launch {
         when {
             user.email.isEmpty() -> emitShared(ForgotPasswordAction.ShowMessage(R.string.empty_email))
             else -> try {

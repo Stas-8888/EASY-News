@@ -1,15 +1,16 @@
 package com.example.newsapppp.presentation.screens.search
 
+import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.R
 import com.example.newsapppp.core.network.NetworkHandlerContract
 import com.example.newsapppp.domain.interactors.articleremote.SearchNewsUseCase
-import com.example.newsapppp.presentation.extensions.viewModeLaunch
 import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,7 +24,7 @@ class SearchFragmentViewModel @Inject constructor(
     override val _shared = MutableSharedFlow<SearchAction>()
 
     // Handles search query text input and displays articles matching the query
-    fun searchTextListener(searchQuery: String) = viewModeLaunch {
+    fun searchTextListener(searchQuery: String) = viewModelScope.launch {
         if (network.isNetworkAvailable()) {
             if (searchQuery.isNotEmpty()) {
                 val data = searchNewsUseCase(searchQuery).articlesModel

@@ -1,18 +1,19 @@
 package com.example.newsapppp.presentation.screens.favorite
 
+import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.localsource.DeleteAllUseCase
 import com.example.newsapppp.domain.interactors.localsource.DeleteArticleUseCase
 import com.example.newsapppp.domain.interactors.localsource.GetLocalArticleUseCase
 import com.example.newsapppp.domain.interactors.preference.SaveFavoriteUseCase
 import com.example.newsapppp.domain.repository.SharedPrefRepositoryContract
-import com.example.newsapppp.presentation.extensions.viewModeLaunch
 import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,7 +30,7 @@ class FavoriteFragmentViewModel @Inject constructor(
     override val _shared = MutableSharedFlow<FavoriteAction>()
 
     // Function to setup all news in the favorite list
-    fun setupAllNews() = viewModeLaunch {
+    fun setupAllNews() = viewModelScope.launch {
         getLocalArticle(Unit).collect {
             if (it.isNotEmpty()) {
                 val data = FavoriteState.ShowArticles(
@@ -52,13 +53,13 @@ class FavoriteFragmentViewModel @Inject constructor(
     }
 
     // This function deletes item from the locally stored favorites.
-    fun deleteArticle(article: Article) = viewModeLaunch {
+    fun deleteArticle(article: Article) = viewModelScope.launch {
         deleteArticle(mapper.mapToModel(article))
         saveFavorite.saveFavorite(article.url, false)
     }
 
     // This function deletes all article from the locally stored favorites.
-    fun onDeleteAllClicked() = viewModeLaunch {
+    fun onDeleteAllClicked() = viewModelScope.launch {
         getLocalArticle(Unit).collect {
             if (it.isNotEmpty()) {
                 sharedPref.deleteAllFavorite()
@@ -75,7 +76,7 @@ class FavoriteFragmentViewModel @Inject constructor(
     }
 
     // Function to handle the click event on a adapter item.
-    fun onNewsAdapterItemClicked(article: Article) = viewModeLaunch {
+    fun onNewsAdapterItemClicked(article: Article) = viewModelScope.launch {
         val action = FavoriteFragmentDirections.actionFavoriteFragmentToNewsFragment(article)
         emitShared(FavoriteAction.Navigate(action))
     }
