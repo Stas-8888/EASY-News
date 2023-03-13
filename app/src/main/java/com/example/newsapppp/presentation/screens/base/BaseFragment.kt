@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.example.newsapppp.presentation.extensions.bump
+import com.example.newsapppp.presentation.extensions.bumpAnimation
 import com.example.newsapppp.presentation.extensions.launchWhenStarted
 import com.example.newsapppp.presentation.extensions.returnToPreviousScreen
 import kotlinx.coroutines.flow.collectLatest
@@ -78,7 +78,7 @@ abstract class BaseFragment<State, Action, VB : ViewBinding, VM : BaseViewModel<
 
 
         toolBarView.setNavigationOnClickListener {
-            toolBarView.bump()
+            toolBarView.bumpAnimation()
             returnToPreviousScreen()
         }
     }

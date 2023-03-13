@@ -38,7 +38,7 @@ class MainFragment :
 
     override fun onClickListener() = with(binding) {
         btSettings.setOnClickListener {
-            it.clickAnim()
+            it.clickAnimation()
             viewModel.onBtSettingsClicked()
         }
         newsAdapter.setOnItemClickListener {
@@ -120,7 +120,7 @@ class MainFragment :
     }
 
     private fun setupAnimation() = with(binding) {
-        mainScreen.fadeIn()
+        mainScreen.fadeInAnimation()
         tabMain.showWithAnimate(R.anim.fade_in)
         appName.translateAnimation(0f, 0f, -100f, 0f, 1000)
         tvCountry.translateAnimation(0f, 0f, 100f, 0f, 1000)

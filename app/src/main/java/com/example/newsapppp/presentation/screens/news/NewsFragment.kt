@@ -23,13 +23,12 @@ class NewsFragment :
         super.onViewCreated(view, savedInstanceState)
         viewModel.setupFavoriteIcon(article)
         initialToolBar(binding.toolbar)
-        binding.newsScreen.fadeIn()
         setupWebView()
     }
 
     override fun onClickListener() = with(binding) {
         btFavorite.setOnClickListener {
-            it.clickAnim()
+            it.clickAnimation()
             viewModel.onFavoriteIconClicked(article)
         }
     }

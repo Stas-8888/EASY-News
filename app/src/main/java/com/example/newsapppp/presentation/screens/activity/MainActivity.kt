@@ -40,11 +40,11 @@ class MainActivity : AppCompatActivity() {
             viewModel.state.collectLatest {
                 when (it) {
                     is MainActivityState.Success -> {
-                        bottomNavigationView.slideUp()
+                        bottomNavigationView.slideUpAnimation()
                         bottomNavigationView.isVisible()
                     }
                     is MainActivityState.Failure -> {
-                        bottomNavigationView.slideDown()
+                        bottomNavigationView.slideDownAnimation()
                         bottomNavigationView.isGone()
                     }
                 }

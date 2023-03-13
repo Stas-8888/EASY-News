@@ -37,7 +37,7 @@ class SettingsFragment :
             viewModel.onAccountClicked()
         }
         imCountry.setOnClickListener {
-            it.clickAnim()
+            it.clickAnimation()
             showPopup(imCountry)
         }
         tvEdit.setOnClickListener {
@@ -48,7 +48,7 @@ class SettingsFragment :
         }
 
         profileImage.setOnClickListener {
-            profileImage.clickAnim()
+            profileImage.clickAnimation()
             val popupMenu = PopupMenu(context, profileImage)
             popupMenu.menuInflater.inflate(R.menu.profile_photo_storage, popupMenu.menu)
             popupMenu.setOnMenuItemClickListener { item ->

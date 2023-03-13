@@ -32,7 +32,7 @@ class FavoriteFragment :
     override fun onClickListener() {
         with(binding) {
             btDeleteAll.setOnClickListener {
-                it.clickAnim()
+                it.clickAnimation()
                 showDeleteDialog({ viewModel.onDeleteAllClicked() }, { })
             }
             newsAdapter.setOnItemClickListener {

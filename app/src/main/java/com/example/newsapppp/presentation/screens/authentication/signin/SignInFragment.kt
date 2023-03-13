@@ -22,7 +22,7 @@ class SignInFragment :
             viewModel.isPasswordChanged(it)
         }
         btSignIn.setOnClickListener {
-            it.shake()
+            it.shakeAnimation()
             it.hideKeyboard()
             viewModel.onSignInButtonClicked(
                 UserModel(email = emailText(), password = passwordText())
@@ -33,12 +33,12 @@ class SignInFragment :
             viewModel.onForgotPasswordButtonClicked()
         }
         btSignUp.setOnClickListener {
-            it.clickAnim()
+            it.clickAnimation()
             it.hideKeyboard()
             viewModel.onSignUpButtonClicked()
         }
         btSkip.setOnClickListener {
-            it.clickAnim()
+            it.clickAnimation()
             it.hideKeyboard()
             viewModel.onSkipButtonClicked()
         }

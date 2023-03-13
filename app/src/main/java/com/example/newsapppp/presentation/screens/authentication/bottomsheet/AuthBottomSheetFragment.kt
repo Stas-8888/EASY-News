@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.databinding.FragmentAuthBottomSheetBinding
-import com.example.newsapppp.presentation.extensions.clickAnim
+import com.example.newsapppp.presentation.extensions.clickAnimation
 import com.example.newsapppp.presentation.extensions.launchWhenStarted
 import com.example.newsapppp.presentation.extensions.navigateDirections
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -34,7 +34,7 @@ class AuthBottomSheetFragment : BottomSheetDialogFragment() {
         observeOnState()
         viewModel.setupUi()
         binding.btnEmailAddress.setOnClickListener {
-            it.clickAnim()
+            it.clickAnimation()
             viewModel.onBtnEmailAddressClicked()
         }
     }

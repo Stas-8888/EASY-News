@@ -26,7 +26,7 @@ internal fun View.visibility(data: Boolean) {
     visibility = if (data) View.VISIBLE else View.INVISIBLE
 }
 
-fun View.slideDown() {
+fun View.slideDownAnimation() {
     val height = this.height
     ObjectAnimator.ofFloat(this, View.TRANSLATION_Y, 0f, height.toFloat()).apply {
         duration = 1000
@@ -34,7 +34,7 @@ fun View.slideDown() {
     }
 }
 
-fun View.slideUp() {
+fun View.slideUpAnimation() {
     val height = this.height
     ObjectAnimator.ofFloat(this, View.TRANSLATION_Y, height.toFloat(), 0f).apply {
         duration = 1000
@@ -42,22 +42,24 @@ fun View.slideUp() {
     }
 }
 
-fun View.shake() =
+fun View.shakeAnimation() =
     ObjectAnimator.ofFloat(this, "translationX", 0F, -15F, 15F, -10F, 10F, -5F, 5F, 0F)
         .setDuration(500)
         .start()
 
-fun View.fadeIn(): ObjectAnimator = ObjectAnimator.ofFloat(this, View.ALPHA, 0f, 1f).apply {
-    duration = 250
-    start()
-}
+fun View.fadeInAnimation(): ObjectAnimator =
+    ObjectAnimator.ofFloat(this, View.ALPHA, 0f, 1f).apply {
+        duration = 250
+        start()
+    }
 
-fun View.fadeOut(): ObjectAnimator = ObjectAnimator.ofFloat(this, View.ALPHA, 1f, 0f).apply {
-    duration = 250
-    start()
-}
+fun View.fadeOutAnimation(): ObjectAnimator =
+    ObjectAnimator.ofFloat(this, View.ALPHA, 1f, 0f).apply {
+        duration = 250
+        start()
+    }
 
-fun View.bump(action: () -> Unit = {}) {
+fun View.bumpAnimation(action: () -> Unit = {}) {
     val x = ObjectAnimator.ofFloat(this, "scaleX", 1F, 1.1F, 1F)
     val y = ObjectAnimator.ofFloat(this, "scaleY", 1F, 1.1F, 1F)
 
@@ -69,7 +71,7 @@ fun View.bump(action: () -> Unit = {}) {
     }
 }
 
-fun View.clickAnim() {
+fun View.clickAnimation() {
     startAnimation(AnimationUtils.loadAnimation(context, R.anim.fab_explode))
 }
 
@@ -86,7 +88,7 @@ fun View.hideKeyboard() {
     }
 }
 
-fun View.fadeOutAnimation(
+fun View.fadeOutAnimation2(
     duration: Long = 300,
     visibility: Int = View.INVISIBLE,
     completion: (() -> Unit)? = null
@@ -102,7 +104,7 @@ fun View.fadeOutAnimation(
         }
 }
 
-fun View.fadeInAnimation(duration: Long = 300, completion: (() -> Unit)? = null) {
+fun View.fadeInAnimation2(duration: Long = 300, completion: (() -> Unit)? = null) {
     alpha = 0f
     visibility = View.VISIBLE
     animate()
