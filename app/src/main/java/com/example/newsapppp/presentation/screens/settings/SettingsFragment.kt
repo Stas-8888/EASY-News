@@ -1,5 +1,6 @@
 package com.example.newsapppp.presentation.screens.settings
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
@@ -8,14 +9,21 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.PopupMenu
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSettingsBinding
 import com.example.newsapppp.databinding.NewNameDialogBinding
-import com.example.newsapppp.presentation.extensions.*
+import com.example.newsapppp.presentation.extensions.clickAnimation
+import com.example.newsapppp.presentation.extensions.navigateDirections
+import com.example.newsapppp.presentation.extensions.showSnackBar
+import com.example.newsapppp.presentation.extensions.showSnackBarCansel
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+
+private const val IMAGE_TYPE = "image/*"
+private const val SELECT_PICTURE_TITLE = "Select Picture"
 
 @AndroidEntryPoint
 class SettingsFragment :
@@ -24,12 +32,15 @@ class SettingsFragment :
     ) {
     override val viewModel by viewModels<SettingsFragmentViewModel>()
     private var mImageUri: Uri? = null
+    private val resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            handleActivityResult(result)
+        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.setupUi()
         initialToolBar(binding.toolbar)
-        setupViewAnimation()
     }
 
     override fun onClickListener() = with(binding) {
@@ -52,29 +63,27 @@ class SettingsFragment :
             val popupMenu = PopupMenu(context, profileImage)
             popupMenu.menuInflater.inflate(R.menu.profile_photo_storage, popupMenu.menu)
             popupMenu.setOnMenuItemClickListener { item ->
-                viewModel.onProfileImageClicked(item) { selectImageFromGallery() }
+                viewModel.onProfileImageClicked(item) { launchImagePicker() }
                 true
             }
             popupMenu.show()
         }
     }
 
-    private fun selectImageFromGallery() {
+    private fun launchImagePicker() {
         val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-            type = "image/*"
+            type = IMAGE_TYPE
         }
-        resultLauncher.launch(Intent.createChooser(intent, "Select Picture"))
+        resultLauncher.launch(Intent.createChooser(intent, SELECT_PICTURE_TITLE))
     }
 
-    private val resultLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            mImageUri = result.data?.data
-            showSelectedImage()
+    private fun handleActivityResult(result: ActivityResult) {
+        if (result.resultCode == Activity.RESULT_OK) {
+            result.data?.data?.let { imageUri ->
+                mImageUri = imageUri
+                binding.profileImage.setImageURI(imageUri)
+            }
         }
-
-    private fun showSelectedImage() {
-        if (mImageUri != null)
-            binding.profileImage.setImageURI(mImageUri)
     }
 
     override fun observerAction(actions: SettingsAction) {
@@ -132,9 +141,5 @@ class SettingsFragment :
             window?.attributes?.windowAnimations = R.style.DialogAnimation
             show()
         }
-    }
-
-    private fun setupViewAnimation() = with(binding) {
-        tvVersion.showWithAnimate(R.anim.fade_in)
     }
 }
