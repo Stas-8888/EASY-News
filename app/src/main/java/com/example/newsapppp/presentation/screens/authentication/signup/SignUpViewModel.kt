@@ -42,19 +42,19 @@ class SignUpViewModel @Inject constructor(
     // Perform sign-up operation
     fun onSignUnButtonClicked(user: UserModel) = viewModelScope.launch {
         when {
-            user.email.isEmpty() -> message(R.string.empty_email)
-            user.password.isEmpty() -> message(R.string.empty_password)
+            user.email.isEmpty() -> showMessage(R.string.empty_email)
+            user.password.isEmpty() -> showMessage(R.string.empty_password)
             else -> try {
                 signUpUseCase(user)
                     .addOnSuccessListener {
-                        message(R.string.successfully_register)
+                        showMessage(R.string.successfully_register)
                         navigateToSignInScreen()
                     }
                     .addOnFailureListener {
                         handleSignUpException(it)
                     }
             } catch (e: Exception) {
-                message(R.string.invalid_authentication)
+                showMessage(R.string.invalid_authentication)
             }
         }
     }
@@ -66,7 +66,7 @@ class SignUpViewModel @Inject constructor(
             is FirebaseAuthUserCollisionException -> R.string.email_registered
             else -> R.string.invalid_authentication
         }
-        message(errorMessageResId)
+        showMessage(errorMessageResId)
     }
 
     // Handle the sign-in button click event
@@ -75,6 +75,6 @@ class SignUpViewModel @Inject constructor(
         emitAction(SignUpAction.Navigate(action))
     }
 
-    private fun message(message: Int) = emitAction(SignUpAction.ShowMessage(message))
+    private fun showMessage(message: Int) = emitAction(SignUpAction.ShowMessage(message))
     fun onNotEnabledBottomClicked() = emitAction(SignUpAction.ShowMessage(R.string.not_enabled_yet))
 }

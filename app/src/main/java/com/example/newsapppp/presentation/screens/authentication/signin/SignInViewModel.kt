@@ -24,22 +24,25 @@ class SignInViewModel @Inject constructor(
     // Called when the user clicks on the Sign In button
     fun onSignInButtonClicked(user: UserModel) = viewModelScope.launch {
         when {
-            user.email.isEmpty() -> emitAction(SignInAction.ShowMessage(R.string.empty_email))
-            user.password.isEmpty() -> emitAction(SignInAction.ShowMessage(R.string.empty_password))
-            else -> try {
-                signIn(user)
-                    .addOnSuccessListener {
-                        emit(SignInState.Loading(true))
-                        emitAction(SignInAction.ShowMessage(R.string.successfully_sign_in))
-                        emitAction(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment()))
-                    }.addOnFailureListener {
-                        emitAction(SignInAction.ShowMessage(R.string.authentication_failed))
-                    }
-            } catch (e: Exception) {
-                emitAction(SignInAction.ShowMessage(R.string.authentication_failed))
-            }
+            validateEmail(user.email).none() -> emitAction(SignInAction.ShowMessage(R.string.empty_email))
+            validatePassword(user.password).none() -> emitAction(SignInAction.ShowMessage(R.string.empty_password))
+            else -> signInUser(user)
         }
     }
+
+    private suspend fun signInUser(user: UserModel) = try {
+        signIn(user)
+            .addOnSuccessListener {
+                emit(SignInState.Loading(true))
+                emitAction(SignInAction.ShowMessage(R.string.successfully_sign_in))
+                emitAction(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment()))
+            }.addOnFailureListener {
+                emitAction(SignInAction.ShowMessage(R.string.authentication_failed))
+            }
+    } catch (e: Exception) {
+        emitAction(SignInAction.ShowMessage(R.string.authentication_failed))
+    }
+
 
     // Called when the user clicks on the Skip button
     fun onSkipButtonClicked() =
