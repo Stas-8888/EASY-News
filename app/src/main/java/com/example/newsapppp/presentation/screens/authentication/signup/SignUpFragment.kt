@@ -34,7 +34,7 @@ class SignUpFragment :
         email.afterTextChanged { isValid() }
         edPassword.afterTextChanged { isValid() }
         confirmPassword.afterTextChanged { isValid() }
-        btSignIn.setOnClickListener { viewModel.onSignInBottomClicked() }
+        btSignIn.setOnClickListener { viewModel.navigateToSignInScreen() }
     }
 
     private fun isValid() {

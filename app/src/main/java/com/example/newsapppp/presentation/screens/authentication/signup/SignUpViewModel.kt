@@ -48,15 +48,10 @@ class SignUpViewModel @Inject constructor(
                 signUpUseCase(user)
                     .addOnSuccessListener {
                         message(R.string.successfully_register)
-                        emitAction(SignUpAction.Navigate(SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()))
+                        navigateToSignInScreen()
                     }
                     .addOnFailureListener {
-                        when (it) {
-                            is FirebaseAuthWeakPasswordException -> message(R.string.password_lengs)
-                            is FirebaseAuthInvalidCredentialsException -> message(R.string.invalid_email)
-                            is FirebaseAuthUserCollisionException -> message(R.string.email_registered)
-                            else -> message(R.string.invalid_authentication)
-                        }
+                        handleSignUpException(it)
                     }
             } catch (e: Exception) {
                 message(R.string.invalid_authentication)
@@ -64,8 +59,18 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
+    private fun handleSignUpException(exception: Exception) {
+        val errorMessageResId = when (exception) {
+            is FirebaseAuthWeakPasswordException -> R.string.password_lengs
+            is FirebaseAuthInvalidCredentialsException -> R.string.invalid_email
+            is FirebaseAuthUserCollisionException -> R.string.email_registered
+            else -> R.string.invalid_authentication
+        }
+        message(errorMessageResId)
+    }
+
     // Handle the sign-in button click event
-    fun onSignInBottomClicked() {
+    fun navigateToSignInScreen() {
         val action = SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()
         emitAction(SignUpAction.Navigate(action))
     }
