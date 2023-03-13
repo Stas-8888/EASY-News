@@ -12,41 +12,41 @@ class ValidationRepository @Inject constructor(
 
     override fun validateEmail(email: String): String {
         if (email.isEmpty()) {
-            return manageResources.string(R.string.empty_email)
+            return manageResources.makeString(R.string.empty_email)
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            return manageResources.string(R.string.wrong_email)
+            return manageResources.makeString(R.string.wrong_email)
         }
-        return manageResources.string(R.string.successful)
+        return manageResources.makeString(R.string.successful)
     }
 
     override fun validatePassword(passwordText: String): String {
         if (passwordText.isEmpty()) {
-            return manageResources.string(R.string.empty_password)
+            return manageResources.makeString(R.string.empty_password)
         }
         if (passwordText.length < 6) {
-            return manageResources.string(R.string.minimum_character)
+            return manageResources.makeString(R.string.minimum_character)
         }
         if (!passwordText.matches(".*[A-Z].*".toRegex())) {
-            return manageResources.string(R.string.uppercase)
+            return manageResources.makeString(R.string.uppercase)
         }
         if (!passwordText.matches(".*[a-z].*".toRegex())) {
-            return manageResources.string(R.string.lowercase)
+            return manageResources.makeString(R.string.lowercase)
         }
-        return manageResources.string(R.string.successful)
+        return manageResources.makeString(R.string.successful)
     }
 
     override fun validateRepeatedPassword(password: String, repeatedPassword: String): String {
         if (password != repeatedPassword) {
-            return manageResources.string(R.string.different_password)
+            return manageResources.makeString(R.string.different_password)
         }
-        return manageResources.string(R.string.successful)
+        return manageResources.makeString(R.string.successful)
     }
 
     override fun fullName(fullName: String): String {
         if (fullName.length < 6) {
-            return manageResources.string(R.string.minimum_character)
+            return manageResources.makeString(R.string.minimum_character)
         }
-        return manageResources.string(R.string.successful)
+        return manageResources.makeString(R.string.successful)
     }
 }

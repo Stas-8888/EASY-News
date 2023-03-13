@@ -4,6 +4,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.R
+import com.example.newsapppp.core.resources.ProvideResourcesContract
 import com.example.newsapppp.domain.interactors.sharedpreferences.GetCountryFlagUseCase
 import com.example.newsapppp.domain.interactors.sharedpreferences.GetSwitchPositionUseCase
 import com.example.newsapppp.domain.interactors.sharedpreferences.SaveCountryFlagUseCase
@@ -11,7 +12,6 @@ import com.example.newsapppp.domain.interactors.sharedpreferences.SaveSwitchPosi
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,6 +26,7 @@ class SettingsFragmentViewModel @Inject constructor(
     private val saveCountryFlag: SaveCountryFlagUseCase,
     private val saveSwitchPosition: SaveSwitchPositionUseCase,
     private var firebaseAuth: FirebaseAuth,
+    private val provideResources: ProvideResourcesContract,
     private var getCountryFlag: GetCountryFlagUseCase,
     private var getThemes: GetSwitchPositionUseCase
 ) : BaseViewModel<SettingsState, SettingsAction>() {
@@ -45,10 +46,10 @@ class SettingsFragmentViewModel @Inject constructor(
     }
 
     // sets up the UI of the settings screen
-    fun setupUi() {
+    fun updateSettingsUi() {
         val ui = SettingsState.ShowUi(
-            theme = !getThemes(Unit),
-            email = firebaseAuth.currentUser?.email ?: "Email address",
+            theme = getThemes(Unit).not(),
+            email = firebaseAuth.currentUser?.email,
             flag = when (getCountryFlag(Unit)) {
                 USA -> R.drawable.usa
                 GERMANY -> R.drawable.germany
@@ -62,15 +63,14 @@ class SettingsFragmentViewModel @Inject constructor(
 
     // handles the click on the Account
     fun onAccountClicked() = viewModelScope.launch {
-        if (firebaseAuth.currentUser != null) {
+        if (isCurrentUserNull) {
+            val action = SettingsFragmentDirections.actionSettingsFragmentToAuthBottomSheetFragment()
+            emitAction(SettingsAction.Navigate(action))
+        } else {
             emitAction(SettingsAction.ShowAccount(
-                "Do you, want to sign out?",
+                provideResources.makeString(R.string.want_sign_out),
                 true
             ) { firebaseAuth.signOut() })
-        } else {
-            val action =
-                SettingsFragmentDirections.actionSettingsFragmentToAuthBottomSheetFragment()
-            emitAction(SettingsAction.Navigate(action))
         }
     }
 

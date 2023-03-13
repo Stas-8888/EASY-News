@@ -18,7 +18,7 @@ class AuthBottomSheetFragmentViewModel @Inject constructor(
 
     fun setupUi() {
         val action = Html.fromHtml(
-            provideResources.string(R.string.terms_and_policy),
+            provideResources.makeString(R.string.terms_and_policy),
             HtmlCompat.FROM_HTML_MODE_COMPACT
         )
         emit(SheetState.ShowMessage(action))

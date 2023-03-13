@@ -39,7 +39,7 @@ class SettingsFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.setupUi()
+        viewModel.updateSettingsUi()
         initialToolBar(binding.toolbar)
     }
 

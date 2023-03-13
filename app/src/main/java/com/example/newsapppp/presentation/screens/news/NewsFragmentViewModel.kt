@@ -22,7 +22,6 @@ class NewsFragmentViewModel @Inject constructor(
     private val saveFavorite: SaveFavoriteUseCase,
     private val mapper: ArticleMapper,
     private val getFavorite: GetFavoriteUseCase,
-    private var firebaseAuth: FirebaseAuth
 ) : BaseViewModel<NewsState, NewsAction>() {
 
     private var isFavorite = false
@@ -40,8 +39,8 @@ class NewsFragmentViewModel @Inject constructor(
 
     // Handles click on favorite icon
     fun onFavoriteIconClicked(article: Article) = viewModelScope.launch {
-        when (firebaseAuth.currentUser) {
-            null -> emitAction(NewsAction.ShowMessage(R.string.error_registered))
+        when {
+            isCurrentUserNull -> emitAction(NewsAction.ShowMessage(R.string.error_registered))
             else -> try {
                 if (isFavorite == getFavorite(article.url)) {
                     insertArticle(mapper.mapToModel(article))

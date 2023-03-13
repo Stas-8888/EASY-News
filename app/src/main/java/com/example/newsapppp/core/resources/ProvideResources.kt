@@ -6,5 +6,5 @@ import javax.inject.Inject
 
 class ProvideResources @Inject constructor(@ApplicationContext val context: Context) :
     ProvideResourcesContract {
-    override fun string(id: Int): String = context.getString(id)
+    override fun makeString(id: Int): String = context.getString(id)
 }
