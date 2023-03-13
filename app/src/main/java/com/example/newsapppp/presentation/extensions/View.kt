@@ -14,11 +14,11 @@ import androidx.core.animation.doOnEnd
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import com.example.newsapppp.R
 
-internal fun View.invisible() {
-    visibility = View.INVISIBLE
+internal fun View.isGone() {
+    visibility = View.GONE
 }
 
-internal fun View.visible() {
+internal fun View.isVisible() {
     visibility = View.VISIBLE
 }
 

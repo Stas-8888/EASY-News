@@ -54,16 +54,16 @@ class MainFragment :
         newsAdapter.addLoadStateListener { loadState ->
             when (val data = loadState.refresh) {
                 is LoadState.Error -> {
-                    progressBar.invisible()
+                    progressBar.isGone()
                     showSnackBarString(data.error.message ?: "Some Error")
                 }
                 is LoadState.Loading -> {
-                    progressBar.visible()
-                    tvCenterText.visible()
+                    progressBar.isVisible()
+                    tvCenterText.isVisible()
                 }
                 is LoadState.NotLoading -> {
-                    progressBar.invisible()
-                    tvCenterText.invisible()
+                    progressBar.isGone()
+                    tvCenterText.isGone()
                 }
             }
         }

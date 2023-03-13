@@ -4,7 +4,7 @@ import androidx.fragment.app.viewModels
 import com.example.newsapppp.databinding.FragmentSignUpBinding
 import com.example.newsapppp.domain.model.UserModel
 import com.example.newsapppp.presentation.extensions.afterTextChanged
-import com.example.newsapppp.presentation.extensions.invisible
+import com.example.newsapppp.presentation.extensions.isGone
 import com.example.newsapppp.presentation.extensions.navigateDirections
 import com.example.newsapppp.presentation.extensions.showSnackBar
 import com.example.newsapppp.presentation.screens.base.BaseFragment
@@ -58,7 +58,7 @@ class SignUpFragment :
         with(binding) {
             when (state) {
                 is SignUpState.Loading -> {
-                    loginProgress.invisible()
+                    loginProgress.isGone()
                 }
                 is SignUpState.CheckState -> {
                     fullNameContainer.helperText = state.name

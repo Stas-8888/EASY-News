@@ -9,8 +9,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.ActivityMainBinding
 import com.example.newsapppp.presentation.extensions.*
-import com.example.newsapppp.presentation.extensions.invisible
-import com.example.newsapppp.presentation.extensions.visible
+import com.example.newsapppp.presentation.extensions.isGone
+import com.example.newsapppp.presentation.extensions.isVisible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
@@ -41,11 +41,11 @@ class MainActivity : AppCompatActivity() {
                 when (it) {
                     is MainActivityState.Success -> {
                         bottomNavigationView.slideUp()
-                        bottomNavigationView.visible()
+                        bottomNavigationView.isVisible()
                     }
                     is MainActivityState.Failure -> {
                         bottomNavigationView.slideDown()
-                        bottomNavigationView.invisible()
+                        bottomNavigationView.isGone()
                     }
                 }
             }

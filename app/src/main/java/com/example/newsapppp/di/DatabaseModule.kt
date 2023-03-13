@@ -2,8 +2,10 @@ package com.example.newsapppp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.newsapppp.data.cache.db.dao.NewsDao
+import com.example.newsapppp.data.cache.ArticleCache
 import com.example.newsapppp.data.cache.db.NewsDatabase
+import com.example.newsapppp.data.cache.db.dao.NewsDao
+import com.example.newsapppp.domain.interactors.articlecache.ArticleCacheContract
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,4 +31,8 @@ object DatabaseModule {
     fun provideArticleDao(appDatabase: NewsDatabase): NewsDao {
         return appDatabase.getNewsDao()
     }
+
+    @Provides
+    @Singleton
+    fun provideDbRepository(impl: ArticleCache): ArticleCacheContract = impl
 }

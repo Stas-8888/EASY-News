@@ -1,9 +1,12 @@
 package com.example.newsapppp.di
 
 import com.example.newsapppp.BuildConfig
+import com.example.newsapppp.data.remote.ArticleRemote
+import com.example.newsapppp.data.remote.interceptor.ErrorsInterceptor
 import com.example.newsapppp.data.remote.interceptor.ErrorsInterceptorContract
 import com.example.newsapppp.data.remote.interceptor.RestErrorInterceptor
 import com.example.newsapppp.data.remote.service.ApiService
+import com.example.newsapppp.domain.interactors.articleremote.ArticleRemoteContract
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,7 +31,9 @@ object AppModule {
     fun okHttpClient(error: RestErrorInterceptor) = OkHttpClient.Builder()
         .connectTimeout(1, TimeUnit.MINUTES)
         .readTimeout(1, TimeUnit.MINUTES)
-        .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
+        .addInterceptor(HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        })
         .addNetworkInterceptor(error)
         .build()
 
@@ -40,4 +45,12 @@ object AppModule {
         .client(okHttpClient)
         .build()
         .create(ApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesErrorsInterceptor(impl: ErrorsInterceptor): ErrorsInterceptorContract = impl
+
+    @Provides
+    @Singleton
+    fun provideArticleRemote(impl: ArticleRemote): ArticleRemoteContract = impl
 }

@@ -45,7 +45,7 @@ class FavoriteFragment :
         with(binding) {
             when (state) {
                 is FavoriteState.Loading -> {
-                    progressBar.visible()
+                    progressBar.isVisible()
                 }
                 is FavoriteState.ShowArticles -> {
                     newsAdapter.submitList(state.articles)
