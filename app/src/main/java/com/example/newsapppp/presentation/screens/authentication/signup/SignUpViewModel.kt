@@ -42,31 +42,29 @@ class SignUpViewModel @Inject constructor(
     // Perform sign-up operation
     fun onSignUnButtonClicked(user: UserModel) = viewModelScope.launch {
         when {
-            user.email.isEmpty() -> showMessage(R.string.empty_email)
-            user.password.isEmpty() -> showMessage(R.string.empty_password)
-            else -> try {
-                signUpUseCase(user)
-                    .addOnSuccessListener {
-                        showMessage(R.string.successfully_register)
-                        navigateToSignInScreen()
-                    }
-                    .addOnFailureListener {
-                        handleSignUpException(it)
-                    }
-            } catch (e: Exception) {
-                showMessage(R.string.invalid_authentication)
-            }
+            user.email.isEmpty() -> emitAction(SignUpAction.ShowMessage(R.string.empty_email))
+            user.password.isEmpty() -> emitAction(SignUpAction.ShowMessage(R.string.empty_password))
+            else -> signUpUser(user)
         }
     }
 
-    private fun handleSignUpException(exception: Exception) {
-        val errorMessageResId = when (exception) {
-            is FirebaseAuthWeakPasswordException -> R.string.password_lengs
-            is FirebaseAuthInvalidCredentialsException -> R.string.invalid_email
-            is FirebaseAuthUserCollisionException -> R.string.email_registered
-            else -> R.string.invalid_authentication
-        }
-        showMessage(errorMessageResId)
+    private suspend fun signUpUser(user: UserModel) = try {
+        signUpUseCase(user)
+            .addOnSuccessListener {
+                navigateToSignInScreen()
+                emitAction(SignUpAction.ShowMessage(R.string.successfully_register))
+            }
+            .addOnFailureListener {
+                val errorMessageResId = when (it) {
+                    is FirebaseAuthWeakPasswordException -> R.string.password_lengs
+                    is FirebaseAuthInvalidCredentialsException -> R.string.invalid_email
+                    is FirebaseAuthUserCollisionException -> R.string.email_registered
+                    else -> R.string.invalid_authentication
+                }
+                emitAction(SignUpAction.ShowMessage(errorMessageResId))
+            }
+    } catch (e: Exception) {
+        emitAction(SignUpAction.ShowMessage(R.string.invalid_authentication))
     }
 
     // Handle the sign-in button click event
@@ -75,6 +73,5 @@ class SignUpViewModel @Inject constructor(
         emitAction(SignUpAction.Navigate(action))
     }
 
-    private fun showMessage(message: Int) = emitAction(SignUpAction.ShowMessage(message))
     fun onNotEnabledBottomClicked() = emitAction(SignUpAction.ShowMessage(R.string.not_enabled_yet))
 }
