@@ -13,7 +13,6 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -47,15 +46,20 @@ class SignUpViewModel @Inject constructor(
             user.password.isEmpty() -> message(R.string.empty_password)
             else -> try {
                 signUpUseCase(user)
-                message(R.string.successfully_register)
-                emitAction(SignUpAction.Navigate(SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()))
+                    .addOnSuccessListener {
+                        message(R.string.successfully_register)
+                        emitAction(SignUpAction.Navigate(SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()))
+                    }
+                    .addOnFailureListener {
+                        when (it) {
+                            is FirebaseAuthWeakPasswordException -> message(R.string.password_lengs)
+                            is FirebaseAuthInvalidCredentialsException -> message(R.string.invalid_email)
+                            is FirebaseAuthUserCollisionException -> message(R.string.email_registered)
+                            else -> message(R.string.invalid_authentication)
+                        }
+                    }
             } catch (e: Exception) {
-                when (e) {
-                    is FirebaseAuthWeakPasswordException -> message(R.string.password_lengs)
-                    is FirebaseAuthInvalidCredentialsException -> message(R.string.invalid_email)
-                    is FirebaseAuthUserCollisionException -> message(R.string.email_registered)
-                    else -> message(R.string.invalid_authentication)
-                }
+                message(R.string.invalid_authentication)
             }
         }
     }
