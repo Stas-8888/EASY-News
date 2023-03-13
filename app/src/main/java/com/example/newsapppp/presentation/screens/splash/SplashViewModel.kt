@@ -20,7 +20,6 @@ class SplashViewModel @Inject constructor(
 ) : BaseViewModel<SplashState, SplashAction>() {
 
     override val _state = MutableStateFlow<SplashState>(SplashState.Success)
-    override val _action = MutableSharedFlow<SplashAction>()
 
     // Sets the day/night mode of the app.
     fun setupDayNightMode() {

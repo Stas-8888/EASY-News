@@ -11,7 +11,6 @@ import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -31,7 +30,6 @@ class NewsFragmentViewModel @Inject constructor(
     private val favoriteIconUnselected = R.drawable.ic_favorite_border
     override val _state =
         MutableStateFlow<NewsState>(NewsState.ShowFavoriteIcon(favoriteIconUnselected))
-    override val _action = MutableSharedFlow<NewsAction>()
 
     // Sets up the favorite icon in the UI
     fun setupFavoriteIcon(article: Article) = viewModelScope.launch {
@@ -42,23 +40,25 @@ class NewsFragmentViewModel @Inject constructor(
 
     // Handles click on favorite icon
     fun onFavoriteIconClicked(article: Article) = viewModelScope.launch {
-        if (firebaseAuth.currentUser != null) {
-            if (isFavorite == getFavorite(article.url)) {
-                insertArticle(mapper.mapToModel(article))
-                saveFavorite.saveFavorite(article.url, true)
-                emitAction(NewsAction.ShowFavoriteIcon(R.string.add_article, favoriteIconSelected))
-            } else {
-                deleteArticle(mapper.mapToModel(article))
-                saveFavorite.saveFavorite(article.url, false)
-                emitAction(
-                    NewsAction.ShowFavoriteIcon(
-                        R.string.delete_article,
-                        favoriteIconUnselected
+        when (firebaseAuth.currentUser) {
+            null -> emitAction(NewsAction.ShowMessage(R.string.error_registered))
+            else -> try {
+                if (isFavorite == getFavorite(article.url)) {
+                    insertArticle(mapper.mapToModel(article))
+                    saveFavorite.saveFavorite(article.url, true)
+                    emitAction(
+                        NewsAction.ShowFavoriteIcon(R.string.add_article, favoriteIconSelected)
                     )
-                )
+                } else {
+                    deleteArticle(mapper.mapToModel(article))
+                    saveFavorite.saveFavorite(article.url, false)
+                    emitAction(
+                        NewsAction.ShowFavoriteIcon(R.string.delete_article, favoriteIconUnselected)
+                    )
+                }
+            } catch (e: Exception) {
+                emitAction(NewsAction.ShowMessage(R.string.error))
             }
-        } else {
-            emitAction(NewsAction.ShowMessage(R.string.error_registered))
         }
     }
 }

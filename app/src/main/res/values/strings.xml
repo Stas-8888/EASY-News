@@ -78,7 +78,6 @@
     <string name="no_internet_connections">No Internet connections</string>
     <string name="empty_email">Email is empty</string>
     <string name="internet_connected">Online</string>
-    <string name="slow_internet">Slow Internet Connection</string>
     <string name="internet_disconnected">Offline</string>
     <string name="disabled_back_press">Disabled Back Press</string>
     <string name="search">Поиск…</string>

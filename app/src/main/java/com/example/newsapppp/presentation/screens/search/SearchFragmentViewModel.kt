@@ -8,7 +8,6 @@ import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,19 +20,19 @@ class SearchFragmentViewModel @Inject constructor(
 ) : BaseViewModel<SearchState, SearchAction>() {
 
     override val _state = MutableStateFlow<SearchState>(SearchState.Loading)
-    override val _action = MutableSharedFlow<SearchAction>()
 
     // Handles search query text input and displays articles matching the query
     fun searchTextListener(searchQuery: String) = viewModelScope.launch {
-        if (network.isNetworkAvailable()) {
-            if (searchQuery.isNotEmpty()) {
+        when {
+            network.isNetworkAvailable().not() -> {
+                emitAction(SearchAction.ShowNetworkDialog(R.string.internet_disconnected))
+            }
+            searchQuery.isNotEmpty() -> try {
                 val data = searchNewsUseCase(searchQuery).articlesModel
                 emit(SearchState.ShowArticles(mapper.mapToListArticle(data)))
-            } else {
+            } catch (e: Exception) {
                 emitAction(SearchAction.ShowMessage(R.string.server_error))
             }
-        } else {
-            emitAction(SearchAction.ShowNetworkDialog(R.string.internet_disconnected))
         }
     }
 

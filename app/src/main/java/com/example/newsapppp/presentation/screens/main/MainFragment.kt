@@ -27,10 +27,10 @@ class MainFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.interceptorErrors()
         initRecyclerView(recyclerView = binding.rvNews, baseAdapter = newsAdapter)
         onScrollRecyclerViewListener()
-        viewModel.setupUi()
+        viewModel.interceptorErrors()
+        viewModel.fetchAndShowNews()
         adapterLoadState()
         setupTabLayout()
         setupAnimation()
@@ -45,7 +45,7 @@ class MainFragment :
             viewModel.onNewsAdapterClicked(it)
         }
         swipeToRefresh.setOnRefreshListener {
-            viewModel.setupUi()
+            viewModel.fetchAndShowNews()
             swipeToRefresh.isRefreshing = false
         }
     }
@@ -84,6 +84,7 @@ class MainFragment :
         when (actions) {
             is MainAction.ShowMessage -> showSnackBarString(actions.message)
             is MainAction.Navigate -> navigateDirections(actions.navigateTo)
+            is MainAction.ShowNetworkDialog -> showInternetConnectionDialog(getString(actions.message))
         }
     }
 

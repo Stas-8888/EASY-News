@@ -28,7 +28,6 @@ class SignUpViewModel @Inject constructor(
 ) : BaseViewModel<SignUpState<String>, SignUpAction>() {
 
     override val _state = MutableStateFlow<SignUpState<String>>(SignUpState.Loading)
-    override val _action = MutableSharedFlow<SignUpAction>()
 
     // Check the validation of the fields entered by the user
     fun checkValidationFields(user: UserModel) {

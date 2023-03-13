@@ -32,7 +32,6 @@ class SettingsFragmentViewModel @Inject constructor(
 
     override val _state =
         MutableStateFlow<SettingsState>(SettingsState.SetCurrentCountry(R.drawable.usa))
-    override val _action = MutableSharedFlow<SettingsAction>()
 
     // Update the day/night mode of the app and save the switch position
     fun onSwitchDayNightClicked(enabled: Boolean) = viewModelScope.launch {

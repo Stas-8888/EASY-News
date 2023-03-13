@@ -19,7 +19,6 @@ class ForgotPasswordViewModel @Inject constructor(
 ) : BaseViewModel<ForgotPasswordState<String>, ForgotPasswordAction>() {
 
     override val _state = MutableStateFlow<ForgotPasswordState<String>>(ForgotPasswordState.Loading)
-    override val _action = MutableSharedFlow<ForgotPasswordAction>()
 
     // Called when the user clicks on the Forgot Password button
     fun onForgotPasswordClicked(user: UserModel) = viewModelScope.launch {

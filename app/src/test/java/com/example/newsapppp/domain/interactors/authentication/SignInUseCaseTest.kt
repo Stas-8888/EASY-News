@@ -2,7 +2,7 @@ package com.example.newsapppp.domain.interactors.authentication
 
 import com.example.newsapppp.domain.model.UserModel
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.Mockito
 import org.mockito.kotlin.mock

@@ -21,7 +21,6 @@ class SignInViewModel @Inject constructor(
 ) : BaseViewModel<SignInState<String>, SignInAction>() {
 
     override val _state = MutableStateFlow<SignInState<String>>(SignInState.Loading(false))
-    override val _action = MutableSharedFlow<SignInAction>()
 
     // Called when the user clicks on the Sign In button
     fun onSignInButtonClicked(user: UserModel) = viewModelScope.launch {

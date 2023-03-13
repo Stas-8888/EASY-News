@@ -6,7 +6,6 @@ import com.example.newsapppp.R
 import com.example.newsapppp.core.resources.ProvideResources
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
@@ -16,7 +15,6 @@ class AuthBottomSheetFragmentViewModel @Inject constructor(
 ) : BaseViewModel<SheetState, SheetAction>() {
 
     override val _state = MutableStateFlow<SheetState>(SheetState.Loading)
-    override val _action = MutableSharedFlow<SheetAction>()
 
     fun setupUi() {
         val action = Html.fromHtml(
