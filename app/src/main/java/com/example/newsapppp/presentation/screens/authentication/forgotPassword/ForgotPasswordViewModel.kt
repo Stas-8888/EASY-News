@@ -2,6 +2,7 @@ package com.example.newsapppp.presentation.screens.authentication.forgotPassword
 
 import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.R
+import com.example.newsapppp.core.network.NetworkHandlerContract
 import com.example.newsapppp.domain.interactors.authentication.ForgotPasswordUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidateEmailUseCase
 import com.example.newsapppp.domain.model.UserModel
@@ -14,14 +15,16 @@ import javax.inject.Inject
 @HiltViewModel
 class ForgotPasswordViewModel @Inject constructor(
     private val forgotPassword: ForgotPasswordUseCase,
-    private val validateEmail: ValidateEmailUseCase
-) : BaseViewModel<ForgotPasswordState<String>, ForgotPasswordAction>() {
+    private val validateEmail: ValidateEmailUseCase,
+    private val network: NetworkHandlerContract,
+    ) : BaseViewModel<ForgotPasswordState<String>, ForgotPasswordAction>() {
 
     override val _state = MutableStateFlow<ForgotPasswordState<String>>(ForgotPasswordState.Loading)
 
     // Called when the user clicks on the Forgot Password button
     fun onForgotPasswordClicked(user: UserModel) = viewModelScope.launch {
         when {
+            network.isNetworkAvailable().not() -> emitAction(ForgotPasswordAction.ShowNetworkDialog(R.string.internet_disconnected))
             user.email.isEmpty() -> emitAction(ForgotPasswordAction.ShowMessage(R.string.empty_email))
             else -> forgotPasswordUser(user)
         }
