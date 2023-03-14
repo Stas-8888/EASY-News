@@ -3,7 +3,7 @@ package com.example.newsapppp.data.cache.db
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.example.newsapppp.data.cache.db.dao.NewsDao
+import com.example.newsapppp.data.cache.db.dao.ArticleDao
 import com.example.newsapppp.data.cache.db.models.ArticleEntity
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.flow.first
@@ -17,14 +17,14 @@ import java.io.IOException
 @RunWith(AndroidJUnit4::class)
 class NewsDatabaseTest {
 
-    private lateinit var productDao: NewsDao
+    private lateinit var articleDao: ArticleDao
     private lateinit var db: NewsDatabase
 
     @Before
     fun setUpDB() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         db = Room.inMemoryDatabaseBuilder(context, NewsDatabase::class.java).build()
-        productDao = db.getNewsDao()
+        articleDao = db.getNewsDao()
     }
 
     @After
@@ -35,78 +35,78 @@ class NewsDatabaseTest {
 
     @Test
     @Throws(IOException::class)
-    fun writeAndReadFact() = runBlocking {
-        productDao.insertArticle(product)
-        val getProduct = productDao.getAllArticles().first()
+    fun writeAndReadArticle() = runBlocking {
+        articleDao.insertArticle(article)
+        val getArticle = articleDao.getAllArticles().first()
 
-        val expected = listOf(product)
+        val expected = listOf(article)
 
-        assertEquals(expected.size, getProduct.size)
-        assertEquals(expected.first(), getProduct.first())
+        assertEquals(expected.size, getArticle.size)
+        assertEquals(expected.first(), getArticle.first())
     }
 
     @Test
-    fun insertFactMustReturnValues() = runBlocking {
-        productDao.insertArticle(product)
-        val productFromDb = productDao.getAllArticles().first()
+    fun insertArticleMustReturnValues() = runBlocking {
+        articleDao.insertArticle(article)
+        val articleFromDb = articleDao.getAllArticles().first()
 
-        val expected = listOf(product)
-        assertEquals(expected.size, productFromDb.size)
-        assertEquals(expected.first(), productFromDb.first())
+        val expected = listOf(article)
+        assertEquals(expected.size, articleFromDb.size)
+        assertEquals(expected.first(), articleFromDb.first())
     }
 
     @Test
-    fun insertFactAndClearMustReturnEmptyValues() = runBlocking {
-        productDao.insertArticle(product)
-        val productFromDb = productDao.getAllArticles().first()
+    fun insertArticleAndClearMustReturnEmptyValues() = runBlocking {
+        articleDao.insertArticle(article)
+        val articleFromDb = articleDao.getAllArticles().first()
 
-        val expected = listOf(product)
+        val expected = listOf(article)
 
-        assertEquals(expected.size, productFromDb.size)
-        assertEquals(expected.first(), productFromDb.first())
+        assertEquals(expected.size, articleFromDb.size)
+        assertEquals(expected.first(), articleFromDb.first())
 
-        productDao.deleteAllArticle()
-        val productFromDb2 = productDao.getAllArticles().first()
+        articleDao.deleteAllArticle()
+        val articleFromDb2 = articleDao.getAllArticles().first()
 
-        assertEquals(0, productFromDb2.size)
+        assertEquals(0, articleFromDb2.size)
     }
 
     @Test
-    fun getFactFromEmptyDbMustReturnEmptyList() = runBlocking {
-        val productFromDb = productDao.getAllArticles().first()
+    fun getArticleFromEmptyDbMustReturnEmptyList() = runBlocking {
+        val articleFromDb = articleDao.getAllArticles().first()
 
-        assertEquals(0, productFromDb.size)
+        assertEquals(0, articleFromDb.size)
     }
 
     @Test
-    fun deleteFactMustReturnEmptyList() = runBlocking {
-        productDao.insertArticle(product)
-        val productFromDb = productDao.getAllArticles().first()
+    fun deleteArticleMustReturnEmptyList() = runBlocking {
+        articleDao.insertArticle(article)
+        val articleFromDb = articleDao.getAllArticles().first()
 
-        assertEquals(1, productFromDb.size)
+        assertEquals(1, articleFromDb.size)
 
-        productDao.deleteArticle(product)
-        val productFromDb2 = productDao.getAllArticles().first()
+        articleDao.deleteArticle(article)
+        val articleFromDb2 = articleDao.getAllArticles().first()
 
-        assertEquals(0, productFromDb2.size)
+        assertEquals(0, articleFromDb2.size)
     }
 
     @Test
-    fun deleteNonExistingFactMustNotAffectDb() = runBlocking {
-        productDao.insertArticle(product)
-        val productFromDb = productDao.getAllArticles().first()
+    fun deleteNonExistingArticleMustNotAffectDb() = runBlocking {
+        articleDao.insertArticle(article)
+        val articleFromDb = articleDao.getAllArticles().first()
 
-        assertEquals(1, productFromDb.size)
+        assertEquals(1, articleFromDb.size)
 
-        val nonExistingProduct = product.copy(url = "non-existing-url")
-        productDao.deleteArticle(nonExistingProduct)
+        val nonExistingArticle = article.copy(url = "non-existing-url")
+        articleDao.deleteArticle(nonExistingArticle)
 
-        val productFromDb2 = productDao.getAllArticles().first()
-        assertEquals(1, productFromDb2.size)
-        assertEquals(product, productFromDb2.first())
+        val articleFromDb2 = articleDao.getAllArticles().first()
+        assertEquals(1, articleFromDb2.size)
+        assertEquals(article, articleFromDb2.first())
     }
 
-    private val product =
+    private val article =
         ArticleEntity(
             url = "",
             author = "null",

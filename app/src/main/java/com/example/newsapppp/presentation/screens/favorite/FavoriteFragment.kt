@@ -24,7 +24,7 @@ class FavoriteFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initRecyclerView(binding.rvSavedNews, newsAdapter)
+        setupRecyclerView(binding.rvSavedNews, newsAdapter)
         viewModel.setupAllNews()
         swipeToDelete()
     }

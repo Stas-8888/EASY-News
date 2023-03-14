@@ -2,7 +2,7 @@ package com.example.newsapppp.data.cache.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.newsapppp.data.cache.db.dao.NewsDao
+import com.example.newsapppp.data.cache.db.dao.ArticleDao
 import com.example.newsapppp.data.cache.db.models.ArticleEntity
 
 /**
@@ -11,6 +11,6 @@ import com.example.newsapppp.data.cache.db.models.ArticleEntity
  */
 @Database(entities = [ArticleEntity::class], version = 1)
 abstract class NewsDatabase : RoomDatabase() {
-    abstract fun getNewsDao(): NewsDao
+    abstract fun getNewsDao(): ArticleDao
 
 }

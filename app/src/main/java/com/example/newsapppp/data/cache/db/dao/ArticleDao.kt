@@ -5,7 +5,7 @@ import com.example.newsapppp.data.cache.db.models.ArticleEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface NewsDao {
+interface ArticleDao {
 
     /**
      * Insert [ArticleEntity] to DB using REPLACE strategy -

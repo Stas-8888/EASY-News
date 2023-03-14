@@ -16,7 +16,7 @@ import javax.inject.Inject
 class SearchFragmentViewModel @Inject constructor(
     private val searchNewsUseCase: SearchNewsUseCase,
     private val network: NetworkHandlerContract,
-    private val mapper: ArticleMapper,
+    private val mapper: ArticleMapper
 ) : BaseViewModel<SearchState, SearchAction>() {
 
     override val _state = MutableStateFlow<SearchState>(SearchState.Loading)

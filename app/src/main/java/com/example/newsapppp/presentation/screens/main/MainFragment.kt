@@ -27,7 +27,7 @@ class MainFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initRecyclerView(recyclerView = binding.rvNews, baseAdapter = newsAdapter)
+        setupRecyclerView(recyclerView = binding.rvNews, baseAdapter = newsAdapter)
         onScrollRecyclerViewListener()
         viewModel.interceptorErrors()
         viewModel.fetchAndShowNews()

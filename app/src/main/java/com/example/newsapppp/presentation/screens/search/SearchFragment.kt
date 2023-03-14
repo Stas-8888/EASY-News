@@ -22,7 +22,7 @@ class SearchFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initRecyclerView(binding.rvSearchNews, newsAdapter)
+        setupRecyclerView(binding.rvSearchNews, newsAdapter)
         binding.etSearch.requestFocus()
     }
 

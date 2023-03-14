@@ -63,27 +63,27 @@ abstract class BaseFragment<State, Action, VB : ViewBinding, VM : BaseViewModel<
     abstract fun observerState(state: State)
     abstract fun observerAction(actions: Action)
 
-    protected fun initialToolBar(toolBarView: androidx.appcompat.widget.Toolbar) {
-        toolBarView.startAnimation(TranslateAnimation(1000f, 0f, 0f, 0f).apply {
+    protected fun initialToolBar(toolbar: androidx.appcompat.widget.Toolbar) {
+        toolbar.startAnimation(TranslateAnimation(1000f, 0f, 0f, 0f).apply {
             duration = 800
         })
 
-        toolBarView.animate()
+        toolbar.animate()
             .scaleX(0.1f)
             .scaleY(0.1f)
             .withEndAction {
-                toolBarView.animate().scaleX(1.0f).scaleY(1.0f).start()
+                toolbar.animate().scaleX(1.0f).scaleY(1.0f).start()
             }
             .start()
 
 
-        toolBarView.setNavigationOnClickListener {
-            toolBarView.bumpAnimation()
+        toolbar.setNavigationOnClickListener {
+            toolbar.bumpAnimation()
             returnToPreviousScreen()
         }
     }
 
-    protected fun initRecyclerView(recyclerView: RecyclerView, baseAdapter: RecyclerView.Adapter<*>) {
+    protected fun setupRecyclerView(recyclerView: RecyclerView, baseAdapter: RecyclerView.Adapter<*>) {
         recyclerView.apply {
             adapter = baseAdapter
             layoutManager = LinearLayoutManager(context)
