@@ -56,9 +56,9 @@ class MainFragmentViewModel @Inject constructor(
 
     // Sets up news for a specific tab/category
     fun setupTabLayout(tab: TabLayout.Tab) = viewModelScope.launch {
-        val action = MainAction.ShowNetworkDialog(R.string.internet_disconnected)
         when {
-            network.isNetworkAvailable().not() -> emitAction(action)
+            network.isNetworkAvailable()
+                .not() -> emitAction(MainAction.ShowNetworkDialog(R.string.internet_disconnected))
             else -> try {
                 val news = getNews(categories[tab.position]).cachedIn(viewModelScope)
                 news.collect { articles ->

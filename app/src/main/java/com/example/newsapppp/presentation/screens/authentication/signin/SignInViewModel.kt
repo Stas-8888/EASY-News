@@ -26,7 +26,8 @@ class SignInViewModel @Inject constructor(
     // Called when the user clicks on the Sign In button
     fun onSignInButtonClicked(user: UserModel) = viewModelScope.launch {
         when {
-            network.isNetworkAvailable().not() -> emitAction(SignInAction.ShowNetworkDialog(R.string.internet_disconnected))
+            network.isNetworkAvailable()
+                .not() -> emitAction(SignInAction.ShowNetworkDialog(R.string.internet_disconnected))
             validateEmail(user.email).none() -> emitAction(SignInAction.ShowMessage(R.string.empty_email))
             validatePassword(user.password).none() -> emitAction(SignInAction.ShowMessage(R.string.empty_password))
             else -> signInUser(user)
