@@ -59,6 +59,7 @@ class SignInFragment :
         when (actions) {
             is SignInAction.Navigate -> navigateDirections(actions.navigateTo)
             is SignInAction.ShowMessage -> showSnackBar(actions.message)
+            is SignInAction.ShowNetworkDialog -> showInternetConnectionDialog(getString(actions.message))
         }
     }
 }

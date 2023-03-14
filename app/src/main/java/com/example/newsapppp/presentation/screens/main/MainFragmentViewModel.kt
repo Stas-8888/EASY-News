@@ -35,9 +35,9 @@ class MainFragmentViewModel @Inject constructor(
 
     // Sets up UI for main fragment with news for first category
     fun fetchAndShowNews() = viewModelScope.launch {
-        val action = MainAction.ShowNetworkDialog(R.string.internet_disconnected)
         when {
-            network.isNetworkAvailable().not() -> emitAction(action)
+            network.isNetworkAvailable()
+                .not() -> emitAction(MainAction.ShowNetworkDialog(R.string.internet_disconnected))
             else -> try {
                 val news = getNews(categories.first()).cachedIn(viewModelScope)
                 news.collect { articles ->
