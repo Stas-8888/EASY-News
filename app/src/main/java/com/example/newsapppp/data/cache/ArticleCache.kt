@@ -16,9 +16,6 @@ import javax.inject.Inject
  * layer and the database layer, the [NewsResponseMapper] to map the article data between the remote
  * data source and the domain layer, and the [DispatcherRepositoryContract] to perform asynchronous
  * operations on an I/O-bound coroutine dispatcher.
- *
- * This class implements the [ArticleCacheContract] interface and provides methods to insert, delete,
- * and retrieve articles from the cache.
  */
 class ArticleCache @Inject constructor(
     private val articleDao: ArticleDao,
