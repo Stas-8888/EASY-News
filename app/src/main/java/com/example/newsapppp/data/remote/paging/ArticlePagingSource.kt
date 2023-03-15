@@ -17,7 +17,7 @@ class ArticlePagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticleModel> {
         return try {
             val currentPage = params.key ?: 1
-            val response = repository.getBreakingNews(currentPage, countryCode, category)
+            val response = repository.fetchedArticles(currentPage, countryCode, category)
             val data = response.articles
             val responseData = mutableListOf<ArticleModel>()
             responseData.addAll(mapper.mapToListArticleRemote(data))

@@ -11,7 +11,7 @@ import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
-class GetNewsUseCaseTest {
+class FetchedArticlesUseCaseTest {
 
     private val mockRepo = mock<ArticleRemoteContract>()
 
@@ -31,10 +31,10 @@ class GetNewsUseCaseTest {
         val pagingData = PagingData.from(listOf(mockArticleModel))
         val pagingSource = flowOf(pagingData)
 
-        whenever(mockRepo.getNews(categoryName)).thenReturn(pagingSource)
+        whenever(mockRepo.fetchedArticles(categoryName)).thenReturn(pagingSource)
 
-        val getNewsUseCase = GetNewsUseCase(mockRepo)
-        val result = getNewsUseCase(categoryName).first()
+        val fetchedArticlesUseCase = FetchedArticlesUseCase(mockRepo)
+        val result = fetchedArticlesUseCase(categoryName).first()
         assertEquals(pagingData, result)
     }
 
@@ -56,10 +56,10 @@ class GetNewsUseCaseTest {
 
         val pagingSource = flowOf(pagingData1, pagingData2, pagingData3)
 
-        whenever(mockRepo.getNews(categoryName)).thenReturn(pagingSource)
+        whenever(mockRepo.fetchedArticles(categoryName)).thenReturn(pagingSource)
 
-        val getNewsUseCase = GetNewsUseCase(mockRepo)
-        val result = getNewsUseCase(categoryName).toList()
+        val fetchedArticlesUseCase = FetchedArticlesUseCase(mockRepo)
+        val result = fetchedArticlesUseCase(categoryName).toList()
 
         assertEquals(3, result.size)
         assertEquals(pagingData1, result[0])

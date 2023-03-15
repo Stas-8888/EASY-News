@@ -6,7 +6,7 @@ import androidx.paging.filter
 import com.example.newsapppp.R
 import com.example.newsapppp.core.network.NetworkHandlerContract
 import com.example.newsapppp.data.remote.interceptor.ErrorsInterceptorContract
-import com.example.newsapppp.domain.interactors.articleremote.GetNewsUseCase
+import com.example.newsapppp.domain.interactors.articleremote.FetchedArticlesUseCase
 import com.example.newsapppp.domain.interactors.sharedpreferences.GetCountryFlagUseCase
 import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article
@@ -25,7 +25,7 @@ private val categories = listOf(
 @HiltViewModel
 class MainFragmentViewModel @Inject constructor(
     private val mapper: ArticleMapper,
-    private val getNews: GetNewsUseCase,
+    private val fetchedArticles: FetchedArticlesUseCase,
     private val network: NetworkHandlerContract,
     private val getCountryFlag: GetCountryFlagUseCase,
     private val interceptorErrors: ErrorsInterceptorContract
@@ -34,12 +34,12 @@ class MainFragmentViewModel @Inject constructor(
     override val _state = MutableStateFlow<MainState>(MainState.ShowLoading)
 
     // Sets up UI for main fragment with news for first category
-    fun fetchAndShowNews() = viewModelScope.launch {
+    fun fetchAndShowArticles() = viewModelScope.launch {
         when {
             network.isNetworkAvailable()
                 .not() -> emitAction(MainAction.ShowNetworkDialog(R.string.internet_disconnected))
             else -> try {
-                val news = getNews(categories.first()).cachedIn(viewModelScope)
+                val news = fetchedArticles(categories.first()).cachedIn(viewModelScope)
                 news.collect { articles ->
                     val filteredArticles = articles.filter { article ->
                         article.urlToImage != null && article.title != null
@@ -60,7 +60,7 @@ class MainFragmentViewModel @Inject constructor(
             network.isNetworkAvailable()
                 .not() -> emitAction(MainAction.ShowNetworkDialog(R.string.internet_disconnected))
             else -> try {
-                val news = getNews(categories[tab.position]).cachedIn(viewModelScope)
+                val news = fetchedArticles(categories[tab.position]).cachedIn(viewModelScope)
                 news.collect { articles ->
                     val filteredArticles = articles.filter { article ->
                         article.urlToImage != null && article.title != null

@@ -30,7 +30,7 @@ class MainFragment :
         setupRecyclerView(recyclerView = binding.rvNews, baseAdapter = newsAdapter)
         onScrollRecyclerViewListener()
         viewModel.interceptorErrors()
-        viewModel.fetchAndShowNews()
+        viewModel.fetchAndShowArticles()
         adapterLoadState()
         setupTabLayout()
         setupAnimation()
@@ -45,7 +45,7 @@ class MainFragment :
             viewModel.onNewsAdapterClicked(it)
         }
         swipeToRefresh.setOnRefreshListener {
-            viewModel.fetchAndShowNews()
+            viewModel.fetchAndShowArticles()
             swipeToRefresh.isRefreshing = false
         }
     }

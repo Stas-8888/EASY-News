@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ArticleRemoteContract {
 
-    suspend fun getNews(category: String): Flow<PagingData<ArticleModel>>
+    suspend fun fetchedArticles(category: String): Flow<PagingData<ArticleModel>>
 
     suspend fun searchNews(searchQuery: String): NewsResponseModel
 }

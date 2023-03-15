@@ -10,7 +10,7 @@ private const val API_KEY = BuildConfig.API_KEY
 interface ApiService {
 
     @GET("v2/top-headlines")
-    suspend fun getBreakingNews(
+    suspend fun fetchedArticles(
         @Query("page") page: Int = 0,
         @Query("country") countryCode: String = "us",
         @Query("category") category: String = "",
@@ -18,7 +18,7 @@ interface ApiService {
     ): NewsResponseRemote
 
     @GET("v2/everything")
-    suspend fun searchForNews(
+    suspend fun searchArticles(
         @Query("q") searchQuery: String,
         @Query("apiKey") apiKey: String = API_KEY
     ): NewsResponseRemote
