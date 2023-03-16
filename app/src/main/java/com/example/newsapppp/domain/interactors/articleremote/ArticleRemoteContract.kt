@@ -9,5 +9,5 @@ interface ArticleRemoteContract {
 
     suspend fun fetchedArticles(category: String): Flow<PagingData<ArticleModel>>
 
-    suspend fun searchNews(searchQuery: String): NewsResponseModel
+    suspend fun searchArticles(searchQuery: String): NewsResponseModel
 }

@@ -8,7 +8,7 @@ import org.junit.Test
 import org.mockito.Mockito.`when`
 import org.mockito.kotlin.mock
 
-class SearchNewsUseCaseTest {
+class SearchArticlesUseCaseTest {
 
     private val mockRepo = mock<ArticleRemoteContract>()
 
@@ -29,8 +29,8 @@ class SearchNewsUseCaseTest {
 
         val expectedResult = NewsResponseModel(expectedArticles, "ok", 1)
 
-        `when`(mockRepo.searchNews(query)).thenReturn(expectedResult)
-        val useCase = SearchNewsUseCase(mockRepo)
+        `when`(mockRepo.searchArticles(query)).thenReturn(expectedResult)
+        val useCase = SearchArticlesUseCase(mockRepo)
         val result = useCase.invoke(query)
         assertEquals(expectedResult, result)
     }

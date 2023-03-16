@@ -6,7 +6,9 @@ import android.webkit.WebViewClient
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.newsapppp.databinding.FragmentNewsBinding
-import com.example.newsapppp.presentation.extensions.*
+import com.example.newsapppp.presentation.extensions.clickAnimation
+import com.example.newsapppp.presentation.extensions.showAlertUpDialog
+import com.example.newsapppp.presentation.extensions.showSnackBar
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -15,13 +17,12 @@ class NewsFragment :
     BaseFragment<NewsState, NewsAction, FragmentNewsBinding, NewsFragmentViewModel>(
         FragmentNewsBinding::inflate
     ) {
-    private val args: NewsFragmentArgs by navArgs()
+    private val articleArgs: NewsFragmentArgs by navArgs()
     override val viewModel by viewModels<NewsFragmentViewModel>()
-    private val article by lazy { args.article }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.setupFavoriteIcon(article)
+        viewModel.setupFavoriteIcon(articleArgs.article)
         initialToolBar(binding.toolbar)
         setupWebView()
     }
@@ -29,14 +30,14 @@ class NewsFragment :
     override fun onClickListener() = with(binding) {
         btFavorite.setOnClickListener {
             it.clickAnimation()
-            viewModel.onFavoriteIconClicked(article)
+            viewModel.onFavoriteIconClicked(articleArgs.article)
         }
     }
 
     private fun setupWebView() {
         binding.webView.apply {
             binding.webView.webViewClient = WebViewClient()
-            loadUrl(article.url)
+            loadUrl(articleArgs.article.url)
         }
     }
 

@@ -23,13 +23,13 @@ class SearchFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView(binding.rvSearchNews, newsAdapter)
-        binding.etSearch.requestFocus()
+        binding.etSearchQuery.requestFocus()
     }
 
     override fun onClickListener() = with(binding) {
-        etSearch.addTextChangedListener { editable ->
+        etSearchQuery.addTextChangedListener { editable ->
             editable?.let {
-                viewModel.searchTextListener(editable.toString())
+                viewModel.searchQueryListener(editable.toString())
             }
         }
         newsAdapter.setOnItemClickListener {

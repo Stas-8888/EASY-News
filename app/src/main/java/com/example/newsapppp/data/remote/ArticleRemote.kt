@@ -57,7 +57,7 @@ class ArticleRemote @Inject constructor(
      * @param searchQuery - the search query string to use when searching for articles.
      * @return a [NewsResponseModel] object that contains the search results.
      */
-    override suspend fun searchNews(searchQuery: String): NewsResponseModel = dispatcher.io {
+    override suspend fun searchArticles(searchQuery: String): NewsResponseModel = dispatcher.io {
         val data = apiService.searchArticles(searchQuery)
         mapper.converterToNewsResponseModel(data)
     }

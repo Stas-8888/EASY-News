@@ -4,10 +4,10 @@ import com.example.newsapppp.domain.model.NewsResponseModel
 import com.example.newsapppp.domain.interactors.baseusecase.BaseUseCaseSuspend
 import javax.inject.Inject
 
-class SearchNewsUseCase @Inject constructor(private val repo: ArticleRemoteContract) :
+class SearchArticlesUseCase @Inject constructor(private val repo: ArticleRemoteContract) :
     BaseUseCaseSuspend<String, NewsResponseModel> {
 
     override suspend fun invoke(data: String): NewsResponseModel {
-        return repo.searchNews(data)
+        return repo.searchArticles(data)
     }
 }
