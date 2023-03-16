@@ -34,6 +34,26 @@ class SettingsFragmentViewModel @Inject constructor(
     override val _state =
         MutableStateFlow<SettingsState>(SettingsState.SetCurrentCountry(R.drawable.usa))
 
+    // sets up the UI of the settings screen
+    fun updateSettingsUi() {
+        val theme = getThemes(Unit).not()
+        val email = firebaseAuth.currentUser?.email
+        val flagDrawableRes = getCountryFlagDrawableRes(getCountryFlag(Unit))
+        val uiState = SettingsState.ShowUi(theme = theme, email = email, flag = flagDrawableRes)
+        emit(uiState)
+    }
+
+    // get country flag from drawable resource
+    private fun getCountryFlagDrawableRes(countryFlag: String): Int {
+        return when (countryFlag) {
+            USA -> R.drawable.usa
+            GERMANY -> R.drawable.germany
+            RUSSIA -> R.drawable.russia
+            EGYPT -> R.drawable.egypt
+            else -> R.drawable.usa
+        }
+    }
+
     // Update the day/night mode of the app and save the switch position
     fun onSwitchDayNightClicked(enabled: Boolean) = viewModelScope.launch {
         if (enabled) {
@@ -43,22 +63,6 @@ class SettingsFragmentViewModel @Inject constructor(
             saveSwitchPosition(true)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
-    }
-
-    // sets up the UI of the settings screen
-    fun updateSettingsUi() {
-        val ui = SettingsState.ShowUi(
-            theme = getThemes(Unit).not(),
-            email = firebaseAuth.currentUser?.email,
-            flag = when (getCountryFlag(Unit)) {
-                USA -> R.drawable.usa
-                GERMANY -> R.drawable.germany
-                RUSSIA -> R.drawable.russia
-                EGYPT -> R.drawable.egypt
-                else -> R.drawable.usa
-            }
-        )
-        emit(ui)
     }
 
     // handles the click on the Account
