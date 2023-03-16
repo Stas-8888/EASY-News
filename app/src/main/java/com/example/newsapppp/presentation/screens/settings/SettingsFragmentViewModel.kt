@@ -34,8 +34,8 @@ class SettingsFragmentViewModel @Inject constructor(
     override val _state =
         MutableStateFlow<SettingsState>(SettingsState.SetCurrentCountry(R.drawable.usa))
 
-    // sets up the UI of the settings screen
-    fun updateSettingsUi() {
+    // sets up the UI of the screen
+    fun updateUi() {
         val theme = getThemes(Unit).not()
         val email = firebaseAuth.currentUser?.email
         val flagDrawableRes = getCountryFlagDrawableRes(getCountryFlag(Unit))
@@ -70,10 +70,11 @@ class SettingsFragmentViewModel @Inject constructor(
         if (isCurrentUserNull) {
             emitAction(SettingsAction.Navigate(SettingsFragmentDirections.actionSettingsFragmentToAuthBottomSheetFragment()))
         } else {
-            emitAction(SettingsAction.ShowAccount(
-                provideResources.makeString(R.string.want_sign_out),
-                true
-            ) { firebaseAuth.signOut() })
+            val showAccount = SettingsAction.ShowAccount(
+                message = provideResources.makeString(R.string.want_sign_out),
+                isError = true,
+                action = { firebaseAuth.signOut() })
+            emitAction(showAccount)
         }
     }
 
