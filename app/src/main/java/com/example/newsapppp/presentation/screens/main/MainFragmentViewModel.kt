@@ -25,9 +25,9 @@ private val categories = listOf(
 @HiltViewModel
 class MainFragmentViewModel @Inject constructor(
     private val mapper: ArticleMapper,
-    private val fetchedArticles: FetchedArticlesUseCase,
     private val network: NetworkHandlerContract,
     private val getCountryFlag: GetCountryFlagUseCase,
+    private val fetchedArticles: FetchedArticlesUseCase,
     private val interceptorErrors: ErrorsInterceptorContract
 ) : BaseViewModel<MainState, MainAction>() {
 

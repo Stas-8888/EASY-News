@@ -30,7 +30,7 @@ class NewsFragment :
     override fun onClickListener() = with(binding) {
         btFavorite.setOnClickListener {
             it.clickAnimation()
-            viewModel.onFavoriteIconClicked(articleArgs.article)
+            viewModel.onFavoriteButtonClicked(articleArgs.article)
         }
     }
 

@@ -3,10 +3,7 @@ package com.example.newsapppp.presentation.screens.authentication.signup
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.databinding.FragmentSignUpBinding
 import com.example.newsapppp.domain.model.UserModel
-import com.example.newsapppp.presentation.extensions.afterTextChanged
-import com.example.newsapppp.presentation.extensions.isGone
-import com.example.newsapppp.presentation.extensions.navigateDirections
-import com.example.newsapppp.presentation.extensions.showSnackBar
+import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -74,6 +71,7 @@ class SignUpFragment :
         when (actions) {
             is SignUpAction.Navigate -> navigateDirections(actions.navigateTo)
             is SignUpAction.ShowMessage -> showSnackBar(actions.message)
+            is SignUpAction.ShowNetworkDialog -> showInternetConnectionDialog(getString(actions.message))
         }
     }
 }

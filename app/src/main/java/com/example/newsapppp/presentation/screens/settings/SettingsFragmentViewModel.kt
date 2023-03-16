@@ -4,11 +4,11 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.R
-import com.example.newsapppp.core.resources.ProvideResourcesContract
 import com.example.newsapppp.domain.interactors.sharedpreferences.GetCountryFlagUseCase
 import com.example.newsapppp.domain.interactors.sharedpreferences.GetSwitchPositionUseCase
 import com.example.newsapppp.domain.interactors.sharedpreferences.SaveCountryFlagUseCase
 import com.example.newsapppp.domain.interactors.sharedpreferences.SaveSwitchPositionUseCase
+import com.example.newsapppp.presentation.extensions.makeString
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,7 +26,6 @@ class SettingsFragmentViewModel @Inject constructor(
     private val saveCountryFlag: SaveCountryFlagUseCase,
     private val saveSwitchPosition: SaveSwitchPositionUseCase,
     private var firebaseAuth: FirebaseAuth,
-    private val provideResources: ProvideResourcesContract,
     private var getCountryFlag: GetCountryFlagUseCase,
     private var getThemes: GetSwitchPositionUseCase
 ) : BaseViewModel<SettingsState, SettingsAction>() {
@@ -71,7 +70,7 @@ class SettingsFragmentViewModel @Inject constructor(
             emitAction(SettingsAction.Navigate(SettingsFragmentDirections.actionSettingsFragmentToAuthBottomSheetFragment()))
         } else {
             val showAccount = SettingsAction.ShowAccount(
-                message = provideResources.makeString(R.string.want_sign_out),
+                message = makeString(R.string.want_sign_out),
                 isError = true,
                 action = { firebaseAuth.signOut() })
             emitAction(showAccount)

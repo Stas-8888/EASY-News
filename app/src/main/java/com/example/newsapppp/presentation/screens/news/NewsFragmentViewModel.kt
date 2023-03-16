@@ -9,7 +9,6 @@ import com.example.newsapppp.domain.interactors.sharedpreferences.SaveFavoriteUs
 import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -38,7 +37,7 @@ class NewsFragmentViewModel @Inject constructor(
     }
 
     // Handles click on favorite icon
-    fun onFavoriteIconClicked(article: Article) = viewModelScope.launch {
+    fun onFavoriteButtonClicked(article: Article) = viewModelScope.launch {
         when {
             isCurrentUserNull -> emitAction(NewsAction.ShowMessage(R.string.error_registered))
             else -> try {

@@ -8,13 +8,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFF</color>
 
-    <color name="colorPrimary">#ea474a</color>
+    <color name="color_primary">#ea474a</color>
     <color name="color_primary_dark">#cf2a2d</color>
     <color name="color_red">#E30105</color>
     <color name="color_accent">#1e344b</color>
 
     <color name="color_background">#16202A</color>
-    <color name="bottom_sheet_background">#4A555E</color>
+    <color name="bottom_sheet_background">#F1F3F4</color>
     <color name="color_card_view">#38414A</color>
     <color name="color_tab_layout">#1C2939</color>
     <color name="tab_text_color">#D8D8D8</color>

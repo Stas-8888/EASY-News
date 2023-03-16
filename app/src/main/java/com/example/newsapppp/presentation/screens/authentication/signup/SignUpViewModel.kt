@@ -8,6 +8,7 @@ import com.example.newsapppp.domain.interactors.authentication.validation.Valida
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidatePasswordUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidateRepeatedPasswordUseCase
 import com.example.newsapppp.domain.model.UserModel
+import com.example.newsapppp.presentation.extensions.isOffline
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -42,6 +43,7 @@ class SignUpViewModel @Inject constructor(
     // Perform sign-up operation
     fun onSignUnButtonClicked(user: UserModel) = viewModelScope.launch {
         when {
+            isOffline() -> emitAction(SignUpAction.ShowNetworkDialog(R.string.internet_disconnected))
             user.email.isEmpty() -> emitAction(SignUpAction.ShowMessage(R.string.empty_email))
             user.password.isEmpty() -> emitAction(SignUpAction.ShowMessage(R.string.empty_password))
             else -> signUpUser(user)

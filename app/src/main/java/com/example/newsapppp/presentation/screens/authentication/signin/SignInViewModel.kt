@@ -2,11 +2,11 @@ package com.example.newsapppp.presentation.screens.authentication.signin
 
 import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.R
-import com.example.newsapppp.core.network.NetworkHandlerContract
 import com.example.newsapppp.domain.interactors.authentication.SignInUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidateEmailUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidatePasswordUseCase
 import com.example.newsapppp.domain.model.UserModel
+import com.example.newsapppp.presentation.extensions.isOffline
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +16,6 @@ import javax.inject.Inject
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     private val signIn: SignInUseCase,
-    private val network: NetworkHandlerContract,
     private val validateEmail: ValidateEmailUseCase,
     private val validatePassword: ValidatePasswordUseCase
 ) : BaseViewModel<SignInState<String>, SignInAction>() {
@@ -26,8 +25,7 @@ class SignInViewModel @Inject constructor(
     // Called when the user clicks on the Sign In button
     fun onSignInButtonClicked(user: UserModel) = viewModelScope.launch {
         when {
-            network.isNetworkAvailable()
-                .not() -> emitAction(SignInAction.ShowNetworkDialog(R.string.internet_disconnected))
+            isOffline() -> emitAction(SignInAction.ShowNetworkDialog(R.string.internet_disconnected))
             validateEmail(user.email).none() -> emitAction(SignInAction.ShowMessage(R.string.empty_email))
             validatePassword(user.password).none() -> emitAction(SignInAction.ShowMessage(R.string.empty_password))
             else -> signInUser(user)
