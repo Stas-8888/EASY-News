@@ -45,7 +45,6 @@ class SignInViewModel @Inject constructor(
         emitAction(SignInAction.ShowMessage(R.string.authentication_failed))
     }
 
-
     // Called when the user clicks on the Skip button
     fun onSkipButtonClicked() =
         emitAction(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment()))

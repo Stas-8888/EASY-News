@@ -20,8 +20,11 @@ import javax.inject.Inject
 
 abstract class BaseViewModel<S, A> : ViewModel() {
 
-    @Inject lateinit var networkHandler: NetworkHandlerContract
-    @Inject lateinit var provideResources: ProvideResourcesContract
+    @Inject
+    lateinit var networkHandler: NetworkHandlerContract
+
+    @Inject
+    lateinit var provideResources: ProvideResourcesContract
 
     protected abstract val _state: MutableStateFlow<S>
     val state by lazy { _state.asStateFlow() }

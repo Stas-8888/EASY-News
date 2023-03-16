@@ -4,10 +4,10 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import androidx.paging.filter
 import com.example.newsapppp.R
-import com.example.newsapppp.core.network.NetworkHandlerContract
 import com.example.newsapppp.data.remote.interceptor.ErrorsInterceptorContract
 import com.example.newsapppp.domain.interactors.articleremote.FetchedArticlesUseCase
 import com.example.newsapppp.domain.interactors.sharedpreferences.GetCountryFlagUseCase
+import com.example.newsapppp.presentation.extensions.isOffline
 import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
@@ -25,7 +25,6 @@ private val categories = listOf(
 @HiltViewModel
 class MainFragmentViewModel @Inject constructor(
     private val mapper: ArticleMapper,
-    private val network: NetworkHandlerContract,
     private val getCountryFlag: GetCountryFlagUseCase,
     private val fetchedArticles: FetchedArticlesUseCase,
     private val interceptorErrors: ErrorsInterceptorContract
@@ -36,8 +35,7 @@ class MainFragmentViewModel @Inject constructor(
     // Sets up UI for main fragment with news for first category
     fun fetchAndShowArticles() = viewModelScope.launch {
         when {
-            network.isNetworkAvailable()
-                .not() -> emitAction(MainAction.ShowNetworkDialog(R.string.internet_disconnected))
+            isOffline() -> emitAction(MainAction.ShowNetworkDialog(R.string.internet_disconnected))
             else -> try {
                 val news = fetchedArticles(categories.first()).cachedIn(viewModelScope)
                 news.collect { articles ->
@@ -57,8 +55,7 @@ class MainFragmentViewModel @Inject constructor(
     // Sets up news for a specific tab/category
     fun setupTabLayout(tab: TabLayout.Tab) = viewModelScope.launch {
         when {
-            network.isNetworkAvailable()
-                .not() -> emitAction(MainAction.ShowNetworkDialog(R.string.internet_disconnected))
+            isOffline() -> emitAction(MainAction.ShowNetworkDialog(R.string.internet_disconnected))
             else -> try {
                 val news = fetchedArticles(categories[tab.position]).cachedIn(viewModelScope)
                 news.collect { articles ->
