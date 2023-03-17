@@ -25,9 +25,9 @@ class MainFragment :
     private val newsAdapter by lazy { NewsPagerAdapter() }
     override val viewModel by viewModels<MainFragmentViewModel>()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding){
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView(recyclerView = binding.rvNews, baseAdapter = newsAdapter)
+        setupRecyclerView(recyclerView = rvNews, baseAdapter = newsAdapter)
         onScrollRecyclerViewListener()
         viewModel.interceptorErrors()
         viewModel.fetchAndShowArticles()

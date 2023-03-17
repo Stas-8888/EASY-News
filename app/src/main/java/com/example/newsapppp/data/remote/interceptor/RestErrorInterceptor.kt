@@ -9,9 +9,7 @@ import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 
-class RestErrorInterceptor(
-    private var errors: ErrorsInterceptorContract
-) : Interceptor {
+class RestErrorInterceptor(private var errors: ErrorsInterceptorContract) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request: Request = chain.request()

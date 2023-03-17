@@ -39,9 +39,10 @@ fun Fragment.showSnackBar(
 ) {
     val snackBar = Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG)
     val customView = layoutInflater.inflate(R.layout.custom_snackbar_layout, null)
-    val button = customView.findViewById<Button>(R.id.snackbar_action)
-    val title = customView.findViewById<TextView>(R.id.snackbar_text)
+    val button = customView.findViewById<Button>(R.id.snack_bar_action)
+    val title = customView.findViewById<TextView>(R.id.snack_bar_text)
     title.text = context?.getString(message)
+
     if (showButton) {
         button.visibility = View.VISIBLE
         button.setOnClickListener {
@@ -53,7 +54,7 @@ fun Fragment.showSnackBar(
     }
     snackBar.view.apply {
         setBackgroundColor(Color.TRANSPARENT)
-        setPadding(0, 0, 0, 0)
+//        setPadding(0, 0, 0, 0)
         (this as Snackbar.SnackbarLayout).addView(customView, 0)
     }
     snackBar.show()

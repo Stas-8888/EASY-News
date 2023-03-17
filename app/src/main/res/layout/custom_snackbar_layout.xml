@@ -12,10 +12,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_55">
+        android:layout_height="@dimen/dp_56">
 
         <ImageView
-            android:id="@+id/snackBar_icon"
+            android:id="@+id/snack_bar_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -26,25 +26,25 @@
             app:tint="@android:color/white" />
 
         <TextView
-            android:id="@+id/snackbar_text"
+            android:id="@+id/snack_bar_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_weight="1"
             android:maxLines="1"
             android:text="@string/default_name"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="@dimen/sp_16"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/snackBar_icon"
+            app:layout_constraintStart_toEndOf="@+id/snack_bar_icon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/snackbar_action"
+            android:id="@+id/snack_bar_action"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ok"
+            android:textSize="@dimen/sp_14"
             android:textColor="@color/white"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
