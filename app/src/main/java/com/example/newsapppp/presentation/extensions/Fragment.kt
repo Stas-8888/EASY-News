@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.ColorRes
@@ -15,7 +16,6 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.DeleteDialogBinding
-import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.tapadoo.alerter.Alerter
 import kotlinx.coroutines.CoroutineScope
@@ -32,42 +32,31 @@ fun Fragment.loadColor(@ColorRes colorRes: Int): Int {
     return ContextCompat.getColor(requireContext(), colorRes)
 }
 
-fun Fragment.showSnackBarCansel(
-    message: String,
-    isError: Boolean = false,
+fun Fragment.showSnackBar(
+    message: Int,
+    showButton: Boolean = false,
     action: () -> Unit = {}
 ) {
-    val sb = Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG)
-    if (isError)
-        sb.setBackgroundTint(loadColor(R.color.color_red))
-            .setTextColor(loadColor(R.color.white))
-            .setActionTextColor(loadColor(R.color.white))
-            .setAction("Ok") {
-                action()
-
-            }.show()
-    else
-        sb.setBackgroundTint(loadColor(R.color.color_secondary))
-            .setTextColor(loadColor(R.color.white))
-            .setAction("Cancel") {
-                action()
-            }.show()
-}
-
-fun Fragment.showSnackBar(title: Int) {
-    Snackbar.make(requireView(), title, 1800)
-        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
-        .setBackgroundTint(loadColor(R.color.color_red_background))
-        .setTextColor(Color.WHITE)
-        .show()
-}
-
-fun Fragment.showSnackBarString(title: String?) {
-    Snackbar.make(requireView(), title.toString(), 1800)
-        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
-        .setBackgroundTint(loadColor(R.color.color_red_background))
-        .setTextColor(Color.WHITE)
-        .show()
+    val snackBar = Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG)
+    val customView = layoutInflater.inflate(R.layout.custom_snackbar_layout, null)
+    val button = customView.findViewById<Button>(R.id.snackbar_action)
+    val title = customView.findViewById<TextView>(R.id.snackbar_text)
+    title.text = context?.getString(message)
+    if (showButton) {
+        button.visibility = View.VISIBLE
+        button.setOnClickListener {
+            action()
+            snackBar.dismiss()
+        }
+    } else {
+        button.visibility = View.GONE
+    }
+    snackBar.view.apply {
+        setBackgroundColor(Color.TRANSPARENT)
+        setPadding(0, 0, 0, 0)
+        (this as Snackbar.SnackbarLayout).addView(customView, 0)
+    }
+    snackBar.show()
 }
 
 fun Fragment.showDeleteDialog(onSuccess: () -> Unit, noteSuccess: () -> Unit) {

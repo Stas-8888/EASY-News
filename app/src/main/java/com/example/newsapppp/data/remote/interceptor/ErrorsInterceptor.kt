@@ -5,13 +5,13 @@ import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 class ErrorsInterceptor @Inject constructor() : ErrorsInterceptorContract {
-    val flow = MutableStateFlow("")
+    val flow = MutableStateFlow(0)
 
-    override fun errorsInterceptor(): StateFlow<String> {
+    override fun errorsInterceptor(): StateFlow<Int> {
         return flow
     }
 
-    override suspend fun emitError(error: String){
+    override suspend fun emitError(error: Int){
         flow.emit(error)
     }
 }

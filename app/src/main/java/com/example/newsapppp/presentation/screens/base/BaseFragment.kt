@@ -22,6 +22,7 @@ import kotlinx.coroutines.flow.collectLatest
 abstract class BaseFragment<State, Action, VB : ViewBinding, VM : BaseViewModel<State, Action>>(
     private val bindingInflater: (inflater: LayoutInflater) -> VB
 ) : Fragment() {
+
     private var _binding: VB? = null
     protected val binding get() = _binding!!
     protected abstract val viewModel: VM

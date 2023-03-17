@@ -1,5 +1,6 @@
 package com.example.newsapppp.data.remote.interceptor
 
+import com.example.newsapppp.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -18,17 +19,17 @@ class RestErrorInterceptor(
         when (response.code) {
             400 -> {
                 CoroutineScope(SupervisorJob() + Dispatchers.Main).launch {
-                    errors.emitError("The request was unacceptable, often due to a missing or misconfigured parameter.")
+                    errors.emitError(R.string.often_request)
                 }
             }
             429 -> {
                 CoroutineScope(SupervisorJob() + Dispatchers.Main).launch {
-                    errors.emitError(" You made too many requests within a window of time and have been rate limited. Back off for a while.")
+                    errors.emitError(R.string.many_request)
                 }
             }
             500 -> {
                 CoroutineScope(SupervisorJob() + Dispatchers.Main).launch {
-                    errors.emitError("Server Error")
+                    errors.emitError(R.string.server_error)
                 }
             }
         }

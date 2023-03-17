@@ -47,7 +47,7 @@ class MainFragmentViewModel @Inject constructor(
                     emit(MainState.ShowUI(mappedArticles, countryFlag))
                 }
             } catch (e: Exception) {
-                emitAction(MainAction.ShowMessage(e.message))
+                emitAction(MainAction.ShowMessage(R.string.error))
             }
         }
     }
@@ -67,7 +67,7 @@ class MainFragmentViewModel @Inject constructor(
                     emit(MainState.ShowUI(mappedArticles, countryFlag))
                 }
             } catch (e: Exception) {
-                emitAction(MainAction.ShowMessage(e.message))
+                emitAction(MainAction.ShowMessage(R.string.error))
             }
         }
     }
@@ -93,7 +93,7 @@ class MainFragmentViewModel @Inject constructor(
     // Intercepts errors from API request and displays error message
     fun interceptorErrors() = viewModelScope.launch {
         val errors = interceptorErrors.errorsInterceptor()
-        errors.filter { it.isNotEmpty() }.collect {
+        errors.filter { it == 0 }.collect {
             emitAction(MainAction.ShowMessage(it))
         }
     }

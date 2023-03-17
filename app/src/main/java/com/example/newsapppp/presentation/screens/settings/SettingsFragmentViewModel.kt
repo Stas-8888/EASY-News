@@ -68,7 +68,7 @@ class SettingsFragmentViewModel @Inject constructor(
             emitAction(SettingsAction.Navigate(SettingsFragmentDirections.actionSettingsFragmentToAuthBottomSheetFragment()))
         } else {
             val showAccount = SettingsAction.ShowAccount(
-                message = R.string.want_sign_out,
+                message = (R.string.want_sign_out),
                 isError = true,
                 action = { firebaseAuth.signOut() })
             emitAction(showAccount)

@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ErrorsInterceptorContract {
 
-    fun errorsInterceptor(): Flow<String>
+    fun errorsInterceptor(): Flow<Int>
 
-    suspend fun emitError(error: String)
+    suspend fun emitError(error: Int)
 }
