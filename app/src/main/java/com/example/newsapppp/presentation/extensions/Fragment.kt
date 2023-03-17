@@ -41,12 +41,14 @@ fun Fragment.showSnackBarCansel(
     if (isError)
         sb.setBackgroundTint(loadColor(R.color.color_red))
             .setTextColor(loadColor(R.color.white))
+            .setActionTextColor(loadColor(R.color.white))
             .setAction("Ok") {
                 action()
+
             }.show()
     else
         sb.setBackgroundTint(loadColor(R.color.color_secondary))
-            .setTextColor(loadColor(R.color.black))
+            .setTextColor(loadColor(R.color.white))
             .setAction("Cancel") {
                 action()
             }.show()

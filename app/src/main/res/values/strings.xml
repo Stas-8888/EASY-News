@@ -112,4 +112,5 @@
     <string name="version">Version 1.0</string>
     <string name="account">Account ?</string>
     <string name="want_sign_out">Do you, want to sign out?</string>
+    <string name="ok">OK</string>
 </resources>

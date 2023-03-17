@@ -8,6 +8,7 @@ import com.example.newsapppp.databinding.FragmentSearchBinding
 import com.example.newsapppp.presentation.adapters.NewsAdapter
 import com.example.newsapppp.presentation.extensions.navigateDirections
 import com.example.newsapppp.presentation.extensions.showInternetConnectionDialog
+import com.example.newsapppp.presentation.extensions.showKeyboard
 import com.example.newsapppp.presentation.extensions.showSnackBar
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,6 +25,7 @@ class SearchFragment :
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView(binding.rvSearchNews, newsAdapter)
         binding.etSearchQuery.requestFocus()
+        binding.etSearchQuery.showKeyboard()
     }
 
     override fun onClickListener() = with(binding) {

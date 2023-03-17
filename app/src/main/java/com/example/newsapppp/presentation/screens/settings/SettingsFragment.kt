@@ -17,8 +17,8 @@ import com.example.newsapppp.databinding.FragmentSettingsBinding
 import com.example.newsapppp.databinding.NewNameDialogBinding
 import com.example.newsapppp.presentation.extensions.clickAnimation
 import com.example.newsapppp.presentation.extensions.navigateDirections
-import com.example.newsapppp.presentation.extensions.showSnackBar
-import com.example.newsapppp.presentation.extensions.showSnackBarCansel
+import com.example.newsapppp.presentation.extensions.showActionSnackBar
+import com.example.newsapppp.presentation.extensions.snackbar
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -100,10 +100,10 @@ class SettingsFragment :
     override fun observerAction(actions: SettingsAction) {
         when (actions) {
             is SettingsAction.ShowAccount -> {
-                showSnackBarCansel(actions.message, actions.isError, actions.action)
+                binding.appName.showActionSnackBar(actions.message, R.string.ok) { actions.action }
             }
             is SettingsAction.Navigate -> navigateDirections(actions.navigateTo)
-            is SettingsAction.ShowMessage -> showSnackBar(actions.message)
+            is SettingsAction.ShowMessage -> requireView().snackbar(actions.message)
         }
     }
 

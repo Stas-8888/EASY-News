@@ -8,7 +8,6 @@ import com.example.newsapppp.domain.interactors.sharedpreferences.GetCountryFlag
 import com.example.newsapppp.domain.interactors.sharedpreferences.GetSwitchPositionUseCase
 import com.example.newsapppp.domain.interactors.sharedpreferences.SaveCountryFlagUseCase
 import com.example.newsapppp.domain.interactors.sharedpreferences.SaveSwitchPositionUseCase
-import com.example.newsapppp.presentation.extensions.makeString
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -38,8 +37,7 @@ class SettingsFragmentViewModel @Inject constructor(
         val theme = getThemes(Unit).not()
         val email = firebaseAuth.currentUser?.email
         val flagDrawableRes = getCountryFlagDrawableRes(getCountryFlag(Unit))
-        val uiState = SettingsState.ShowUi(theme = theme, email = email, flag = flagDrawableRes)
-        emit(uiState)
+        emit(SettingsState.ShowUi(theme = theme, email = email, flag = flagDrawableRes))
     }
 
     // get country flag from drawable resource
@@ -70,7 +68,7 @@ class SettingsFragmentViewModel @Inject constructor(
             emitAction(SettingsAction.Navigate(SettingsFragmentDirections.actionSettingsFragmentToAuthBottomSheetFragment()))
         } else {
             val showAccount = SettingsAction.ShowAccount(
-                message = makeString(R.string.want_sign_out),
+                message = R.string.want_sign_out,
                 isError = true,
                 action = { firebaseAuth.signOut() })
             emitAction(showAccount)
