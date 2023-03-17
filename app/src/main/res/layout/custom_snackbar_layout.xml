@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_64"
+    android:layout_height="wrap_content"
     android:layout_margin="@dimen/dp_4"
     android:id="@+id/rootLayout"
     app:cardBackgroundColor="@color/color_primary_dark"
@@ -12,7 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="@dimen/dp_55">
 
         <ImageView
             android:id="@+id/snackBar_icon"

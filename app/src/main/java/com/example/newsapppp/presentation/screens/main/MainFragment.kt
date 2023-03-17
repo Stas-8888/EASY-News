@@ -55,7 +55,7 @@ class MainFragment :
             when (val data = loadState.refresh) {
                 is LoadState.Error -> {
                     progressBar.isGone()
-                    showSnackBar(R.string.error)
+//                    showSnackBar(R.string.error)
                 }
                 is LoadState.Loading -> {
                     progressBar.isVisible()

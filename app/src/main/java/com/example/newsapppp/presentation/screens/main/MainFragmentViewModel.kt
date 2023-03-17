@@ -14,7 +14,6 @@ import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -93,7 +92,7 @@ class MainFragmentViewModel @Inject constructor(
     // Intercepts errors from API request and displays error message
     fun interceptorErrors() = viewModelScope.launch {
         val errors = interceptorErrors.errorsInterceptor()
-        errors.filter { it == 0 }.collect {
+        errors.collect {
             emitAction(MainAction.ShowMessage(it))
         }
     }

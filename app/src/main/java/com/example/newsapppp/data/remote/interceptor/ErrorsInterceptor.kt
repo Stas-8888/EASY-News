@@ -1,13 +1,13 @@
 package com.example.newsapppp.data.remote.interceptor
 
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 import javax.inject.Inject
 
 class ErrorsInterceptor @Inject constructor() : ErrorsInterceptorContract {
-    val flow = MutableStateFlow(0)
+    val flow = MutableSharedFlow<Int>()
 
-    override fun errorsInterceptor(): StateFlow<Int> {
+    override fun errorsInterceptor(): SharedFlow<Int> {
         return flow
     }
 

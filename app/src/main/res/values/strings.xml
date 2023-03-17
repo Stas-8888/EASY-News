@@ -114,5 +114,5 @@
     <string name="want_sign_out">Do you, want to sign out?</string>
     <string name="ok">OK</string>
     <string name="often_request">The request was unacceptable, often due to a missing or misconfigured parameter.</string>
-    <string name="many_request">You made too many requests within a window of time and have been rate limited. Back off for a while.</string>
+    <string name="many_request">You made too many requests</string>
 </resources>

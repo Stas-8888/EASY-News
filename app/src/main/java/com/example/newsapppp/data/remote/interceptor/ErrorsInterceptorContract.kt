@@ -1,10 +1,10 @@
 package com.example.newsapppp.data.remote.interceptor
 
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharedFlow
 
 interface ErrorsInterceptorContract {
 
-    fun errorsInterceptor(): Flow<Int>
+    fun errorsInterceptor(): SharedFlow<Int>
 
     suspend fun emitError(error: Int)
 }
