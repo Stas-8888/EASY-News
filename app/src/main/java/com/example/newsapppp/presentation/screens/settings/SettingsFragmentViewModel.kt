@@ -64,13 +64,14 @@ class SettingsFragmentViewModel @Inject constructor(
 
     // handles the click on the Account
     fun onAccountClicked() = viewModelScope.launch {
-        if (isCurrentUserNull) {
+        if (firebaseAuth.currentUser?.isEmailVerified == null) {
             emitAction(SettingsAction.Navigate(SettingsFragmentDirections.actionSettingsFragmentToAuthBottomSheetFragment()))
         } else {
             val showAccount = SettingsAction.ShowAccount(
                 message = (R.string.want_sign_out),
                 isError = true,
                 action = { firebaseAuth.signOut() })
+
             emitAction(showAccount)
         }
     }

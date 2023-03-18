@@ -6,18 +6,14 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
-import android.widget.PopupMenu
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSettingsBinding
 import com.example.newsapppp.databinding.NewNameDialogBinding
-import com.example.newsapppp.presentation.extensions.clickAnimation
-import com.example.newsapppp.presentation.extensions.showSnackBar
-import com.example.newsapppp.presentation.extensions.navigateDirections
+import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -48,7 +44,9 @@ class SettingsFragment :
         }
         imCountry.setOnClickListener {
             it.clickAnimation()
-            showPopup(imCountry)
+            showPopupMenu(imCountry, R.menu.pop_up_menu) { menuItem ->
+                viewModel.setupPopupMenu(menuItem)
+            }
         }
         tvEdit.setOnClickListener {
             showChangeNameDialog()
@@ -59,13 +57,9 @@ class SettingsFragment :
 
         profileImage.setOnClickListener {
             profileImage.clickAnimation()
-            val popupMenu = PopupMenu(context, profileImage)
-            popupMenu.menuInflater.inflate(R.menu.profile_photo_storage, popupMenu.menu)
-            popupMenu.setOnMenuItemClickListener { item ->
-                viewModel.onProfileImageClicked(item) { launchImagePicker() }
-                true
+            showPopupMenu(profileImage, R.menu.profile_photo_storage) { menuItem ->
+                viewModel.onProfileImageClicked(menuItem) { launchImagePicker() }
             }
-            popupMenu.show()
         }
     }
 
@@ -106,18 +100,7 @@ class SettingsFragment :
         }
     }
 
-    private fun showPopup(view: View) {
-        val popup = PopupMenu(requireContext(), view)
-        popup.inflate(R.menu.pop_up_menu)
-        popup.setOnMenuItemClickListener { item: MenuItem ->
-            viewModel.setupPopupMenu(item)
-            true
-        }
-        popup.show()
-    }
-
     private fun showChangeNameDialog() {
-        var typeText = ""
         var dialog: AlertDialog? = null
         val builder = AlertDialog.Builder(context)
         val binding = NewNameDialogBinding.inflate(LayoutInflater.from(context))
@@ -130,7 +113,7 @@ class SettingsFragment :
             bCreate.setOnClickListener {
                 val listName = edNewListName.text.toString()
                 if (listName.isNotEmpty()) {
-                    typeText = listName
+                    changeUserName(listName)
                 }
                 dialog?.dismiss()
             }
@@ -140,5 +123,9 @@ class SettingsFragment :
             window?.attributes?.windowAnimations = R.style.DialogAnimation
             show()
         }
+    }
+
+    private fun changeUserName(message: String) {
+        binding.tvUserName.text = message
     }
 }

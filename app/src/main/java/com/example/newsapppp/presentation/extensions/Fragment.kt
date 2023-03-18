@@ -5,8 +5,10 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
@@ -110,4 +112,14 @@ fun Fragment.showInternetConnectionDialog(status: String) {
         }
         show()
     }
+}
+
+fun Fragment.showPopupMenu(view: View, menuResId: Int, onMenuItemClickListener: (menuItem: MenuItem) -> Unit) {
+    val popupMenu = PopupMenu(requireContext(), view)
+    popupMenu.menuInflater.inflate(menuResId, popupMenu.menu)
+    popupMenu.setOnMenuItemClickListener { menuItem ->
+        onMenuItemClickListener(menuItem)
+        true
+    }
+    popupMenu.show()
 }

@@ -5,12 +5,11 @@
     <item
         android:id="@+id/cameraMenu"
         android:title="@string/take_a_photo"
-        app:showAsAction="never"
-        />
+        app:showAsAction="never" />
+
     <item
         android:id="@+id/galleryMenu"
         android:title="@string/choose_from_gallery"
-        app:showAsAction="never"
-    />
+        app:showAsAction="never" />
 
 </menu>
