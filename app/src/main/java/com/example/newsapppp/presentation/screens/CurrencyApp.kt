@@ -7,14 +7,23 @@ import dagger.hilt.android.HiltAndroidApp
 import java.util.concurrent.TimeUnit
 
 /**
- * Application class.
+ * This class initialize anything that needs to be activated from application start.
  */
 @HiltAndroidApp
 class CurrencyApp : Application() {
+
+    /**
+     * Overrides the onCreate method of the Application class to initialize the app.
+     * Calls notificationWork to schedule a periodic notification worker to run every 15 minutes.
+     */
     override fun onCreate() {
         super.onCreate()
         notificationWork()
     }
+
+    /**
+     * Configures and schedules a periodic notification worker to run every 15 minutes.
+     */
     private fun notificationWork() {
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.NOT_REQUIRED)

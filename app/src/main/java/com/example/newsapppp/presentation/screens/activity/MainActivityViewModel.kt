@@ -8,11 +8,18 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
+/**
+ * This class represents the ViewModel for the MainActivity.
+ */
 class MainActivityViewModel : ViewModel() {
 
     private val _state = MutableStateFlow<MainActivityState>(MainActivityState.Success)
     val state = _state.asSharedFlow()
 
+    /**
+     * Sets up the bottom navigation bar based on the current destination.
+     * @param destination The NavDestination of the current fragment.
+     */
     fun setupBottomNavigation(destination: NavDestination) = viewModelScope.launch {
         when (destination.id) {
             R.id.favoriteFragment,
