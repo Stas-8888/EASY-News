@@ -3,7 +3,7 @@ package com.example.newsapppp.presentation.screens.authentication.signup
 import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.authentication.SignUpUseCase
-import com.example.newsapppp.domain.interactors.authentication.validation.FullNameUseCase
+import com.example.newsapppp.domain.interactors.authentication.validation.UserNameUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidateEmailUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidatePasswordUseCase
 import com.example.newsapppp.domain.interactors.authentication.validation.ValidateRepeatedPasswordUseCase
@@ -21,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
     private val signUp: SignUpUseCase,
-    private val fullName: FullNameUseCase,
+    private val userName: UserNameUseCase,
     private val validateEmail: ValidateEmailUseCase,
     private val validatePassword: ValidatePasswordUseCase,
     private val validateRepeatedPassword: ValidateRepeatedPasswordUseCase,
@@ -32,7 +32,7 @@ class SignUpViewModel @Inject constructor(
     // Check the validation of the fields entered by the user
     fun checkValidationFields(user: UserModel) {
         val data = SignUpState.CheckState(
-            fullName(user.user),
+            userName(user.user),
             validateEmail(user.email),
             validatePassword(user.password),
             validateRepeatedPassword.invoke(user.password, user.repeatedPassword)

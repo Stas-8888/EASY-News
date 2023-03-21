@@ -68,7 +68,7 @@ class ValidationRepository @Inject constructor(
      * @param fullName User input for full name.
      * @return A string indicating success or failure of the validation.
      */
-    override fun fullName(fullName: String): String {
+    override fun userName(fullName: String): String {
         if (fullName.length < 6) {
             return provideResources.makeString(R.string.minimum_character)
         }
