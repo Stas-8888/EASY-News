@@ -3,7 +3,7 @@ package com.example.newsapppp.di
 import com.example.newsapppp.data.authentication.AuthenticationRepository
 import com.example.newsapppp.data.authentication.ValidationRepository
 import com.example.newsapppp.domain.interactors.authentication.AuthenticationRepositoryContract
-import com.example.newsapppp.domain.interactors.authentication.ValidationRepositoryContract
+import com.example.newsapppp.domain.interactors.authentication.validation.ValidationRepositoryContract
 import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides

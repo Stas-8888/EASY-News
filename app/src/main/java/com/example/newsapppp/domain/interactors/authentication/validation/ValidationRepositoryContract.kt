@@ -1,4 +1,4 @@
-package com.example.newsapppp.domain.interactors.authentication
+package com.example.newsapppp.domain.interactors.authentication.validation
 
 interface ValidationRepositoryContract {
     fun fullName(fullName: String): String

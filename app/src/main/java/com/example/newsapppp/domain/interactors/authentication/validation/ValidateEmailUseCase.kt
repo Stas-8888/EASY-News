@@ -1,7 +1,6 @@
 package com.example.newsapppp.domain.interactors.authentication.validation
 
 import com.example.newsapppp.domain.interactors.baseusecase.BaseUseCase
-import com.example.newsapppp.domain.interactors.authentication.ValidationRepositoryContract
 import javax.inject.Inject
 
 class ValidateEmailUseCase @Inject constructor(val repository: ValidationRepositoryContract) :

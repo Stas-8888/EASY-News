@@ -1,6 +1,5 @@
 package com.example.newsapppp.domain.interactors.authentication.validation
 
-import com.example.newsapppp.domain.interactors.authentication.ValidationRepositoryContract
 import javax.inject.Inject
 
 class ValidateRepeatedPasswordUseCase @Inject constructor(val repository: ValidationRepositoryContract) {
