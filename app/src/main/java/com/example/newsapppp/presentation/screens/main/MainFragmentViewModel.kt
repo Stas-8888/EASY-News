@@ -31,7 +31,9 @@ class MainFragmentViewModel @Inject constructor(
 
     override val _state = MutableStateFlow<MainState>(MainState.ShowLoading)
 
-    // Sets up UI for main fragment with news for first category
+    /**
+     * Sets up UI for main fragment with news for first category.
+     */
     fun fetchAndShowArticles() = viewModelScope.launch {
         when {
             isOffline() -> emitAction(MainAction.ShowNetworkDialog(R.string.internet_disconnected))
@@ -51,7 +53,9 @@ class MainFragmentViewModel @Inject constructor(
         }
     }
 
-    // Sets up news for a specific tab/category
+    /**
+     * Sets up news for a specific tab/category.
+     */
     fun setupTabLayout(tab: TabLayout.Tab) = viewModelScope.launch {
         when {
             isOffline() -> emitAction(MainAction.ShowNetworkDialog(R.string.internet_disconnected))
@@ -71,25 +75,33 @@ class MainFragmentViewModel @Inject constructor(
         }
     }
 
-    // Shows/hides float button based on position of first news article
+    /**
+     * Shows/hides float button based on position of first news article.
+     */
     fun showOrHideFloatButton(getFirstNewsPosition: Int) {
         val isVisible = getFirstNewsPosition >= 1
         emit(MainState.BottomVisibility(isVisible))
     }
 
-    // Handles click on settings button
+    /**
+     * Handles click on settings button.
+     */
     fun onBtSettingsClicked() {
         val action = MainFragmentDirections.actionMainFragmentToSettingsFragment()
         emitAction(MainAction.Navigate(action))
     }
 
-    // Handles click on news article in recycler view
+    /**
+     * Handles click on news article in recycler view.
+     */
     fun onNewsAdapterClicked(article: Article) {
         val action = MainFragmentDirections.actionMainFragmentToNewsFragment(article)
         emitAction(MainAction.Navigate(action))
     }
 
-    // Intercepts errors from API request and displays error message
+    /**
+     * Get intercepts errors from API request and displays error message.
+     */
     fun interceptorErrors() = viewModelScope.launch {
         val errors = interceptorErrors.errorsInterceptor()
         errors.collect {
