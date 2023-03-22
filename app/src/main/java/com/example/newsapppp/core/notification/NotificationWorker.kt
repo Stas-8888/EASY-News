@@ -17,14 +17,29 @@ import com.example.newsapppp.R
 import com.example.newsapppp.presentation.screens.activity.MainActivity
 import javax.inject.Inject
 
+/**
+ * This class is responsible for showing a notification to the user.
+ * It extends the Worker class and implements the NotificationServiceContract interface.
+ * It receives a context and worker parameters through the constructor.
+ */
 class NotificationWorker @Inject constructor(context: Context, workerParameters: WorkerParameters) :
     Worker(context, workerParameters), NotificationServiceContract {
 
+    /**
+     * This method is called when the work is to be performed.
+     * It shows a notification to the user by calling the showNotification() method.
+     * @return Result.success() if the work is successful.
+     */
     override fun doWork(): Result {
         showNotification()
         return Result.success()
     }
 
+    /**
+     * This method creates a notification and displays it to the user.
+     * It creates a pending intent to open the main activity when the notification is clicked.
+     * If the Android version is Oreo or above, it also creates a notification channel.
+     */
     override fun showNotification() {
         val intent = Intent(applicationContext, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
