@@ -44,7 +44,6 @@ class ArticlePagingSource(
         } catch (exception: HttpException) {
             LoadResult.Error(exception)
         }
-
     }
 
     /**
