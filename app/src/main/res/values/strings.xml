@@ -115,4 +115,5 @@
     <string name="ok">ok</string>
     <string name="often_request">The request was unacceptable, often due to a missing or misconfigured parameter.</string>
     <string name="many_request">You made too many requests</string>
+    <string name="tabs_for_navigating">Tabs for navigating between different sections</string>
 </resources>

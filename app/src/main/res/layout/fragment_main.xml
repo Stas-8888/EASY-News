@@ -8,53 +8,6 @@
     android:background="@color/color_background"
     tools:context=".presentation.screens.main.MainFragment">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvCountry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dp_24"
-        android:background="@color/grey_one"
-        android:elevation="4.5dp"
-        android:paddingStart="@dimen/dp_6"
-        android:paddingEnd="@dimen/dp_6"
-        android:text="@string/my_news"
-        android:textColor="@color/white"
-        android:textSize="@dimen/sp_16"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabMain" />
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabMain"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="@dimen/dp_40"
-        android:background="@color/color_tab_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:tabGravity="fill"
-        app:tabIndicatorColor="@color/tab_indicator_color"
-        app:tabIndicatorFullWidth="true"
-        app:tabMode="auto"
-        app:tabSelectedTextColor="@color/color_primary_dark"
-        app:tabTextColor="@color/tab_text_color" />
-
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/progress_bar"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_2"
-        android:indeterminate="true"
-        android:visibility="visible"
-        app:indicatorColor="#FFC107"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/swipeToRefresh"
-        app:trackColor="@color/color_red"
-        app:trackCornerRadius="@dimen/dp_5"
-        app:trackThickness="@dimen/dp_4" />
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         style="@style/Toolbar"
@@ -97,6 +50,54 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_24"
+        android:background="@color/grey_one"
+        android:elevation="4.5dp"
+        android:paddingStart="@dimen/dp_6"
+        android:paddingEnd="@dimen/dp_6"
+        android:text="@string/my_news"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabMain" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabMain"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_40"
+        android:background="@color/color_tab_layout"
+        android:contentDescription="@string/tabs_for_navigating"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/tab_indicator_color"
+        app:tabIndicatorFullWidth="true"
+        app:tabMode="auto"
+        app:tabSelectedTextColor="@color/color_primary_dark"
+        app:tabTextColor="@color/tab_text_color" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progress_bar"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_2"
+        android:indeterminate="true"
+        android:visibility="visible"
+        app:indicatorColor="#FFC107"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/swipeToRefresh"
+        app:trackColor="@color/color_red"
+        app:trackCornerRadius="@dimen/dp_5"
+        app:trackThickness="@dimen/dp_4" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvCenterText"
