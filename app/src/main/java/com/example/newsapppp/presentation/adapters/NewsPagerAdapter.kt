@@ -12,11 +12,24 @@ import com.example.newsapppp.core.DateFormat.dateFormat
 import com.example.newsapppp.databinding.ItemLayoutBinding
 import com.example.newsapppp.presentation.model.Article
 
+/**
+ * A PagingDataAdapter for displaying a list of Article objects in a ViewPager2.
+ */
 class NewsPagerAdapter :
     PagingDataAdapter<Article, NewsPagerAdapter.ArticleViewHolder>(NewsItemDiffCallback()) {
 
+    /**
+     * ViewHolder for an Article item in the ViewPager2.
+     * @param binding The view binding for the item layout.
+     */
     class ArticleViewHolder(val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root)
 
+    /**
+     * Inflate the layout for an Article item and return its ViewHolder.
+     * @param parent The ViewGroup that the ViewHolder will be attached to.
+     * @param viewType The type of the view.
+     * @return The ArticleViewHolder for the inflated item layout.
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemLayoutBinding.inflate(inflater, parent, false)
@@ -25,6 +38,11 @@ class NewsPagerAdapter :
 
     private var onItemClickListener: ((Article) -> Unit)? = null
 
+    /**
+     * Bind an Article to a ViewHolder and set up click listener.
+     * @param holder The ArticleViewHolder to bind the Article to.
+     * @param position The position of the Article in the list.
+     */
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         val article = getItem(position)
 
@@ -50,6 +68,10 @@ class NewsPagerAdapter :
         }
     }
 
+    /**
+     * Set a click listener for each Article item in the ViewPager2.
+     * @param listener The lambda function to call when an item is clicked.
+     */
     fun setOnItemClickListener(listener: (Article) -> Unit) {
         onItemClickListener = listener
     }
