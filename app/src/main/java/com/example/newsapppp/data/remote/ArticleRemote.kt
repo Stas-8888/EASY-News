@@ -11,7 +11,9 @@ import com.example.newsapppp.data.remote.service.ApiService
 import com.example.newsapppp.domain.interactors.articleremote.ArticleRemoteContract
 import com.example.newsapppp.domain.model.ArticleModel
 import com.example.newsapppp.domain.model.NewsResponseModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 /**
@@ -40,14 +42,11 @@ class ArticleRemote @Inject constructor(
      * @return a [Flow] of [PagingData] objects that represent the articles.
      */
     override suspend fun fetchedArticles(category: String): Flow<PagingData<ArticleModel>> {
-        return dispatcher.io {
-            Pager(
-                config = PagingConfig(pageSize = 20, maxSize = 200, enablePlaceholders = false),
-                pagingSourceFactory = {
-                    ArticlePagingSource(apiService, sharedPref.getCountryFlag(), category, mapper)
-                }
-            ).flow
-        }
+        val pagingConfig = PagingConfig(pageSize = 20, maxSize = 200, enablePlaceholders = false)
+        val pagingSource =
+            { ArticlePagingSource(apiService, sharedPref.getCountryFlag(), category, mapper) }
+        return Pager(config = pagingConfig, pagingSourceFactory = pagingSource).flow
+            .flowOn(Dispatchers.IO)
     }
 
     /**
