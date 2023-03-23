@@ -29,15 +29,13 @@ class FavoriteFragment :
         swipeToDelete()
     }
 
-    override fun onClickListener() {
-        with(binding) {
-            btDeleteAll.setOnClickListener {
-                it.clickAnimation()
-                showDeleteDialog({ viewModel.onDeleteAllClicked() }, { })
-            }
-            newsAdapter.setOnItemClickListener {
-                viewModel.onNewsAdapterItemClicked(it)
-            }
+    override fun onClickListener() = with(binding) {
+        btDeleteAll.setOnClickListener {
+            it.clickAnimation()
+            showDeleteDialog({ viewModel.onDeleteAllClicked() }, { })
+        }
+        newsAdapter.setOnItemClickListener {
+            viewModel.onNewsAdapterItemClicked(it)
         }
     }
 

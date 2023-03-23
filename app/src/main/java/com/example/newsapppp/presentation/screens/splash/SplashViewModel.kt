@@ -27,9 +27,9 @@ class SplashViewModel @Inject constructor(
         }
     }
 
-    // This function navigates to the login fragment after a delay of 3 seconds.
+    // This function navigates to the login fragment after a delay of 5 seconds.
     fun navigateToLoginFragment() = viewModelScope.launch {
-        delay(TimeUnit.SECONDS.toMillis(4))
+        delay(TimeUnit.SECONDS.toMillis(5))
         val direction = if (isCurrentUserNull) {
             SplashFragmentDirections.actionSplashFragmentToLoginFragment()
         } else {
