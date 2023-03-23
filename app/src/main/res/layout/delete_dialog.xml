@@ -9,7 +9,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="@dimen/dp_0"
         android:layout_height="@dimen/dp_45"
-        android:background="@drawable/bt_corner"
+        android:background="@drawable/layout_top_corner"
         android:textSize="@dimen/sp_16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -20,14 +20,14 @@
         android:id="@+id/background"
         android:layout_width="@dimen/dp_0"
         android:layout_height="@dimen/dp_0"
-        android:background="@drawable/layout_corner"
+        android:background="@drawable/layout_bottom_corner"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
     <TextView
-        android:id="@+id/tvMassege"
+        android:id="@+id/tvMessage"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_8"
@@ -60,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/btFaceBook"
-        app:layout_constraintTop_toBottomOf="@+id/tvMassege"
+        app:layout_constraintTop_toBottomOf="@+id/tvMessage"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
@@ -79,7 +79,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btFaceBook"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvMassege" />
+        app:layout_constraintTop_toBottomOf="@+id/tvMessage" />
 
     <ImageView
         android:id="@+id/btFaceBook"
@@ -100,8 +100,8 @@
         android:fontFamily="@font/worksansmedium"
         android:text="@string/cant_return"
         android:textSize="@dimen/sp_12"
-        app:layout_constraintEnd_toEndOf="@+id/tvMassege"
-        app:layout_constraintStart_toStartOf="@+id/tvMassege"
-        app:layout_constraintTop_toBottomOf="@+id/tvMassege" />
+        app:layout_constraintEnd_toEndOf="@+id/tvMessage"
+        app:layout_constraintStart_toStartOf="@+id/tvMessage"
+        app:layout_constraintTop_toBottomOf="@+id/tvMessage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
