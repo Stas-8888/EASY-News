@@ -22,7 +22,9 @@ class SignInViewModel @Inject constructor(
 
     override val _state = MutableStateFlow<SignInState<String>>(SignInState.Loading(false))
 
-    // Called when the user clicks on the Sign In button
+    /**
+     * Called when the user clicks on the Sign In button.
+     */
     fun onSignInButtonClicked(user: UserModel) = viewModelScope.launch {
         when {
             isOffline() -> emitAction(SignInAction.ShowNetworkDialog(R.string.internet_disconnected))
@@ -45,22 +47,32 @@ class SignInViewModel @Inject constructor(
         emitAction(SignInAction.ShowMessage(R.string.authentication_failed))
     }
 
-    // Called when the user clicks on the Skip button
+    /**
+     * Called when the user clicks on the Skip button.
+     */
     fun onSkipButtonClicked() =
         emitAction(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment()))
 
-    // Called when the user clicks on the Sign Up button
+    /**
+     * Called when the user clicks on the Sign Up button.
+     */
     fun onSignUpButtonClicked() =
         emitAction(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment()))
 
-    // Called when the user clicks on the Forgot Password button
+    /**
+     * Called when the user clicks on the Forgot Password button.
+     */
     fun onForgotPasswordButtonClicked() =
         emitAction(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToForgotPasswordFragment()))
 
-    // Called when the email EditText text changes
+    /**
+     * Called when the email EditText text changes.
+     */
     fun isEmailChanged(email: String) = emit(SignInState.CheckEmail(validateEmail(email)))
 
-    // Called when the password EditText text changes
+    /**
+     * Called when the password EditText text changes.
+     */
     fun isPasswordChanged(password: String) =
         emit(SignInState.CheckPassword(validatePassword(password)))
 }

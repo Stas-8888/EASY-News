@@ -20,7 +20,9 @@ class SearchFragmentViewModel @Inject constructor(
 
     override val _state = MutableStateFlow<SearchState>(SearchState.Loading)
 
-    // Handles search query text input and displays articles matching the query
+    /**
+     * Handles search query text input and displays articles matching the query.
+     */
     fun searchQueryListener(searchQuery: String) = viewModelScope.launch {
         when {
             isOffline() -> emitAction(SearchAction.ShowNetworkDialog(R.string.internet_disconnected))
@@ -33,7 +35,9 @@ class SearchFragmentViewModel @Inject constructor(
         }
     }
 
-    // Handles click on article item in recycler view and navigates to news fragment
+    /**
+     * Handles click on article item in recycler view and navigates to news fragment.
+     */
     fun onItemAdapterClicked(article: Article) {
         val action = SearchFragmentDirections.actionSearchFragmentToNewsFragment(article)
         emitAction(SearchAction.Navigate(action))

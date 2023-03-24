@@ -32,7 +32,9 @@ class SettingsFragmentViewModel @Inject constructor(
     override val _state =
         MutableStateFlow<SettingsState>(SettingsState.SetCurrentCountry(R.drawable.usa))
 
-    // sets up the UI of the screen
+    /**
+     * Sets up the UI of the screen.
+     */
     fun updateUi() {
         val theme = getThemes(Unit).not()
         val email = firebaseAuth.currentUser?.email
@@ -40,7 +42,9 @@ class SettingsFragmentViewModel @Inject constructor(
         emit(SettingsState.ShowUi(theme = theme, email = email, flag = flagDrawableRes))
     }
 
-    // get country flag from drawable resource
+    /**
+     * get country flag from drawable resource.
+     */
     private fun getCountryFlagDrawableRes(countryFlag: String): Int {
         return when (countryFlag) {
             USA -> R.drawable.usa
@@ -51,7 +55,9 @@ class SettingsFragmentViewModel @Inject constructor(
         }
     }
 
-    // Update the day/night mode of the app and save the switch position
+    /**
+     * Update the day/night mode of the app and save the switch position.
+     */
     fun onSwitchDayNightClicked(enabled: Boolean) = viewModelScope.launch {
         if (enabled) {
             saveSwitchPosition(false)
@@ -62,7 +68,9 @@ class SettingsFragmentViewModel @Inject constructor(
         }
     }
 
-    // handles the click on the Account
+    /**
+     * Handles the click on the Account.
+     */
     fun onAccountClicked() = viewModelScope.launch {
         if (firebaseAuth.currentUser?.isEmailVerified == null) {
             emitAction(SettingsAction.Navigate(SettingsFragmentDirections.actionSettingsFragmentToAuthBottomSheetFragment()))
@@ -76,7 +84,9 @@ class SettingsFragmentViewModel @Inject constructor(
         }
     }
 
-    // sets up the popup menu of the settings screen
+    /**
+     * Sets up the popup menu of the settings screen.
+     */
     fun setupPopupMenu(item: MenuItem) = viewModelScope.launch {
         when (item.itemId) {
             R.id.us -> {
@@ -102,7 +112,9 @@ class SettingsFragmentViewModel @Inject constructor(
         }
     }
 
-    // handles the click on the profile image options menu
+    /**
+     * Handles the click on the profile image options menu.
+     */
     fun onProfileImageClicked(item: MenuItem, launchGallery: () -> Unit) {
         when (item.itemId) {
             R.id.galleryMenu -> launchGallery.invoke()

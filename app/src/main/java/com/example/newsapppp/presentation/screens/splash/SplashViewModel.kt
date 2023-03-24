@@ -18,7 +18,9 @@ class SplashViewModel @Inject constructor(
 
     override val _state = MutableStateFlow<SplashState>(SplashState.Success)
 
-    // Sets the day/night mode of the app.
+    /**
+     * Sets the day/night mode of the app.
+     */
     fun setupDayNightMode() {
         if (getSwitchPosition(Unit)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
@@ -27,7 +29,9 @@ class SplashViewModel @Inject constructor(
         }
     }
 
-    // This function navigates to the login fragment after a delay of 5 seconds.
+    /**
+     * This function navigates to the login fragment after a delay of 5 seconds.
+     */
     fun navigateToLoginFragment() = viewModelScope.launch {
         delay(TimeUnit.SECONDS.toMillis(5))
         val direction = if (isCurrentUserNull) {

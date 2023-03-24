@@ -29,14 +29,18 @@ class NewsFragmentViewModel @Inject constructor(
     override val _state =
         MutableStateFlow<NewsState>(NewsState.ShowFavoriteIcon(favoriteIconUnselected))
 
-    // Sets up the favorite icon in the UI
+    /**
+     * Sets up the favorite icon in the UI.
+     */
     fun setupFavoriteIcon(article: Article) = viewModelScope.launch {
         val icon = if (isFavorite != getFavorite(article.url))
             favoriteIconSelected else favoriteIconUnselected
         emit(NewsState.ShowFavoriteIcon(icon))
     }
 
-    // Handles click on favorite icon
+    /**
+     * Handles click on favorite icon.
+     */
     fun onFavoriteButtonClicked(article: Article) = viewModelScope.launch {
         when {
             isCurrentUserNull -> emitAction(NewsAction.ShowMessage(R.string.error_registered))

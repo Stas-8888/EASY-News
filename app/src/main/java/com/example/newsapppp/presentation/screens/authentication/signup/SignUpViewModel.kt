@@ -29,7 +29,9 @@ class SignUpViewModel @Inject constructor(
 
     override val _state = MutableStateFlow<SignUpState<String>>(SignUpState.Loading)
 
-    // Check the validation of the fields entered by the user
+    /**
+     * Check the validation of the fields entered by the user.
+     */
     fun checkValidationFields(user: UserModel) {
         val data = SignUpState.CheckState(
             userName(user.user),
@@ -40,7 +42,9 @@ class SignUpViewModel @Inject constructor(
         emit(data)
     }
 
-    // Perform sign-up operation
+    /**
+     * Perform sign-up operation.
+     */
     fun onSignUnButtonClicked(user: UserModel) = viewModelScope.launch {
         when {
             isOffline() -> emitAction(SignUpAction.ShowNetworkDialog(R.string.internet_disconnected))
@@ -69,7 +73,9 @@ class SignUpViewModel @Inject constructor(
         emitAction(SignUpAction.ShowMessage(R.string.invalid_authentication))
     }
 
-    // Handle the sign-in button click event
+    /**
+     * Handle the sign-in button click event.
+     */
     fun navigateToSignInScreen() {
         val action = SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()
         emitAction(SignUpAction.Navigate(action))

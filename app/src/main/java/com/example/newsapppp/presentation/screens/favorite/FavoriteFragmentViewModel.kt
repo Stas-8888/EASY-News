@@ -27,7 +27,9 @@ class FavoriteFragmentViewModel @Inject constructor(
 
     override val _state = MutableStateFlow<FavoriteState>(FavoriteState.Loading)
 
-    // Function to setup all news in the favorite list
+    /**
+     * Function to setup all news in the favorite list.
+     */
     fun setupAllNews() = viewModelScope.launch {
         articleAllCache(Unit).collect { articles ->
             val data = if (articles.isNotEmpty()) {
@@ -49,13 +51,17 @@ class FavoriteFragmentViewModel @Inject constructor(
         }
     }
 
-    // This function deletes item from the locally stored favorites.
+    /**
+     * This function deletes item from the locally stored favorites.
+     */
     fun deleteArticle(article: Article) = viewModelScope.launch {
         deleteArticle(mapper.mapToModel(article))
         saveFavorite.saveFavorite(article.url, false)
     }
 
-    // This function deletes all article from the locally stored favorites.
+    /**
+     * This function deletes all article from the locally stored favorites.
+     */
     fun onDeleteAllClicked() = viewModelScope.launch {
         articleAllCache(Unit).collect {
             if (it.isNotEmpty()) {
@@ -67,12 +73,16 @@ class FavoriteFragmentViewModel @Inject constructor(
         }
     }
 
-    // Function to handle the swipe gesture on a favorite list item
+    /**
+     * Function to handle the swipe gesture on a favorite list item.
+     */
     fun onItemSwiped(article: Article, position: Int) {
         emitAction(FavoriteAction.ShowDeleteDialog(article, position))
     }
 
-    // Function to handle the click event on a adapter item.
+    /**
+     * Function to handle the click event on a adapter item.
+     */
     fun onNewsAdapterItemClicked(article: Article) = viewModelScope.launch {
         val action = FavoriteFragmentDirections.actionFavoriteFragmentToNewsFragment(article)
         emitAction(FavoriteAction.Navigate(action))

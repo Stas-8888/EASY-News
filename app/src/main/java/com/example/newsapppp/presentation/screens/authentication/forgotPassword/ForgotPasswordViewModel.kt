@@ -20,7 +20,9 @@ class ForgotPasswordViewModel @Inject constructor(
 
     override val _state = MutableStateFlow<ForgotPasswordState<String>>(ForgotPasswordState.Loading)
 
-    // Called when the user clicks on the Forgot Password button
+    /**
+     * Called when the user clicks on the Forgot Password button.
+     */
     fun onForgotPasswordClicked(user: UserModel) = viewModelScope.launch {
         when {
             isOffline() -> emitAction(ForgotPasswordAction.ShowNetworkDialog(R.string.internet_disconnected))
@@ -40,6 +42,8 @@ class ForgotPasswordViewModel @Inject constructor(
         emitAction(ForgotPasswordAction.ShowMessage(R.string.wrong_email))
     }
 
-    // This function is called when the email input is changed to validate the email format
+    /**
+     * This function is called when the email input is changed to validate the email format.
+     */
     fun isEmailChanged(email: String) = emit(ForgotPasswordState.CheckEmail(validateEmail(email)))
 }
