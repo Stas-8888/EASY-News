@@ -16,9 +16,7 @@ import kotlinx.coroutines.flow.collectLatest
 
 /**
  * Base class for all Fragments.
- *
  */
-
 abstract class BaseFragment<State, Action, VB : ViewBinding, VM : BaseViewModel<State, Action>>(
     private val bindingInflater: (inflater: LayoutInflater) -> VB
 ) : Fragment() {

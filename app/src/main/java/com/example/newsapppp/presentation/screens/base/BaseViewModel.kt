@@ -17,7 +17,6 @@ import javax.inject.Inject
  * Where [S] - is State.
  * Where [A] - is Action.
  */
-
 abstract class BaseViewModel<S, A> : ViewModel() {
 
     @Inject
