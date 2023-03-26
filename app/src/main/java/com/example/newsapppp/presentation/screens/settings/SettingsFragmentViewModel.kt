@@ -8,8 +8,8 @@ import com.example.newsapppp.domain.interactors.sharedpreferences.GetCountryFlag
 import com.example.newsapppp.domain.interactors.sharedpreferences.GetSwitchPositionUseCase
 import com.example.newsapppp.domain.interactors.sharedpreferences.SaveCountryFlagUseCase
 import com.example.newsapppp.domain.interactors.sharedpreferences.SaveSwitchPositionUseCase
+import com.example.newsapppp.presentation.extensions.isCurrentUserNull
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -24,7 +24,6 @@ private const val EGYPT = "eg"
 class SettingsFragmentViewModel @Inject constructor(
     private val saveCountryFlag: SaveCountryFlagUseCase,
     private val saveSwitchPosition: SaveSwitchPositionUseCase,
-    private var firebaseAuth: FirebaseAuth,
     private var getCountryFlag: GetCountryFlagUseCase,
     private var getThemes: GetSwitchPositionUseCase
 ) : BaseViewModel<SettingsState, SettingsAction>() {
@@ -72,7 +71,7 @@ class SettingsFragmentViewModel @Inject constructor(
      * Handles the click on the Account.
      */
     fun onAccountClicked() = viewModelScope.launch {
-        if (firebaseAuth.currentUser?.isEmailVerified == null) {
+        if (isCurrentUserNull()) {
             emitAction(SettingsAction.Navigate(SettingsFragmentDirections.actionSettingsFragmentToAuthBottomSheetFragment()))
         } else {
             val showAccount = SettingsAction.ShowAccount(

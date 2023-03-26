@@ -75,7 +75,6 @@ abstract class BaseFragment<State, Action, VB : ViewBinding, VM : BaseViewModel<
             }
             .start()
 
-
         toolbar.setNavigationOnClickListener {
             toolbar.bumpAnimation()
             returnToPreviousScreen()

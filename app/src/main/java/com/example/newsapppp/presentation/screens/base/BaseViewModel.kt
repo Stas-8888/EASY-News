@@ -20,6 +20,9 @@ import javax.inject.Inject
 abstract class BaseViewModel<S, A> : ViewModel() {
 
     @Inject
+    lateinit var firebaseAuth: FirebaseAuth
+
+    @Inject
     lateinit var networkHandler: NetworkHandlerContract
 
     @Inject
@@ -30,8 +33,6 @@ abstract class BaseViewModel<S, A> : ViewModel() {
 
     private val _action: MutableSharedFlow<A> = MutableSharedFlow()
     val action by lazy { _action.asSharedFlow() }
-
-    protected val isCurrentUserNull by lazy { FirebaseAuth.getInstance().currentUser == null }
 
     /**
      * Emit new [S] state to [state] in Scope [viewModelScope].

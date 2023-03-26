@@ -3,6 +3,7 @@ package com.example.newsapppp.presentation.screens.splash
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.domain.interactors.sharedpreferences.GetSwitchPositionUseCase
+import com.example.newsapppp.presentation.extensions.isCurrentUserNull
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -34,7 +35,7 @@ class SplashViewModel @Inject constructor(
      */
     fun navigateToLoginFragment() = viewModelScope.launch {
         delay(TimeUnit.SECONDS.toMillis(5))
-        val direction = if (isCurrentUserNull) {
+        val direction = if (isCurrentUserNull()) {
             SplashFragmentDirections.actionSplashFragmentToLoginFragment()
         } else {
             SplashFragmentDirections.actionSplashFragmentToMainFragment()

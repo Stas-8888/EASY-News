@@ -9,3 +9,7 @@ fun <S, A> BaseViewModel<S, A>.makeString(id: Int): String {
 fun <S, A> BaseViewModel<S, A>.isOffline(): Boolean {
     return networkHandler.isNetworkAvailable().not()
 }
+
+fun <S, A> BaseViewModel<S, A>.isCurrentUserNull(): Boolean {
+    return firebaseAuth.currentUser?.isEmailVerified == null
+}

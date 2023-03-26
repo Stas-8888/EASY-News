@@ -6,6 +6,7 @@ import com.example.newsapppp.domain.interactors.articlecache.DeleteArticleUseCas
 import com.example.newsapppp.domain.interactors.articlecache.InsertArticleUseCase
 import com.example.newsapppp.domain.interactors.sharedpreferences.GetFavoriteUseCase
 import com.example.newsapppp.domain.interactors.sharedpreferences.SaveFavoriteUseCase
+import com.example.newsapppp.presentation.extensions.isCurrentUserNull
 import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
@@ -19,8 +20,8 @@ class NewsFragmentViewModel @Inject constructor(
     private val insertArticle: InsertArticleUseCase,
     private val deleteArticle: DeleteArticleUseCase,
     private val saveFavorite: SaveFavoriteUseCase,
-    private val mapper: ArticleMapper,
     private val getFavorite: GetFavoriteUseCase,
+    private val mapper: ArticleMapper,
 ) : BaseViewModel<NewsState, NewsAction>() {
 
     private var isFavorite = false
@@ -43,7 +44,7 @@ class NewsFragmentViewModel @Inject constructor(
      */
     fun onFavoriteButtonClicked(article: Article) = viewModelScope.launch {
         when {
-            isCurrentUserNull -> emitAction(NewsAction.ShowMessage(R.string.error_registered))
+            isCurrentUserNull() -> emitAction(NewsAction.ShowMessage(R.string.error_registered))
             else -> try {
                 if (isFavorite == getFavorite(article.url)) {
                     insertArticle(mapper.mapToModel(article))

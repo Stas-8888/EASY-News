@@ -41,7 +41,7 @@ class ArticleRemote @Inject constructor(
      * @param category - the category of news articles to retrieve.
      * @return a [Flow] of [PagingData] objects that represent the articles.
      */
-    override suspend fun fetchedArticles(category: String): Flow<PagingData<ArticleModel>> {
+    override fun fetchedArticles(category: String): Flow<PagingData<ArticleModel>> {
         val pagingConfig = PagingConfig(pageSize = 20, maxSize = 200, enablePlaceholders = false)
         val pagingSource =
             { ArticlePagingSource(apiService, sharedPref.getCountryFlag(), category, mapper) }
