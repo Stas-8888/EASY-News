@@ -22,18 +22,40 @@ import com.google.android.material.snackbar.Snackbar
 import com.tapadoo.alerter.Alerter
 import kotlinx.coroutines.CoroutineScope
 
+/**
+ * Navigates to the given destination using the Navigation Component.
+ * @param where The NavDirections object representing the destination to navigate to.
+ */
 fun Fragment.navigateDirections(where: NavDirections) = findNavController().navigate(where)
 
+/**
+ * Navigates back to the previous screen using the Navigation Component.
+ */
 fun Fragment.returnToPreviousScreen() = findNavController().navigateUp()
 
+/**
+ * Launches a coroutine when the Fragment's view is started.
+ * @param block The code block to execute as a coroutine.
+ */
 inline fun Fragment.launchWhenStarted(crossinline block: suspend CoroutineScope.() -> Unit) {
     viewLifecycleOwner.lifecycleScope.launchWhenStarted { block() }
 }
 
+/**
+ * Returns the color value associated with the given color resource.
+ * @param colorRes The resource ID of the color to retrieve.
+ * @return The color value associated with the given resource ID.
+ */
 fun Fragment.loadColor(@ColorRes colorRes: Int): Int {
     return ContextCompat.getColor(requireContext(), colorRes)
 }
 
+/**
+ * Shows a Snackbar with the given message and optional action button.
+ * @param message The resource ID of the message to display.
+ * @param showButton Whether to show an action button or not.
+ * @param action The action to perform when the button is clicked.
+ */
 fun Fragment.showSnackBar(
     message: Int,
     showButton: Boolean = false,
@@ -62,6 +84,11 @@ fun Fragment.showSnackBar(
     snackBar.show()
 }
 
+/**
+ * Shows a dialog with a "Delete" button and a "Cancel" button.
+ * @param onSuccess The action to perform when the "Delete" button is clicked.
+ * @param onCancel The action to perform when the "Cancel" button is clicked.
+ */
 fun Fragment.showDeleteDialog(
     onSuccess: () -> Unit,
     onCancel: () -> Unit
@@ -91,7 +118,10 @@ fun Fragment.showDeleteDialog(
     }
 }
 
-
+/**
+ * Shows an alert dialog with the given title.
+ * @param title The resource ID of the title to display.
+ */
 fun Fragment.showAlertUpDialog(title: Int) {
     activity?.let {
         Alerter.create(it)
@@ -103,6 +133,10 @@ fun Fragment.showAlertUpDialog(title: Int) {
     }
 }
 
+/**
+ * Shows a dialog indicating that there is no internet connection.
+ * @param status The message to display indicating the status of the internet connection.
+ */
 fun Fragment.showInternetConnectionDialog(status: String) {
     Dialog(requireContext()).apply {
         setContentView(R.layout.no_internet_connections)
@@ -118,6 +152,12 @@ fun Fragment.showInternetConnectionDialog(status: String) {
     }
 }
 
+/**
+ * Shows a PopupMenu anchored to the given view.
+ * @param view The anchor view for the PopupMenu.
+ * @param menuResId The resource ID of the menu to display.
+ * @param onMenuItemClickListener The action to perform when a menu item is clicked.
+ */
 fun Fragment.showPopupMenu(
     view: View,
     menuResId: Int,
