@@ -4,9 +4,9 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.PopupMenu
 import android.widget.TextView
@@ -26,21 +26,24 @@ fun Fragment.navigateDirections(where: NavDirections) = findNavController().navi
 
 fun Fragment.returnToPreviousScreen() = findNavController().navigateUp()
 
-fun Fragment.launchWhenStarted(block: suspend CoroutineScope.() -> Unit) {
-    viewLifecycleOwner.lifecycleScope.launchWhenStarted(block)
+inline fun Fragment.launchWhenStarted(crossinline block: suspend CoroutineScope.() -> Unit) {
+    viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+        block()
+    }
 }
 
 fun Fragment.loadColor(@ColorRes colorRes: Int): Int {
     return ContextCompat.getColor(requireContext(), colorRes)
 }
 
-fun Fragment.showSnackBar(
+inline fun Fragment.showSnackBar(
     message: Int,
     showButton: Boolean = false,
-    action: () -> Unit = {}
+    crossinline action: () -> Unit = {}
 ) {
     val snackBar = Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG)
-    val customView = layoutInflater.inflate(R.layout.custom_snackbar_layout, null)
+    val customView =
+        layoutInflater.inflate(R.layout.custom_snackbar_layout, requireView() as ViewGroup, false)
     val button = customView.findViewById<Button>(R.id.snack_bar_action)
     val title = customView.findViewById<TextView>(R.id.snack_bar_text)
     title.text = context?.getString(message)
@@ -56,16 +59,18 @@ fun Fragment.showSnackBar(
     }
     snackBar.view.apply {
         setBackgroundColor(Color.TRANSPARENT)
-//        setPadding(0, 0, 0, 0)
         (this as Snackbar.SnackbarLayout).addView(customView, 0)
     }
     snackBar.show()
 }
 
-fun Fragment.showDeleteDialog(onSuccess: () -> Unit, noteSuccess: () -> Unit) {
+inline fun Fragment.showDeleteDialog(
+    crossinline onSuccess: () -> Unit,
+    crossinline onCancel: () -> Unit
+) {
     var dialog: AlertDialog? = null
-    val builder = AlertDialog.Builder(context)
-    val binding = DeleteDialogBinding.inflate(LayoutInflater.from(context))
+    val builder = AlertDialog.Builder(requireContext())
+    val binding = DeleteDialogBinding.inflate(layoutInflater)
 
     builder.setView(binding.root)
     binding.apply {
@@ -74,7 +79,7 @@ fun Fragment.showDeleteDialog(onSuccess: () -> Unit, noteSuccess: () -> Unit) {
             dialog?.dismiss()
         }
         bCansel.setOnClickListener {
-            noteSuccess.invoke()
+            onCancel.invoke()
             dialog?.dismiss()
         }
     }
@@ -87,6 +92,7 @@ fun Fragment.showDeleteDialog(onSuccess: () -> Unit, noteSuccess: () -> Unit) {
         show()
     }
 }
+
 
 fun Fragment.showAlertUpDialog(title: Int) {
     activity?.let {
@@ -114,7 +120,11 @@ fun Fragment.showInternetConnectionDialog(status: String) {
     }
 }
 
-fun Fragment.showPopupMenu(view: View, menuResId: Int, onMenuItemClickListener: (menuItem: MenuItem) -> Unit) {
+inline fun Fragment.showPopupMenu(
+    view: View,
+    menuResId: Int,
+    crossinline onMenuItemClickListener: (menuItem: MenuItem) -> Unit
+) {
     val popupMenu = PopupMenu(requireContext(), view)
     popupMenu.menuInflater.inflate(menuResId, popupMenu.menu)
     popupMenu.setOnMenuItemClickListener { menuItem ->
