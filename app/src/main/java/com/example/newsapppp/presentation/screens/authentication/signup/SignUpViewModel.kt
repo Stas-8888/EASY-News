@@ -54,7 +54,7 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    private suspend fun signUpUser(user: UserModel) = try {
+    private suspend fun signUpUser(user: UserModel) {
         signUp(user)
             .addOnSuccessListener {
                 navigateToSignInScreen()
@@ -69,8 +69,6 @@ class SignUpViewModel @Inject constructor(
                 }
                 emitAction(SignUpAction.ShowMessage(errorMessageResId))
             }
-    } catch (e: Exception) {
-        emitAction(SignUpAction.ShowMessage(R.string.invalid_authentication))
     }
 
     /**

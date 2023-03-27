@@ -31,15 +31,13 @@ class ForgotPasswordViewModel @Inject constructor(
         }
     }
 
-    private suspend fun forgotPasswordUser(user: UserModel) = try {
+    private suspend fun forgotPasswordUser(user: UserModel) {
         forgotPassword(user)
             .addOnSuccessListener {
                 emitAction(ForgotPasswordAction.ShowMessage(R.string.email_sent))
             }.addOnFailureListener {
                 emitAction(ForgotPasswordAction.ShowMessage(R.string.wrong_email))
             }
-    } catch (e: Exception) {
-        emitAction(ForgotPasswordAction.ShowMessage(R.string.wrong_email))
     }
 
     /**

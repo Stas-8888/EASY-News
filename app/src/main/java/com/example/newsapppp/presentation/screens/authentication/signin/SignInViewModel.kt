@@ -34,7 +34,7 @@ class SignInViewModel @Inject constructor(
         }
     }
 
-    private suspend fun signInUser(user: UserModel) = try {
+    private suspend fun signInUser(user: UserModel) {
         signIn(user)
             .addOnSuccessListener {
                 emit(SignInState.Loading(true))
@@ -43,8 +43,6 @@ class SignInViewModel @Inject constructor(
             }.addOnFailureListener {
                 emitAction(SignInAction.ShowMessage(R.string.authentication_failed))
             }
-    } catch (e: Exception) {
-        emitAction(SignInAction.ShowMessage(R.string.authentication_failed))
     }
 
     /**
