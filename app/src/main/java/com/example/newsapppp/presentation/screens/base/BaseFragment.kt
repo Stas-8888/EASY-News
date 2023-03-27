@@ -81,7 +81,10 @@ abstract class BaseFragment<State, Action, VB : ViewBinding, VM : BaseViewModel<
         }
     }
 
-    protected fun setupRecyclerView(recyclerView: RecyclerView, baseAdapter: RecyclerView.Adapter<*>) {
+    protected fun setupRecyclerView(
+        recyclerView: RecyclerView,
+        baseAdapter: RecyclerView.Adapter<*>
+    ) {
         recyclerView.apply {
             adapter = baseAdapter
             layoutManager = LinearLayoutManager(context)

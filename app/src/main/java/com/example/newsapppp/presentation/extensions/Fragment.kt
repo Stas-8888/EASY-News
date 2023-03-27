@@ -27,19 +27,17 @@ fun Fragment.navigateDirections(where: NavDirections) = findNavController().navi
 fun Fragment.returnToPreviousScreen() = findNavController().navigateUp()
 
 inline fun Fragment.launchWhenStarted(crossinline block: suspend CoroutineScope.() -> Unit) {
-    viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-        block()
-    }
+    viewLifecycleOwner.lifecycleScope.launchWhenStarted { block() }
 }
 
 fun Fragment.loadColor(@ColorRes colorRes: Int): Int {
     return ContextCompat.getColor(requireContext(), colorRes)
 }
 
-inline fun Fragment.showSnackBar(
+fun Fragment.showSnackBar(
     message: Int,
     showButton: Boolean = false,
-    crossinline action: () -> Unit = {}
+    action: () -> Unit = {}
 ) {
     val snackBar = Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG)
     val customView =
@@ -64,9 +62,9 @@ inline fun Fragment.showSnackBar(
     snackBar.show()
 }
 
-inline fun Fragment.showDeleteDialog(
-    crossinline onSuccess: () -> Unit,
-    crossinline onCancel: () -> Unit
+fun Fragment.showDeleteDialog(
+    onSuccess: () -> Unit,
+    onCancel: () -> Unit
 ) {
     var dialog: AlertDialog? = null
     val builder = AlertDialog.Builder(requireContext())
@@ -120,10 +118,10 @@ fun Fragment.showInternetConnectionDialog(status: String) {
     }
 }
 
-inline fun Fragment.showPopupMenu(
+fun Fragment.showPopupMenu(
     view: View,
     menuResId: Int,
-    crossinline onMenuItemClickListener: (menuItem: MenuItem) -> Unit
+    onMenuItemClickListener: (menuItem: MenuItem) -> Unit
 ) {
     val popupMenu = PopupMenu(requireContext(), view)
     popupMenu.menuInflater.inflate(menuResId, popupMenu.menu)
