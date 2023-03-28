@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapppp.R
 import com.example.newsapppp.core.SimpleTabSelectedListener
 import com.example.newsapppp.databinding.FragmentMainBinding
-import com.example.newsapppp.presentation.adapters.NewsPagerAdapter
+import com.example.newsapppp.presentation.adapters.ArticlePagerAdapter
 import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
@@ -22,12 +22,12 @@ class MainFragment :
         FragmentMainBinding::inflate
     ) {
 
-    private val newsAdapter by lazy { NewsPagerAdapter() }
+    private val articleAdapter by lazy { ArticlePagerAdapter() }
     override val viewModel by viewModels<MainFragmentViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding){
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView(recyclerView = rvNews, baseAdapter = newsAdapter)
+        setupRecyclerView(recyclerView = rvNews, baseAdapter = articleAdapter)
         onScrollRecyclerViewListener()
         viewModel.showInterceptorErrors()
         viewModel.fetchAndShowArticles()
@@ -41,7 +41,7 @@ class MainFragment :
             it.clickAnimation()
             viewModel.onBtSettingsClicked()
         }
-        newsAdapter.setOnItemClickListener {
+        articleAdapter.setOnItemClickListener {
             viewModel.onNewsAdapterClicked(it)
         }
         swipeToRefresh.setOnRefreshListener {
@@ -51,7 +51,7 @@ class MainFragment :
     }
 
     private fun adapterLoadState() = with(binding) {
-        newsAdapter.addLoadStateListener { loadState ->
+        articleAdapter.addLoadStateListener { loadState ->
             when (val data = loadState.refresh) {
                 is LoadState.Error -> {
                     progressBar.isGone()
@@ -73,7 +73,7 @@ class MainFragment :
         when (state) {
             is MainState.ShowLoading -> {}
             is MainState.ShowUI -> {
-                newsAdapter.submitData(lifecycle, state.article)
+                articleAdapter.submitData(lifecycle, state.article)
                 tvCountry.text = state.countryFlag
             }
             is MainState.BottomVisibility -> fabUp.isVisible = state.state

@@ -5,7 +5,7 @@ import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.databinding.FragmentSearchBinding
-import com.example.newsapppp.presentation.adapters.NewsAdapter
+import com.example.newsapppp.presentation.adapters.ArticleAdapter
 import com.example.newsapppp.presentation.extensions.navigateDirections
 import com.example.newsapppp.presentation.extensions.showInternetConnectionDialog
 import com.example.newsapppp.presentation.extensions.showKeyboard
@@ -18,12 +18,12 @@ class SearchFragment :
     BaseFragment<SearchState, SearchAction, FragmentSearchBinding, SearchFragmentViewModel>(
         FragmentSearchBinding::inflate
     ) {
-    private val newsAdapter by lazy { NewsAdapter() }
+    private val articleAdapter by lazy { ArticleAdapter() }
     override val viewModel by viewModels<SearchFragmentViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView(binding.rvSearchNews, newsAdapter)
+        setupRecyclerView(binding.rvSearchNews, articleAdapter)
         binding.etSearchQuery.requestFocus()
         binding.etSearchQuery.showKeyboard()
     }
@@ -34,7 +34,7 @@ class SearchFragment :
                 viewModel.searchQueryListener(editable.toString())
             }
         }
-        newsAdapter.setOnItemClickListener {
+        articleAdapter.setOnItemClickListener {
             viewModel.onItemAdapterClicked(it)
         }
     }
@@ -42,7 +42,7 @@ class SearchFragment :
     override fun observerState(state: SearchState) {
         when (state) {
             is SearchState.Loading -> {}
-            is SearchState.ShowArticles -> newsAdapter.submitList(state.articles)
+            is SearchState.ShowArticles -> articleAdapter.submitList(state.articles)
         }
     }
 

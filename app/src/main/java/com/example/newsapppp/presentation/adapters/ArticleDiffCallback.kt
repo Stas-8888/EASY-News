@@ -6,7 +6,7 @@ import com.example.newsapppp.presentation.model.Article
 /**
  * A DiffUtil.ItemCallback for comparing Article objects in a RecyclerView.
  */
-class NewsItemDiffCallback : DiffUtil.ItemCallback<Article>() {
+class ArticleDiffCallback : DiffUtil.ItemCallback<Article>() {
 
     /**
      * Check whether two articles have the same identity.

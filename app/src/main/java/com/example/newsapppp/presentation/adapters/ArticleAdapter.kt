@@ -14,7 +14,7 @@ import com.example.newsapppp.presentation.model.Article
  * Adapter class responsible for showing a list of news articles.
  * It extends the ListAdapter class with Article as the data type and ArticleViewHolder.
  */
-class NewsAdapter : ListAdapter<Article, NewsAdapter.ArticleViewHolder>(NewsItemDiffCallback()) {
+class ArticleAdapter : ListAdapter<Article, ArticleAdapter.ArticleViewHolder>(ArticleDiffCallback()) {
 
     /**
      * ViewHolder class that holds the UI elements for an individual news article.

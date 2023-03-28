@@ -7,7 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapppp.databinding.FragmentFavoriteBinding
-import com.example.newsapppp.presentation.adapters.NewsAdapter
+import com.example.newsapppp.presentation.adapters.ArticleAdapter
 import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,12 +19,12 @@ class FavoriteFragment :
     BaseFragment<FavoriteState, FavoriteAction, FragmentFavoriteBinding, FavoriteFragmentViewModel>(
         FragmentFavoriteBinding::inflate
     ) {
-    private val newsAdapter by lazy { NewsAdapter() }
+    private val articleAdapter by lazy { ArticleAdapter() }
     override val viewModel by viewModels<FavoriteFragmentViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView(binding.rvSavedNews, newsAdapter)
+        setupRecyclerView(binding.rvSavedNews, articleAdapter)
         viewModel.setupAllArticles()
         swipeToDelete()
     }
@@ -34,7 +34,7 @@ class FavoriteFragment :
             it.clickAnimation()
             showDeleteDialog({ viewModel.onDeleteAllClicked() }, { })
         }
-        newsAdapter.setOnItemClickListener {
+        articleAdapter.setOnItemClickListener {
             viewModel.onNewsAdapterItemClicked(it)
         }
     }
@@ -46,7 +46,7 @@ class FavoriteFragment :
                     progressBar.isVisible()
                 }
                 is FavoriteState.ShowArticles -> {
-                    newsAdapter.submitList(state.articles)
+                    articleAdapter.submitList(state.articles)
                     progressBar.isVisible = state.progressBar
                     tvBackgroundText.isVisible = state.state
                     state.exception?.let { showSnackBar(it) }
@@ -60,7 +60,7 @@ class FavoriteFragment :
             is FavoriteAction.ShowDeleteDialog -> {
                 showDeleteDialog(
                     { viewModel.deleteArticle(actions.article) },
-                    { newsAdapter.notifyItemChanged(actions.position) })
+                    { articleAdapter.notifyItemChanged(actions.position) })
             }
             is FavoriteAction.Navigate -> navigateDirections(actions.navigateTo)
             is FavoriteAction.ShowMessage -> showSnackBar(actions.message)
@@ -79,7 +79,7 @@ class FavoriteFragment :
             ): Boolean {
                 val initial = viewHolder.bindingAdapterPosition
                 val final = target.bindingAdapterPosition
-                newsAdapter.notifyItemMoved(initial, final)
+                articleAdapter.notifyItemMoved(initial, final)
                 return true
             }
 
@@ -87,7 +87,7 @@ class FavoriteFragment :
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.bindingAdapterPosition
-                val article = newsAdapter.currentList[position]
+                val article = articleAdapter.currentList[position]
                 viewModel.onItemSwiped(article, position)
             }
         }

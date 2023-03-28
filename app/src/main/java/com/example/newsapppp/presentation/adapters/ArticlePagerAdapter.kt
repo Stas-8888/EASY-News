@@ -15,8 +15,8 @@ import com.example.newsapppp.presentation.model.Article
 /**
  * A PagingDataAdapter for displaying a list of Article objects in a ViewPager2.
  */
-class NewsPagerAdapter :
-    PagingDataAdapter<Article, NewsPagerAdapter.ArticleViewHolder>(NewsItemDiffCallback()) {
+class ArticlePagerAdapter :
+    PagingDataAdapter<Article, ArticlePagerAdapter.ArticleViewHolder>(ArticleDiffCallback()) {
 
     /**
      * ViewHolder for an Article item in the ViewPager2.
