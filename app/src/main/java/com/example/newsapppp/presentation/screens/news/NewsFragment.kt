@@ -40,7 +40,7 @@ class NewsFragment :
 
     private fun setupWebView() {
         binding.webView.apply {
-            binding.webView.webViewClient = WebViewClient()
+            webViewClient = WebViewClient()
             loadUrl(articleArgs.article.url)
         }
     }
