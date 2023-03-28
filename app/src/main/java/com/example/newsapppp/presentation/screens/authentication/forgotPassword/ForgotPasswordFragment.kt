@@ -26,7 +26,7 @@ class ForgotPasswordFragment :
         }
     }
 
-    private fun emailText(): String = binding.edEmail.text.toString()
+    private fun emailText(): String = binding.edEmail.text.toString().trim()
 
     override fun observerState(state: ForgotPasswordState<String>) {
         when (state) {

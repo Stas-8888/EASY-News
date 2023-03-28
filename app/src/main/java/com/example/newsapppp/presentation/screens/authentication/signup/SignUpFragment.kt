@@ -45,10 +45,10 @@ class SignUpFragment :
         )
     }
 
-    private fun fullNameText(): String = binding.fullName.text.toString()
-    private fun emailText(): String = binding.email.text.toString()
-    private fun passwordText(): String = binding.edPassword.text.toString()
-    private fun repeatPasswordText(): String = binding.confirmPassword.text.toString()
+    private fun fullNameText(): String = binding.fullName.text.toString().trim()
+    private fun emailText(): String = binding.email.text.toString().trim()
+    private fun passwordText(): String = binding.edPassword.text.toString().trim()
+    private fun repeatPasswordText(): String = binding.confirmPassword.text.toString().trim()
 
 
     override fun observerState(state: SignUpState<String>) {

@@ -44,8 +44,8 @@ class SignInFragment :
         }
     }
 
-    private fun emailText(): String = binding.edLogin.text.toString()
-    private fun passwordText(): String = binding.edLoginPassword.text.toString()
+    private fun emailText(): String = binding.edLogin.text.toString().trim()
+    private fun passwordText(): String = binding.edLoginPassword.text.toString().trim()
 
     override fun observerState(state: SignInState<String>) = with(binding) {
         when (state) {
