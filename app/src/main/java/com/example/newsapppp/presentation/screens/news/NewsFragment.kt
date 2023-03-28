@@ -1,5 +1,6 @@
 package com.example.newsapppp.presentation.screens.news
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebViewClient
@@ -7,8 +8,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.newsapppp.databinding.FragmentNewsBinding
 import com.example.newsapppp.presentation.extensions.clickAnimation
-import com.example.newsapppp.presentation.extensions.showSnackBar
 import com.example.newsapppp.presentation.extensions.showAlertUpDialog
+import com.example.newsapppp.presentation.extensions.showSnackBar
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,6 +32,9 @@ class NewsFragment :
         btFavorite.setOnClickListener {
             it.clickAnimation()
             viewModel.onFavoriteButtonClicked(articleArgs.article)
+        }
+        btShared.setOnClickListener {
+            shareMode()
         }
     }
 
@@ -58,4 +62,15 @@ class NewsFragment :
     }
 
     private fun setImageResource(data: Int) = binding.btFavorite.setImageResource(data)
+
+    private fun shareMode() {
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
+    }
 }
