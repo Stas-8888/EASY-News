@@ -13,6 +13,9 @@ import com.example.newsapppp.presentation.extensions.showSnackBar
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
+const val SHARED_TEXT = "Check this news."
+const val TYPE = "text/plain"
+
 @AndroidEntryPoint
 class NewsFragment :
     BaseFragment<NewsState, NewsAction, FragmentNewsBinding, NewsFragmentViewModel>(
@@ -66,8 +69,8 @@ class NewsFragment :
     private fun shareMode() {
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
-            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, SHARED_TEXT)
+            type = TYPE
         }
 
         val shareIntent = Intent.createChooser(sendIntent, null)
