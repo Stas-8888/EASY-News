@@ -1,34 +1,27 @@
 package com.example.newsapppp.domain.interactors.authentication
 
 import com.example.newsapppp.domain.model.UserModel
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.mockito.Mockito
+import org.mockito.Mockito.`when`
 import org.mockito.kotlin.mock
-import org.mockito.kotlin.verify
 
 class SignInUseCaseTest {
 
     private val mockRepository = mock<AuthenticationRepositoryContract>()
-    private val useCase = SignInUseCase(mockRepository)
-
-
-    @Test
-    fun `invoke should call signIn method from repository`() = runBlocking {
-        val mockUserModel = UserModel(user = "testuser", password = "testpassword")
-
-        useCase(mockUserModel)
-        verify(mockRepository).signIn(mockUserModel)
-    }
+    private val testUser = UserModel("test@example.com", "password")
+    private val signInUseCase = SignInUseCase(mockRepository)
 
     @Test
-    fun `invoke should return result from repository`() = runBlocking {
-        val mockUserModel = UserModel(user = "testuser", password = "testpassword")
+    fun `invoke signs in user`() = runBlocking {
+        val authResult = mock<Task<AuthResult>>()
+        `when`(mockRepository.signIn(testUser)).thenReturn(authResult)
 
-        Mockito.`when`(mockRepository.signIn(mockUserModel)).thenReturn(Unit)
+        val result = signInUseCase(testUser)
 
-        val result = useCase(mockUserModel)
-        assertEquals(Unit, result)
+        assertEquals(authResult, result)
     }
 }

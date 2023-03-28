@@ -39,31 +39,49 @@ class FetchedArticlesUseCaseTest {
     }
 
     @Test
-    fun `invoke should return multiple pages of PagingData when repository returns multiple pages`() = runBlocking {
-        val categoryName = "business"
-        val mockArticleModel = ArticleModel(
-            title = "Mock article title",
-            description = "Mock article description",
-            url = "http://example.com",
-            urlToImage = "http://example.com/image.jpg",
-            publishedAt = "2023-03-08T12:00:00Z",
-            content = "Mock article content",
-            author = "Mock author"
-        )
-        val pagingData1 = PagingData.from(listOf(mockArticleModel))
-        val pagingData2 = PagingData.from(listOf(mockArticleModel, mockArticleModel))
-        val pagingData3 = PagingData.from(listOf(mockArticleModel, mockArticleModel, mockArticleModel))
+    fun `invoke should return multiple pages of PagingData when repository returns multiple pages`() =
+        runBlocking {
+            val categoryName = "business"
+            val mockArticleModel = ArticleModel(
+                title = "Mock article title",
+                description = "Mock article description",
+                url = "http://example.com",
+                urlToImage = "http://example.com/image.jpg",
+                publishedAt = "2023-03-08T12:00:00Z",
+                content = "Mock article content",
+                author = "Mock author"
+            )
+            val pagingData1 = PagingData.from(listOf(mockArticleModel))
+            val pagingData2 = PagingData.from(listOf(mockArticleModel, mockArticleModel))
+            val pagingData3 =
+                PagingData.from(listOf(mockArticleModel, mockArticleModel, mockArticleModel))
 
-        val pagingSource = flowOf(pagingData1, pagingData2, pagingData3)
+            val pagingSource = flowOf(pagingData1, pagingData2, pagingData3)
 
-        whenever(mockRepo.fetchedArticles(categoryName)).thenReturn(pagingSource)
+            whenever(mockRepo.fetchedArticles(categoryName)).thenReturn(pagingSource)
 
-        val fetchedArticlesUseCase = FetchedArticlesUseCase(mockRepo)
-        val result = fetchedArticlesUseCase(categoryName).toList()
+            val fetchedArticlesUseCase = FetchedArticlesUseCase(mockRepo)
+            val result = fetchedArticlesUseCase(categoryName).toList()
 
-        assertEquals(3, result.size)
-        assertEquals(pagingData1, result[0])
-        assertEquals(pagingData2, result[1])
-        assertEquals(pagingData3, result[2])
-    }
+            assertEquals(3, result.size)
+            assertEquals(pagingData1, result[0])
+            assertEquals(pagingData2, result[1])
+            assertEquals(pagingData3, result[2])
+        }
+
+    @Test
+    fun `invoke should return empty PagingData when repository returns no articles`() =
+        runBlocking {
+            val categoryName = "business"
+            val pagingData = PagingData.empty<ArticleModel>()
+
+            val pagingSource = flowOf(pagingData)
+
+            whenever(mockRepo.fetchedArticles(categoryName)).thenReturn(pagingSource)
+
+            val fetchedArticlesUseCase = FetchedArticlesUseCase(mockRepo)
+            val result = fetchedArticlesUseCase(categoryName).first()
+
+            assertEquals(pagingData, result)
+        }
 }
