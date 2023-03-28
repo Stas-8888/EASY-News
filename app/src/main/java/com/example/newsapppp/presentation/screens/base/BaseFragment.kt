@@ -17,10 +17,10 @@ import kotlinx.coroutines.flow.collectLatest
 /**
  * A base fragment class that provides common functionality for fragments.
  *
- * @param <State> The state of the fragment.
- * @param <Action> The action that the fragment can perform.
- * @param <VB> The type of the view binding class for the fragment.
- * @param <VM> The type of the view model class for the fragment.
+ * @param State The state of the fragment.
+ * @param Action The action that the fragment can perform.
+ * @param VB The type of the view binding class for the fragment.
+ * @param VM The type of the view model class for the fragment.
  */
 abstract class BaseFragment<State, Action, VB : ViewBinding, VM : BaseViewModel<State, Action>>(
     private val bindingInflater: (inflater: LayoutInflater) -> VB
