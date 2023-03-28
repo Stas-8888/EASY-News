@@ -56,7 +56,7 @@ class FavoriteFragmentViewModel @Inject constructor(
      */
     fun deleteArticle(article: Article) = viewModelScope.launch {
         deleteArticle(mapper.mapToModel(article))
-        saveFavorite.saveFavorite(article.url, false)
+        saveFavorite.invoke(article.url, false)
     }
 
     /**

@@ -13,5 +13,5 @@ class SaveFavoriteUseCase @Inject constructor(private val contract: SharedPrefer
      * @param key The key used to identify the favorite value.
      * @param value The boolean value representing whether the item is a favorite or not.
      */
-    suspend fun saveFavorite(key: String, value: Boolean) = contract.saveFavorite(key, value)
+    suspend fun invoke(key: String, value: Boolean) = contract.saveFavorite(key, value)
 }

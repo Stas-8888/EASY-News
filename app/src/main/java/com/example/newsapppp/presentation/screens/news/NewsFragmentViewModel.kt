@@ -48,13 +48,13 @@ class NewsFragmentViewModel @Inject constructor(
             else -> try {
                 if (isFavorite == getFavorite(article.url)) {
                     insertArticle(mapper.mapToModel(article))
-                    saveFavorite.saveFavorite(article.url, true)
+                    saveFavorite.invoke(article.url, true)
                     emitAction(
                         NewsAction.ShowFavoriteIcon(R.string.add_article, favoriteIconSelected)
                     )
                 } else {
                     deleteArticle(mapper.mapToModel(article))
-                    saveFavorite.saveFavorite(article.url, false)
+                    saveFavorite.invoke(article.url, false)
                     emitAction(
                         NewsAction.ShowFavoriteIcon(R.string.delete_article, favoriteIconUnselected)
                     )
