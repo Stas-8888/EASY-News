@@ -6,12 +6,13 @@ import com.example.newsapppp.core.notification.NotificationWorker
 import dagger.hilt.android.HiltAndroidApp
 import java.util.concurrent.TimeUnit
 
-/**
- * This class initialize anything that needs to be activated from application start.
- */
+
 private const val REPEAT_INTERVAL: Long = 15
 private const val UNIQUE_WORK_NAME = "my_id"
 
+/**
+ * This class initialize anything that needs to be activated from application start.
+ */
 @HiltAndroidApp
 class CurrencyApp : Application() {
 

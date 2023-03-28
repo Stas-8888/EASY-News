@@ -12,7 +12,7 @@ import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
-const val SWIPE_THRESHOLD = 0.3F
+private const val SWIPE_THRESHOLD = 0.3F
 
 @AndroidEntryPoint
 class FavoriteFragment :
