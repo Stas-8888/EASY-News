@@ -9,6 +9,9 @@ import java.util.concurrent.TimeUnit
 /**
  * This class initialize anything that needs to be activated from application start.
  */
+private const val REPEAT_INTERVAL: Long = 15
+private const val UNIQUE_WORK_NAME = "my_id"
+
 @HiltAndroidApp
 class CurrencyApp : Application() {
 
@@ -31,10 +34,10 @@ class CurrencyApp : Application() {
 
         val myRequest = PeriodicWorkRequest.Builder(
             NotificationWorker::class.java,
-            15,
+            REPEAT_INTERVAL,
             TimeUnit.MINUTES
         ).setConstraints(constraints)
-            .addTag("my_id")
+            .addTag(UNIQUE_WORK_NAME)
             .build()
 
         //minimum interval is 15min, just wait 15 min,
@@ -45,7 +48,7 @@ class CurrencyApp : Application() {
 
         WorkManager.getInstance(this)
             .enqueueUniquePeriodicWork(
-                "my_id",
+                UNIQUE_WORK_NAME,
                 ExistingPeriodicWorkPolicy.KEEP,
                 myRequest
             )
