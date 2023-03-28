@@ -6,9 +6,9 @@ import javax.inject.Inject
 /**
  * This class represents the use case for saving the position of a switch in SharedPreferences.
  *
- * @param repo The repository that handles the SharedPreferences operations.
+ * @param contract The repository that handles the SharedPreferences operations.
  */
-class SaveSwitchPositionUseCase @Inject constructor(private val repo: SharedPreferencesContract) :
+class SaveSwitchPositionUseCase @Inject constructor(private val contract: SharedPreferencesContract) :
     BaseUseCaseSuspend<Boolean, Unit> {
 
     /**
@@ -16,7 +16,5 @@ class SaveSwitchPositionUseCase @Inject constructor(private val repo: SharedPref
      *
      * @param data The boolean value representing the position of the switch.
      */
-    override suspend fun invoke(data: Boolean) {
-        repo.saveSwitchPosition(data)
-    }
+    override suspend fun invoke(data: Boolean) = contract.saveSwitchPosition(data)
 }

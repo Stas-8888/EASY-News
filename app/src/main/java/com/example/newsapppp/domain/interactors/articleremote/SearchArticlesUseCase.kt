@@ -6,9 +6,9 @@ import javax.inject.Inject
 
 /**
  * This use case searches articles from a remote data source based on a query.
- * @param repo The repository that searches for the articles.
+ * @param contract The repository that searches for the articles.
  */
-class SearchArticlesUseCase @Inject constructor(private val repo: ArticleRemoteContract) :
+class SearchArticlesUseCase @Inject constructor(private val contract: ArticleRemoteContract) :
     BaseUseCaseSuspend<String, NewsResponseModel> {
 
     /**
@@ -16,7 +16,5 @@ class SearchArticlesUseCase @Inject constructor(private val repo: ArticleRemoteC
      * @param data The query to search for.
      * @return A news response model containing the search results.
      */
-    override suspend fun invoke(data: String): NewsResponseModel {
-        return repo.searchArticles(data)
-    }
+    override suspend fun invoke(data: String) = contract.searchArticles(data)
 }

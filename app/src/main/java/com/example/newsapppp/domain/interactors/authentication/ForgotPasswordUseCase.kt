@@ -7,9 +7,9 @@ import javax.inject.Inject
 
 /**
  * This use case resets a user's password.
- * @param repository The authentication repository used to reset the password.
+ * @param contract The authentication repository used to reset the password.
  */
-class ForgotPasswordUseCase @Inject constructor(val repository: AuthenticationRepositoryContract) :
+class ForgotPasswordUseCase @Inject constructor(val contract: AuthenticationRepositoryContract) :
     BaseUseCaseSuspend<UserModel, Task<Void>> {
 
     /**
@@ -17,7 +17,5 @@ class ForgotPasswordUseCase @Inject constructor(val repository: AuthenticationRe
      * @param data The user whose password is being reset.
      * @return A task that resolves when the password reset is complete.
      */
-    override suspend fun invoke(data: UserModel): Task<Void> {
-        return repository.forgotPassword(data)
-    }
+    override suspend fun invoke(data: UserModel) = contract.forgotPassword(data)
 }

@@ -5,9 +5,9 @@ import javax.inject.Inject
 
 /**
  * This use case retrieves the favorite status of an article from shared preferences.
- * @param repo The shared preferences repository used to retrieve the favorite status.
+ * @param contract The shared preferences repository used to retrieve the favorite status.
  */
-class GetFavoriteUseCase @Inject constructor(private val repo: SharedPreferencesContract) :
+class GetFavoriteUseCase @Inject constructor(private val contract: SharedPreferencesContract) :
     BaseUseCaseSuspend<String, Boolean> {
 
     /**
@@ -15,7 +15,5 @@ class GetFavoriteUseCase @Inject constructor(private val repo: SharedPreferences
      * @param data The ID of the article to retrieve the favorite status for.
      * @return True if the article is marked as a favorite, false otherwise.
      */
-    override suspend fun invoke(data: String): Boolean {
-        return repo.getFavorite(data)
-    }
+    override suspend fun invoke(data: String) = contract.getFavorite(data)
 }

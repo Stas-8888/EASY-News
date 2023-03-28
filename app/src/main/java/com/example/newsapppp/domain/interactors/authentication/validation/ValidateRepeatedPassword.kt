@@ -4,9 +4,9 @@ import javax.inject.Inject
 
 /**
  * This use case validates that a password and its repeated value match.
- * @param repository The validation repository used to validate the password.
+ * @param contract The validation repository used to validate the password.
  */
-class ValidateRepeatedPasswordUseCase @Inject constructor(val repository: ValidationRepositoryContract) {
+class ValidateRepeatedPasswordUseCase @Inject constructor(private val contract: ValidationRepositoryContract) {
 
     /**
      * Invokes the use case and validates that the specified password and its repeated value match.
@@ -15,6 +15,6 @@ class ValidateRepeatedPasswordUseCase @Inject constructor(val repository: Valida
      * @return The validated repeated password as a string.
      */
     fun invoke(password: String, repeatedPassword: String): String {
-        return repository.validateRepeatedPassword(password, repeatedPassword)
+        return contract.validateRepeatedPassword(password, repeatedPassword)
     }
 }

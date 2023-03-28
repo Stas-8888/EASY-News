@@ -5,9 +5,9 @@ import javax.inject.Inject
 
 /**
  * This use case validates an email address.
- * @param repository The validation repository used to validate the email address.
+ * @param contract The validation repository used to validate the email address.
  */
-class ValidateEmailUseCase @Inject constructor(val repository: ValidationRepositoryContract) :
+class ValidateEmailUseCase @Inject constructor(private val contract: ValidationRepositoryContract) :
     BaseUseCase<String, String> {
 
     /**
@@ -15,7 +15,5 @@ class ValidateEmailUseCase @Inject constructor(val repository: ValidationReposit
      * @param data The email address to validate.
      * @return The validated email address.
      */
-    override fun invoke(data: String): String {
-        return repository.validateEmail(data)
-    }
+    override fun invoke(data: String) = contract.validateEmail(data)
 }

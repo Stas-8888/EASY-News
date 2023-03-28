@@ -8,9 +8,9 @@ import javax.inject.Inject
 
 /**
  * This use case fetches a paged list of articles from a remote data source.
- * @param repo The repository that fetches the articles.
+ * @param contract The repository that fetches the articles.
  */
-class FetchedArticlesUseCase @Inject constructor(private val repo: ArticleRemoteContract) :
+class FetchedArticlesUseCase @Inject constructor(private val contract: ArticleRemoteContract) :
     BaseUseCase<String, Flow<PagingData<ArticleModel>>> {
 
     /**
@@ -18,7 +18,5 @@ class FetchedArticlesUseCase @Inject constructor(private val repo: ArticleRemote
      * @param data The category of articles to be fetched.
      * @return A flow of paged article data from the remote data source.
      */
-    override fun invoke(data: String): Flow<PagingData<ArticleModel>> {
-        return repo.fetchedArticles(category = data)
-    }
+    override fun invoke(data: String) = contract.fetchedArticles(category = data)
 }

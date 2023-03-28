@@ -5,9 +5,9 @@ import javax.inject.Inject
 
 /**
  * This use case validates a user name.
- * @param repository The validation repository used to validate the user name.
+ * @param contract The validation repository used to validate the user name.
  */
-class UserNameUseCase @Inject constructor(val repository: ValidationRepositoryContract) :
+class UserNameUseCase @Inject constructor(private val contract: ValidationRepositoryContract) :
     BaseUseCase<String, String> {
 
     /**
@@ -15,7 +15,5 @@ class UserNameUseCase @Inject constructor(val repository: ValidationRepositoryCo
      * @param data The user name to validate.
      * @return The validated user name.
      */
-    override fun invoke(data: String): String {
-        return repository.userName(data)
-    }
+    override fun invoke(data: String) = contract.userName(data)
 }

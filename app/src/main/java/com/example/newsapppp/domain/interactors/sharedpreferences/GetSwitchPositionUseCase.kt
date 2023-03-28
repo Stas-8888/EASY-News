@@ -5,9 +5,9 @@ import javax.inject.Inject
 
 /**
  * A use case that retrieves the switch position from the shared preferences.
- * @param repo the repository that provides access to the shared preferences.
+ * @param contract the repository that provides access to the shared preferences.
  */
-class GetSwitchPositionUseCase @Inject constructor(private val repo: SharedPreferencesContract) :
+class GetSwitchPositionUseCase @Inject constructor(private val contract: SharedPreferencesContract) :
     BaseUseCase<Unit, Boolean> {
 
     /**
@@ -15,7 +15,5 @@ class GetSwitchPositionUseCase @Inject constructor(private val repo: SharedPrefe
      * @param data unused parameter.
      * @return the switch position (true if on, false if off).
      */
-    override fun invoke(data: Unit): Boolean {
-        return repo.getSwitchPosition()
-    }
+    override fun invoke(data: Unit) = contract.getSwitchPosition()
 }
