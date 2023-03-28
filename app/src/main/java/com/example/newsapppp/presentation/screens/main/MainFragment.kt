@@ -29,7 +29,7 @@ class MainFragment :
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView(recyclerView = rvNews, baseAdapter = newsAdapter)
         onScrollRecyclerViewListener()
-        viewModel.interceptorErrors()
+        viewModel.showInterceptorErrors()
         viewModel.fetchAndShowArticles()
         adapterLoadState()
         setupTabLayout()

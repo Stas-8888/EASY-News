@@ -19,7 +19,9 @@ class ForgotPasswordFragment :
     override val viewModel by viewModels<ForgotPasswordViewModel>()
 
     override fun onClickListener() = with(binding) {
-        edEmail.afterTextChanged { viewModel.isEmailChanged(it) }
+        edEmail.afterTextChanged {
+            viewModel.isEmailChanged(it)
+        }
         btForgotPassword.setOnClickListener {
             it.hideKeyboard()
             viewModel.onForgotPasswordClicked(UserModel(email = emailText()))
@@ -39,9 +41,7 @@ class ForgotPasswordFragment :
         when (actions) {
             is ForgotPasswordAction.ShowMessage -> showSnackBar(actions.message)
             is ForgotPasswordAction.ShowNetworkDialog -> showInternetConnectionDialog(
-                getString(
-                    actions.message
-                )
+                getString(actions.message)
             )
         }
     }

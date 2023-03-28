@@ -102,7 +102,7 @@ class MainFragmentViewModel @Inject constructor(
     /**
      * Get intercepts errors from API request and displays error message.
      */
-    fun interceptorErrors() = viewModelScope.launch {
+    fun showInterceptorErrors() = viewModelScope.launch {
         val errors = interceptorErrors.errorsInterceptor()
         errors.collect {
             emitAction(MainAction.ShowMessage(it))

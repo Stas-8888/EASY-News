@@ -30,7 +30,7 @@ class FavoriteFragmentViewModel @Inject constructor(
     /**
      * Function to setup all news in the favorite list.
      */
-    fun setupAllNews() = viewModelScope.launch {
+    fun setupAllArticles() = viewModelScope.launch {
         articleAllCache(Unit).collect { articles ->
             val data = if (articles.isNotEmpty()) {
                 FavoriteState.ShowArticles(
