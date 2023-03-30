@@ -2,7 +2,6 @@ package com.example.newsapppp.presentation.screens.main
 
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import androidx.paging.filter
 import com.example.newsapppp.R
 import com.example.newsapppp.data.remote.interceptor.ErrorsInterceptorContract
 import com.example.newsapppp.domain.interactors.articleremote.FetchedArticlesUseCase
@@ -42,12 +41,8 @@ class MainFragmentViewModel @Inject constructor(
                 val category = tab?.let { categories.getOrNull(it.position) } ?: categories.first()
                 val getArticles = fetchedArticles(category).cachedIn(viewModelScope)
                 getArticles.collect { articles ->
-                    val filteredArticles = articles.filter { article ->
-                        article.urlToImage != null && article.title != null
-                    }
-                    val mappedArticles = mapper.mapToPagingArticle(filteredArticles)
-                    val countryFlag = getCountryFlag(Unit)
-                    emit(MainState.ShowUI(mappedArticles, countryFlag))
+                    val mappedArticles = mapper.mapToPagingArticle(articles)
+                    emit(MainState.ShowUI(mappedArticles, getCountryFlag(Unit)))
                 }
             } catch (e: Exception) {
                 emitAction(MainAction.ShowMessage(R.string.error))
@@ -83,8 +78,7 @@ class MainFragmentViewModel @Inject constructor(
      * Get intercepts errors from API request and displays error message.
      */
     fun showInterceptorErrors() = viewModelScope.launch {
-        val errors = interceptorErrors.errorsInterceptor()
-        errors.collect {
+        interceptorErrors.errorsInterceptor().collect {
             emitAction(MainAction.ShowMessage(it))
         }
     }

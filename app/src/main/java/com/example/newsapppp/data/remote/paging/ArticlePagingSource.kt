@@ -30,7 +30,7 @@ class ArticlePagingSource(
         return try {
             val currentPage = params.key ?: 1
             val response = repository.fetchedArticles(currentPage, countryCode, category)
-            val data = response.articles
+            val data = response.articles.filter { it.urlToImage != null && it.title != null }
             val responseData = mutableListOf<ArticleModel>()
             responseData.addAll(mapper.mapToListArticleRemote(data))
 
