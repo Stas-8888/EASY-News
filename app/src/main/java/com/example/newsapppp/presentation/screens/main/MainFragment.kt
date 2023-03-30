@@ -25,7 +25,7 @@ class MainFragment :
     private val articleAdapter by lazy { ArticlePagerAdapter() }
     override val viewModel by viewModels<MainFragmentViewModel>()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding){
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView(recyclerView = rvNews, baseAdapter = articleAdapter)
         onScrollRecyclerViewListener()
@@ -100,7 +100,7 @@ class MainFragment :
         // Set up the listener to handle tab selection events
         tabMain.addOnTabSelectedListener(object : SimpleTabSelectedListener() {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                viewModel.setupTabLayout(tab)
+                viewModel.fetchAndShowArticles(tab)
             }
         })
     }

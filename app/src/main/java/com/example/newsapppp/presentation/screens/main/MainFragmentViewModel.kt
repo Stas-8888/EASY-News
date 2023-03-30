@@ -33,34 +33,14 @@ class MainFragmentViewModel @Inject constructor(
 
     /**
      * Sets up UI for main fragment with news for first category.
-     */
-    fun fetchAndShowArticles() = viewModelScope.launch {
-        when {
-            isOffline() -> emitAction(MainAction.ShowNetworkDialog(R.string.internet_disconnected))
-            else -> try {
-                val news = fetchedArticles(categories.first()).cachedIn(viewModelScope)
-                news.collect { articles ->
-                    val filteredArticles = articles.filter { article ->
-                        article.urlToImage != null && article.title != null
-                    }
-                    val mappedArticles = mapper.mapToPagingArticle(filteredArticles)
-                    val countryFlag = getCountryFlag(Unit)
-                    emit(MainState.ShowUI(mappedArticles, countryFlag))
-                }
-            } catch (e: Exception) {
-                emitAction(MainAction.ShowMessage(R.string.error))
-            }
-        }
-    }
-
-    /**
      * Sets up news for a specific tab/category.
      */
-    fun setupTabLayout(tab: TabLayout.Tab) = viewModelScope.launch {
+    fun fetchAndShowArticles(tab: TabLayout.Tab? = null) = viewModelScope.launch {
         when {
             isOffline() -> emitAction(MainAction.ShowNetworkDialog(R.string.internet_disconnected))
             else -> try {
-                val news = fetchedArticles(categories[tab.position]).cachedIn(viewModelScope)
+                val category = tab?.let { categories[it.position] } ?: categories.first()
+                val news = fetchedArticles(category).cachedIn(viewModelScope)
                 news.collect { articles ->
                     val filteredArticles = articles.filter { article ->
                         article.urlToImage != null && article.title != null
