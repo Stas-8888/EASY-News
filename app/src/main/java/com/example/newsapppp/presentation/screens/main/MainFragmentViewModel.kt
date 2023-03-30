@@ -39,9 +39,9 @@ class MainFragmentViewModel @Inject constructor(
         when {
             isOffline() -> emitAction(MainAction.ShowNetworkDialog(R.string.internet_disconnected))
             else -> try {
-                val category = tab?.let { categories[it.position] } ?: categories.first()
-                val news = fetchedArticles(category).cachedIn(viewModelScope)
-                news.collect { articles ->
+                val category = tab?.let { categories.getOrNull(it.position) } ?: categories.first()
+                val getArticles = fetchedArticles(category).cachedIn(viewModelScope)
+                getArticles.collect { articles ->
                     val filteredArticles = articles.filter { article ->
                         article.urlToImage != null && article.title != null
                     }
