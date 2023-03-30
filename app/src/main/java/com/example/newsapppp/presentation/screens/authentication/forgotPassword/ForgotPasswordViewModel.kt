@@ -21,7 +21,10 @@ class ForgotPasswordViewModel @Inject constructor(
     override val _state = MutableStateFlow<ForgotPasswordState<String>>(ForgotPasswordState.Loading)
 
     /**
-     * Called when the user clicks on the Forgot Password button.
+     * Launches when the user clicks on the "forgot password" button.
+     * This function checks if the device is offline or not.
+     * This function initiates the process of resetting the user's password.
+     * @param user The user model containing the email address of the user.
      */
     fun onForgotPasswordClicked(user: UserModel) = viewModelScope.launch {
         when {
@@ -31,6 +34,10 @@ class ForgotPasswordViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Sends a "forgot password" email to the specified user.
+     * @param user The user model containing the email address of the user.
+     */
     private suspend fun forgotPasswordUser(user: UserModel) {
         forgotPassword(user)
             .addOnSuccessListener {

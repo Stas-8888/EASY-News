@@ -2,7 +2,7 @@ package com.example.newsapppp.presentation.screens
 
 import android.app.Application
 import androidx.work.*
-import com.example.newsapppp.core.notification.NotificationWorker
+import com.example.newsapppp.presentation.notification.NotificationWorker
 import dagger.hilt.android.HiltAndroidApp
 import java.util.concurrent.TimeUnit
 

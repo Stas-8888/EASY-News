@@ -1,4 +1,4 @@
-package com.example.newsapppp.core.notification
+package com.example.newsapppp.presentation.notification
 
 import android.Manifest
 import android.app.NotificationChannel

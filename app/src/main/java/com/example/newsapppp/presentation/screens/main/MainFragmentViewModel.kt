@@ -37,20 +37,29 @@ class MainFragmentViewModel @Inject constructor(
     fun fetchAndShowArticles(tab: TabLayout.Tab? = null) = viewModelScope.launch {
         when {
             isOffline() -> emitAction(MainAction.ShowNetworkDialog(R.string.internet_disconnected))
-            else -> try {
-                val category = tab?.let { categories.getOrNull(it.position) } ?: categories.first()
-                val getArticles = fetchedArticles(category).cachedIn(viewModelScope)
-                getArticles.collect { articles ->
-                    val mappedArticles = mapper.mapToPagingArticle(articles)
-                    emit(MainState.ShowUI(mappedArticles, getCountryFlag(Unit)))
-                }
-            } catch (e: Exception) {
-                emitAction(MainAction.ShowMessage(R.string.error))
-            }
+            else -> fetchAndEmitArticles(tab)
         }
     }
 
     /**
+     * Fetches articles for the specified category and emits the UI state to display them.
+     * If no tab is provided, fetches articles for the first category.
+     * @param tab the tab representing the category of news to fetch and display
+     */
+    private suspend fun fetchAndEmitArticles(tab: TabLayout.Tab?) {
+        try {
+            val category = tab?.let { categories.getOrNull(it.position) } ?: categories.first()
+            val getArticles = fetchedArticles(category).cachedIn(viewModelScope)
+            getArticles.collect { articles ->
+                val mappedArticles = mapper.mapToPagingArticle(articles)
+                emit(MainState.ShowUI(mappedArticles, getCountryFlag(Unit)))
+            }
+        } catch (e: Exception) {
+            emitAction(MainAction.ShowMessage(R.string.error))
+        }
+    }
+
+    /**‹
      * Shows/hides float button based on position of first news article.
      */
     fun showOrHideFloatButton(getFirstNewsPosition: Int) {
