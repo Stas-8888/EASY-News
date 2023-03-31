@@ -45,29 +45,35 @@ class SignUpViewModel @Inject constructor(
     /**
      * Perform sign-up operation.
      */
-    fun onSignUnButtonClicked(user: UserModel) = viewModelScope.launch {
-        when {
-            isOffline() -> emitAction(SignUpAction.ShowNetworkDialog(R.string.internet_disconnected))
-            user.email.isEmpty() -> emitAction(SignUpAction.ShowMessage(R.string.empty_email))
-            user.password.isEmpty() -> emitAction(SignUpAction.ShowMessage(R.string.empty_password))
-            else -> signUpUser(user)
-        }
+    fun onSignUnButtonClicked(user: UserModel) = when {
+        isOffline() -> emitAction(SignUpAction.ShowNetworkDialog(R.string.internet_disconnected))
+        user.email.isEmpty() -> emitAction(SignUpAction.ShowMessage(R.string.empty_email))
+        user.password.isEmpty() -> emitAction(SignUpAction.ShowMessage(R.string.empty_password))
+        else -> signUpUser(user)
     }
 
-    private suspend fun signUpUser(user: UserModel) = signUp(user)
-        .addOnSuccessListener {
-            navigateToSignInScreen()
-            emitAction(SignUpAction.ShowMessage(R.string.successfully_register))
-        }
-        .addOnFailureListener {
-            val errorMessageResId = when (it) {
-                is FirebaseAuthWeakPasswordException -> R.string.password_lengs
-                is FirebaseAuthInvalidCredentialsException -> R.string.invalid_email
-                is FirebaseAuthUserCollisionException -> R.string.email_registered
-                else -> R.string.invalid_authentication
+    /**
+     * Registers a new user by calling [signUp] function and handles the success and failure cases.
+     * On successful registration, it navigates to sign-in screen and emits a success message.
+     * On failure, it emits an appropriate error message depending on the type of exception.
+     * @param user the user model to be registered
+     */
+    private fun signUpUser(user: UserModel) = viewModelScope.launch {
+        signUp(user)
+            .addOnSuccessListener {
+                navigateToSignInScreen()
+                emitAction(SignUpAction.ShowMessage(R.string.successfully_register))
             }
-            emitAction(SignUpAction.ShowMessage(errorMessageResId))
-        }
+            .addOnFailureListener {
+                val errorMessageResId = when (it) {
+                    is FirebaseAuthWeakPasswordException -> R.string.password_lengs
+                    is FirebaseAuthInvalidCredentialsException -> R.string.invalid_email
+                    is FirebaseAuthUserCollisionException -> R.string.email_registered
+                    else -> R.string.invalid_authentication
+                }
+                emitAction(SignUpAction.ShowMessage(errorMessageResId))
+            }
+    }
 
     /**
      * Handle the sign-in button click event.

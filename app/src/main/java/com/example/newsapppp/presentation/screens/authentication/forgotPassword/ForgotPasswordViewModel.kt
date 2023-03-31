@@ -26,24 +26,24 @@ class ForgotPasswordViewModel @Inject constructor(
      * This function initiates the process of resetting the user's password.
      * @param user The user model containing the email address of the user.
      */
-    fun onForgotPasswordClicked(user: UserModel) = viewModelScope.launch {
-        when {
-            isOffline() -> emitAction(ForgotPasswordAction.ShowNetworkDialog(R.string.internet_disconnected))
-            user.email.isEmpty() -> emitAction(ForgotPasswordAction.ShowMessage(R.string.empty_email))
-            else -> forgotPasswordUser(user)
-        }
+    fun onForgotPasswordClicked(user: UserModel) = when {
+        isOffline() -> emitAction(ForgotPasswordAction.ShowNetworkDialog(R.string.internet_disconnected))
+        user.email.isEmpty() -> emitAction(ForgotPasswordAction.ShowMessage(R.string.empty_email))
+        else -> forgotPasswordUser(user)
     }
 
     /**
      * Sends a "forgot password" email to the specified user.
      * @param user The user model containing the email address of the user.
      */
-    private suspend fun forgotPasswordUser(user: UserModel) = forgotPassword(user)
-        .addOnSuccessListener {
-            emitAction(ForgotPasswordAction.ShowMessage(R.string.email_sent))
-        }.addOnFailureListener {
-            emitAction(ForgotPasswordAction.ShowMessage(R.string.wrong_email))
-        }
+    private fun forgotPasswordUser(user: UserModel) = viewModelScope.launch {
+        forgotPassword(user)
+            .addOnSuccessListener {
+                emitAction(ForgotPasswordAction.ShowMessage(R.string.email_sent))
+            }.addOnFailureListener {
+                emitAction(ForgotPasswordAction.ShowMessage(R.string.wrong_email))
+            }
+    }
 
 
     /**

@@ -42,26 +42,32 @@ class NewsFragmentViewModel @Inject constructor(
     /**
      * Handles click on favorite icon.
      */
-    fun onFavoriteButtonClicked(article: Article) = viewModelScope.launch {
-        when {
-            isCurrentUserNull() -> emitAction(NewsAction.ShowMessage(R.string.error_registered))
-            else -> try {
-                if (isFavorite == getFavorite(article.url)) {
-                    insertArticle(mapper.mapToModel(article))
-                    saveFavorite.invoke(article.url, true)
-                    emitAction(
-                        NewsAction.ShowFavoriteIcon(R.string.add_article, favoriteIconSelected)
-                    )
-                } else {
-                    deleteArticle(mapper.mapToModel(article))
-                    saveFavorite.invoke(article.url, false)
-                    emitAction(
-                        NewsAction.ShowFavoriteIcon(R.string.delete_article, favoriteIconUnselected)
-                    )
-                }
-            } catch (e: Exception) {
-                emitAction(NewsAction.ShowMessage(R.string.error))
+    fun onFavoriteButtonClicked(article: Article) = when {
+        isCurrentUserNull() -> emitAction(NewsAction.ShowMessage(R.string.error_registered))
+        else -> checkFavorite(article)
+    }
+
+    /**
+     * Check if the given [article] is a favorite and handle the corresponding operations.
+     * @param article the [Article] to check
+     */
+    private fun checkFavorite(article: Article) = viewModelScope.launch {
+        try {
+            if (isFavorite == getFavorite(article.url)) {
+                insertArticle(mapper.mapToModel(article))
+                saveFavorite.invoke(article.url, true)
+                emitAction(
+                    NewsAction.ShowFavoriteIcon(R.string.add_article, favoriteIconSelected)
+                )
+            } else {
+                deleteArticle(mapper.mapToModel(article))
+                saveFavorite.invoke(article.url, false)
+                emitAction(
+                    NewsAction.ShowFavoriteIcon(R.string.delete_article, favoriteIconUnselected)
+                )
             }
+        } catch (e: Exception) {
+            emitAction(NewsAction.ShowMessage(R.string.error))
         }
     }
 }

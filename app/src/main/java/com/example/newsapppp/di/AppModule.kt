@@ -24,10 +24,6 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun restErrorInterceptor(error: ErrorsInterceptorContract) = RestErrorInterceptor(error)
-
-    @Provides
-    @Singleton
     fun okHttpClient(error: RestErrorInterceptor) = OkHttpClient.Builder()
         .connectTimeout(1, TimeUnit.MINUTES)
         .readTimeout(1, TimeUnit.MINUTES)
@@ -45,6 +41,10 @@ object AppModule {
         .client(okHttpClient)
         .build()
         .create(ApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun restErrorInterceptor(error: ErrorsInterceptorContract) = RestErrorInterceptor(error)
 
     @Provides
     @Singleton

@@ -22,12 +22,9 @@ class SplashViewModel @Inject constructor(
     /**
      * Sets the day/night mode of the app.
      */
-    fun setupDayNightMode() {
-        if (getSwitchPosition(Unit)) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        }
+    fun setupDayNightMode() = when (getSwitchPosition(Unit)) {
+        true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        false -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }
 
     /**
@@ -35,12 +32,10 @@ class SplashViewModel @Inject constructor(
      */
     fun navigateToLoginFragment() = viewModelScope.launch {
         delay(TimeUnit.SECONDS.toMillis(5))
-        val direction = if (isCurrentUserNull()) {
-            SplashFragmentDirections.actionSplashFragmentToLoginFragment()
-        } else {
-            SplashFragmentDirections.actionSplashFragmentToMainFragment()
+        val direction = when {
+            isCurrentUserNull() -> SplashFragmentDirections.actionSplashFragmentToLoginFragment()
+            else -> SplashFragmentDirections.actionSplashFragmentToMainFragment()
         }
-
         emitAction(SplashAction.Navigate(direction))
     }
 }

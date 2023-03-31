@@ -34,11 +34,9 @@ class MainFragmentViewModel @Inject constructor(
      * Sets up UI for main fragment with news for first category.
      * Sets up news for a specific tab/category.
      */
-    fun fetchAndShowArticles(tab: TabLayout.Tab? = null) = viewModelScope.launch {
-        when {
-            isOffline() -> emitAction(MainAction.ShowNetworkDialog(R.string.internet_disconnected))
-            else -> fetchAndEmitArticles(tab)
-        }
+    fun fetchAndShowArticles(tab: TabLayout.Tab? = null) = when {
+        isOffline() -> emitAction(MainAction.ShowNetworkDialog(R.string.internet_disconnected))
+        else -> fetchAndEmitArticles(tab)
     }
 
     /**
@@ -46,7 +44,7 @@ class MainFragmentViewModel @Inject constructor(
      * If no tab is provided, fetches articles for the first category.
      * @param tab the tab representing the category of news to fetch and display
      */
-    private suspend fun fetchAndEmitArticles(tab: TabLayout.Tab?) {
+    private fun fetchAndEmitArticles(tab: TabLayout.Tab?) = viewModelScope.launch {
         try {
             val category = tab?.let { categories.getOrNull(it.position) } ?: categories.first()
             val getArticles = fetchedArticles(category).cachedIn(viewModelScope)

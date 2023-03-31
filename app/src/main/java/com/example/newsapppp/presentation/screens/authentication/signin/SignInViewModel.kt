@@ -25,24 +25,27 @@ class SignInViewModel @Inject constructor(
     /**
      * Called when the user clicks on the Sign In button.
      */
-    fun onSignInButtonClicked(user: UserModel) = viewModelScope.launch {
-        when {
-            isOffline() -> emitAction(SignInAction.ShowNetworkDialog(R.string.internet_disconnected))
-            validateEmail(user.email).none() -> emitAction(SignInAction.ShowMessage(R.string.empty_email))
-            validatePassword(user.password).none() -> emitAction(SignInAction.ShowMessage(R.string.empty_password))
-            else -> signInUser(user)
-        }
+    fun onSignInButtonClicked(user: UserModel) = when {
+        isOffline() -> emitAction(SignInAction.ShowNetworkDialog(R.string.internet_disconnected))
+        validateEmail(user.email).none() -> emitAction(SignInAction.ShowMessage(R.string.empty_email))
+        validatePassword(user.password).none() -> emitAction(SignInAction.ShowMessage(R.string.empty_password))
+        else -> signInUser(user)
     }
 
-    private suspend fun signInUser(user: UserModel) = signIn(user)
-        .addOnSuccessListener {
-            emit(SignInState.Loading(true))
-            emitAction(SignInAction.ShowMessage(R.string.successfully_sign_in))
-            emitAction(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment()))
-        }.addOnFailureListener {
-            emitAction(SignInAction.ShowMessage(R.string.authentication_failed))
-        }
-
+    /**
+     * Signs in the user using the provided [user] model and updates the UI accordingly.
+     * @param user the [UserModel] to sign in
+     */
+    private fun signInUser(user: UserModel) = viewModelScope.launch {
+        signIn(user)
+            .addOnSuccessListener {
+                emit(SignInState.Loading(true))
+                emitAction(SignInAction.ShowMessage(R.string.successfully_sign_in))
+                emitAction(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment()))
+            }.addOnFailureListener {
+                emitAction(SignInAction.ShowMessage(R.string.authentication_failed))
+            }
+    }
 
     /**
      * Called when the user clicks on the Skip button.
