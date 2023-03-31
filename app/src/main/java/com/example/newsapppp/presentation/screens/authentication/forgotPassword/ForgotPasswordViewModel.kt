@@ -38,14 +38,13 @@ class ForgotPasswordViewModel @Inject constructor(
      * Sends a "forgot password" email to the specified user.
      * @param user The user model containing the email address of the user.
      */
-    private suspend fun forgotPasswordUser(user: UserModel) {
-        forgotPassword(user)
-            .addOnSuccessListener {
-                emitAction(ForgotPasswordAction.ShowMessage(R.string.email_sent))
-            }.addOnFailureListener {
-                emitAction(ForgotPasswordAction.ShowMessage(R.string.wrong_email))
-            }
-    }
+    private suspend fun forgotPasswordUser(user: UserModel) = forgotPassword(user)
+        .addOnSuccessListener {
+            emitAction(ForgotPasswordAction.ShowMessage(R.string.email_sent))
+        }.addOnFailureListener {
+            emitAction(ForgotPasswordAction.ShowMessage(R.string.wrong_email))
+        }
+
 
     /**
      * This function is called when the email input is changed to validate the email format.

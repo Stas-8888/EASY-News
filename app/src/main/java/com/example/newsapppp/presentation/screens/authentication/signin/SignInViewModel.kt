@@ -34,16 +34,15 @@ class SignInViewModel @Inject constructor(
         }
     }
 
-    private suspend fun signInUser(user: UserModel) {
-        signIn(user)
-            .addOnSuccessListener {
-                emit(SignInState.Loading(true))
-                emitAction(SignInAction.ShowMessage(R.string.successfully_sign_in))
-                emitAction(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment()))
-            }.addOnFailureListener {
-                emitAction(SignInAction.ShowMessage(R.string.authentication_failed))
-            }
-    }
+    private suspend fun signInUser(user: UserModel) = signIn(user)
+        .addOnSuccessListener {
+            emit(SignInState.Loading(true))
+            emitAction(SignInAction.ShowMessage(R.string.successfully_sign_in))
+            emitAction(SignInAction.Navigate(SignInFragmentDirections.actionSignInFragmentToMainFragment()))
+        }.addOnFailureListener {
+            emitAction(SignInAction.ShowMessage(R.string.authentication_failed))
+        }
+
 
     /**
      * Called when the user clicks on the Skip button.
