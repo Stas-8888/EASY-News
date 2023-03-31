@@ -24,14 +24,33 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun okHttpClient(error: RestErrorInterceptor) = OkHttpClient.Builder()
-        .connectTimeout(1, TimeUnit.MINUTES)
-        .readTimeout(1, TimeUnit.MINUTES)
-        .addInterceptor(HttpLoggingInterceptor().apply {
+    fun provideOkHttpClient(errorInterceptor: RestErrorInterceptor): OkHttpClient {
+        val builder = OkHttpClient.Builder()
+
+        // Add API key to URL query parameter
+        builder.addInterceptor { chain ->
+            val originalRequest = chain.request()
+            val url = originalRequest.url.newBuilder()
+                .addQueryParameter("apikey", BuildConfig.API_KEY)
+                .build()
+            val requestBuilder = originalRequest.newBuilder().url(url)
+            chain.proceed(requestBuilder.build())
+        }
+
+        // Configure timeouts
+        builder.connectTimeout(1, TimeUnit.MINUTES)
+        builder.readTimeout(1, TimeUnit.MINUTES)
+
+        // Add logging interceptor
+        builder.addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         })
-        .addNetworkInterceptor(error)
-        .build()
+
+        // Add error interceptor
+        builder.addNetworkInterceptor(errorInterceptor)
+
+        return builder.build()
+    }
 
     @Provides
     @Singleton
