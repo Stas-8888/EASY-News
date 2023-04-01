@@ -18,6 +18,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+const val PARAMETER_API_KEY = "apikey"
+const val TIME_OUT: Long = 1
+
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
@@ -31,15 +34,15 @@ object AppModule {
         builder.addInterceptor { chain ->
             val originalRequest = chain.request()
             val url = originalRequest.url.newBuilder()
-                .addQueryParameter("apikey", BuildConfig.API_KEY)
+                .addQueryParameter(PARAMETER_API_KEY, BuildConfig.API_KEY)
                 .build()
             val requestBuilder = originalRequest.newBuilder().url(url)
             chain.proceed(requestBuilder.build())
         }
 
         // Configure timeouts
-        builder.connectTimeout(1, TimeUnit.MINUTES)
-        builder.readTimeout(1, TimeUnit.MINUTES)
+        builder.connectTimeout(TIME_OUT, TimeUnit.MINUTES)
+        builder.readTimeout(TIME_OUT, TimeUnit.MINUTES)
 
         // Add logging interceptor
         builder.addInterceptor(HttpLoggingInterceptor().apply {
