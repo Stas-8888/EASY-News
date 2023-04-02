@@ -45,7 +45,6 @@ class ForgotPasswordViewModel @Inject constructor(
             }
     }
 
-
     /**
      * This function is called when the email input is changed to validate the email format.
      */

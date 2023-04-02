@@ -27,8 +27,8 @@ class SignInViewModel @Inject constructor(
      */
     fun onSignInButtonClicked(user: UserModel) = when {
         isOffline() -> emitAction(SignInAction.ShowNetworkDialog(R.string.internet_disconnected))
-        validateEmail(user.email).none() -> emitAction(SignInAction.ShowMessage(R.string.empty_email))
-        validatePassword(user.password).none() -> emitAction(SignInAction.ShowMessage(R.string.empty_password))
+        user.email.isEmpty() -> emitAction(SignInAction.ShowMessage(R.string.empty_email))
+        user.password.isEmpty() -> emitAction(SignInAction.ShowMessage(R.string.empty_password))
         else -> signInUser(user)
     }
 
