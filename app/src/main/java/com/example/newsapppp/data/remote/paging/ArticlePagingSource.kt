@@ -7,6 +7,8 @@ import com.example.newsapppp.data.remote.service.ApiService
 import com.example.newsapppp.domain.model.ArticleModel
 import retrofit2.HttpException
 
+private const val PLUS_ONE = 1
+
 /**
  * A paging source for fetching news articles from an API.
  * @param repository An instance of ApiService for fetching articles.
@@ -28,7 +30,7 @@ class ArticlePagingSource(
      */
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticleModel> {
         return try {
-            val currentPage = params.key ?: 1
+            val currentPage = params.key ?: PLUS_ONE
             val response = repository.fetchedArticles(currentPage, countryCode, category)
             val data = response.articles.filter { it.urlToImage != null && it.title != null }
             val responseData = mutableListOf<ArticleModel>()
@@ -36,8 +38,8 @@ class ArticlePagingSource(
 
             LoadResult.Page(
                 data = responseData,
-                prevKey = if (currentPage == 1) null else -1,
-                nextKey = currentPage.plus(1)
+                prevKey = if (currentPage == PLUS_ONE) null else -1,
+                nextKey = currentPage.plus(PLUS_ONE)
             )
         } catch (e: Exception) {
             LoadResult.Error(e)
@@ -53,8 +55,8 @@ class ArticlePagingSource(
      */
     override fun getRefreshKey(state: PagingState<Int, ArticleModel>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
-            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
-                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
+            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(PLUS_ONE)
+                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(PLUS_ONE)
         }
     }
 }
