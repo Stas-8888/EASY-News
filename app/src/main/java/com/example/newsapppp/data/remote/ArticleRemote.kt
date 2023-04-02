@@ -16,6 +16,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
+private const val PAGE_SIZE = 20
+private const val MAX_PAGE_SIZE = 200
+
 /**
  * This is a remote repository for retrieving news article data. It uses the [ApiService] to fetch
  * article data from a remote API, and the [NewsResponseMapper] to map the API response to a
@@ -42,7 +45,8 @@ class ArticleRemote @Inject constructor(
      * @return a [Flow] of [PagingData] objects that represent the articles.
      */
     override fun fetchedArticles(category: String): Flow<PagingData<ArticleModel>> {
-        val pagingConfig = PagingConfig(pageSize = 20, maxSize = 200, enablePlaceholders = false)
+        val pagingConfig =
+            PagingConfig(pageSize = PAGE_SIZE, maxSize = MAX_PAGE_SIZE, enablePlaceholders = false)
         val pagingSource =
             { ArticlePagingSource(apiService, sharedPref.getCountryFlag(), category, mapper) }
         return Pager(config = pagingConfig, pagingSourceFactory = pagingSource).flow
