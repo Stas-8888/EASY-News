@@ -1,9 +1,13 @@
 package com.example.newsapppp.presentation.screens.authentication.signup
 
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.databinding.FragmentSignUpBinding
 import com.example.newsapppp.domain.model.UserModel
-import com.example.newsapppp.presentation.extensions.*
+import com.example.newsapppp.presentation.extensions.isGone
+import com.example.newsapppp.presentation.extensions.navigateDirections
+import com.example.newsapppp.presentation.extensions.showInternetConnectionDialog
+import com.example.newsapppp.presentation.extensions.showSnackBar
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,10 +31,10 @@ class SignUpFragment :
             )
         }
 
-        fullName.afterTextChanged { isValid() }
-        email.afterTextChanged { isValid() }
-        edPassword.afterTextChanged { isValid() }
-        confirmPassword.afterTextChanged { isValid() }
+        fullName.addTextChangedListener { isValid() }
+        email.addTextChangedListener { isValid() }
+        edPassword.addTextChangedListener { isValid() }
+        confirmPassword.addTextChangedListener { isValid() }
         btSignIn.setOnClickListener { viewModel.navigateToSignInScreen() }
     }
 

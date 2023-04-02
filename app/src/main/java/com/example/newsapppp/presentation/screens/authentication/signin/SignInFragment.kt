@@ -1,5 +1,6 @@
 package com.example.newsapppp.presentation.screens.authentication.signin
 
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.databinding.FragmentSignInBinding
 import com.example.newsapppp.domain.model.UserModel
@@ -15,11 +16,11 @@ class SignInFragment :
     override val viewModel by viewModels<SignInViewModel>()
 
     override fun onClickListener() = with(binding) {
-        edLogin.afterTextChanged {
-            viewModel.isEmailChanged(it)
+        edLogin.addTextChangedListener {
+            viewModel.isEmailChanged(it.toString())
         }
-        edLoginPassword.afterTextChanged {
-            viewModel.isPasswordChanged(it)
+        edLoginPassword.addTextChangedListener {
+            viewModel.isPasswordChanged(it.toString())
         }
         btSignIn.setOnClickListener {
             it.shakeAnimation()
