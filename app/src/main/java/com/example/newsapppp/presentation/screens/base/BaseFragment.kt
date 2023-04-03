@@ -29,6 +29,9 @@ abstract class BaseFragment<State, Action, VB : ViewBinding, VM : BaseViewModel<
     protected val binding get() = _binding!!
     protected abstract val viewModel: VM
 
+    /**
+     * Set layout [_binding] to Fragment.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

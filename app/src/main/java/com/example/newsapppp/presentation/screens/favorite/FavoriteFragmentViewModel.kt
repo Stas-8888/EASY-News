@@ -5,6 +5,7 @@ import com.example.newsapppp.R
 import com.example.newsapppp.domain.interactors.articlecache.ArticleAllCacheUseCase
 import com.example.newsapppp.domain.interactors.articlecache.DeleteAllUseCase
 import com.example.newsapppp.domain.interactors.articlecache.DeleteArticleUseCase
+import com.example.newsapppp.domain.interactors.articlecache.InsertArticleUseCase
 import com.example.newsapppp.domain.interactors.sharedpreferences.SaveFavoriteUseCase
 import com.example.newsapppp.domain.interactors.sharedpreferences.SharedPreferencesContract
 import com.example.newsapppp.presentation.mapper.ArticleMapper
@@ -20,6 +21,7 @@ class FavoriteFragmentViewModel @Inject constructor(
     private val sharedPref: SharedPreferencesContract,
     private val articleAllCache: ArticleAllCacheUseCase,
     private val deleteArticle: DeleteArticleUseCase,
+    private val insertArticle: InsertArticleUseCase,
     private val saveFavorite: SaveFavoriteUseCase,
     private val deleteAll: DeleteAllUseCase,
     private val mapper: ArticleMapper
@@ -86,5 +88,12 @@ class FavoriteFragmentViewModel @Inject constructor(
     fun onNewsAdapterItemClicked(article: Article) = viewModelScope.launch {
         val action = FavoriteFragmentDirections.actionFavoriteFragmentToNewsFragment(article)
         emitAction(FavoriteAction.Navigate(action))
+    }
+
+    /**
+     * Function update Articles when move it.
+     */
+    fun onMoveUpdateArticle(article: Article) = viewModelScope.launch {
+        insertArticle(mapper.mapToModel(article))
     }
 }

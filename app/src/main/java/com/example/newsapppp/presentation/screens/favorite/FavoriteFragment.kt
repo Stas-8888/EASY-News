@@ -80,6 +80,9 @@ class FavoriteFragment :
                 val initial = viewHolder.bindingAdapterPosition
                 val final = target.bindingAdapterPosition
                 articleAdapter.notifyItemMoved(initial, final)
+                articleAdapter.currentList.map {
+                    viewModel.onMoveUpdateArticle(it)
+                }
                 return true
             }
 

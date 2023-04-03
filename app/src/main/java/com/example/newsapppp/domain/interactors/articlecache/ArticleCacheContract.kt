@@ -9,7 +9,7 @@ interface ArticleCacheContract {
 
     suspend fun deleteArticle(article: ArticleModel)
 
-    suspend fun deleteAllArticle()
-
     fun getAllArticles(): Flow<List<ArticleModel>>
+
+    suspend fun deleteAllArticle()
 }
