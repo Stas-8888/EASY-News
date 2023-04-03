@@ -7,6 +7,7 @@
 - supports choose news from 4 countries.
 - supports choose categories of news.
 - supports save, delete Article.
+- support move and swipe Article.
 - supports day&night mode.
 - support animation.
 - support notifications every 15 minutes by work manager.
