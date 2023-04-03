@@ -16,7 +16,6 @@ import kotlinx.coroutines.flow.collectLatest
 
 /**
  * A base fragment class that provides common functionality for fragments.
- *
  * @param State The state of the fragment.
  * @param Action The action that the fragment can perform.
  * @param VB The type of the view binding class for the fragment.
@@ -113,9 +112,9 @@ abstract class BaseFragment<State, Action, VB : ViewBinding, VM : BaseViewModel<
     }
 
     /**
-     *Sets up a RecyclerView with the provided [recyclerView] and [baseAdapter].
-     *@param recyclerView The RecyclerView to be set up.
-     *@param baseAdapter The RecyclerView adapter to be used.
+     * Sets up a RecyclerView with the provided [recyclerView] and [baseAdapter].
+     * @param recyclerView The RecyclerView to be set up.
+     * @param baseAdapter The RecyclerView adapter to be used.
      */
     protected fun setupRecyclerView(
         recyclerView: RecyclerView,
