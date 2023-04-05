@@ -1,5 +1,7 @@
 package com.example.newsapppp.domain.interactors.articleremote
 
+import com.example.newsapppp.domain.interactors.articles.remote.ArticleRemoteContract
+import com.example.newsapppp.domain.interactors.articles.remote.SearchArticlesUseCase
 import com.example.newsapppp.domain.model.ArticleModel
 import com.example.newsapppp.domain.model.NewsResponseModel
 import kotlinx.coroutines.runBlocking

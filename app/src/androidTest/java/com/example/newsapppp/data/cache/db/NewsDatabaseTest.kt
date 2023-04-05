@@ -3,8 +3,9 @@ package com.example.newsapppp.data.cache.db
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.example.newsapppp.data.cache.db.dao.ArticleDao
-import com.example.newsapppp.data.cache.db.models.ArticleEntity
+import com.example.newsapppp.data.articles.cache.db.NewsDatabase
+import com.example.newsapppp.data.articles.cache.db.dao.ArticleDao
+import com.example.newsapppp.data.articles.cache.db.models.ArticleEntity
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking

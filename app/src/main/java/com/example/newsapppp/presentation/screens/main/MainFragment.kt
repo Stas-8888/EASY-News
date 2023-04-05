@@ -28,9 +28,9 @@ class MainFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView(recyclerView = rvNews, baseAdapter = articleAdapter)
-        onScrollRecyclerViewListener()
         viewModel.showInterceptorErrors()
         viewModel.fetchAndShowArticles()
+        onScrollRecyclerViewListener()
         adapterLoadState()
         setupTabLayout()
         setupAnimation()

@@ -2,7 +2,7 @@ package com.example.newsapppp.presentation.screens.search
 
 import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.R
-import com.example.newsapppp.domain.interactors.articleremote.SearchArticlesUseCase
+import com.example.newsapppp.domain.interactors.articles.remote.SearchArticlesUseCase
 import com.example.newsapppp.presentation.extensions.isOffline
 import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article

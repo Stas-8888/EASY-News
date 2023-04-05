@@ -3,8 +3,8 @@ package com.example.newsapppp.presentation.screens.main
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.example.newsapppp.R
-import com.example.newsapppp.data.remote.interceptor.ErrorsInterceptorContract
-import com.example.newsapppp.domain.interactors.articleremote.FetchedArticlesUseCase
+import com.example.newsapppp.data.articles.remote.interceptor.ErrorsInterceptorContract
+import com.example.newsapppp.domain.interactors.articles.remote.FetchedArticlesUseCase
 import com.example.newsapppp.domain.interactors.sharedpreferences.GetCountryFlagUseCase
 import com.example.newsapppp.presentation.extensions.isOffline
 import com.example.newsapppp.presentation.mapper.ArticleMapper

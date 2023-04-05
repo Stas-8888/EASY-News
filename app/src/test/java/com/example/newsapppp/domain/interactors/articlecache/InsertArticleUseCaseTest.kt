@@ -1,5 +1,7 @@
 package com.example.newsapppp.domain.interactors.articlecache
 
+import com.example.newsapppp.domain.interactors.articles.cache.ArticleCacheContract
+import com.example.newsapppp.domain.interactors.articles.cache.InsertArticleUseCase
 import com.example.newsapppp.domain.model.ArticleModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf

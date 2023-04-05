@@ -2,10 +2,10 @@ package com.example.newsapppp.presentation.screens.favorite
 
 import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.R
-import com.example.newsapppp.domain.interactors.articlecache.ArticleAllCacheUseCase
-import com.example.newsapppp.domain.interactors.articlecache.DeleteAllUseCase
-import com.example.newsapppp.domain.interactors.articlecache.DeleteArticleUseCase
-import com.example.newsapppp.domain.interactors.articlecache.InsertArticleUseCase
+import com.example.newsapppp.domain.interactors.articles.cache.ArticleAllCacheUseCase
+import com.example.newsapppp.domain.interactors.articles.cache.DeleteAllUseCase
+import com.example.newsapppp.domain.interactors.articles.cache.DeleteArticleUseCase
+import com.example.newsapppp.domain.interactors.articles.cache.InsertArticleUseCase
 import com.example.newsapppp.domain.interactors.sharedpreferences.SaveFavoriteUseCase
 import com.example.newsapppp.domain.interactors.sharedpreferences.SharedPreferencesContract
 import com.example.newsapppp.presentation.mapper.ArticleMapper

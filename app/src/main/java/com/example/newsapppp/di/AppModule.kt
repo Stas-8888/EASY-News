@@ -1,12 +1,12 @@
 package com.example.newsapppp.di
 
 import com.example.newsapppp.BuildConfig
-import com.example.newsapppp.data.remote.ArticleRemote
-import com.example.newsapppp.data.remote.interceptor.ErrorsInterceptor
-import com.example.newsapppp.data.remote.interceptor.ErrorsInterceptorContract
-import com.example.newsapppp.data.remote.interceptor.RestErrorInterceptor
-import com.example.newsapppp.data.remote.service.ApiService
-import com.example.newsapppp.domain.interactors.articleremote.ArticleRemoteContract
+import com.example.newsapppp.data.articles.remote.ArticleRemote
+import com.example.newsapppp.data.articles.remote.interceptor.ErrorsInterceptor
+import com.example.newsapppp.data.articles.remote.interceptor.ErrorsInterceptorContract
+import com.example.newsapppp.data.articles.remote.interceptor.RestErrorInterceptor
+import com.example.newsapppp.data.articles.remote.service.ApiService
+import com.example.newsapppp.domain.interactors.articles.remote.ArticleRemoteContract
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

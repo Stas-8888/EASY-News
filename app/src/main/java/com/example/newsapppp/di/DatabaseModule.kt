@@ -2,10 +2,10 @@ package com.example.newsapppp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.newsapppp.data.cache.ArticleCache
-import com.example.newsapppp.data.cache.db.NewsDatabase
-import com.example.newsapppp.data.cache.db.dao.ArticleDao
-import com.example.newsapppp.domain.interactors.articlecache.ArticleCacheContract
+import com.example.newsapppp.data.articles.cache.ArticleCache
+import com.example.newsapppp.data.articles.cache.db.NewsDatabase
+import com.example.newsapppp.data.articles.cache.db.dao.ArticleDao
+import com.example.newsapppp.domain.interactors.articles.cache.ArticleCacheContract
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -7,7 +7,7 @@ import com.example.newsapppp.core.network.NetworkHandler
 import com.example.newsapppp.core.network.NetworkHandlerContract
 import com.example.newsapppp.core.resources.ProvideResources
 import com.example.newsapppp.core.resources.ProvideResourcesContract
-import com.example.newsapppp.data.cache.SharedPreferences
+import com.example.newsapppp.data.articles.cache.SharedPreferences
 import com.example.newsapppp.domain.interactors.sharedpreferences.SharedPreferencesContract
 import dagger.Module
 import dagger.Provides

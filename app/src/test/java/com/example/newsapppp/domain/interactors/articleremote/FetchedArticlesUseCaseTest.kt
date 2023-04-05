@@ -1,6 +1,8 @@
 package com.example.newsapppp.domain.interactors.articleremote
 
 import androidx.paging.PagingData
+import com.example.newsapppp.domain.interactors.articles.remote.ArticleRemoteContract
+import com.example.newsapppp.domain.interactors.articles.remote.FetchedArticlesUseCase
 import com.example.newsapppp.domain.model.ArticleModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
