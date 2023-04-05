@@ -6,9 +6,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import com.example.newsapppp.core.DateFormat.dateFormat
+import com.example.newsapppp.presentation.adapters.DateFormat.dateFormat
 import com.example.newsapppp.databinding.ItemLayoutBinding
 import com.example.newsapppp.presentation.model.Article
+
+private const val DURATION_MILLIS = 1000
+private const val RADIUS = 30f
 
 /**
  * Adapter class responsible for showing a list of news articles.
@@ -41,8 +44,8 @@ class ArticleAdapter : ListAdapter<Article, ArticleAdapter.ArticleViewHolder>(Ar
         holder.binding.apply {
             imArticleImage.load(article.urlToImage) {
                 crossfade(true)
-                crossfade(1000)
-                transformations(RoundedCornersTransformation(30f))
+                crossfade(DURATION_MILLIS)
+                transformations(RoundedCornersTransformation(RADIUS))
             }
             tvTitle.text = article.title
             author.text = article.author

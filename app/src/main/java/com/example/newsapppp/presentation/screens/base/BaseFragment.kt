@@ -41,8 +41,8 @@ abstract class BaseFragment<State, Action, VB : ViewBinding, VM : BaseViewModel<
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

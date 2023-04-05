@@ -1,4 +1,4 @@
-package com.example.newsapppp.core
+package com.example.newsapppp.presentation.adapters
 
 import java.text.ParseException
 import java.text.SimpleDateFormat
