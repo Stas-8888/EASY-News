@@ -23,15 +23,21 @@ class SearchFragmentViewModel @Inject constructor(
     /**
      * Handles search query text input and displays articles matching the query.
      */
-    fun searchQueryListener(searchQuery: String) = viewModelScope.launch {
-        when {
-            isOffline() -> emitAction(SearchAction.ShowNetworkDialog(R.string.internet_disconnected))
-            searchQuery.isNotEmpty() -> try {
-                val data = searchArticles(searchQuery).articlesModel
-                emit(SearchState.ShowArticles(mapper.mapToListArticle(data)))
-            } catch (e: Exception) {
-                emitAction(SearchAction.ShowMessage(R.string.server_error))
-            }
+    fun searchQueryListener(searchQuery: String) = when {
+        searchQuery.trim().isEmpty() -> emitAction(SearchAction.ShowMessage(R.string.empty_field))
+        isOffline() -> emitAction(SearchAction.ShowNetworkDialog(R.string.internet_disconnected))
+        else -> performSearch(searchQuery)
+    }
+
+    /**
+     * Fetches and emits the search results, mapped to a list of Article models.
+     */
+    private fun performSearch(searchQuery: String) = viewModelScope.launch {
+        try {
+            val data = searchArticles(searchQuery).articlesModel
+            emit(SearchState.ShowArticles(mapper.mapToListArticle(data)))
+        } catch (e: Exception) {
+            emitAction(SearchAction.ShowMessage(R.string.server_error))
         }
     }
 
