@@ -71,7 +71,6 @@ class MainFragment :
 
     override fun observerState(state: MainState) = with(binding) {
         when (state) {
-            is MainState.ShowLoading -> {}
             is MainState.ShowUI -> {
                 articleAdapter.submitData(lifecycle, state.article)
                 tvCountry.text = state.countryFlag

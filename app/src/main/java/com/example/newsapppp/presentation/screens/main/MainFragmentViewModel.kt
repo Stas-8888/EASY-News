@@ -28,7 +28,7 @@ class MainFragmentViewModel @Inject constructor(
     private val interceptorErrors: ErrorsInterceptorContract
 ) : BaseViewModel<MainState, MainAction>() {
 
-    override val _state = MutableStateFlow<MainState>(MainState.ShowLoading)
+    override val _state = MutableStateFlow<MainState>(MainState.BottomVisibility(false))
 
     /**
      * Sets up UI for main fragment with news for first category.
