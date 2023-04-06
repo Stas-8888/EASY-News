@@ -30,9 +30,7 @@ class SearchFragment :
 
     override fun onClickListener() = with(binding) {
         etSearchQuery.addTextChangedListener { editable ->
-            editable?.let {
-                viewModel.searchQueryListener(editable.toString())
-            }
+            viewModel.searchQueryListener(editable.toString())
         }
         articleAdapter.setOnItemClickListener {
             viewModel.onItemAdapterClicked(it)
