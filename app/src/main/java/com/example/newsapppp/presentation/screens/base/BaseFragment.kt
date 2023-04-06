@@ -48,9 +48,9 @@ abstract class BaseFragment<State, Action, VB : ViewBinding, VM : BaseViewModel<
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        onClickListener()
         observeOnState()
         observeOnAction()
+        onClickListener()
     }
 
     /**

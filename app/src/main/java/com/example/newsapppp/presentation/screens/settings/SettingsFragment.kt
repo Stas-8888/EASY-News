@@ -92,8 +92,8 @@ class SettingsFragment :
 
     override fun observerAction(actions: SettingsAction) {
         when (actions) {
-            is SettingsAction.ShowAccount ->
-                showSnackBar(actions.message, actions.isError, actions.action)
+            is SettingsAction.ShowConfirmation ->
+                showSnackBar(actions.message, actions.isError, actions.isPositiveAction)
             is SettingsAction.Navigate -> navigateDirections(actions.navigateTo)
             is SettingsAction.ShowMessage -> showSnackBar(actions.message)
         }

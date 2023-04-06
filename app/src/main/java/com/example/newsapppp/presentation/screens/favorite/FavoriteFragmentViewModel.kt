@@ -13,6 +13,7 @@ import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -62,24 +63,32 @@ class FavoriteFragmentViewModel @Inject constructor(
     }
 
     /**
-     * This function deletes all article from the locally stored favorites.
+     * Called when the "Delete All" button is clicked. Checks if the list of all cached articles is
+     * empty, and if so, displays a message to the user. If the list is not empty, shows a dialog asking
+     * the user to confirm the deletion of all articles.
      */
     fun onDeleteAllClicked() = viewModelScope.launch {
-        articleAllCache(Unit).collect {
-            if (it.isNotEmpty()) {
-                sharedPref.deleteAllFavorite()
-                deleteAll(Unit)
-            } else {
-                emitAction(FavoriteAction.ShowMessage(R.string.empty_list))
-            }
+        if (articleAllCache(Unit).first().isEmpty()) {
+            emitAction(FavoriteAction.ShowMessage(R.string.empty_list))
+        } else {
+            emitAction(FavoriteAction.ShowDeleteAllDialog)
         }
+    }
+
+    /**
+     * Called when the user confirms the deletion of all articles. Deletes all articles from the
+     * local database and clears the shared preferences for favorite articles.
+     */
+    fun onSuccessDeleteDialogAction() = viewModelScope.launch {
+        sharedPref.deleteAllFavorite()
+        deleteAll(Unit)
     }
 
     /**
      * Function to handle the swipe gesture on a favorite list item.
      */
     fun onItemSwiped(article: Article, position: Int) {
-        emitAction(FavoriteAction.ShowDeleteDialog(article, position))
+        emitAction(FavoriteAction.ShowItemDeleteDialog(article, position))
     }
 
     /**

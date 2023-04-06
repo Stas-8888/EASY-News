@@ -5,10 +5,10 @@ import androidx.navigation.NavDirections
 sealed class SettingsAction {
     data class Navigate(val navigateTo: NavDirections) : SettingsAction()
     data class ShowMessage(val message: Int) : SettingsAction()
-    data class ShowAccount(
+    data class ShowConfirmation(
         val message: Int,
         val isError: Boolean = false,
-        val action: () -> Unit = {}
+        val isPositiveAction: () -> Unit = {}
     ) : SettingsAction()
 
 }

@@ -13,6 +13,7 @@ import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -45,13 +46,11 @@ class MainFragmentViewModel @Inject constructor(
      * @param tab the tab representing the category of news to fetch and display
      */
     private fun fetchAndEmitArticles(tab: TabLayout.Tab?) = viewModelScope.launch {
+        val category = tab?.let { categories.getOrNull(it.position) } ?: categories.first()
+        val articles = fetchedArticles(category).cachedIn(viewModelScope).first()
+        val mappedArticles = mapper.mapToPagingArticle(articles)
         try {
-            val category = tab?.let { categories.getOrNull(it.position) } ?: categories.first()
-            val getArticles = fetchedArticles(category).cachedIn(viewModelScope)
-            getArticles.collect { articles ->
-                val mappedArticles = mapper.mapToPagingArticle(articles)
-                emit(MainState.ShowUI(mappedArticles, getCountryFlag(Unit)))
-            }
+            emit(MainState.ShowUI(mappedArticles, getCountryFlag(Unit)))
         } catch (e: Exception) {
             emitAction(MainAction.ShowMessage(R.string.error))
         }

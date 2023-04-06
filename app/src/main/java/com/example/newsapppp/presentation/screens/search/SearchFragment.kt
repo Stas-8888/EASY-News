@@ -6,10 +6,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.databinding.FragmentSearchBinding
 import com.example.newsapppp.presentation.adapters.ArticleAdapter
-import com.example.newsapppp.presentation.extensions.navigateDirections
-import com.example.newsapppp.presentation.extensions.showInternetConnectionDialog
-import com.example.newsapppp.presentation.extensions.showKeyboard
-import com.example.newsapppp.presentation.extensions.showSnackBar
+import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,11 +18,11 @@ class SearchFragment :
     private val articleAdapter by lazy { ArticleAdapter() }
     override val viewModel by viewModels<SearchFragmentViewModel>()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView(binding.rvSearchNews, articleAdapter)
-        binding.etSearchQuery.requestFocus()
-        binding.etSearchQuery.showKeyboard()
+        setupRecyclerView(rvSearchNews, articleAdapter)
+        etSearchQuery.requestFocus()
+        etSearchQuery.showKeyboard()
     }
 
     override fun onClickListener() = with(binding) {
@@ -37,10 +34,13 @@ class SearchFragment :
         }
     }
 
-    override fun observerState(state: SearchState) {
+    override fun observerState(state: SearchState) = with(binding) {
         when (state) {
-            is SearchState.Loading -> {}
-            is SearchState.ShowArticles -> articleAdapter.submitList(state.articles)
+            is SearchState.Loading -> progressBar.isGone()
+            is SearchState.ShowArticles -> {
+                progressBar.isVisible()
+                articleAdapter.submitList(state.articles)
+            }
         }
     }
 

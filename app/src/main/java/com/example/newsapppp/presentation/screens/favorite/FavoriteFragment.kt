@@ -34,7 +34,7 @@ class FavoriteFragment :
     override fun onClickListener() = with(binding) {
         btDeleteAll.setOnClickListener {
             it.clickAnimation()
-            showDeleteDialog({ viewModel.onDeleteAllClicked() }, { })
+            viewModel.onDeleteAllClicked()
         }
         articleAdapter.setOnItemClickListener {
             viewModel.onNewsAdapterItemClicked(it)
@@ -57,7 +57,9 @@ class FavoriteFragment :
         when (actions) {
             is FavoriteAction.Navigate -> navigateDirections(actions.navigateTo)
             is FavoriteAction.ShowMessage -> showSnackBar(actions.message)
-            is FavoriteAction.ShowDeleteDialog -> showDeleteDialog(
+            is FavoriteAction.ShowDeleteAllDialog -> showDeleteDialog(
+                { viewModel.onSuccessDeleteDialogAction() }, { })
+            is FavoriteAction.ShowItemDeleteDialog -> showDeleteDialog(
                 { viewModel.deleteArticle(actions.article) },
                 { articleAdapter.notifyItemChanged(actions.position) })
         }

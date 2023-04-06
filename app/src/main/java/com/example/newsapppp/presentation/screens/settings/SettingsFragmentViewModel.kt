@@ -68,19 +68,34 @@ class SettingsFragmentViewModel @Inject constructor(
     }
 
     /**
-     * Handles the click on the Account.
+     * Handles the click on the Account button.
+     * If the current user is null, navigates to the authentication screen.
+     * Otherwise, shows a confirmation dialog to sign out.
      */
-    fun onAccountClicked() = viewModelScope.launch {
-        if (isCurrentUserNull()) {
-            emitAction(SettingsAction.Navigate(SettingsFragmentDirections.actionSettingsFragmentToAuthBottomSheetFragment()))
-        } else {
-            val showAccount = SettingsAction.ShowAccount(
-                message = (R.string.want_sign_out),
-                isError = true,
-                action = { firebaseAuth.signOut() })
+    fun onAccountClicked() = when {
+        isCurrentUserNull() -> navigateToAuthentication()
+        else -> showSignOutConfirmation()
+    }
 
-            emitAction(showAccount)
-        }
+    /**
+     * Navigates to the authentication screen using a navigation action and emits it.
+     */
+    private fun navigateToAuthentication() {
+        val action = SettingsFragmentDirections.actionSettingsFragmentToAuthBottomSheetFragment()
+        emitAction(SettingsAction.Navigate(action))
+    }
+
+    /**
+     * Shows a confirmation dialog to sign out using an action with a message and a callback to sign out.
+     * Emits the action to be handled by the view.
+     */
+    private fun showSignOutConfirmation() {
+        val signOutConfirmation = SettingsAction.ShowConfirmation(
+            message = (R.string.want_sign_out),
+            isError = true,
+            isPositiveAction = { firebaseAuth.signOut() })
+
+        emitAction(signOutConfirmation)
     }
 
     /**

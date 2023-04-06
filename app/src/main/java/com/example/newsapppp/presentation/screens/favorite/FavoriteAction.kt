@@ -5,6 +5,7 @@ import com.example.newsapppp.presentation.model.Article
 
 sealed class FavoriteAction {
     data class Navigate(val navigateTo: NavDirections) : FavoriteAction()
-    data class ShowDeleteDialog(val article: Article, val position: Int) : FavoriteAction()
+    data class ShowItemDeleteDialog(val article: Article, val position: Int) : FavoriteAction()
+    object ShowDeleteAllDialog : FavoriteAction()
     data class ShowMessage(val message: Int) : FavoriteAction()
 }
