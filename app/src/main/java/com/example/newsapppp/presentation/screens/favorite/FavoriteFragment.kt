@@ -21,10 +21,14 @@ class FavoriteFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val itemTouchHelper = ItemTouchHelper(SwipeToDelete(articleAdapter, viewModel))
-        itemTouchHelper.attachToRecyclerView(binding.rvSavedNews)
         setupRecyclerView(binding.rvSavedNews, articleAdapter)
         viewModel.setupAllArticles()
+        initItemTouchHelper()
+    }
+
+    private fun initItemTouchHelper() {
+        val itemTouchHelper = ItemTouchHelper(SwipeToDelete(articleAdapter, viewModel))
+        itemTouchHelper.attachToRecyclerView(binding.rvSavedNews)
     }
 
     override fun onClickListener() = with(binding) {
@@ -53,11 +57,9 @@ class FavoriteFragment :
         when (actions) {
             is FavoriteAction.Navigate -> navigateDirections(actions.navigateTo)
             is FavoriteAction.ShowMessage -> showSnackBar(actions.message)
-            is FavoriteAction.ShowDeleteDialog -> {
-                showDeleteDialog(
-                    { viewModel.deleteArticle(actions.article) },
-                    { articleAdapter.notifyItemChanged(actions.position) })
-            }
+            is FavoriteAction.ShowDeleteDialog -> showDeleteDialog(
+                { viewModel.deleteArticle(actions.article) },
+                { articleAdapter.notifyItemChanged(actions.position) })
         }
     }
 }

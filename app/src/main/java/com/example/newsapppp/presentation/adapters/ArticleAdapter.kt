@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import com.example.newsapppp.presentation.adapters.DateFormat.dateFormat
 import com.example.newsapppp.databinding.ItemLayoutBinding
+import com.example.newsapppp.presentation.adapters.DateFormat.dateFormat
 import com.example.newsapppp.presentation.model.Article
 
 private const val DURATION_MILLIS = 1000
