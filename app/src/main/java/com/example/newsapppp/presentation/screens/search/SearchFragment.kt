@@ -20,9 +20,8 @@ class SearchFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView(rvSearchNews, articleAdapter)
         etSearchQuery.requestFocus()
-        etSearchQuery.showKeyboard()
+        setupRecyclerView(rvSearchNews, articleAdapter)
     }
 
     override fun onClickListener() = with(binding) {
@@ -36,11 +35,8 @@ class SearchFragment :
 
     override fun observerState(state: SearchState) = with(binding) {
         when (state) {
-            is SearchState.Loading -> progressBar.isGone()
-            is SearchState.ShowArticles -> {
-                progressBar.isVisible()
-                articleAdapter.submitList(state.articles)
-            }
+            is SearchState.Loading -> etSearchQuery.showKeyboard()
+            is SearchState.ShowArticles -> articleAdapter.submitList(state.articles)
         }
     }
 
