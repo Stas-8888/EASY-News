@@ -37,6 +37,7 @@
     <string name="error">Some error</string>
     <string name="empty_list">You don\'t have save items</string>
     <string name="server_error">Server not available</string>
+    <string name="api_error">Unauthorized, your API key is invalid</string>
 
     <string name="continue_with_google">Continue with Google</string>
     <string name="continue_with_facebook">Continue with Facebook</string>

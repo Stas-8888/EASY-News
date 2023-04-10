@@ -1,7 +1,9 @@
 package com.example.newsapppp.data.articles.remote.interceptor
 
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
@@ -17,14 +19,12 @@ class ErrorsInterceptor @Inject constructor() : ErrorsInterceptorContract {
     /**
      * @return The [SharedFlow] used to emit error codes.
      */
-    override fun errorsInterceptor(): SharedFlow<Int> {
-        return flow
-    }
+    override fun errorsInterceptor(): SharedFlow<Int> = flow
 
     /**
      * @param error The error code to be emitted to the [flow].
      */
-    override suspend fun emitError(error: Int) {
+    override suspend fun emitError(error: Int) = withContext(Dispatchers.IO) {
         flow.emit(error)
     }
 }
