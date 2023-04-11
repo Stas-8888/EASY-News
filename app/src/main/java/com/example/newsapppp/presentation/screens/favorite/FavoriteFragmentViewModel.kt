@@ -8,6 +8,7 @@ import com.example.newsapppp.domain.interactors.articles.cache.DeleteArticleUseC
 import com.example.newsapppp.domain.interactors.articles.cache.InsertArticleUseCase
 import com.example.newsapppp.domain.interactors.sharedpreferences.SaveFavoriteUseCase
 import com.example.newsapppp.domain.interactors.sharedpreferences.SharedPreferencesContract
+import com.example.newsapppp.domain.model.ArticleModel
 import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
@@ -19,8 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavoriteFragmentViewModel @Inject constructor(
-    private val sharedPref: SharedPreferencesContract,
     private val articleAllCache: ArticleAllCacheUseCase,
+    private val sharedPref: SharedPreferencesContract,
     private val deleteArticle: DeleteArticleUseCase,
     private val insertArticle: InsertArticleUseCase,
     private val saveFavorite: SaveFavoriteUseCase,
@@ -31,26 +32,34 @@ class FavoriteFragmentViewModel @Inject constructor(
     override val _state = MutableStateFlow<FavoriteState>(FavoriteState.Loading)
 
     /**
-     * Function setup all Articles in the favorite list from database.
+     * Function setup all articles cache in the favorite list.
      */
     fun setupAllArticles() = viewModelScope.launch {
         articleAllCache(Unit).collect { articles ->
-            val data = if (articles.isNotEmpty()) {
-                FavoriteState.ShowArticles(
-                    articles = mapper.mapToListArticle(articles),
-                    progressBar = false,
-                    state = false,
-                    exception = null
-                )
-            } else {
-                FavoriteState.ShowArticles(
-                    articles = emptyList(),
-                    progressBar = false,
-                    state = true,
-                    exception = R.string.empty_list
-                )
-            }
-            emit(data)
+            emit(prepareArticlesData(articles))
+        }
+    }
+
+    /**
+     * Prepares the articles data for display in the favorite state.
+     * @param articles the list of articles to be displayed
+     * @return the favorite state containing the articles, progress bar state, and exception (if any)
+     */
+    private fun prepareArticlesData(articles: List<ArticleModel>): FavoriteState {
+        return if (articles.isNotEmpty()) {
+            FavoriteState.ShowArticles(
+                articles = mapper.mapToListArticle(articles),
+                progressBar = false,
+                state = false,
+                exception = null
+            )
+        } else {
+            FavoriteState.ShowArticles(
+                articles = emptyList(),
+                progressBar = false,
+                state = true,
+                exception = R.string.empty_list
+            )
         }
     }
 

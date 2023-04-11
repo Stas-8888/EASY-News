@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.newsapppp.databinding.ItemLayoutBinding
-import com.example.newsapppp.presentation.adapters.DateFormat.dateFormat
 import com.example.newsapppp.presentation.model.Article
 
 private const val DURATION_MILLIS = 1000
@@ -19,10 +18,29 @@ private const val RADIUS = 30f
  */
 class ArticleAdapter : ListAdapter<Article, ArticleAdapter.ArticleViewHolder>(ArticleDiffCallback()) {
 
+    private var onItemClickListener: ((Article) -> Unit)? = null
+
     /**
      * ViewHolder class that holds the UI elements for an individual news article.
      */
-    class ArticleViewHolder(val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ArticleViewHolder(val binding: ItemLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(article: Article) = with(binding) {
+            imArticleImage.load(article.urlToImage) {
+                crossfade(true)
+                crossfade(DURATION_MILLIS)
+                transformations(RoundedCornersTransformation(RADIUS))
+            }
+            tvTitle.text = article.title
+            author.text = article.author
+            tvDescription.text = article.description
+            tvPublishedAt.text = DateFormat.dateFormat(article.publishedAt)
+            itemCard.setOnClickListener {
+                onItemClickListener?.invoke(article)
+            }
+        }
+    }
 
     /**
      * Creates a new ArticleViewHolder by inflating the item layout.
@@ -33,28 +51,11 @@ class ArticleAdapter : ListAdapter<Article, ArticleAdapter.ArticleViewHolder>(Ar
         return ArticleViewHolder(binding)
     }
 
-    private var onItemClickListener: ((Article) -> Unit)? = null
-
     /**
      * Binds an individual news article to the ArticleViewHolder and sets a click listener on it.
      */
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-        val article = getItem(position)
-
-        holder.binding.apply {
-            imArticleImage.load(article.urlToImage) {
-                crossfade(true)
-                crossfade(DURATION_MILLIS)
-                transformations(RoundedCornersTransformation(RADIUS))
-            }
-            tvTitle.text = article.title
-            author.text = article.author
-            tvDescription.text = article.description
-            tvPublishedAt.text = dateFormat(article.publishedAt)
-            holder.itemView.setOnClickListener {
-                onItemClickListener?.invoke(article)
-            }
-        }
+        holder.bind(getItem(position))
     }
 
     /**

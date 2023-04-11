@@ -38,26 +38,40 @@ class NewsFragmentViewModel @Inject constructor(
     }
 
     /**
-     * Handles click on favorite icon.
+     * Handles click on the favorite icon by checking if the current user is null or not.
+     * @param article the article to be marked as favorite or not
      */
     fun onFavoriteButtonClicked(article: Article) = when {
         isCurrentUserNull() -> emitAction(NewsAction.ShowMessage(R.string.error_registered))
-        else -> checkFavorite(article)
+        else -> toggleFavorite(article)
     }
 
     /**
-     * Check if the given [article] is a favorite and handle the corresponding operations.
+     * Checks if the given [article] is already marked as favorite or not,
+     * and performs the corresponding operations based on the result.
      * @param article the [Article] to check
      */
-    private fun checkFavorite(article: Article) = viewModelScope.launch {
-        if (getFavorite(article.url).not()) {
-            insertArticle(mapper.mapToModel(article))
-            saveFavorite.invoke(article.url, true)
-            emitAction(NewsAction.ShowFavoriteIcon(R.string.add_article, favoriteIconSelected))
-        } else {
-            deleteArticle(mapper.mapToModel(article))
-            saveFavorite.invoke(article.url, false)
-            emitAction(NewsAction.ShowFavoriteIcon(R.string.delete_article, favoriteIconUnselected))
-        }
+    private fun toggleFavorite(article: Article) = viewModelScope.launch {
+        if (getFavorite(article.url).not()) insertFavorite(article) else deleteFavorite(article)
+    }
+
+    /**
+     * Saves the given [article] to the favorites list and updates the UI accordingly.
+     * @param article the [Article] to save as favorite
+     */
+    private fun insertFavorite(article: Article) = viewModelScope.launch {
+        insertArticle(mapper.mapToModel(article))
+        saveFavorite.invoke(article.url, true)
+        emitAction(NewsAction.ShowFavoriteIcon(R.string.add_article, favoriteIconSelected))
+    }
+
+    /**
+     * Deletes the given [article] from the favorites list and updates the UI accordingly.
+     * @param article the [Article] to remove from favorites
+     */
+    private fun deleteFavorite(article: Article) = viewModelScope.launch {
+        deleteArticle(mapper.mapToModel(article))
+        saveFavorite.invoke(article.url, false)
+        emitAction(NewsAction.ShowFavoriteIcon(R.string.delete_article, favoriteIconUnselected))
     }
 }
