@@ -10,13 +10,13 @@ import okhttp3.Response
  * This class represents an interceptor used to handle errors in HTTP requests.
  * It implements the Interceptor interface provided by the OkHttp library.
  * The RestErrorInterceptor intercepts the HTTP response and checks the response code.
- * If the code is one of the pre-defined error codes (400, 429, or 500), it emits an error message
- * using the ErrorsInterceptorContract.
+ * If the code is one of the pre-defined error codes (400, 401, 426, 429, or 500),
+ * it emits an error message, using the ErrorsInterceptorContract.
  * @param errors An instance of ErrorsInterceptorContract used to emit error messages.
  */
 class RestErrorInterceptor(private var errors: ErrorsInterceptorContract) : Interceptor {
 
-    private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+    private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     /**
      * This method intercepts the HTTP request and response.
@@ -31,6 +31,7 @@ class RestErrorInterceptor(private var errors: ErrorsInterceptorContract) : Inte
         when (response.code) {
             400 -> emitError(R.string.often_request)
             401 -> emitError(R.string.api_error)
+            426 -> emitError(R.string.many_request)
             429 -> emitError(R.string.many_request)
             500 -> emitError(R.string.server_error)
         }
@@ -39,9 +40,5 @@ class RestErrorInterceptor(private var errors: ErrorsInterceptorContract) : Inte
 
     private fun emitError(errorCodeResId: Int) = coroutineScope.launch {
         errors.emitError(errorCodeResId)
-    }
-
-    fun cancel() {
-        coroutineScope.cancel()
     }
 }

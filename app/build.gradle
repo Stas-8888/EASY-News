@@ -17,12 +17,13 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
-        buildConfigField "String", "BASE_URL", "\"https://newsapi.org/\""
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        Properties properties = new Properties()
-        properties.load(project.rootProject.file("local.properties").newDataInputStream())
-        buildConfigField "String", "API_KEY", "\"${properties.getProperty("API_KEY")}\""
+        Properties localProperties = new Properties()
+        localProperties.load(project.rootProject.file("local.properties").newDataInputStream())
+
+        buildConfigField "String", "BASE_URL", localProperties['BASE_URL']
+        buildConfigField "String", "API_KEY", localProperties['API_KEY']
     }
 
     buildTypes {
@@ -46,7 +47,7 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.10.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'

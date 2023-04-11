@@ -2,6 +2,7 @@ package com.example.newsapppp.data.articles.remote.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.example.newsapppp.data.articles.cache.SharedPreferences
 import com.example.newsapppp.data.articles.mapper.NewsResponseMapper
 import com.example.newsapppp.data.articles.remote.service.ApiService
 import com.example.newsapppp.domain.model.ArticleModel
@@ -18,7 +19,7 @@ private const val PLUS_ONE = 1
  */
 class ArticlePagingSource(
     private val repository: ApiService,
-    private val countryCode: String,
+    private val countryCode: SharedPreferences,
     private val category: String,
     private val mapper: NewsResponseMapper
 ) : PagingSource<Int, ArticleModel>() {
@@ -31,7 +32,7 @@ class ArticlePagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticleModel> {
         return try {
             val currentPage = params.key ?: PLUS_ONE
-            val response = repository.fetchedArticles(currentPage, countryCode, category)
+            val response = repository.fetchedArticles(currentPage, countryCode.getCountryFlag(), category)
             val data = response.articles.filter { it.urlToImage != null && it.title != null }
             val responseData = mutableListOf<ArticleModel>()
             responseData.addAll(mapper.mapToListArticleRemote(data))

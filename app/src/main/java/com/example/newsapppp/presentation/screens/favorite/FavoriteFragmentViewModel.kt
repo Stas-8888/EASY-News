@@ -31,7 +31,7 @@ class FavoriteFragmentViewModel @Inject constructor(
     override val _state = MutableStateFlow<FavoriteState>(FavoriteState.Loading)
 
     /**
-     * Function to setup all news in the favorite list.
+     * Function setup all Articles in the favorite list from database.
      */
     fun setupAllArticles() = viewModelScope.launch {
         articleAllCache(Unit).collect { articles ->

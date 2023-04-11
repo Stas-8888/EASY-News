@@ -101,29 +101,23 @@ class SettingsFragmentViewModel @Inject constructor(
     /**
      * Sets up the popup menu of the settings screen.
      */
-    fun setupPopupMenu(item: MenuItem) = viewModelScope.launch {
+    fun setupPopupMenu(item: MenuItem) {
         when (item.itemId) {
-            R.id.us -> {
-                saveCountryFlag(USA)
-                emit(SettingsState.SetCurrentCountry(R.drawable.usa))
-                emitAction((SettingsAction.ShowMessage(R.string.american_news)))
-            }
-            R.id.ru -> {
-                saveCountryFlag(RUSSIA)
-                emit(SettingsState.SetCurrentCountry(R.drawable.russia))
-                emitAction(SettingsAction.ShowMessage(R.string.russia_news))
-            }
-            R.id.germany -> {
-                saveCountryFlag(GERMANY)
-                emit(SettingsState.SetCurrentCountry(R.drawable.germany))
-                emitAction(SettingsAction.ShowMessage(R.string.germany_news))
-            }
-            R.id.egipt -> {
-                saveCountryFlag(EGYPT)
-                emit(SettingsState.SetCurrentCountry(R.drawable.egypt))
-                emitAction(SettingsAction.ShowMessage(R.string.egypt_news))
-            }
+            R.id.us -> popupData(USA, R.drawable.usa, R.string.american_news)
+            R.id.ru -> popupData(RUSSIA, R.drawable.russia, R.string.russia_news)
+            R.id.egipt -> popupData(EGYPT, R.drawable.egypt, R.string.egypt_news)
+            R.id.germany -> popupData(GERMANY, R.drawable.germany, R.string.germany_news)
         }
+    }
+
+    /**
+     * Saves the selected country flag and emits a SettingsState object to update the UI.
+     * Displays a message to the user with the selected country's news.
+     */
+    private fun popupData(flag: String, currentCountry: Int, message: Int) = viewModelScope.launch {
+        saveCountryFlag(flag)
+        emit(SettingsState.SetCurrentCountry(currentCountry))
+        emitAction((SettingsAction.ShowMessage(message)))
     }
 
     /**
@@ -136,4 +130,3 @@ class SettingsFragmentViewModel @Inject constructor(
         }
     }
 }
-

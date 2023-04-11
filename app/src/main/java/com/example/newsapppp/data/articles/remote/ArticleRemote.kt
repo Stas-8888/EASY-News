@@ -32,7 +32,7 @@ private const val MAX_PAGE_SIZE = 200
 class ArticleRemote @Inject constructor(
     private val apiService: ApiService,
     private val mapper: NewsResponseMapper,
-    private val sharedPref: SharedPreferences,
+    private val countryCode: SharedPreferences,
     private val dispatcher: DispatcherRepositoryContract,
 ) : ArticleRemoteContract {
 
@@ -48,7 +48,7 @@ class ArticleRemote @Inject constructor(
         val pagingConfig =
             PagingConfig(pageSize = PAGE_SIZE, maxSize = MAX_PAGE_SIZE, enablePlaceholders = false)
         val pagingSource =
-            { ArticlePagingSource(apiService, sharedPref.getCountryFlag(), category, mapper) }
+            { ArticlePagingSource(apiService, countryCode, category, mapper) }
         return Pager(config = pagingConfig, pagingSourceFactory = pagingSource).flow
             .flowOn(Dispatchers.IO)
     }

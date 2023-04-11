@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapppp.presentation.adapters.ArticleAdapter
 
+private const val ZERO = 0
+private const val HUNDRED = 100
 private const val FADE_BUFFER = 90
 private const val SWIPE_THRESHOLD = 0.3F
 
@@ -54,10 +56,10 @@ class SwipeToDelete(
 
         val maxWidth = recyclerView.width
         val alphaValue = when {
-            dX > 0 -> FADE_BUFFER - dX / maxWidth * 100
-            dX < 0 -> FADE_BUFFER + dX / maxWidth * 100
-            else -> 100.toFloat()
+            dX > ZERO -> FADE_BUFFER - dX / maxWidth * HUNDRED
+            dX < ZERO -> FADE_BUFFER + dX / maxWidth * HUNDRED
+            else -> HUNDRED.toFloat()
         }
-        viewHolder.itemView.alpha = alphaValue / 100
+        viewHolder.itemView.alpha = alphaValue / HUNDRED
     }
 }
