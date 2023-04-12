@@ -8,7 +8,7 @@ import com.example.newsapppp.data.articles.remote.service.ApiService
 import com.example.newsapppp.domain.model.ArticleModel
 import retrofit2.HttpException
 
-private const val PLUS_ONE = 1
+private const val STARTING_PAGE_INDEX = 1
 
 /**
  * A paging source for fetching news articles from an API.
@@ -31,7 +31,7 @@ class ArticlePagingSource(
      */
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticleModel> {
         return try {
-            val currentPage = params.key ?: PLUS_ONE
+            val currentPage = params.key ?: STARTING_PAGE_INDEX
             val response = repository.fetchedArticles(currentPage, countryCode.getCountryFlag(), category)
             val data = response.articles.filter { it.urlToImage != null && it.title != null }
             val responseData = mutableListOf<ArticleModel>()
@@ -39,8 +39,8 @@ class ArticlePagingSource(
 
             LoadResult.Page(
                 data = responseData,
-                prevKey = if (currentPage == PLUS_ONE) null else -1,
-                nextKey = currentPage.plus(PLUS_ONE)
+                prevKey = if (currentPage == STARTING_PAGE_INDEX) null else -1,
+                nextKey = currentPage.plus(STARTING_PAGE_INDEX)
             )
         } catch (e: Exception) {
             LoadResult.Error(e)
@@ -56,8 +56,8 @@ class ArticlePagingSource(
      */
     override fun getRefreshKey(state: PagingState<Int, ArticleModel>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
-            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(PLUS_ONE)
-                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(PLUS_ONE)
+            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(STARTING_PAGE_INDEX)
+                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(STARTING_PAGE_INDEX)
         }
     }
 }
