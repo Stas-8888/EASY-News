@@ -43,7 +43,7 @@ class NewsFragmentViewModel @Inject constructor(
      */
     fun onFavoriteButtonClicked(article: Article) = when {
         isCurrentUserNull() -> emitAction(NewsAction.ShowMessage(R.string.error_registered))
-        else -> toggleFavorite(article)
+        else -> saveOrRemoveArticleFromFavorite(article)
     }
 
     /**
@@ -51,7 +51,7 @@ class NewsFragmentViewModel @Inject constructor(
      * and performs the corresponding operations based on the result.
      * @param article the [Article] to check
      */
-    private fun toggleFavorite(article: Article) = viewModelScope.launch {
+    private fun saveOrRemoveArticleFromFavorite(article: Article) = viewModelScope.launch {
         if (getFavorite(article.url).not()) insertFavorite(article) else deleteFavorite(article)
     }
 
