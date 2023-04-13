@@ -8,12 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.newsapppp.R
+import com.example.newsapppp.core.Constants.DURATION_1000
+import com.example.newsapppp.core.Constants.RADIUS_30
 import com.example.newsapppp.presentation.adapters.DateFormat.dateFormat
 import com.example.newsapppp.databinding.ItemLayoutBinding
 import com.example.newsapppp.presentation.model.Article
-
-private const val DURATION_MILLIS = 1000
-private const val RADIUS = 30f
 
 /**
  * A PagingDataAdapter for displaying a list of Article objects in a ViewPager2.
@@ -55,8 +54,8 @@ class ArticlePagerAdapter :
                 tvPublishedAt.startAnimation(fadeIn)
                 imArticleImage.load(article?.urlToImage) {
                     crossfade(true)
-                    crossfade(DURATION_MILLIS)
-                    transformations(RoundedCornersTransformation(RADIUS))
+                    crossfade(DURATION_1000)
+                    transformations(RoundedCornersTransformation(RADIUS_30))
                 }
                 tvTitle.text = article?.title
                 author.text = article?.author

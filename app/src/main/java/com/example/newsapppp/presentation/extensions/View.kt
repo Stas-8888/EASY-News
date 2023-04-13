@@ -9,6 +9,7 @@ import android.view.animation.TranslateAnimation
 import android.view.inputmethod.InputMethodManager
 import androidx.core.animation.doOnEnd
 import com.example.newsapppp.R
+import com.example.newsapppp.core.Constants.ZERO
 
 /**
  * Sets the visibility of the view to GONE.
@@ -112,7 +113,7 @@ fun View.showKeyboard() {
     val inputMethodManager =
         context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     requestFocus()
-    inputMethodManager.showSoftInput(this, 0)
+    inputMethodManager.showSoftInput(this, ZERO)
 }
 
 /**
@@ -120,7 +121,7 @@ fun View.showKeyboard() {
  */
 fun View.hideKeyboard() {
     (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).apply {
-        hideSoftInputFromWindow(windowToken, 0)
+        hideSoftInputFromWindow(windowToken, ZERO)
     }
 }
 

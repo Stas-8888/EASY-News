@@ -8,6 +8,11 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapppp.R
+import com.example.newsapppp.core.Constants.DURATION_100
+import com.example.newsapppp.core.Constants.SCALE_0F
+import com.example.newsapppp.core.Constants.SCALE_100F
+import com.example.newsapppp.core.Constants.SCALE_200F
+import com.example.newsapppp.core.Constants.ZERO
 import com.example.newsapppp.core.SimpleTabSelectedListener
 import com.example.newsapppp.databinding.FragmentMainBinding
 import com.example.newsapppp.presentation.adapters.ArticlePagerAdapter
@@ -106,7 +111,7 @@ class MainFragment :
 
     private fun getFirstItemPosition(): Int {
         val layoutManager = binding.rvNews.layoutManager as? LinearLayoutManager
-        return layoutManager?.findFirstVisibleItemPosition() ?: 0
+        return layoutManager?.findFirstVisibleItemPosition() ?: ZERO
     }
 
     private fun onScrollRecyclerViewListener() = with(binding) {
@@ -116,14 +121,14 @@ class MainFragment :
                 viewModel.showOrHideFloatButton(getFirstItemPosition())
             }
         })
-        fabUp.setOnClickListener { rvNews.smoothScrollToPosition(0) }
+        fabUp.setOnClickListener { rvNews.smoothScrollToPosition(ZERO) }
     }
 
     private fun setupAnimation() = with(binding) {
         mainScreen.fadeInAnimation()
         tabMain.showWithAnimate(R.anim.fade_in)
-        appName.translateAnimation(0f, 0f, -100f, 0f, 1000)
-        tvCountry.translateAnimation(0f, 0f, 100f, 0f, 1000)
-        btSettings.translateAnimation(200f, 0f, 0f, 0f, 1000)
+        appName.translateAnimation(SCALE_0F, SCALE_0F, -100f, SCALE_0F, DURATION_100)
+        tvCountry.translateAnimation(SCALE_0F, SCALE_0F, SCALE_100F, SCALE_0F, DURATION_100)
+        btSettings.translateAnimation(SCALE_200F, SCALE_0F, SCALE_0F, SCALE_0F, DURATION_100)
     }
 }
