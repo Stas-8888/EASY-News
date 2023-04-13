@@ -3,6 +3,7 @@ package com.example.newsapppp.presentation.screens.main
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.example.newsapppp.R
+import com.example.newsapppp.core.Constants.ONE
 import com.example.newsapppp.data.articles.remote.interceptor.ErrorsInterceptorContract
 import com.example.newsapppp.domain.interactors.articles.remote.FetchedArticlesUseCase
 import com.example.newsapppp.domain.interactors.sharedpreferences.GetCountryFlagUseCase
@@ -60,7 +61,7 @@ class MainFragmentViewModel @Inject constructor(
      * Shows/hides float button based on position of first news article.
      */
     fun showOrHideFloatButton(getFirstNewsPosition: Int) {
-        val isVisible = getFirstNewsPosition >= 1
+        val isVisible = getFirstNewsPosition >= ONE
         emit(MainState.BottomVisibility(isVisible))
     }
 

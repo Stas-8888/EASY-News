@@ -2,13 +2,12 @@ package com.example.newsapppp.data.articles.remote.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.example.newsapppp.core.Constants.STARTING_PAGE_INDEX
 import com.example.newsapppp.data.articles.cache.SharedPreferences
 import com.example.newsapppp.data.articles.mapper.NewsResponseMapper
 import com.example.newsapppp.data.articles.remote.service.ApiService
 import com.example.newsapppp.domain.model.ArticleModel
 import retrofit2.HttpException
-
-private const val STARTING_PAGE_INDEX = 1
 
 /**
  * A paging source for fetching news articles from an API.

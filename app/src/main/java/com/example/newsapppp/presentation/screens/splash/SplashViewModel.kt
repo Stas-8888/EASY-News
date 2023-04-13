@@ -2,6 +2,7 @@ package com.example.newsapppp.presentation.screens.splash
 
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.viewModelScope
+import com.example.newsapppp.core.Constants.DURATION_SPLASH
 import com.example.newsapppp.domain.interactors.sharedpreferences.GetSwitchPositionUseCase
 import com.example.newsapppp.presentation.extensions.isCurrentUserNull
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
@@ -31,7 +32,7 @@ class SplashViewModel @Inject constructor(
      * This function navigates to the login fragment after a delay of 5 seconds.
      */
     fun navigateToLoginFragment() = viewModelScope.launch {
-        delay(TimeUnit.SECONDS.toMillis(5))
+        delay(TimeUnit.SECONDS.toMillis(DURATION_SPLASH))
         val direction = when {
             isCurrentUserNull() -> SplashFragmentDirections.actionSplashFragmentToLoginFragment()
             else -> SplashFragmentDirections.actionSplashFragmentToMainFragment()

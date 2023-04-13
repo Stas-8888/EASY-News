@@ -3,6 +3,8 @@ package com.example.newsapppp.data.articles.remote
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.example.newsapppp.core.Constants.MAX_PAGE_SIZE
+import com.example.newsapppp.core.Constants.PAGE_SIZE
 import com.example.newsapppp.core.dispatcher.DispatcherRepositoryContract
 import com.example.newsapppp.data.articles.cache.SharedPreferences
 import com.example.newsapppp.data.articles.mapper.NewsResponseMapper
@@ -15,9 +17,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
-
-private const val PAGE_SIZE = 20
-private const val MAX_PAGE_SIZE = 200
 
 /**
  * This is a remote repository for retrieving news article data. It uses the [ApiService] to fetch

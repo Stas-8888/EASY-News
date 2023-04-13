@@ -1,12 +1,17 @@
 package com.example.newsapppp.core
 
 object Constants {
+
+    //DURATIONS
     const val DURATION_100 = 100L
     const val DURATION_800 = 800L
     const val DURATION_1000 = 1000
+    const val DURATION_SPLASH = 5L
 
     const val ZERO = 0
+    const val ONE = 1
 
+    //SCALES
     const val SCALE_0F = 0f
     const val SCALE_1F = 1f
     const val SCALE_0_1F = 0.1f
@@ -18,5 +23,10 @@ object Constants {
     const val SCALE_200F = 200F
     const val SCALE_1000F = 1000F
 
+    //RADIUS
     const val RADIUS_30 = 30f
+
+    const val PAGE_SIZE = 20
+    const val MAX_PAGE_SIZE = 200
+    const val STARTING_PAGE_INDEX = 1
 }
