@@ -9,6 +9,12 @@ import android.view.animation.ScaleAnimation
 import android.webkit.WebViewClient
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.example.newsapppp.core.Constants.DURATION_100
+import com.example.newsapppp.core.Constants.SCALE_0_5F
+import com.example.newsapppp.core.Constants.SCALE_0_83F
+import com.example.newsapppp.core.Constants.SCALE_0_8F
+import com.example.newsapppp.core.Constants.SCALE_1F
+import com.example.newsapppp.core.Constants.SCALE_1_5F
 import com.example.newsapppp.databinding.FragmentNewsBinding
 import com.example.newsapppp.presentation.extensions.showAlertUpDialog
 import com.example.newsapppp.presentation.extensions.showSnackBar
@@ -86,18 +92,9 @@ class NewsFragment :
             addAnimation(largeToNormal)
         }
         animationSet.animations.forEachIndexed { index, animation ->
-            animation.duration = DURATION
-            animation.startOffset = index * DURATION
+            animation.duration = DURATION_100
+            animation.startOffset = index * DURATION_100
         }
         return animationSet
-    }
-
-    companion object {
-        private const val DURATION = 100L
-        private const val SCALE_1F = 1f
-        private const val SCALE_0_5F = 0.5f
-        private const val SCALE_0_8F = 0.8f
-        private const val SCALE_1_5F = 1.5f
-        private const val SCALE_0_83F = 0.83f
     }
 }

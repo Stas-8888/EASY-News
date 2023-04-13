@@ -9,6 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.example.newsapppp.core.Constants.DURATION_800
+import com.example.newsapppp.core.Constants.SCALE_0F
+import com.example.newsapppp.core.Constants.SCALE_0_1F
+import com.example.newsapppp.core.Constants.SCALE_1000F
+import com.example.newsapppp.core.Constants.SCALE_1F
 import com.example.newsapppp.presentation.extensions.bumpAnimation
 import com.example.newsapppp.presentation.extensions.launchWhenStarted
 import com.example.newsapppp.presentation.extensions.returnToPreviousScreen
@@ -96,15 +101,15 @@ abstract class BaseFragment<State, Action, VB : ViewBinding, VM : BaseViewModel<
      * @param toolbar The toolbar to be initialized.
      */
     protected fun initialToolBar(toolbar: androidx.appcompat.widget.Toolbar) {
-        toolbar.startAnimation(TranslateAnimation(1000f, 0f, 0f, 0f).apply {
-            duration = 800
+        toolbar.startAnimation(TranslateAnimation(SCALE_1000F, SCALE_0F, SCALE_0F, SCALE_0F).apply {
+            duration = DURATION_800
         })
 
         toolbar.animate()
-            .scaleX(0.1f)
-            .scaleY(0.1f)
+            .scaleX(SCALE_0_1F)
+            .scaleY(SCALE_0_1F)
             .withEndAction {
-                toolbar.animate().scaleX(1.0f).scaleY(1.0f).start()
+                toolbar.animate().scaleX(SCALE_1F).scaleY(SCALE_1F).start()
             }
             .start()
 
