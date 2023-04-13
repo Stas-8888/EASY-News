@@ -3,11 +3,13 @@ package com.example.newsapppp.presentation.screens.news
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationSet
+import android.view.animation.ScaleAnimation
 import android.webkit.WebViewClient
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.newsapppp.databinding.FragmentNewsBinding
-import com.example.newsapppp.presentation.extensions.clickAnimation
 import com.example.newsapppp.presentation.extensions.showAlertUpDialog
 import com.example.newsapppp.presentation.extensions.showSnackBar
 import com.example.newsapppp.presentation.screens.base.BaseFragment
@@ -30,7 +32,7 @@ class NewsFragment :
 
     override fun onClickListener() = with(binding) {
         btFavorite.setOnClickListener {
-            it.clickAnimation()
+            it.startAnimation(animationForFavoriteFlag())
             viewModel.onFavoriteButtonClicked(articleArgs.article)
         }
         btShared.setOnClickListener {
@@ -72,5 +74,30 @@ class NewsFragment :
 
         val shareIntent = Intent.createChooser(sendIntent, null)
         startActivity(shareIntent)
+    }
+
+    private fun animationForFavoriteFlag(): AnimationSet {
+        val toSmall = ScaleAnimation(SCALE_1F, SCALE_0_8F, SCALE_1F, SCALE_0_8F, Animation.RELATIVE_TO_SELF, SCALE_0_5F, Animation.RELATIVE_TO_SELF, SCALE_0_5F)
+        val smallToLarge = ScaleAnimation(SCALE_1F, SCALE_1_5F, SCALE_1F, SCALE_1_5F, Animation.RELATIVE_TO_SELF, SCALE_0_5F, Animation.RELATIVE_TO_SELF, SCALE_0_5F)
+        val largeToNormal = ScaleAnimation(SCALE_1F, SCALE_0_83F, SCALE_1F, SCALE_0_83F, Animation.RELATIVE_TO_SELF, SCALE_0_5F, Animation.RELATIVE_TO_SELF, SCALE_0_5F)
+        val animationSet = AnimationSet(true).apply {
+            addAnimation(toSmall)
+            addAnimation(smallToLarge)
+            addAnimation(largeToNormal)
+        }
+        animationSet.animations.forEachIndexed { index, animation ->
+            animation.duration = DURATION
+            animation.startOffset = index * DURATION
+        }
+        return animationSet
+    }
+
+    companion object {
+        private const val DURATION = 100L
+        private const val SCALE_1F = 1f
+        private const val SCALE_0_5F = 0.5f
+        private const val SCALE_0_8F = 0.8f
+        private const val SCALE_1_5F = 1.5f
+        private const val SCALE_0_83F = 0.83f
     }
 }
