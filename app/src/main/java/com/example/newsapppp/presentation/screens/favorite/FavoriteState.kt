@@ -3,7 +3,6 @@ package com.example.newsapppp.presentation.screens.favorite
 import com.example.newsapppp.presentation.model.Article
 
 sealed class FavoriteState {
-
     object Loading : FavoriteState()
 
     data class ShowArticles(

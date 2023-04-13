@@ -51,26 +51,51 @@
         android:id="@+id/rvSavedNews"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_0"
+        android:layout_marginTop="@dimen/dp_4"
         android:layoutAnimation="@anim/item_layout_animation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSelectionState" />
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progress_bar"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_3"
         android:indeterminate="true"
         android:visibility="invisible"
         app:indicatorColor="#FFC107"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/rvSavedNews"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:trackColor="@color/color_red"
         app:trackCornerRadius="@dimen/dp_5"
         app:trackThickness="@dimen/dp_4" />
+
+    <TextView
+        android:id="@+id/tvSelectOrClearAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_8"
+        android:background="?android:attr/selectableItemBackground"
+        android:text="@string/select_all"
+        android:textColor="@color/color_primary"
+        android:textSize="@dimen/sp_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/progress_bar" />
+
+    <TextView
+        android:id="@+id/tvSelectionState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:gravity="end"
+        android:text="@string/selection_state"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvSelectOrClearAll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/tvSelectOrClearAll" />
 
     <TextView
         android:id="@+id/tvBackgroundText"
@@ -90,5 +115,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

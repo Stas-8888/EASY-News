@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
+import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentFavoriteBinding
 import com.example.newsapppp.presentation.adapters.ArticleAdapter
 import com.example.newsapppp.presentation.extensions.*
@@ -49,6 +50,7 @@ class FavoriteFragment :
                 progressBar.isVisible = state.progressBar
                 tvBackgroundText.isVisible = state.state
                 state.exception?.let { showSnackBar(it) }
+                tvSelectionState.text = getString(R.string.selection_state, 0, state.articles.size)
             }
         }
     }
