@@ -9,7 +9,7 @@ import android.view.animation.ScaleAnimation
 import android.webkit.WebViewClient
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.example.newsapppp.core.Constants.DURATION_100
+import com.example.newsapppp.core.Constants.DURATION_100L
 import com.example.newsapppp.core.Constants.SCALE_0_5F
 import com.example.newsapppp.core.Constants.SCALE_0_83F
 import com.example.newsapppp.core.Constants.SCALE_0_8F
@@ -92,8 +92,8 @@ class NewsFragment :
             addAnimation(largeToNormal)
         }
         animationSet.animations.forEachIndexed { index, animation ->
-            animation.duration = DURATION_100
-            animation.startOffset = index * DURATION_100
+            animation.duration = DURATION_100L
+            animation.startOffset = index * DURATION_100L
         }
         return animationSet
     }

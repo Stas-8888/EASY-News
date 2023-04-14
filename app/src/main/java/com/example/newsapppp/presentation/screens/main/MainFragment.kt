@@ -8,7 +8,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapppp.R
-import com.example.newsapppp.core.Constants.DURATION_100
+import com.example.newsapppp.core.Constants.DURATION_100L
 import com.example.newsapppp.core.Constants.SCALE_0F
 import com.example.newsapppp.core.Constants.SCALE_100F
 import com.example.newsapppp.core.Constants.SCALE_200F
@@ -127,8 +127,8 @@ class MainFragment :
     private fun setupAnimation() = with(binding) {
         mainScreen.fadeInAnimation()
         tabMain.showWithAnimate(R.anim.fade_in)
-        appName.translateAnimation(SCALE_0F, SCALE_0F, -100f, SCALE_0F, DURATION_100)
-        tvCountry.translateAnimation(SCALE_0F, SCALE_0F, SCALE_100F, SCALE_0F, DURATION_100)
-        btSettings.translateAnimation(SCALE_200F, SCALE_0F, SCALE_0F, SCALE_0F, DURATION_100)
+        appName.translateAnimation(SCALE_0F, SCALE_0F, -100f, SCALE_0F, DURATION_100L)
+        tvCountry.translateAnimation(SCALE_0F, SCALE_0F, SCALE_100F, SCALE_0F, DURATION_100L)
+        btSettings.translateAnimation(SCALE_200F, SCALE_0F, SCALE_0F, SCALE_0F, DURATION_100L)
     }
 }

@@ -3,8 +3,8 @@ package com.example.newsapppp.core
 object Constants {
 
     //DURATIONS
-    const val DURATION_100 = 100L
-    const val DURATION_800 = 800L
+    const val DURATION_100L = 100L
+    const val DURATION_800L = 800L
     const val DURATION_1000 = 1000
     const val DURATION_SPLASH = 5L
 

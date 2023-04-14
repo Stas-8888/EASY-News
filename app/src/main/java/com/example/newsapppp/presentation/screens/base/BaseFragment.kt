@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.example.newsapppp.core.Constants.DURATION_800
+import com.example.newsapppp.core.Constants.DURATION_800L
 import com.example.newsapppp.core.Constants.SCALE_0F
 import com.example.newsapppp.core.Constants.SCALE_0_1F
 import com.example.newsapppp.core.Constants.SCALE_1000F
@@ -102,7 +102,7 @@ abstract class BaseFragment<State, Action, VB : ViewBinding, VM : BaseViewModel<
      */
     protected fun initialToolBar(toolbar: androidx.appcompat.widget.Toolbar) {
         toolbar.startAnimation(TranslateAnimation(SCALE_1000F, SCALE_0F, SCALE_0F, SCALE_0F).apply {
-            duration = DURATION_800
+            duration = DURATION_800L
         })
 
         toolbar.animate()
