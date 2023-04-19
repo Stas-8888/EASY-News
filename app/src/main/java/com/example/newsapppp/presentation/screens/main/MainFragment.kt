@@ -12,6 +12,7 @@ import com.example.newsapppp.core.Constants.DURATION_100L
 import com.example.newsapppp.core.Constants.SCALE_0F
 import com.example.newsapppp.core.Constants.SCALE_100F
 import com.example.newsapppp.core.Constants.SCALE_200F
+import com.example.newsapppp.core.Constants.SCALE_MINUS_100F
 import com.example.newsapppp.core.Constants.ZERO
 import com.example.newsapppp.core.SimpleTabSelectedListener
 import com.example.newsapppp.databinding.FragmentMainBinding
@@ -127,7 +128,7 @@ class MainFragment :
     private fun setupAnimation() = with(binding) {
         mainScreen.fadeInAnimation()
         tabMain.showWithAnimate(R.anim.fade_in)
-        appName.translateAnimation(SCALE_0F, SCALE_0F, -100f, SCALE_0F, DURATION_100L)
+        appName.translateAnimation(SCALE_0F, SCALE_0F, SCALE_MINUS_100F, SCALE_0F, DURATION_100L)
         tvCountry.translateAnimation(SCALE_0F, SCALE_0F, SCALE_100F, SCALE_0F, DURATION_100L)
         btSettings.translateAnimation(SCALE_200F, SCALE_0F, SCALE_0F, SCALE_0F, DURATION_100L)
     }

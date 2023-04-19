@@ -20,6 +20,7 @@ object Constants {
     const val SCALE_1_5F = 1.5f
     const val SCALE_0_83F = 0.83f
     const val SCALE_100F = 100F
+    const val SCALE_MINUS_100F = -100F
     const val SCALE_200F = 200F
     const val SCALE_1000F = 1000F
 
