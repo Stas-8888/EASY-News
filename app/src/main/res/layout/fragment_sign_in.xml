@@ -62,6 +62,8 @@
         app:boxCornerRadiusTopEnd="@dimen/dp_10"
         app:boxCornerRadiusTopStart="@dimen/dp_10"
         app:boxStrokeColor="@color/color_red_background"
+        app:endIconTint="@color/color_red_background"
+        app:endIconMode="clear_text"
         app:helperText="@string/required"
         app:helperTextTextColor="@color/gray_dark"
         app:layout_constraintBottom_toBottomOf="parent"
