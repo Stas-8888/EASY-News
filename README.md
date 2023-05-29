@@ -24,7 +24,8 @@
 - Room Database : Save,delete and get the articles into a local database.
 - Navigation Component : Navigate between fragments.
 - Dagger hilt : Dependency injection.
-- Firebase Authentication 
+- Firebase Authentication.
+- Firebase Crashlytics.
 - Use Case: For business logic of project.
 - Mapper: For separate entities.
 - MVVM + StateFlow : Android architecture used to separate logic code from ui and save the
