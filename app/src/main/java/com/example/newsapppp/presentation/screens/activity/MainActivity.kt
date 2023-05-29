@@ -14,6 +14,7 @@ import com.example.newsapppp.presentation.extensions.slideDownAnimation
 import com.example.newsapppp.presentation.extensions.slideUpAnimation
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun observe() = lifecycleScope.launchWhenStarted {
+    private fun observe() = lifecycleScope.launch {
         with(binding) {
             viewModel.state.collectLatest {
                 when (it) {
