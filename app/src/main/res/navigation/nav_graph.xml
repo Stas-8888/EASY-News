@@ -129,14 +129,13 @@
             android:id="@+id/action_splashFragment_to_loginFragment"
             app:destination="@id/signInFragment"
             app:enterAnim="@anim/anim_fade_in"
-            app:exitAnim="@anim/anim_fade_out" />
+            app:exitAnim="@anim/anim_fade_out"
+            app:popUpTo="@id/nav_graph" />
         <action
             android:id="@+id/action_splashFragment_to_mainFragment"
             app:destination="@id/mainFragment"
             app:enterAnim="@anim/slide_in_right"
-            app:popUpTo="@navigation/nav_graph"
-            app:launchSingleTop="true"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@id/nav_graph" />
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"

@@ -14,14 +14,14 @@ import com.example.newsapppp.core.Constants.ZERO
 /**
  * Sets the visibility of the view to GONE.
  */
-fun View.isGone() {
+fun View.makeGone() {
     visibility = View.GONE
 }
 
 /**
  * Sets the visibility of the view to VISIBLE.
  */
-fun View.isVisible() {
+fun View.makeVisible() {
     visibility = View.VISIBLE
 }
 

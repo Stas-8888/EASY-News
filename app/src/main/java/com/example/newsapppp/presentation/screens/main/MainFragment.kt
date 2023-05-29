@@ -2,7 +2,9 @@ package com.example.newsapppp.presentation.screens.main
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.viewModels
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,8 +19,17 @@ import com.example.newsapppp.core.Constants.ZERO
 import com.example.newsapppp.core.SimpleTabSelectedListener
 import com.example.newsapppp.databinding.FragmentMainBinding
 import com.example.newsapppp.presentation.adapters.ArticlePagerAdapter
-import com.example.newsapppp.presentation.extensions.*
+import com.example.newsapppp.presentation.extensions.clickAnimation
+import com.example.newsapppp.presentation.extensions.fadeInAnimation
+import com.example.newsapppp.presentation.extensions.makeGone
+import com.example.newsapppp.presentation.extensions.makeVisible
+import com.example.newsapppp.presentation.extensions.navigateDirections
+import com.example.newsapppp.presentation.extensions.showInternetConnectionDialog
+import com.example.newsapppp.presentation.extensions.showSnackBar
+import com.example.newsapppp.presentation.extensions.showWithAnimate
+import com.example.newsapppp.presentation.extensions.translateAnimation
 import com.example.newsapppp.presentation.screens.base.BaseFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -40,6 +51,21 @@ class MainFragment :
         adapterLoadState()
         setupTabLayout()
         setupAnimation()
+        showBottomNavigationViewOnDrawerClosed(mainScreen)
+    }
+
+    private fun showBottomNavigationViewOnDrawerClosed(drawerLayout: DrawerLayout) {
+        drawerLayout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
+            override fun onDrawerClosed(drawerView: View) {
+                super.onDrawerClosed(drawerView)
+                hideBottomNavigationView(true)
+            }
+        })
+    }
+
+    private fun hideBottomNavigationView(visibility: Boolean) {
+        val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNavigationView.isVisible = visibility
     }
 
     override fun onClickListener() = with(binding) {
@@ -54,22 +80,26 @@ class MainFragment :
             viewModel.fetchAndShowArticles()
             swipeToRefresh.isRefreshing = false
         }
+        imMenu.setOnClickListener {
+            mainScreen.openDrawer(GravityCompat.START)
+            hideBottomNavigationView(false)
+        }
     }
 
     private fun adapterLoadState() = with(binding) {
         articleAdapter.addLoadStateListener { loadState ->
             when (val data = loadState.refresh) {
                 is LoadState.Error -> {
-                    progressBar.isGone()
+                    progressBar.makeGone()
 //                    showSnackBar(R.string.error)
                 }
                 is LoadState.Loading -> {
-                    progressBar.isVisible()
-                    tvCenterText.isVisible()
+                    progressBar.makeVisible()
+                    tvCenterText.makeVisible()
                 }
                 is LoadState.NotLoading -> {
-                    progressBar.isGone()
-                    tvCenterText.isGone()
+                    progressBar.makeGone()
+                    tvCenterText.makeGone()
                 }
             }
         }

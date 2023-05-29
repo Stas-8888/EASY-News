@@ -4,7 +4,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.databinding.FragmentSignUpBinding
 import com.example.newsapppp.domain.model.UserModel
-import com.example.newsapppp.presentation.extensions.isGone
+import com.example.newsapppp.presentation.extensions.makeGone
 import com.example.newsapppp.presentation.extensions.navigateDirections
 import com.example.newsapppp.presentation.extensions.showInternetConnectionDialog
 import com.example.newsapppp.presentation.extensions.showSnackBar
@@ -59,7 +59,7 @@ class SignUpFragment :
         with(binding) {
             when (state) {
                 is SignUpState.Loading -> {
-                    loginProgress.isGone()
+                    loginProgress.makeGone()
                 }
                 is SignUpState.CheckState -> {
                     fullNameContainer.helperText = state.name

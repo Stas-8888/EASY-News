@@ -8,8 +8,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.ActivityMainBinding
-import com.example.newsapppp.presentation.extensions.isGone
-import com.example.newsapppp.presentation.extensions.isVisible
+import com.example.newsapppp.presentation.extensions.makeGone
+import com.example.newsapppp.presentation.extensions.makeVisible
 import com.example.newsapppp.presentation.extensions.slideDownAnimation
 import com.example.newsapppp.presentation.extensions.slideUpAnimation
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,11 +43,11 @@ class MainActivity : AppCompatActivity() {
                 when (it) {
                     is MainActivityState.Success -> {
                         bottomNavigationView.slideUpAnimation()
-                        bottomNavigationView.isVisible()
+                        bottomNavigationView.makeVisible()
                     }
                     is MainActivityState.Failure -> {
                         bottomNavigationView.slideDownAnimation()
-                        bottomNavigationView.isGone()
+                        bottomNavigationView.makeGone()
                     }
                 }
             }

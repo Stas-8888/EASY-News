@@ -44,7 +44,7 @@ class FavoriteFragment :
 
     override fun observerState(state: FavoriteState): Unit = with(binding) {
         when (state) {
-            is FavoriteState.Loading -> progressBar.isVisible()
+            is FavoriteState.Loading -> progressBar.makeVisible()
             is FavoriteState.ShowArticles -> {
                 articleAdapter.submitList(state.articles)
                 progressBar.isVisible = state.progressBar
