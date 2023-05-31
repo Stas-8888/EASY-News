@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.databinding.FragmentAuthBottomSheetBinding
 import com.example.newsapppp.presentation.extensions.clickAnimation
-import com.example.newsapppp.presentation.extensions.launchWhenStarted
+import com.example.newsapppp.presentation.extensions.launchFragmentScope
 import com.example.newsapppp.presentation.extensions.navigateDirections
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,7 +38,7 @@ class AuthBottomSheetFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun observeOnState() = launchWhenStarted {
+    private fun observeOnState() = launchFragmentScope {
         viewModel.state.collectLatest { state ->
             when (state) {
                 is SheetState.Loading -> {}
@@ -47,7 +47,7 @@ class AuthBottomSheetFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun observeOnShared() = launchWhenStarted {
+    private fun observeOnShared() = launchFragmentScope {
         viewModel.action.collectLatest { actions ->
             when (actions) {
                 is SheetAction.Navigate -> navigateDirections(actions.navigateTo)

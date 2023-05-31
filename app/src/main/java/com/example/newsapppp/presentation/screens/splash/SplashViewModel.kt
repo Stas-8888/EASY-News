@@ -34,7 +34,7 @@ class SplashViewModel @Inject constructor(
     fun navigateToLoginFragment() = viewModelScope.launch {
         delay(TimeUnit.SECONDS.toMillis(DURATION_SPLASH))
         val direction = when {
-            isCurrentUserNull() -> SplashFragmentDirections.actionSplashFragmentToLoginFragment()
+            isCurrentUserNull() -> SplashFragmentDirections.actionSplashFragmentToSignInFragment()
             else -> SplashFragmentDirections.actionSplashFragmentToMainFragment()
         }
         emitAction(SplashAction.Navigate(direction))

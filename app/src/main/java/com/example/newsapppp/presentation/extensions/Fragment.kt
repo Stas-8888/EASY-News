@@ -21,6 +21,7 @@ import com.example.newsapppp.databinding.DeleteDialogBinding
 import com.google.android.material.snackbar.Snackbar
 import com.tapadoo.alerter.Alerter
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 /**
  * Navigates to the given destination using the Navigation Component.
@@ -37,8 +38,8 @@ fun Fragment.returnToPreviousScreen() = findNavController().navigateUp()
  * Launches a coroutine when the Fragment's view is started.
  * @param block The code block to execute as a coroutine.
  */
-inline fun Fragment.launchWhenStarted(crossinline block: suspend CoroutineScope.() -> Unit) {
-    viewLifecycleOwner.lifecycleScope.launchWhenStarted { block() }
+inline fun Fragment.launchFragmentScope(crossinline block: suspend CoroutineScope.() -> Unit) {
+    viewLifecycleOwner.lifecycleScope.launch { block() }
 }
 
 /**
