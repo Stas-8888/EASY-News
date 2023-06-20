@@ -1,4 +1,4 @@
-package com.example.newsapppp.presentation.extensions
+package com.example.newsapppp.common.extensions
 
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 

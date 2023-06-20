@@ -11,9 +11,12 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.R
+import com.example.newsapppp.common.extensions.clickAnimation
+import com.example.newsapppp.common.extensions.navigateDirections
+import com.example.newsapppp.common.extensions.showPopupMenu
+import com.example.newsapppp.common.extensions.showSnackBar
 import com.example.newsapppp.databinding.FragmentSettingsBinding
 import com.example.newsapppp.databinding.NewNameDialogBinding
-import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 

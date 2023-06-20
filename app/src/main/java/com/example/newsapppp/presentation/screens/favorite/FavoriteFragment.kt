@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentFavoriteBinding
 import com.example.newsapppp.presentation.adapters.ArticleAdapter
-import com.example.newsapppp.presentation.extensions.clickAnimation
-import com.example.newsapppp.presentation.extensions.makeVisible
-import com.example.newsapppp.presentation.extensions.navigateDirections
-import com.example.newsapppp.presentation.extensions.showDeleteDialog
-import com.example.newsapppp.presentation.extensions.showSnackBar
+import com.example.newsapppp.common.extensions.clickAnimation
+import com.example.newsapppp.common.extensions.makeVisible
+import com.example.newsapppp.common.extensions.navigateDirections
+import com.example.newsapppp.common.extensions.showDeleteDialog
+import com.example.newsapppp.common.extensions.showSnackBar
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import com.example.newsapppp.presentation.screens.favorite.swipe.SwipeToDelete
 import dagger.hilt.android.AndroidEntryPoint

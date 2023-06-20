@@ -16,8 +16,8 @@ import com.example.newsapppp.common.Constants.SCALE_0_8F
 import com.example.newsapppp.common.Constants.SCALE_1F
 import com.example.newsapppp.common.Constants.SCALE_1_5F
 import com.example.newsapppp.databinding.FragmentDetailsBinding
-import com.example.newsapppp.presentation.extensions.showAlertUpDialog
-import com.example.newsapppp.presentation.extensions.showSnackBar
+import com.example.newsapppp.common.extensions.showAlertUpDialog
+import com.example.newsapppp.common.extensions.showSnackBar
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 

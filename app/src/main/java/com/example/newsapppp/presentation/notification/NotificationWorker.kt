@@ -23,7 +23,7 @@ import javax.inject.Inject
  * It receives a context and worker parameters through the constructor.
  */
 class NotificationWorker @Inject constructor(context: Context, workerParameters: WorkerParameters) :
-    Worker(context, workerParameters), NotificationServiceContract {
+    Worker(context, workerParameters), NotificationServiceRepository {
 
     /**
      * This method is called when the work is to be performed.
@@ -47,7 +47,7 @@ class NotificationWorker @Inject constructor(context: Context, workerParameters:
 
         val pendingIntent = PendingIntent.getActivity(
             applicationContext,
-            0, intent, 0
+            0, intent, PendingIntent.FLAG_IMMUTABLE
         )
 
         val notification = NotificationCompat.Builder(

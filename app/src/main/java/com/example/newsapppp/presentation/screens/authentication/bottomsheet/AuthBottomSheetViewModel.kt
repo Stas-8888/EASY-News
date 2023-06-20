@@ -3,7 +3,7 @@ package com.example.newsapppp.presentation.screens.authentication.bottomsheet
 import android.text.Html
 import androidx.core.text.HtmlCompat
 import com.example.newsapppp.R
-import com.example.newsapppp.presentation.extensions.makeString
+import com.example.newsapppp.common.extensions.makeString
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

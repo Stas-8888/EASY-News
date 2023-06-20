@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
+import com.example.newsapppp.common.extensions.navigateDirections
+import com.example.newsapppp.common.extensions.showInternetConnectionDialog
+import com.example.newsapppp.common.extensions.showKeyboard
+import com.example.newsapppp.common.extensions.showSnackBar
 import com.example.newsapppp.databinding.FragmentSearchBinding
 import com.example.newsapppp.presentation.adapters.ArticleAdapter
-import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 

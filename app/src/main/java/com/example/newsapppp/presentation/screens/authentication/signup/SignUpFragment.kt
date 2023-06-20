@@ -4,10 +4,10 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.databinding.FragmentSignUpBinding
 import com.example.newsapppp.domain.model.UserModel
-import com.example.newsapppp.presentation.extensions.makeGone
-import com.example.newsapppp.presentation.extensions.navigateDirections
-import com.example.newsapppp.presentation.extensions.showInternetConnectionDialog
-import com.example.newsapppp.presentation.extensions.showSnackBar
+import com.example.newsapppp.common.extensions.makeGone
+import com.example.newsapppp.common.extensions.navigateDirections
+import com.example.newsapppp.common.extensions.showInternetConnectionDialog
+import com.example.newsapppp.common.extensions.showSnackBar
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.databinding.FragmentAuthBottomSheetBinding
-import com.example.newsapppp.presentation.extensions.clickAnimation
-import com.example.newsapppp.presentation.extensions.launchFragmentScope
-import com.example.newsapppp.presentation.extensions.navigateDirections
+import com.example.newsapppp.common.extensions.clickAnimation
+import com.example.newsapppp.common.extensions.launchFragmentScope
+import com.example.newsapppp.common.extensions.navigateDirections
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

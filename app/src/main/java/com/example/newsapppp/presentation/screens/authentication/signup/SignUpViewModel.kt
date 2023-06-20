@@ -8,7 +8,7 @@ import com.example.newsapppp.domain.use_case.authentication.validation.ValidateE
 import com.example.newsapppp.domain.use_case.authentication.validation.ValidatePasswordUseCase
 import com.example.newsapppp.domain.use_case.authentication.validation.ValidateRepeatedPasswordUseCase
 import com.example.newsapppp.domain.model.UserModel
-import com.example.newsapppp.presentation.extensions.isOffline
+import com.example.newsapppp.common.extensions.isOffline
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException

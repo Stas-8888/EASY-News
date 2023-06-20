@@ -1,5 +1,5 @@
 package com.example.newsapppp.presentation.notification
 
-interface NotificationServiceContract {
+interface NotificationServiceRepository {
     fun showNotification()
 }

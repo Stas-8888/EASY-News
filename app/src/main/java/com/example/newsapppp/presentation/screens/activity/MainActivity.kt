@@ -8,10 +8,10 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.ActivityMainBinding
-import com.example.newsapppp.presentation.extensions.makeGone
-import com.example.newsapppp.presentation.extensions.makeVisible
-import com.example.newsapppp.presentation.extensions.slideDownAnimation
-import com.example.newsapppp.presentation.extensions.slideUpAnimation
+import com.example.newsapppp.common.extensions.makeGone
+import com.example.newsapppp.common.extensions.makeVisible
+import com.example.newsapppp.common.extensions.slideDownAnimation
+import com.example.newsapppp.common.extensions.slideUpAnimation
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
