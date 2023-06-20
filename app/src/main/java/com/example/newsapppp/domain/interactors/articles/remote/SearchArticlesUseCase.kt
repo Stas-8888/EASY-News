@@ -8,7 +8,7 @@ import javax.inject.Inject
  * This use case searches articles from a remote data source based on a query.
  * @param contract The repository that searches for the articles.
  */
-class SearchArticlesUseCase @Inject constructor(private val contract: ArticleRemoteContract) :
+class SearchArticlesUseCase @Inject constructor(private val contract: ArticleRepository) :
     BaseUseCaseSuspend<String, NewsResponseModel> {
 
     /**

@@ -10,7 +10,7 @@ import javax.inject.Inject
  * This use case signs in a user.
  * @param contract The authentication repository used to sign in the user.
  */
-class SignInUseCase @Inject constructor(private val contract: AuthenticationRepositoryContract) :
+class SignInUseCase @Inject constructor(private val contract: AuthenticationRepository) :
     BaseUseCaseSuspend<UserModel, Task<AuthResult>> {
 
     /**

@@ -10,7 +10,7 @@ import javax.inject.Inject
  * Injectable class which returns information about the network connection state.
  */
 class NetworkHandler @Inject constructor(@ApplicationContext private val context: Context) :
-    NetworkHandlerContract {
+    NetworkHandlerRepository {
 
     /**
      * Checks if there is an active network connection and returns a boolean.

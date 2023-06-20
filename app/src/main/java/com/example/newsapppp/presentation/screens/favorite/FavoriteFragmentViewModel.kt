@@ -7,7 +7,7 @@ import com.example.newsapppp.domain.interactors.articles.cache.DeleteAllUseCase
 import com.example.newsapppp.domain.interactors.articles.cache.DeleteArticleUseCase
 import com.example.newsapppp.domain.interactors.articles.cache.InsertArticleUseCase
 import com.example.newsapppp.domain.interactors.sharedpreferences.SaveFavoriteUseCase
-import com.example.newsapppp.domain.interactors.sharedpreferences.SharedPreferencesContract
+import com.example.newsapppp.domain.interactors.sharedpreferences.SharedPreferencesRepository
 import com.example.newsapppp.domain.model.ArticleModel
 import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article
@@ -21,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FavoriteFragmentViewModel @Inject constructor(
     private val articleAllCache: ArticleAllCacheUseCase,
-    private val sharedPref: SharedPreferencesContract,
+    private val sharedPref: SharedPreferencesRepository,
     private val deleteArticle: DeleteArticleUseCase,
     private val insertArticle: InsertArticleUseCase,
     private val saveFavorite: SaveFavoriteUseCase,

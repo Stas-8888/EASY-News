@@ -2,8 +2,8 @@ package com.example.newsapppp.presentation.screens.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.newsapppp.core.network.NetworkHandlerContract
-import com.example.newsapppp.core.resources.ProvideResourcesContract
+import com.example.newsapppp.core.network.NetworkHandlerRepository
+import com.example.newsapppp.core.resources.ProvideResourcesRepository
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,10 +23,10 @@ abstract class BaseViewModel<S, A> : ViewModel() {
     lateinit var firebaseAuth: FirebaseAuth
 
     @Inject
-    lateinit var networkHandler: NetworkHandlerContract
+    lateinit var networkHandler: NetworkHandlerRepository
 
     @Inject
-    lateinit var provideResources: ProvideResourcesContract
+    lateinit var provideResources: ProvideResourcesRepository
 
     protected abstract val _state: MutableStateFlow<S>
     val state by lazy { _state.asStateFlow() }

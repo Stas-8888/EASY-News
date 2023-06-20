@@ -9,7 +9,7 @@ import javax.inject.Inject
  * This use case retrieves a list of all articles from the article cache repository.
  * @param contract The repository that stores the articles.
  */
-class ArticleAllCacheUseCase @Inject constructor(private val contract: ArticleCacheContract) :
+class ArticleAllCacheUseCase @Inject constructor(private val contract: ArticleCacheRepository) :
     BaseUseCase<Unit, Flow<List<ArticleModel>>> {
 
     /**

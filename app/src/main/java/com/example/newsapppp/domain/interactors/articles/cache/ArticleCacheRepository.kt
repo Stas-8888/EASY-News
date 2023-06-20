@@ -3,7 +3,7 @@ package com.example.newsapppp.domain.interactors.articles.cache
 import com.example.newsapppp.domain.model.ArticleModel
 import kotlinx.coroutines.flow.Flow
 
-interface ArticleCacheContract {
+interface ArticleCacheRepository {
 
     suspend fun insertArticle(article: ArticleModel)
 

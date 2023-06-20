@@ -7,7 +7,7 @@ import javax.inject.Inject
  * A use case that retrieves the switch position from the shared preferences.
  * @param contract the repository that provides access to the shared preferences.
  */
-class GetSwitchPositionUseCase @Inject constructor(private val contract: SharedPreferencesContract) :
+class GetSwitchPositionUseCase @Inject constructor(private val contract: SharedPreferencesRepository) :
     BaseUseCase<Unit, Boolean> {
 
     /**

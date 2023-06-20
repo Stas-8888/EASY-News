@@ -7,7 +7,7 @@ import javax.inject.Inject
  * A use case that saves the selected country flag to the shared preferences.
  * @param contract the repository that provides access to the shared preferences.
  */
-class SaveCountryFlagUseCase @Inject constructor(private val contract: SharedPreferencesContract) :
+class SaveCountryFlagUseCase @Inject constructor(private val contract: SharedPreferencesRepository) :
     BaseUseCaseSuspend<String, Unit> {
 
     /**

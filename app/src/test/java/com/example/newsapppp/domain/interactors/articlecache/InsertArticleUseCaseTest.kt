@@ -1,6 +1,6 @@
 package com.example.newsapppp.domain.interactors.articlecache
 
-import com.example.newsapppp.domain.interactors.articles.cache.ArticleCacheContract
+import com.example.newsapppp.domain.interactors.articles.cache.ArticleCacheRepository
 import com.example.newsapppp.domain.interactors.articles.cache.InsertArticleUseCase
 import com.example.newsapppp.domain.model.ArticleModel
 import kotlinx.coroutines.flow.first
@@ -14,7 +14,7 @@ import org.mockito.kotlin.mock
 
 class InsertArticleUseCaseTest {
 
-    private val mockRepo = mock<ArticleCacheContract>()
+    private val mockRepo = mock<ArticleCacheRepository>()
 
     @Test
     fun `inserted article should be returned in getAllArticles`() = runBlocking {

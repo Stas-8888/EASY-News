@@ -7,7 +7,7 @@ import javax.inject.Inject
  * This use case validates a user name.
  * @param contract The validation repository used to validate the user name.
  */
-class UserNameUseCase @Inject constructor(private val contract: ValidationRepositoryContract) :
+class UserNameUseCase @Inject constructor(private val contract: ValidationRepository) :
     BaseUseCase<String, String> {
 
     /**

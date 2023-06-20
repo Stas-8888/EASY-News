@@ -1,9 +1,9 @@
 package com.example.newsapppp.di
 
-import com.example.newsapppp.data.authentication.AuthenticationRepository
-import com.example.newsapppp.data.authentication.ValidationRepository
-import com.example.newsapppp.domain.interactors.authentication.AuthenticationRepositoryContract
-import com.example.newsapppp.domain.interactors.authentication.validation.ValidationRepositoryContract
+import com.example.newsapppp.data.authentication.AuthenticationRepositoryImpl
+import com.example.newsapppp.data.authentication.ValidationRepositoryImpl
+import com.example.newsapppp.domain.interactors.authentication.AuthenticationRepository
+import com.example.newsapppp.domain.interactors.authentication.validation.ValidationRepository
 import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
@@ -21,11 +21,9 @@ object FirebaseModule {
 
     @Provides
     @Singleton
-    fun providesValidationRepository(impl: ValidationRepository): ValidationRepositoryContract =
-        impl
+    fun providesValidationRepository(impl: ValidationRepositoryImpl): ValidationRepository = impl
 
     @Provides
     @Singleton
-    fun providesAuthRepository(impl: AuthenticationRepository): AuthenticationRepositoryContract =
-        impl
+    fun providesAuthRepository(impl: AuthenticationRepositoryImpl): AuthenticationRepository = impl
 }

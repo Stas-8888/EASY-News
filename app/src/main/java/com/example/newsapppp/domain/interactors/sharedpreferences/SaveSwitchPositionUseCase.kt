@@ -8,7 +8,7 @@ import javax.inject.Inject
  *
  * @param contract The repository that handles the SharedPreferences operations.
  */
-class SaveSwitchPositionUseCase @Inject constructor(private val contract: SharedPreferencesContract) :
+class SaveSwitchPositionUseCase @Inject constructor(private val contract: SharedPreferencesRepository) :
     BaseUseCaseSuspend<Boolean, Unit> {
 
     /**

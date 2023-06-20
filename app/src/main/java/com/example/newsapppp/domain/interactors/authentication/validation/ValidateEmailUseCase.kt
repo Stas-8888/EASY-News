@@ -7,7 +7,7 @@ import javax.inject.Inject
  * This use case validates an email address.
  * @param contract The validation repository used to validate the email address.
  */
-class ValidateEmailUseCase @Inject constructor(private val contract: ValidationRepositoryContract) :
+class ValidateEmailUseCase @Inject constructor(private val contract: ValidationRepository) :
     BaseUseCase<String, String> {
 
     /**

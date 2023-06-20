@@ -7,7 +7,7 @@ import javax.inject.Inject
  * This use case deletes all articles from the article cache repository.
  * @param contract The repository that stores the articles.
  */
-class DeleteAllUseCase @Inject constructor(private val contract: ArticleCacheContract) :
+class DeleteAllUseCase @Inject constructor(private val contract: ArticleCacheRepository) :
     BaseUseCaseSuspend<Unit, Unit> {
 
     /**

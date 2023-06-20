@@ -10,8 +10,8 @@ import javax.inject.Inject
  *
  * @property context The [Context] instance used to retrieve the resources.
  */
-class ProvideResources @Inject constructor(@ApplicationContext val context: Context) :
-    ProvideResourcesContract {
+class ProvideResourcesRepositoryImpl @Inject constructor(@ApplicationContext val context: Context) :
+    ProvideResourcesRepository {
 
     /**
      * Retrieves a string resource using the given [id].

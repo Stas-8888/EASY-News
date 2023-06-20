@@ -8,7 +8,7 @@ import javax.inject.Inject
  * This use case inserts a single article into the article cache repository.
  * @param contract The repository that stores the articles.
  */
-class InsertArticleUseCase @Inject constructor(private val contract: ArticleCacheContract) :
+class InsertArticleUseCase @Inject constructor(private val contract: ArticleCacheRepository) :
     BaseUseCaseSuspend<ArticleModel, Unit> {
 
     /**

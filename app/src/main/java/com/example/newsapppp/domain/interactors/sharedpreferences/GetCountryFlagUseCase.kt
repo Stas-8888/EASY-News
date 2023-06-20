@@ -7,7 +7,7 @@ import javax.inject.Inject
  * This use case retrieves the country flag from shared preferences.
  * @param contract The shared preferences repository used to retrieve the country flag.
  */
-class GetCountryFlagUseCase @Inject constructor(private val contract: SharedPreferencesContract) :
+class GetCountryFlagUseCase @Inject constructor(private val contract: SharedPreferencesRepository) :
     BaseUseCase<Unit, String> {
 
     /**

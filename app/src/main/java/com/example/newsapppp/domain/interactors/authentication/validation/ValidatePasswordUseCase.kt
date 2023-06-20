@@ -7,7 +7,7 @@ import javax.inject.Inject
  * This use case validates a password.
  * @param contract The validation repository used to validate the password.
  */
-class ValidatePasswordUseCase @Inject constructor(private val contract: ValidationRepositoryContract) :
+class ValidatePasswordUseCase @Inject constructor(private val contract: ValidationRepository) :
     BaseUseCase<String, String> {
 
     /**

@@ -1,8 +1,8 @@
 package com.example.newsapppp.data.articles.cache
 
 import android.content.Context
-import com.example.newsapppp.core.dispatcher.DispatcherRepositoryContract
-import com.example.newsapppp.domain.interactors.sharedpreferences.SharedPreferencesContract
+import com.example.newsapppp.core.dispatcher.DispatcherRepository
+import com.example.newsapppp.domain.interactors.sharedpreferences.SharedPreferencesRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -13,12 +13,12 @@ private const val DEFAULT_BOOLEAN = false
 
 /**
  * Class that provides methods for accessing shared preferences data.
- * Implements the [SharedPreferencesContract] interface.
+ * Implements the [SharedPreferencesRepository] interface.
  */
-class SharedPreferences @Inject constructor(
+class SharedPreferencesRepositoryImpl @Inject constructor(
     @ApplicationContext var context: Context,
-    private val dispatcher: DispatcherRepositoryContract
-) : SharedPreferencesContract {
+    private val dispatcher: DispatcherRepository
+) : SharedPreferencesRepository {
 
     private val favoriteShared = context.getSharedPreferences("shared", Context.MODE_PRIVATE)
 

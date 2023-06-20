@@ -1,10 +1,10 @@
 package com.example.newsapppp.data.articles.cache
 
-import com.example.newsapppp.core.dispatcher.DispatcherRepositoryContract
+import com.example.newsapppp.core.dispatcher.DispatcherRepository
 import com.example.newsapppp.data.articles.cache.db.dao.ArticleDao
 import com.example.newsapppp.data.articles.mapper.EntityMapper
 import com.example.newsapppp.data.articles.mapper.NewsResponseMapper
-import com.example.newsapppp.domain.interactors.articles.cache.ArticleCacheContract
+import com.example.newsapppp.domain.interactors.articles.cache.ArticleCacheRepository
 import com.example.newsapppp.domain.model.ArticleModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -14,15 +14,15 @@ import javax.inject.Inject
  * This is a cache repository for storing and retrieving news article data. It uses the [ArticleDao]
  * to interact with the local database, the [EntityMapper] to map the article data between the domain
  * layer and the database layer, the [NewsResponseMapper] to map the article data between the remote
- * data source and the domain layer, and the [DispatcherRepositoryContract] to perform asynchronous
+ * data source and the domain layer, and the [DispatcherRepository] to perform asynchronous
  * operations on an I/O-bound coroutine dispatcher.
  */
-class ArticleCache @Inject constructor(
+class ArticleCacheRepositoryImpl @Inject constructor(
     private val articleDao: ArticleDao,
     private val mapper: EntityMapper,
     private val newsResponseMapper: NewsResponseMapper,
-    private val dispatcher: DispatcherRepositoryContract
-) : ArticleCacheContract {
+    private val dispatcher: DispatcherRepository
+) : ArticleCacheRepository {
 
     /**
      * Inserts the specified [article] into the cache. Uses [dispatcher] to perform the operation

@@ -1,6 +1,6 @@
 package com.example.newsapppp.domain.interactors.articleremote
 
-import com.example.newsapppp.domain.interactors.articles.remote.ArticleRemoteContract
+import com.example.newsapppp.domain.interactors.articles.remote.ArticleRepository
 import com.example.newsapppp.domain.interactors.articles.remote.SearchArticlesUseCase
 import com.example.newsapppp.domain.model.ArticleModel
 import com.example.newsapppp.domain.model.NewsResponseModel
@@ -12,7 +12,7 @@ import org.mockito.kotlin.mock
 
 class SearchArticlesUseCaseTest {
 
-    private val mockRepo = mock<ArticleRemoteContract>()
+    private val mockRepo = mock<ArticleRepository>()
 
     @Test
     fun `invoke should return expected result`() = runBlocking {

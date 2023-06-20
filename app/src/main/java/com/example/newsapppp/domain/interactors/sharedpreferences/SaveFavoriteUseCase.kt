@@ -6,7 +6,7 @@ import javax.inject.Inject
  * This class represents the use case for saving a favorite value in SharedPreferences.
  * @param contract The repository that handles the SharedPreferences operations.
  */
-class SaveFavoriteUseCase @Inject constructor(private val contract: SharedPreferencesContract) {
+class SaveFavoriteUseCase @Inject constructor(private val contract: SharedPreferencesRepository) {
 
     /**
      * Saves the given favorite value with the specified key in SharedPreferences.

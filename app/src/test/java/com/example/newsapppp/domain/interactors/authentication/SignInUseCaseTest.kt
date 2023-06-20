@@ -11,7 +11,7 @@ import org.mockito.kotlin.mock
 
 class SignInUseCaseTest {
 
-    private val mockRepository = mock<AuthenticationRepositoryContract>()
+    private val mockRepository = mock<AuthenticationRepository>()
     private val testUser = UserModel("test@example.com", "password")
     private val signInUseCase = SignInUseCase(mockRepository)
 

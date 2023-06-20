@@ -1,6 +1,6 @@
 package com.example.newsapppp.presentation.screens.main
 
-import com.example.newsapppp.core.network.NetworkHandlerContract
+import com.example.newsapppp.core.network.NetworkHandlerRepository
 import com.example.newsapppp.data.articles.remote.interceptor.ErrorsInterceptorContract
 import com.example.newsapppp.domain.interactors.articles.remote.FetchedArticlesUseCase
 import com.example.newsapppp.domain.interactors.sharedpreferences.GetCountryFlagUseCase
@@ -17,7 +17,7 @@ class MainFragmentViewModelTest{
     private val getCountryFlag = mock<GetCountryFlagUseCase>()
     private val fetchedArticles = mock<FetchedArticlesUseCase>()
     private val interceptorErrors = mock<ErrorsInterceptorContract>()
-    private val networkHandlerContract = mock<NetworkHandlerContract>()
+    private val networkHandlerRepository = mock<NetworkHandlerRepository>()
 
     private lateinit var viewModel: MainFragmentViewModel
 

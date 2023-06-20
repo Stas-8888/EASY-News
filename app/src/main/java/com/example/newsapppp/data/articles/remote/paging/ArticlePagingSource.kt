@@ -3,7 +3,7 @@ package com.example.newsapppp.data.articles.remote.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.newsapppp.core.Constants.STARTING_PAGE_INDEX
-import com.example.newsapppp.data.articles.cache.SharedPreferences
+import com.example.newsapppp.data.articles.cache.SharedPreferencesRepositoryImpl
 import com.example.newsapppp.data.articles.mapper.NewsResponseMapper
 import com.example.newsapppp.data.articles.remote.service.ApiService
 import com.example.newsapppp.domain.model.ArticleModel
@@ -18,7 +18,7 @@ import retrofit2.HttpException
  */
 class ArticlePagingSource(
     private val repository: ApiService,
-    private val countryCode: SharedPreferences,
+    private val countryCode: SharedPreferencesRepositoryImpl,
     private val category: String,
     private val mapper: NewsResponseMapper
 ) : PagingSource<Int, ArticleModel>() {

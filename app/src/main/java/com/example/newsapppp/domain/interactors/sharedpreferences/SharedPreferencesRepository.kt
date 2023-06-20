@@ -1,6 +1,6 @@
 package com.example.newsapppp.domain.interactors.sharedpreferences
 
-interface SharedPreferencesContract {
+interface SharedPreferencesRepository {
 
     suspend fun saveFavorite(key: String, value: Boolean)
 

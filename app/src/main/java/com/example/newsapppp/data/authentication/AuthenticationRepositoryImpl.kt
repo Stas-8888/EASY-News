@@ -1,7 +1,7 @@
 package com.example.newsapppp.data.authentication
 
-import com.example.newsapppp.core.dispatcher.DispatcherRepositoryContract
-import com.example.newsapppp.domain.interactors.authentication.AuthenticationRepositoryContract
+import com.example.newsapppp.core.dispatcher.DispatcherRepository
+import com.example.newsapppp.domain.interactors.authentication.AuthenticationRepository
 import com.example.newsapppp.domain.model.UserModel
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
@@ -9,18 +9,18 @@ import com.google.firebase.auth.FirebaseAuth
 import javax.inject.Inject
 
 /**
- * This class provides the implementation for [AuthenticationRepositoryContract] interface. It
+ * This class provides the implementation for [AuthenticationRepository] interface. It
  * allows users to sign in, sign up, and reset their password using Firebase Authentication.
- * Additionally, it uses [DispatcherRepositoryContract] to perform asynchronous operations on
+ * Additionally, it uses [DispatcherRepository] to perform asynchronous operations on
  * an I/O-bound coroutine dispatcher.
  *
  * @property firebaseAuth - The [FirebaseAuth] instance for authentication.
- * @property dispatcher - The [DispatcherRepositoryContract] instance to handle coroutine dispatching.
+ * @property dispatcher - The [DispatcherRepository] instance to handle coroutine dispatching.
  */
-class AuthenticationRepository @Inject constructor(
+class AuthenticationRepositoryImpl @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
-    private val dispatcher: DispatcherRepositoryContract
-) : AuthenticationRepositoryContract {
+    private val dispatcher: DispatcherRepository
+) : AuthenticationRepository {
 
     /**
      * Asynchronously signs in a user with email and password credentials. Uses [dispatcher]

@@ -2,17 +2,17 @@ package com.example.newsapppp.data.authentication
 
 import android.util.Patterns
 import com.example.newsapppp.R
-import com.example.newsapppp.core.resources.ProvideResourcesContract
-import com.example.newsapppp.domain.interactors.authentication.validation.ValidationRepositoryContract
+import com.example.newsapppp.core.resources.ProvideResourcesRepository
+import com.example.newsapppp.domain.interactors.authentication.validation.ValidationRepository
 import javax.inject.Inject
 
 /**
  * Repository class for validating user input during authentication.
  * @param provideResources An interface for accessing app resources.
  */
-class ValidationRepository @Inject constructor(
-    private val provideResources: ProvideResourcesContract
-) : ValidationRepositoryContract {
+class ValidationRepositoryImpl @Inject constructor(
+    private val provideResources: ProvideResourcesRepository
+) : ValidationRepository {
 
     /**
      * Validates user input for email address.

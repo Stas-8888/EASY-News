@@ -10,7 +10,7 @@ import javax.inject.Inject
  * This use case fetches a paged list of articles from a remote data source.
  * @param contract The repository that fetches the articles.
  */
-class FetchedArticlesUseCase @Inject constructor(private val contract: ArticleRemoteContract) :
+class FetchedArticlesUseCase @Inject constructor(private val contract: ArticleRepository) :
     BaseUseCase<String, Flow<PagingData<ArticleModel>>> {
 
     /**
