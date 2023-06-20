@@ -76,7 +76,7 @@ class MainViewModel @Inject constructor(
     /**
      * Handles click on news article in recycler view.
      */
-    fun onNewsAdapterClicked(article: Article) {
+    fun onArticleItemClicked(article: Article) {
         val action = MainFragmentDirections.actionMainFragmentToDetailsFragment(article)
         emitAction(MainAction.Navigate(action))
     }

@@ -18,8 +18,6 @@ import com.example.newsapppp.common.Constants.SCALE_MINUS_100F
 import com.example.newsapppp.common.Constants.ZERO
 import com.example.newsapppp.common.SimpleTabSelectedListener
 import com.example.newsapppp.databinding.FragmentMainBinding
-import com.example.newsapppp.presentation.screens.main.adapter.ArticlePagerAdapter
-import com.example.newsapppp.presentation.extensions.clickAnimation
 import com.example.newsapppp.presentation.extensions.fadeInAnimation
 import com.example.newsapppp.presentation.extensions.makeGone
 import com.example.newsapppp.presentation.extensions.makeVisible
@@ -29,16 +27,15 @@ import com.example.newsapppp.presentation.extensions.showSnackBar
 import com.example.newsapppp.presentation.extensions.showWithAnimate
 import com.example.newsapppp.presentation.extensions.translateAnimation
 import com.example.newsapppp.presentation.screens.base.BaseFragment
+import com.example.newsapppp.presentation.screens.main.adapter.ArticlePagerAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainFragment :
-    BaseFragment<MainState, MainAction, FragmentMainBinding, MainViewModel>(
-        FragmentMainBinding::inflate
-    ) {
-
+class MainFragment : BaseFragment<MainState, MainAction, FragmentMainBinding, MainViewModel>(
+    FragmentMainBinding::inflate
+) {
     private val articleAdapter by lazy { ArticlePagerAdapter() }
     override val viewModel by viewModels<MainViewModel>()
 
@@ -64,17 +61,17 @@ class MainFragment :
     }
 
     private fun hideBottomNavigationView(visibility: Boolean) {
-        val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val bottomNavigationView =
+            requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView.isVisible = visibility
     }
 
     override fun onClickListener() = with(binding) {
         btSettings.setOnClickListener {
-            it.clickAnimation()
             viewModel.onBtSettingsClicked()
         }
         articleAdapter.setOnItemClickListener {
-            viewModel.onNewsAdapterClicked(it)
+            viewModel.onArticleItemClicked(it)
         }
         swipeToRefresh.setOnRefreshListener {
             viewModel.fetchAndShowArticles()
@@ -93,10 +90,12 @@ class MainFragment :
                     progressBar.makeGone()
 //                    showSnackBar(R.string.error)
                 }
+
                 is LoadState.Loading -> {
                     progressBar.makeVisible()
                     tvCenterText.makeVisible()
                 }
+
                 is LoadState.NotLoading -> {
                     progressBar.makeGone()
                     tvCenterText.makeGone()
@@ -111,6 +110,7 @@ class MainFragment :
                 articleAdapter.submitData(lifecycle, state.article)
                 tvCountry.text = state.countryFlag
             }
+
             is MainState.BottomVisibility -> fabUp.isVisible = state.state
         }
     }
