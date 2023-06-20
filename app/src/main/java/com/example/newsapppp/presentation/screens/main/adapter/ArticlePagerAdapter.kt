@@ -10,9 +10,9 @@ import coil.transform.RoundedCornersTransformation
 import com.example.newsapppp.R
 import com.example.newsapppp.common.Constants.DURATION_1000
 import com.example.newsapppp.common.Constants.RADIUS_30
-import com.example.newsapppp.presentation.adapters.DateFormat.dateFormat
 import com.example.newsapppp.databinding.ItemLayoutBinding
 import com.example.newsapppp.presentation.adapters.ArticleDiffCallback
+import com.example.newsapppp.presentation.extensions.getReformatDate
 import com.example.newsapppp.presentation.model.Article
 
 /**
@@ -61,7 +61,7 @@ class ArticlePagerAdapter :
                 tvTitle.text = article?.title
                 author.text = article?.author
                 tvDescription.text = article?.description
-                tvPublishedAt.text = dateFormat(article?.publishedAt)
+                tvPublishedAt.text = getReformatDate(article?.publishedAt)
                 setOnClickListener {
                     if (article != null) {
                         onItemClickListener?.invoke(article)

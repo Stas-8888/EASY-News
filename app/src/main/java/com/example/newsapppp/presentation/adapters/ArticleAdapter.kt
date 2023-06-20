@@ -9,6 +9,7 @@ import coil.transform.RoundedCornersTransformation
 import com.example.newsapppp.common.Constants.DURATION_1000
 import com.example.newsapppp.common.Constants.RADIUS_30
 import com.example.newsapppp.databinding.ItemLayoutBinding
+import com.example.newsapppp.presentation.extensions.getReformatDate
 import com.example.newsapppp.presentation.model.Article
 
 /**
@@ -34,7 +35,7 @@ class ArticleAdapter : ListAdapter<Article, ArticleAdapter.ArticleViewHolder>(Ar
             tvTitle.text = article.title
             author.text = article.author
             tvDescription.text = article.description
-            tvPublishedAt.text = DateFormat.dateFormat(article.publishedAt)
+            tvPublishedAt.text = getReformatDate(article.publishedAt)
             itemCard.setOnClickListener {
                 onItemClickListener?.invoke(article)
             }

@@ -22,6 +22,28 @@ import com.google.android.material.snackbar.Snackbar
 import com.tapadoo.alerter.Alerter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.Locale
+
+
+/**
+ *Reformats a date string in the format "yyyy-MM-dd" to "dd MMM yyyy".
+ *@param dateInString The date string to reformat.
+ *@return The reformatted date string in the format "dd MMM yyyy", or "-" if the input is null or in an invalid format.
+ */
+fun getReformatDate(dateInString: String?): String {
+    return if (dateInString != null) {
+        val parser = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val formatter = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+        try {
+            val date = parser.parse(dateInString)
+            formatter.format(date!!)
+        } catch (e: ParseException) {
+            "-"
+        }
+    } else "-"
+}
 
 /**
  * Navigates to the given destination using the Navigation Component.
