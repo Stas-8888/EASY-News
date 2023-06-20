@@ -1,6 +1,6 @@
 package com.example.newsapppp.domain.use_case.shared_preferences
 
-import com.example.newsapppp.domain.base_use_case.BaseUseCase
+import com.example.newsapppp.domain.base.BaseUseCase
 import com.example.newsapppp.domain.repository.SharedPreferencesRepository
 import javax.inject.Inject
 

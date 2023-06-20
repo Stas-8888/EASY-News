@@ -1,6 +1,6 @@
 package com.example.newsapppp.domain.use_case.authentication.validation
 
-import com.example.newsapppp.domain.base_use_case.BaseUseCase
+import com.example.newsapppp.domain.base.BaseUseCase
 import com.example.newsapppp.domain.repository.ValidationRepository
 import javax.inject.Inject
 

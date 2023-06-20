@@ -1,7 +1,7 @@
 package com.example.newsapppp.domain.use_case.articles.remote
 
 import com.example.newsapppp.domain.model.NewsResponseModel
-import com.example.newsapppp.domain.base_use_case.BaseUseCaseSuspend
+import com.example.newsapppp.domain.base.BaseUseCaseSuspend
 import com.example.newsapppp.domain.repository.ArticleRepository
 import javax.inject.Inject
 

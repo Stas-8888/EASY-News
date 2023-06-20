@@ -1,6 +1,6 @@
 package com.example.newsapppp.domain.use_case.articles.cache
 
-import com.example.newsapppp.domain.base_use_case.BaseUseCaseSuspend
+import com.example.newsapppp.domain.base.BaseUseCaseSuspend
 import com.example.newsapppp.domain.model.ArticleModel
 import com.example.newsapppp.domain.repository.ArticleCacheRepository
 import javax.inject.Inject

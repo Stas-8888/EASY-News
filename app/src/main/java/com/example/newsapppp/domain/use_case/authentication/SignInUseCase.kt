@@ -1,6 +1,6 @@
 package com.example.newsapppp.domain.use_case.authentication
 
-import com.example.newsapppp.domain.base_use_case.BaseUseCaseSuspend
+import com.example.newsapppp.domain.base.BaseUseCaseSuspend
 import com.example.newsapppp.domain.model.UserModel
 import com.example.newsapppp.domain.repository.AuthenticationRepository
 import com.google.android.gms.tasks.Task

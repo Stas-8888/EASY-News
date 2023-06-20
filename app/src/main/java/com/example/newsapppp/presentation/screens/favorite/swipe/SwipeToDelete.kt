@@ -8,14 +8,14 @@ import android.graphics.Paint
 import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.newsapppp.R
+import com.example.newsapppp.common.Constants.ZERO
 import com.example.newsapppp.presentation.adapters.ArticleAdapter
 import com.example.newsapppp.presentation.screens.favorite.FavoriteViewModel
 
-private const val ZERO = 0
 private const val HUNDRED = 100
 private const val FADE_BUFFER = 90
 private const val SWIPE_THRESHOLD = 0.4F
+
 /**
  * [ItemTouchHelper] that fades a view out to allow deletion.
  */
@@ -92,7 +92,7 @@ class SwipeToDelete(
 
         val icon: Bitmap = BitmapFactory.decodeResource(
             recyclerView.context.resources,
-            R.drawable.ic_delete
+            android.R.drawable.ic_delete
         )
 
         // Draw background

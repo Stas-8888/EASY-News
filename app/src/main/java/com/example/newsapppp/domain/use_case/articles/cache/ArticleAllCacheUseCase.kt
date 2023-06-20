@@ -1,7 +1,7 @@
 package com.example.newsapppp.domain.use_case.articles.cache
 
 import com.example.newsapppp.domain.model.ArticleModel
-import com.example.newsapppp.domain.base_use_case.BaseUseCase
+import com.example.newsapppp.domain.base.BaseUseCase
 import com.example.newsapppp.domain.repository.ArticleCacheRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

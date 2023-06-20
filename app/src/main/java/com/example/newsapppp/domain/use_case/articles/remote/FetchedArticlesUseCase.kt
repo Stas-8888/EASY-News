@@ -1,7 +1,7 @@
 package com.example.newsapppp.domain.use_case.articles.remote
 
 import androidx.paging.PagingData
-import com.example.newsapppp.domain.base_use_case.BaseUseCase
+import com.example.newsapppp.domain.base.BaseUseCase
 import com.example.newsapppp.domain.model.ArticleModel
 import com.example.newsapppp.domain.repository.ArticleRepository
 import kotlinx.coroutines.flow.Flow

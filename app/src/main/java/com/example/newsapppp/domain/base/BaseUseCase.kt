@@ -1,4 +1,4 @@
-package com.example.newsapppp.domain.base_use_case
+package com.example.newsapppp.domain.base
 
 interface BaseUseCase<in Parameter, out Result> {
 
