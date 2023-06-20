@@ -7,13 +7,13 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
- * This class implements the [ErrorsInterceptorContract] interface to provide an
+ * This class implements the [ErrorsInterceptorRepository] interface to provide an
  * implementation for error handling in a flow.
  *
  * @property interceptorFlow The [MutableSharedFlow] used to emit error codes.
  * @constructor Creates an instance of [ErrorsInterceptor].
  */
-class ErrorsInterceptor @Inject constructor() : ErrorsInterceptorContract {
+class ErrorsInterceptor @Inject constructor() : ErrorsInterceptorRepository {
     private val interceptorFlow = MutableSharedFlow<Int>()
 
     /**

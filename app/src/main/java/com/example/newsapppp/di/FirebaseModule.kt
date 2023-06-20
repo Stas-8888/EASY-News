@@ -1,7 +1,7 @@
 package com.example.newsapppp.di
 
-import com.example.newsapppp.data.authentication.AuthenticationRepositoryImpl
-import com.example.newsapppp.data.authentication.ValidationRepositoryImpl
+import com.example.newsapppp.data.repository.authentication.AuthenticationRepositoryImpl
+import com.example.newsapppp.data.repository.authentication.ValidationRepositoryImpl
 import com.example.newsapppp.domain.repository.AuthenticationRepository
 import com.example.newsapppp.domain.repository.ValidationRepository
 import com.google.firebase.auth.FirebaseAuth

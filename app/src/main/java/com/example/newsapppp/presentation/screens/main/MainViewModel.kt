@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.example.newsapppp.R
 import com.example.newsapppp.common.Constants.ONE
-import com.example.newsapppp.data.interceptor.ErrorsInterceptorContract
+import com.example.newsapppp.data.interceptor.ErrorsInterceptorRepository
 import com.example.newsapppp.domain.use_case.articles.remote.FetchedArticlesUseCase
 import com.example.newsapppp.domain.use_case.shared_preferences.GetCountryFlagUseCase
 import com.example.newsapppp.presentation.extensions.isOffline
@@ -27,7 +27,7 @@ class MainViewModel @Inject constructor(
     private val mapper: ArticleMapper,
     private val getCountryFlag: GetCountryFlagUseCase,
     private val fetchedArticles: FetchedArticlesUseCase,
-    private val interceptorErrors: ErrorsInterceptorContract
+    private val interceptorErrors: ErrorsInterceptorRepository
 ) : BaseViewModel<MainState, MainAction>() {
 
     override val _state = MutableStateFlow<MainState>(MainState.BottomVisibility(false))

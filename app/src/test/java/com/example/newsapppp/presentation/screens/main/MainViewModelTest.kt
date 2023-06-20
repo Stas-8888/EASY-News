@@ -1,7 +1,7 @@
 package com.example.newsapppp.presentation.screens.main
 
 import com.example.newsapppp.common.network.NetworkHandlerRepository
-import com.example.newsapppp.data.interceptor.ErrorsInterceptorContract
+import com.example.newsapppp.data.interceptor.ErrorsInterceptorRepository
 import com.example.newsapppp.domain.use_case.articles.remote.FetchedArticlesUseCase
 import com.example.newsapppp.domain.use_case.shared_preferences.GetCountryFlagUseCase
 import com.example.newsapppp.presentation.mapper.ArticleMapper
@@ -16,7 +16,7 @@ class MainViewModelTest{
     private val mapper = mock<ArticleMapper>()
     private val getCountryFlag = mock<GetCountryFlagUseCase>()
     private val fetchedArticles = mock<FetchedArticlesUseCase>()
-    private val interceptorErrors = mock<ErrorsInterceptorContract>()
+    private val interceptorErrors = mock<ErrorsInterceptorRepository>()
     private val networkHandlerRepository = mock<NetworkHandlerRepository>()
 
     private lateinit var viewModel: MainViewModel

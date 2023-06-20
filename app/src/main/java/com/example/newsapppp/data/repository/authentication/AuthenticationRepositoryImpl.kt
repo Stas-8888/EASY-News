@@ -1,4 +1,4 @@
-package com.example.newsapppp.data.authentication
+package com.example.newsapppp.data.repository.authentication
 
 import com.example.newsapppp.common.dispatcher.DispatcherRepository
 import com.example.newsapppp.domain.repository.AuthenticationRepository

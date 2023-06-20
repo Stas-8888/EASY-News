@@ -10,5 +10,4 @@ sealed class SettingsAction {
         val isError: Boolean = false,
         val isPositiveAction: () -> Unit = {}
     ) : SettingsAction()
-
 }

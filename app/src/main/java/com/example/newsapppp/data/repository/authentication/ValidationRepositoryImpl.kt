@@ -1,4 +1,4 @@
-package com.example.newsapppp.data.authentication
+package com.example.newsapppp.data.repository.authentication
 
 import android.util.Patterns
 import com.example.newsapppp.R

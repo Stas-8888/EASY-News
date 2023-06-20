@@ -2,7 +2,7 @@ package com.example.newsapppp.data.interceptor
 
 import kotlinx.coroutines.flow.SharedFlow
 
-interface ErrorsInterceptorContract {
+interface ErrorsInterceptorRepository {
 
     fun errorsInterceptor(): SharedFlow<Int>
 

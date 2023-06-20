@@ -3,7 +3,7 @@ package com.example.newsapppp.di
 import com.example.newsapppp.BuildConfig
 import com.example.newsapppp.data.repository.ArticleRepositoryImpl
 import com.example.newsapppp.data.interceptor.ErrorsInterceptor
-import com.example.newsapppp.data.interceptor.ErrorsInterceptorContract
+import com.example.newsapppp.data.interceptor.ErrorsInterceptorRepository
 import com.example.newsapppp.data.interceptor.RestErrorInterceptor
 import com.example.newsapppp.data.source.remote.service.ApiService
 import com.example.newsapppp.domain.repository.ArticleRepository
@@ -66,11 +66,11 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun restErrorInterceptor(error: ErrorsInterceptorContract) = RestErrorInterceptor(error)
+    fun restErrorInterceptor(error: ErrorsInterceptorRepository) = RestErrorInterceptor(error)
 
     @Provides
     @Singleton
-    fun providesErrorsInterceptor(impl: ErrorsInterceptor): ErrorsInterceptorContract = impl
+    fun providesErrorsInterceptor(impl: ErrorsInterceptor): ErrorsInterceptorRepository = impl
 
     @Provides
     @Singleton

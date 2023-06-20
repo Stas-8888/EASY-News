@@ -14,7 +14,7 @@ import okhttp3.Response
  * it emits an error message, using the ErrorsInterceptorContract.
  * @param errors An instance of ErrorsInterceptorContract used to emit error messages.
  */
-class RestErrorInterceptor(private var errors: ErrorsInterceptorContract) : Interceptor {
+class RestErrorInterceptor(private var errors: ErrorsInterceptorRepository) : Interceptor {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
@@ -35,6 +35,7 @@ class RestErrorInterceptor(private var errors: ErrorsInterceptorContract) : Inte
             429 -> emitError(R.string.many_request)
             500 -> emitError(R.string.server_error)
         }
+        coroutineScope.cancel()
         return response
     }
 
