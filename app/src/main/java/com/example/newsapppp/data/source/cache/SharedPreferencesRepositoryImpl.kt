@@ -2,7 +2,7 @@ package com.example.newsapppp.data.source.cache
 
 import android.content.Context
 import com.example.newsapppp.common.dispatcher.DispatcherRepository
-import com.example.newsapppp.domain.interactors.sharedpreferences.SharedPreferencesRepository
+import com.example.newsapppp.domain.repository.SharedPreferencesRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 

@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.collectLatest
 @AndroidEntryPoint
 class AuthBottomSheetFragment : BottomSheetDialogFragment() {
     lateinit var binding: FragmentAuthBottomSheetBinding
-    private val viewModel by viewModels<AuthBottomSheetFragmentViewModel>()
+    private val viewModel by viewModels<AuthBottomSheetViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

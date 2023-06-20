@@ -3,7 +3,7 @@ package com.example.newsapppp.data.authentication
 import android.util.Patterns
 import com.example.newsapppp.R
 import com.example.newsapppp.common.resources.ProvideResourcesRepository
-import com.example.newsapppp.domain.interactors.authentication.validation.ValidationRepository
+import com.example.newsapppp.domain.repository.ValidationRepository
 import javax.inject.Inject
 
 /**

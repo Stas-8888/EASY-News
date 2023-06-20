@@ -8,7 +8,7 @@ import com.example.newsapppp.common.network.NetworkHandlerRepository
 import com.example.newsapppp.common.resources.ProvideResourcesRepositoryImpl
 import com.example.newsapppp.common.resources.ProvideResourcesRepository
 import com.example.newsapppp.data.source.cache.SharedPreferencesRepositoryImpl
-import com.example.newsapppp.domain.interactors.sharedpreferences.SharedPreferencesRepository
+import com.example.newsapppp.domain.repository.SharedPreferencesRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

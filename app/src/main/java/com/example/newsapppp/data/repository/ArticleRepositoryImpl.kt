@@ -9,7 +9,7 @@ import com.example.newsapppp.data.source.cache.SharedPreferencesRepositoryImpl
 import com.example.newsapppp.data.mapper.NewsResponseMapper
 import com.example.newsapppp.data.paging.ArticlePagingSource
 import com.example.newsapppp.data.source.remote.service.ApiService
-import com.example.newsapppp.domain.interactors.articles.remote.ArticleRepository
+import com.example.newsapppp.domain.repository.ArticleRepository
 import com.example.newsapppp.domain.model.ArticleModel
 import com.example.newsapppp.domain.model.NewsResponseModel
 import kotlinx.coroutines.flow.Flow

@@ -2,9 +2,9 @@ package com.example.newsapppp.presentation.screens.authentication.signin
 
 import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.R
-import com.example.newsapppp.domain.interactors.authentication.SignInUseCase
-import com.example.newsapppp.domain.interactors.authentication.validation.ValidateEmailUseCase
-import com.example.newsapppp.domain.interactors.authentication.validation.ValidatePasswordUseCase
+import com.example.newsapppp.domain.use_case.authentication.SignInUseCase
+import com.example.newsapppp.domain.use_case.authentication.validation.ValidateEmailUseCase
+import com.example.newsapppp.domain.use_case.authentication.validation.ValidatePasswordUseCase
 import com.example.newsapppp.domain.model.UserModel
 import com.example.newsapppp.presentation.extensions.isOffline
 import com.example.newsapppp.presentation.screens.base.BaseViewModel

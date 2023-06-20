@@ -22,10 +22,10 @@ private const val SELECT_PICTURE_TITLE = "Select Picture"
 
 @AndroidEntryPoint
 class SettingsFragment :
-    BaseFragment<SettingsState, SettingsAction, FragmentSettingsBinding, SettingsFragmentViewModel>(
+    BaseFragment<SettingsState, SettingsAction, FragmentSettingsBinding, SettingsViewModel>(
         FragmentSettingsBinding::inflate
     ) {
-    override val viewModel by viewModels<SettingsFragmentViewModel>()
+    override val viewModel by viewModels<SettingsViewModel>()
     private var mImageUri: Uri? = null
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->

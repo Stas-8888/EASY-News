@@ -10,13 +10,6 @@
         android:name="com.example.newsapppp.presentation.screens.main.MainFragment"
         tools:layout="@layout/fragment_main">
         <action
-            android:id="@+id/action_mainFragment_to_newsFragment"
-            app:destination="@id/newsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
             android:id="@+id/action_mainFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -33,12 +26,19 @@
         <action
             android:id="@+id/action_mainFragment_to_favoriteFragment"
             app:destination="@id/favoriteFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
-        android:id="@+id/newsFragment"
-        android:name="com.example.newsapppp.presentation.screens.news.NewsFragment"
-        android:label="Daily News"
-        tools:layout="@layout/fragment_news">
+        android:id="@+id/detailsFragment"
+        android:name="com.example.newsapppp.presentation.screens.details.DetailsFragment"
+        android:label="EASY News"
+        tools:layout="@layout/fragment_details">
         <argument
             android:name="article"
             app:argType="com.example.newsapppp.presentation.model.Article" />
@@ -49,12 +49,12 @@
         android:label="Мои Новости"
         tools:layout="@layout/fragment_favorite">
         <action
-            android:id="@+id/action_favoriteFragment_to_newsFragment"
-            app:destination="@id/newsFragment"
+            android:id="@+id/action_favoriteFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -62,8 +62,8 @@
         android:label="Поиск Новостей"
         tools:layout="@layout/fragment_search">
         <action
-            android:id="@+id/action_searchFragment_to_newsFragment"
-            app:destination="@id/newsFragment"
+            android:id="@+id/action_searchFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"

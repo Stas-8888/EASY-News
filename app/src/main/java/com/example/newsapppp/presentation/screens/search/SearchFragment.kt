@@ -12,11 +12,11 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SearchFragment :
-    BaseFragment<SearchState, SearchAction, FragmentSearchBinding, SearchFragmentViewModel>(
+    BaseFragment<SearchState, SearchAction, FragmentSearchBinding, SearchViewModel>(
         FragmentSearchBinding::inflate
     ) {
     private val articleAdapter by lazy { ArticleAdapter() }
-    override val viewModel by viewModels<SearchFragmentViewModel>()
+    override val viewModel by viewModels<SearchViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)

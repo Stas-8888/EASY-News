@@ -5,7 +5,7 @@ import androidx.room.Room
 import com.example.newsapppp.data.source.cache.ArticleCacheRepositoryImpl
 import com.example.newsapppp.data.source.cache.db.NewsDatabase
 import com.example.newsapppp.data.source.cache.db.dao.ArticleDao
-import com.example.newsapppp.domain.interactors.articles.cache.ArticleCacheRepository
+import com.example.newsapppp.domain.repository.ArticleCacheRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

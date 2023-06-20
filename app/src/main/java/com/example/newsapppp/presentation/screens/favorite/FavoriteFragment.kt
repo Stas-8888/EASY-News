@@ -10,15 +10,16 @@ import com.example.newsapppp.databinding.FragmentFavoriteBinding
 import com.example.newsapppp.presentation.adapters.ArticleAdapter
 import com.example.newsapppp.presentation.extensions.*
 import com.example.newsapppp.presentation.screens.base.BaseFragment
+import com.example.newsapppp.presentation.screens.favorite.swipe.SwipeToDelete
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FavoriteFragment :
-    BaseFragment<FavoriteState, FavoriteAction, FragmentFavoriteBinding, FavoriteFragmentViewModel>(
+    BaseFragment<FavoriteState, FavoriteAction, FragmentFavoriteBinding, FavoriteViewModel>(
         FragmentFavoriteBinding::inflate
     ) {
     private val articleAdapter by lazy { ArticleAdapter() }
-    override val viewModel by viewModels<FavoriteFragmentViewModel>()
+    override val viewModel by viewModels<FavoriteViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

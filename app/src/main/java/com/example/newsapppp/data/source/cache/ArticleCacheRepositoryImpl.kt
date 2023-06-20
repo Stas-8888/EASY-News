@@ -4,7 +4,7 @@ import com.example.newsapppp.common.dispatcher.DispatcherRepository
 import com.example.newsapppp.data.source.cache.db.dao.ArticleDao
 import com.example.newsapppp.data.mapper.EntityMapper
 import com.example.newsapppp.data.mapper.NewsResponseMapper
-import com.example.newsapppp.domain.interactors.articles.cache.ArticleCacheRepository
+import com.example.newsapppp.domain.repository.ArticleCacheRepository
 import com.example.newsapppp.domain.model.ArticleModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

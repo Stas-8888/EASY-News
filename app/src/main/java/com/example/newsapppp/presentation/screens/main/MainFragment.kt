@@ -35,12 +35,12 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainFragment :
-    BaseFragment<MainState, MainAction, FragmentMainBinding, MainFragmentViewModel>(
+    BaseFragment<MainState, MainAction, FragmentMainBinding, MainViewModel>(
         FragmentMainBinding::inflate
     ) {
 
     private val articleAdapter by lazy { ArticlePagerAdapter() }
-    override val viewModel by viewModels<MainFragmentViewModel>()
+    override val viewModel by viewModels<MainViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)

@@ -6,7 +6,7 @@ import com.example.newsapppp.data.interceptor.ErrorsInterceptor
 import com.example.newsapppp.data.interceptor.ErrorsInterceptorContract
 import com.example.newsapppp.data.interceptor.RestErrorInterceptor
 import com.example.newsapppp.data.source.remote.service.ApiService
-import com.example.newsapppp.domain.interactors.articles.remote.ArticleRepository
+import com.example.newsapppp.domain.repository.ArticleRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

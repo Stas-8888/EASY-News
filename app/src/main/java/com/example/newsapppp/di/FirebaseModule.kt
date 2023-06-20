@@ -2,8 +2,8 @@ package com.example.newsapppp.di
 
 import com.example.newsapppp.data.authentication.AuthenticationRepositoryImpl
 import com.example.newsapppp.data.authentication.ValidationRepositoryImpl
-import com.example.newsapppp.domain.interactors.authentication.AuthenticationRepository
-import com.example.newsapppp.domain.interactors.authentication.validation.ValidationRepository
+import com.example.newsapppp.domain.repository.AuthenticationRepository
+import com.example.newsapppp.domain.repository.ValidationRepository
 import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides

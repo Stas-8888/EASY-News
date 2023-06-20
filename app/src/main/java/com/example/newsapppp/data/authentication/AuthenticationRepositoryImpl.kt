@@ -1,7 +1,7 @@
 package com.example.newsapppp.data.authentication
 
 import com.example.newsapppp.common.dispatcher.DispatcherRepository
-import com.example.newsapppp.domain.interactors.authentication.AuthenticationRepository
+import com.example.newsapppp.domain.repository.AuthenticationRepository
 import com.example.newsapppp.domain.model.UserModel
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
