@@ -2,7 +2,7 @@ package com.example.newsapppp.presentation.mapper
 
 import androidx.paging.PagingData
 import androidx.paging.map
-import com.example.newsapppp.core.BaseMapper
+import com.example.newsapppp.common.BaseMapper
 import com.example.newsapppp.domain.model.ArticleModel
 import com.example.newsapppp.presentation.model.Article
 import javax.inject.Inject

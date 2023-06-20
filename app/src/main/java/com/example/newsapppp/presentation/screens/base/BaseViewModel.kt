@@ -2,8 +2,8 @@ package com.example.newsapppp.presentation.screens.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.newsapppp.core.network.NetworkHandlerRepository
-import com.example.newsapppp.core.resources.ProvideResourcesRepository
+import com.example.newsapppp.common.network.NetworkHandlerRepository
+import com.example.newsapppp.common.resources.ProvideResourcesRepository
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

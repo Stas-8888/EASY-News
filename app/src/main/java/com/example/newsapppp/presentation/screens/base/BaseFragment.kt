@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.example.newsapppp.core.Constants.DURATION_800L
-import com.example.newsapppp.core.Constants.SCALE_0F
-import com.example.newsapppp.core.Constants.SCALE_0_1F
-import com.example.newsapppp.core.Constants.SCALE_1000F
-import com.example.newsapppp.core.Constants.SCALE_1F
+import com.example.newsapppp.common.Constants.DURATION_800L
+import com.example.newsapppp.common.Constants.SCALE_0F
+import com.example.newsapppp.common.Constants.SCALE_0_1F
+import com.example.newsapppp.common.Constants.SCALE_1000F
+import com.example.newsapppp.common.Constants.SCALE_1F
 import com.example.newsapppp.presentation.extensions.bumpAnimation
 import com.example.newsapppp.presentation.extensions.launchFragmentScope
 import com.example.newsapppp.presentation.extensions.returnToPreviousScreen

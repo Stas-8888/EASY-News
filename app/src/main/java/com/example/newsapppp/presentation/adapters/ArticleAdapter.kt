@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import com.example.newsapppp.core.Constants.DURATION_1000
-import com.example.newsapppp.core.Constants.RADIUS_30
+import com.example.newsapppp.common.Constants.DURATION_1000
+import com.example.newsapppp.common.Constants.RADIUS_30
 import com.example.newsapppp.databinding.ItemLayoutBinding
 import com.example.newsapppp.presentation.model.Article
 

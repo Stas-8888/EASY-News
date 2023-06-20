@@ -1,6 +1,6 @@
 package com.example.newsapppp.data.authentication
 
-import com.example.newsapppp.core.dispatcher.DispatcherRepository
+import com.example.newsapppp.common.dispatcher.DispatcherRepository
 import com.example.newsapppp.domain.interactors.authentication.AuthenticationRepository
 import com.example.newsapppp.domain.model.UserModel
 import com.google.android.gms.tasks.Task

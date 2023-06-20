@@ -9,7 +9,7 @@ import android.view.animation.TranslateAnimation
 import android.view.inputmethod.InputMethodManager
 import androidx.core.animation.doOnEnd
 import com.example.newsapppp.R
-import com.example.newsapppp.core.Constants.ZERO
+import com.example.newsapppp.common.Constants.ZERO
 
 /**
  * Sets the visibility of the view to GONE.
