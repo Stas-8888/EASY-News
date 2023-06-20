@@ -85,10 +85,9 @@ class MainFragment : BaseFragment<MainState, MainAction, FragmentMainBinding, Ma
 
     private fun adapterLoadState() = with(binding) {
         articleAdapter.addLoadStateListener { loadState ->
-            when (val data = loadState.refresh) {
+            when (loadState.refresh) {
                 is LoadState.Error -> {
                     progressBar.makeGone()
-//                    showSnackBar(R.string.error)
                 }
 
                 is LoadState.Loading -> {
