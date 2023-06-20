@@ -47,9 +47,7 @@ class ArticleRepositoryImpl @Inject constructor(
             jumpThreshold = Int.MIN_VALUE,
             enablePlaceholders = true
         ),
-        pagingSourceFactory = {
-            ArticlePagingSource(apiService, countryCode, category, mapper)
-        }
+        pagingSourceFactory = { ArticlePagingSource(apiService, countryCode, category, mapper) }
     ).flow
 
     /**

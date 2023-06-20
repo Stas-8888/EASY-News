@@ -3,7 +3,7 @@ package com.example.newsapppp.presentation.screens.main
 import com.example.newsapppp.common.network.NetworkHandlerRepository
 import com.example.newsapppp.data.interceptor.ErrorsInterceptorContract
 import com.example.newsapppp.domain.use_case.articles.remote.FetchedArticlesUseCase
-import com.example.newsapppp.domain.use_case.sharedpreferences.GetCountryFlagUseCase
+import com.example.newsapppp.domain.use_case.shared_preferences.GetCountryFlagUseCase
 import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article
 import kotlinx.coroutines.runBlocking

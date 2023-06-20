@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ArticleDao {
-
     /**
      * Insert [ArticleEntity] to DB using REPLACE strategy -
      * OnConflict strategy constant to replace the old data and continue the transaction.

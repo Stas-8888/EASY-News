@@ -4,8 +4,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.newsapppp.R
 import com.example.newsapppp.domain.use_case.articles.cache.DeleteArticleUseCase
 import com.example.newsapppp.domain.use_case.articles.cache.InsertArticleUseCase
-import com.example.newsapppp.domain.use_case.sharedpreferences.GetFavoriteUseCase
-import com.example.newsapppp.domain.use_case.sharedpreferences.SaveFavoriteUseCase
+import com.example.newsapppp.domain.use_case.shared_preferences.GetFavoriteUseCase
+import com.example.newsapppp.domain.use_case.shared_preferences.SaveFavoriteUseCase
 import com.example.newsapppp.presentation.extensions.isCurrentUserNull
 import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article

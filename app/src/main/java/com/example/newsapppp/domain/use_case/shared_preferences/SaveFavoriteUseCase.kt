@@ -1,4 +1,4 @@
-package com.example.newsapppp.domain.use_case.sharedpreferences
+package com.example.newsapppp.domain.use_case.shared_preferences
 
 import com.example.newsapppp.domain.repository.SharedPreferencesRepository
 import javax.inject.Inject

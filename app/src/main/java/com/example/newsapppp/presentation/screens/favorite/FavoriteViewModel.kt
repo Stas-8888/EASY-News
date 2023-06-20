@@ -6,7 +6,7 @@ import com.example.newsapppp.domain.use_case.articles.cache.ArticleAllCacheUseCa
 import com.example.newsapppp.domain.use_case.articles.cache.DeleteAllUseCase
 import com.example.newsapppp.domain.use_case.articles.cache.DeleteArticleUseCase
 import com.example.newsapppp.domain.use_case.articles.cache.InsertArticleUseCase
-import com.example.newsapppp.domain.use_case.sharedpreferences.SaveFavoriteUseCase
+import com.example.newsapppp.domain.use_case.shared_preferences.SaveFavoriteUseCase
 import com.example.newsapppp.domain.repository.SharedPreferencesRepository
 import com.example.newsapppp.domain.model.ArticleModel
 import com.example.newsapppp.presentation.mapper.ArticleMapper
