@@ -15,6 +15,7 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.example.newsapppp.R
 import com.example.newsapppp.presentation.screens.activity.MainActivity
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 /**
@@ -22,7 +23,7 @@ import javax.inject.Inject
  * It extends the Worker class and implements the NotificationServiceContract interface.
  * It receives a context and worker parameters through the constructor.
  */
-class NotificationWorker @Inject constructor(context: Context, workerParameters: WorkerParameters) :
+class NotificationWorker @Inject constructor(@ApplicationContext context: Context, workerParameters: WorkerParameters) :
     Worker(context, workerParameters), NotificationServiceRepository {
 
     /**

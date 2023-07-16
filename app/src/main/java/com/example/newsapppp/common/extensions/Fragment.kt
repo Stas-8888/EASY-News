@@ -26,7 +26,6 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-
 /**
  *Reformats a date string in the format "yyyy-MM-dd" to "dd MMM yyyy".
  *@param dateInString The date string to reformat.
