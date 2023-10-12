@@ -3,11 +3,10 @@ package com.example.newsapppp.data.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.newsapppp.common.Constants.STARTING_PAGE
-import com.example.newsapppp.data.source.cache.SharedPreferencesRepositoryImpl
 import com.example.newsapppp.data.mapper.NewsResponseMapper
+import com.example.newsapppp.data.source.cache.SharedPreferencesRepositoryImpl
 import com.example.newsapppp.data.source.remote.service.ApiService
 import com.example.newsapppp.domain.model.ArticleModel
-import retrofit2.HttpException
 
 /**
  * A paging source for fetching news articles from an API.
@@ -43,8 +42,6 @@ class ArticlePagingSource(
             )
         } catch (e: Exception) {
             LoadResult.Error(e)
-        } catch (exception: HttpException) {
-            LoadResult.Error(exception)
         }
     }
 

@@ -36,7 +36,7 @@ class MainViewModel @Inject constructor(
      * Sets up UI for main fragment with news for first category.
      * Sets up news for a specific tab/category.
      */
-    fun fetchAndShowArticles(tab: TabLayout.Tab? = null) = when {
+    fun showArticles(tab: TabLayout.Tab? = null) = when {
         isOffline() -> emitAction(MainAction.ShowNetworkDialog(R.string.internet_disconnected))
         else -> fetchAndEmitArticles(tab)
     }
@@ -50,11 +50,7 @@ class MainViewModel @Inject constructor(
         val category = tab?.let { categories.getOrNull(it.position) } ?: categories.first()
         val articles = fetchedArticles(category).cachedIn(viewModelScope).first()
         val mappedArticles = mapper.mapToPagingArticle(articles)
-        try {
-            emit(MainState.ShowUI(mappedArticles, getCountryFlag(Unit)))
-        } catch (e: Exception) {
-            emitAction(MainAction.ShowMessage(R.string.error))
-        }
+        emit(MainState.ShowUI(mappedArticles, getCountryFlag(Unit)))
     }
 
     /**‹

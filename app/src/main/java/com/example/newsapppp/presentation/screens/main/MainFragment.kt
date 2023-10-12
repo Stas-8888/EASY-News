@@ -43,7 +43,7 @@ class MainFragment : BaseFragment<MainState, MainAction, FragmentMainBinding, Ma
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView(recyclerView = rvNews, baseAdapter = articleAdapter)
         viewModel.showInterceptorErrors()
-        viewModel.fetchAndShowArticles()
+        viewModel.showArticles()
         onScrollRecyclerViewListener()
         adapterLoadState()
         setupTabLayout()
@@ -74,7 +74,7 @@ class MainFragment : BaseFragment<MainState, MainAction, FragmentMainBinding, Ma
             viewModel.onArticleItemClicked(it)
         }
         swipeToRefresh.setOnRefreshListener {
-            viewModel.fetchAndShowArticles()
+            viewModel.showArticles()
             swipeToRefresh.isRefreshing = false
         }
         imMenu.setOnClickListener {
@@ -134,7 +134,7 @@ class MainFragment : BaseFragment<MainState, MainAction, FragmentMainBinding, Ma
         // Set up the listener to handle tab selection events
         tabMain.addOnTabSelectedListener(object : SimpleTabSelectedListener() {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                viewModel.fetchAndShowArticles(tab)
+                viewModel.showArticles(tab)
             }
         })
     }
