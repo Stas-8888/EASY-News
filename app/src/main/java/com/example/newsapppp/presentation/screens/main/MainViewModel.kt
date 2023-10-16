@@ -31,9 +31,9 @@ class MainViewModel @Inject constructor(
      * Sets up UI for main fragment with news for first category.
      * Sets up news for a specific tab/category.
      */
-    fun showArticles(tab: String? = null) = when {
+    fun showArticles(category: String? = null) = when {
         isOffline() -> emitAction(MainAction.ShowNetworkDialog(R.string.internet_disconnected))
-        else -> fetchAndEmitArticles(tab ?: "General")
+        else -> fetchAndEmitArticles(category ?: "General")
     }
 
     /**
