@@ -1,6 +1,6 @@
 package com.example.newsapppp.data.source.cache
 
-import com.example.newsapppp.common.dispatcher.DispatcherRepository
+import com.example.newsapppp.common.dispatcher.DispatcherHelper
 import com.example.newsapppp.data.source.cache.db.dao.ArticleDao
 import com.example.newsapppp.data.mapper.EntityMapper
 import com.example.newsapppp.data.mapper.NewsResponseMapper
@@ -14,14 +14,14 @@ import javax.inject.Inject
  * This is a cache repository for storing and retrieving news article data. It uses the [ArticleDao]
  * to interact with the local database, the [EntityMapper] to map the article data between the domain
  * layer and the database layer, the [NewsResponseMapper] to map the article data between the remote
- * data source and the domain layer, and the [DispatcherRepository] to perform asynchronous
+ * data source and the domain layer, and the [DispatcherHelper] to perform asynchronous
  * operations on an I/O-bound coroutine dispatcher.
  */
 class ArticleCacheRepositoryImpl @Inject constructor(
     private val articleDao: ArticleDao,
     private val mapper: EntityMapper,
     private val newsResponseMapper: NewsResponseMapper,
-    private val dispatcher: DispatcherRepository
+    private val dispatcher: DispatcherHelper
 ) : ArticleCacheRepository {
 
     /**

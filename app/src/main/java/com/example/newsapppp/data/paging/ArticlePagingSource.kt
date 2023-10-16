@@ -2,7 +2,7 @@ package com.example.newsapppp.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.newsapppp.common.Constants.STARTING_PAGE
+import com.example.newsapppp.common.Constants.FIRST_PAGE
 import com.example.newsapppp.data.mapper.NewsResponseMapper
 import com.example.newsapppp.data.source.cache.SharedPreferencesRepositoryImpl
 import com.example.newsapppp.data.source.remote.service.ApiService
@@ -29,7 +29,7 @@ class ArticlePagingSource(
      */
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticleModel> {
         return try {
-            val currentPage = params.key ?: STARTING_PAGE
+            val currentPage = params.key ?: FIRST_PAGE
             val response = repository.fetchedArticles(currentPage, countryCode.getCountryFlag(), category)
             val data = response.articles.filter { it.urlToImage != null && it.title != null }
             val responseData = mutableListOf<ArticleModel>()
@@ -37,8 +37,8 @@ class ArticlePagingSource(
 
             LoadResult.Page(
                 data = responseData,
-                prevKey = if (currentPage == STARTING_PAGE) null else currentPage.minus(1),
-                nextKey = currentPage.plus(STARTING_PAGE)
+                prevKey = if (currentPage == FIRST_PAGE) null else currentPage.minus(1),
+                nextKey = currentPage.plus(FIRST_PAGE)
             )
         } catch (e: Exception) {
             LoadResult.Error(e)
@@ -52,8 +52,8 @@ class ArticlePagingSource(
      */
     override fun getRefreshKey(state: PagingState<Int, ArticleModel>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
-            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(STARTING_PAGE)
-                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(STARTING_PAGE)
+            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(FIRST_PAGE)
+                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(FIRST_PAGE)
         }
     }
 }

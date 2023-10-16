@@ -9,7 +9,7 @@ import javax.inject.Inject
  * This class provides coroutine dispatchers for different contexts,
  * specifically the IO dispatcher through the [io] function.
  */
-class DispatcherRepositoryImpl @Inject constructor() : DispatcherRepository {
+class DispatcherHelperImpl @Inject constructor() : DispatcherHelper {
 
     /**
      * Executes a [block] in the IO dispatcher and suspends the current coroutine

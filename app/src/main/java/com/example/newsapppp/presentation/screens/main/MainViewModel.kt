@@ -11,16 +11,11 @@ import com.example.newsapppp.common.extensions.isOffline
 import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
-import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
-private val categories = listOf(
-    "Technology", "Sports", "Science", "Entertainment", "Business", "Health"
-)
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -36,21 +31,26 @@ class MainViewModel @Inject constructor(
      * Sets up UI for main fragment with news for first category.
      * Sets up news for a specific tab/category.
      */
-    fun showArticles(tab: TabLayout.Tab? = null) = when {
+    fun showArticles(tab: String? = null) = when {
         isOffline() -> emitAction(MainAction.ShowNetworkDialog(R.string.internet_disconnected))
-        else -> fetchAndEmitArticles(tab)
+        else -> fetchAndEmitArticles(tab ?: "General")
     }
 
     /**
      * Fetches articles for the specified category and emits the UI state to display them.
      * If no tab is provided, fetches articles for the first category.
-     * @param tab the tab representing the category of news to fetch and display
+     * @param category the tab representing the category of news to fetch and display
      */
-    private fun fetchAndEmitArticles(tab: TabLayout.Tab?) = viewModelScope.launch {
-        val category = tab?.let { categories.getOrNull(it.position) } ?: categories.first()
+    private fun fetchAndEmitArticles(category: String) = viewModelScope.launch {
         val articles = fetchedArticles(category).cachedIn(viewModelScope).first()
         val mappedArticles = mapper.mapToPagingArticle(articles)
         emit(MainState.ShowUI(mappedArticles, getCountryFlag(Unit)))
+
+        try {
+            emit(MainState.ShowUI(mappedArticles, getCountryFlag(Unit)))
+        } catch (e: Exception) {
+            emitAction(MainAction.ShowError(R.string.error))
+        }
     }
 
     /**‹
@@ -66,7 +66,7 @@ class MainViewModel @Inject constructor(
      */
     fun onBtSettingsClicked() {
         val action = MainFragmentDirections.actionMainFragmentToSettingsFragment()
-        emitAction(MainAction.Navigate(action))
+        emitAction(MainAction.OnClicked(action))
     }
 
     /**
@@ -74,7 +74,7 @@ class MainViewModel @Inject constructor(
      */
     fun onArticleItemClicked(article: Article) {
         val action = MainFragmentDirections.actionMainFragmentToDetailsFragment(article)
-        emitAction(MainAction.Navigate(action))
+        emitAction(MainAction.OnClicked(action))
     }
 
     /**
@@ -82,7 +82,7 @@ class MainViewModel @Inject constructor(
      */
     fun showInterceptorErrors() = viewModelScope.launch {
         interceptorErrors.errorsInterceptor().collect {
-            emitAction(MainAction.ShowMessage(it))
+            emitAction(MainAction.ShowError(it))
         }
     }
 }

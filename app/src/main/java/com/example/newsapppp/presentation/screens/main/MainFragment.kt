@@ -116,25 +116,16 @@ class MainFragment : BaseFragment<MainState, MainAction, FragmentMainBinding, Ma
 
     override fun observerAction(actions: MainAction) {
         when (actions) {
-            is MainAction.ShowMessage -> showSnackBar(actions.message)
-            is MainAction.Navigate -> navigateDirections(actions.navigateTo)
+            is MainAction.ShowError -> showSnackBar(actions.message)
+            is MainAction.OnClicked -> navigateDirections(actions.navigateTo)
             is MainAction.ShowNetworkDialog -> showInternetConnectionDialog(getString(actions.message))
         }
     }
 
     private fun setupTabLayout() = with(binding) {
-        // Add tabs to the TabLayout
-        tabMain.apply {
-            addTab(newTab().setText(R.string.main_news))
-            addTab(newTab().setText(R.string.sport))
-            addTab(newTab().setText(R.string.science))
-            addTab(newTab().setText(R.string.entertainment))
-        }
-
-        // Set up the listener to handle tab selection events
         tabMain.addOnTabSelectedListener(object : SimpleTabSelectedListener() {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                viewModel.showArticles(tab)
+                viewModel.showArticles(tab.text.toString())
             }
         })
     }

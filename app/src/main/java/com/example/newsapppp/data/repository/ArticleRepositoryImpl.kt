@@ -4,7 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.newsapppp.common.Constants.PAGE_SIZE
-import com.example.newsapppp.common.dispatcher.DispatcherRepository
+import com.example.newsapppp.common.dispatcher.DispatcherHelper
 import com.example.newsapppp.data.source.cache.SharedPreferencesRepositoryImpl
 import com.example.newsapppp.data.mapper.NewsResponseMapper
 import com.example.newsapppp.data.paging.ArticlePagingSource
@@ -19,7 +19,7 @@ import javax.inject.Inject
  * This is a remote repository for retrieving news article data. It uses the [ApiService] to fetch
  * article data from a remote API, and the [NewsResponseMapper] to map the API response to a
  * [NewsResponseModel]. Additionally, it uses the [SharedPreferencesRepositoryImpl] to get the user's country
- * flag and the [DispatcherRepository] to perform asynchronous operations on an I/O-bound
+ * flag and the [DispatcherHelper] to perform asynchronous operations on an I/O-bound
  * coroutine dispatcher.
  *
  * This class implements the [ArticleRepository] interface and provides methods to fetch
@@ -29,7 +29,7 @@ class ArticleRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
     private val mapper: NewsResponseMapper,
     private val countryCode: SharedPreferencesRepositoryImpl,
-    private val dispatcher: DispatcherRepository,
+    private val dispatcher: DispatcherHelper,
 ) : ArticleRepository {
 
     /**

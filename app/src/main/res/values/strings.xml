@@ -12,10 +12,10 @@
     <string name="want_delete_down">Хотите удалить ?</string>
     <string name="news">News</string>
     <string name="my_news">Мои новости</string>
-    <string name="main_news">Главные</string>
-    <string name="sport">Спорт</string>
-    <string name="science">Наука</string>
-    <string name="entertainment">Развлечение</string>
+    <string name="main_news">General</string>
+    <string name="sport">Sports</string>
+    <string name="science">Science</string>
+    <string name="entertainment">Entertainment</string>
     <string name="find">Поиск</string>
     <string name="settings">Настройки</string>
     <string name="name">Стас Павленко</string>

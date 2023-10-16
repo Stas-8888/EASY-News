@@ -1,7 +1,7 @@
 package com.example.newsapppp.data.source.cache
 
 import android.content.Context
-import com.example.newsapppp.common.dispatcher.DispatcherRepository
+import com.example.newsapppp.common.dispatcher.DispatcherHelper
 import com.example.newsapppp.domain.repository.SharedPreferencesRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -17,7 +17,7 @@ private const val DEFAULT_BOOLEAN = false
  */
 class SharedPreferencesRepositoryImpl @Inject constructor(
     @ApplicationContext var context: Context,
-    private val dispatcher: DispatcherRepository
+    private val dispatcher: DispatcherHelper
 ) : SharedPreferencesRepository {
 
     private val favoriteShared = context.getSharedPreferences("shared", Context.MODE_PRIVATE)

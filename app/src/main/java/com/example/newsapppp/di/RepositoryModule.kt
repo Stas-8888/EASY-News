@@ -1,8 +1,8 @@
 package com.example.newsapppp.di
 
 import com.example.newsapppp.common.*
-import com.example.newsapppp.common.dispatcher.DispatcherRepositoryImpl
-import com.example.newsapppp.common.dispatcher.DispatcherRepository
+import com.example.newsapppp.common.dispatcher.DispatcherHelperImpl
+import com.example.newsapppp.common.dispatcher.DispatcherHelper
 import com.example.newsapppp.common.network.NetworkHandler
 import com.example.newsapppp.common.network.NetworkHandlerRepository
 import com.example.newsapppp.common.resources.ProvideResourcesRepositoryImpl
@@ -25,7 +25,7 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun providesDispatchersList(impl: DispatcherRepositoryImpl): DispatcherRepository = impl
+    fun providesDispatchersList(impl: DispatcherHelperImpl): DispatcherHelper = impl
 
     @Provides
     @Singleton
