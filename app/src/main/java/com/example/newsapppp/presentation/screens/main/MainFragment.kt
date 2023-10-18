@@ -42,13 +42,13 @@ class MainFragment : BaseFragment<MainState, MainAction, FragmentMainBinding, Ma
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView(recyclerView = rvNews, baseAdapter = articleAdapter)
+        showBottomNavigationViewOnDrawerClosed(mainScreen)
         viewModel.showInterceptorErrors()
-        viewModel.showArticles()
         onScrollRecyclerViewListener()
+        viewModel.showArticles()
         adapterLoadState()
         setupTabLayout()
         setupAnimation()
-        showBottomNavigationViewOnDrawerClosed(mainScreen)
     }
 
     private fun showBottomNavigationViewOnDrawerClosed(drawerLayout: DrawerLayout) {

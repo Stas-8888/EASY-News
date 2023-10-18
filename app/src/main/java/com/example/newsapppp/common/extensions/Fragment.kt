@@ -13,7 +13,9 @@ import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.example.newsapppp.R
@@ -59,8 +61,12 @@ fun Fragment.returnToPreviousScreen() = findNavController().navigateUp()
  * Launches a coroutine when the Fragment's view is started.
  * @param block The code block to execute as a coroutine.
  */
-inline fun Fragment.launchFragmentScope(crossinline block: suspend CoroutineScope.() -> Unit) {
-    viewLifecycleOwner.lifecycleScope.launch { block() }
+fun Fragment.launchWhenCreated(block: suspend CoroutineScope.() -> Unit) {
+    viewLifecycleOwner.lifecycleScope.launch {
+        repeatOnLifecycle(Lifecycle.State.CREATED) {
+            block()
+        }
+    }
 }
 
 /**

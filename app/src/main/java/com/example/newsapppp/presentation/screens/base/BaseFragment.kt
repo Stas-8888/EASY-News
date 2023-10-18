@@ -15,7 +15,7 @@ import com.example.newsapppp.common.Constants.SCALE_0_1F
 import com.example.newsapppp.common.Constants.SCALE_1000F
 import com.example.newsapppp.common.Constants.SCALE_1F
 import com.example.newsapppp.common.extensions.bumpAnimation
-import com.example.newsapppp.common.extensions.launchFragmentScope
+import com.example.newsapppp.common.extensions.launchWhenCreated
 import com.example.newsapppp.common.extensions.returnToPreviousScreen
 import kotlinx.coroutines.flow.collectLatest
 
@@ -61,7 +61,7 @@ abstract class BaseFragment<State, Action, VB : ViewBinding, VM : BaseViewModel<
     /**
      * Observes the state of the view model and updates the UI accordingly.
      */
-    private fun observeOnState() = launchFragmentScope {
+    private fun observeOnState() = launchWhenCreated {
         viewModel.state.collectLatest { state ->
             observerState(state)
         }
@@ -70,7 +70,7 @@ abstract class BaseFragment<State, Action, VB : ViewBinding, VM : BaseViewModel<
     /**
      * Observes the actions of the view model and updates the UI accordingly.
      */
-    private fun observeOnAction() = launchFragmentScope {
+    private fun observeOnAction() = launchWhenCreated {
         viewModel.action.collectLatest { actions ->
             observerAction(actions)
         }
