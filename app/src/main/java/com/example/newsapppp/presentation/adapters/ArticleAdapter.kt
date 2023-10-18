@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import com.example.newsapppp.common.Constants.DURATION_1000
+import com.example.newsapppp.common.Constants.DURATION_300
 import com.example.newsapppp.common.Constants.RADIUS_30
 import com.example.newsapppp.databinding.ItemLayoutBinding
 import com.example.newsapppp.common.extensions.getReformatDate
@@ -29,7 +29,7 @@ class ArticleAdapter : ListAdapter<Article, ArticleAdapter.ArticleViewHolder>(Ar
         fun bind(article: Article) = with(binding) {
             imArticleImage.load(article.urlToImage) {
                 crossfade(true)
-                crossfade(DURATION_1000)
+                crossfade(DURATION_300)
                 transformations(RoundedCornersTransformation(RADIUS_30))
             }
             tvTitle.text = article.title

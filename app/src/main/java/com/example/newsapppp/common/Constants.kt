@@ -5,7 +5,7 @@ object Constants {
     //DURATIONS
     const val DURATION_100L = 100L
     const val DURATION_800L = 800L
-    const val DURATION_1000 = 1000
+    const val DURATION_300 = 300
     const val DURATION_SPLASH = 5L
 
     const val ZERO = 0
@@ -27,6 +27,6 @@ object Constants {
     //RADIUS
     const val RADIUS_30 = 30f
 
-    const val PAGE_SIZE = 20
+    const val PAGE_SIZE = 10
     const val FIRST_PAGE = 1
 }

@@ -46,11 +46,12 @@ class MainViewModel @Inject constructor(
         val mappedArticles = mapper.mapToPagingArticle(articles)
         emit(MainState.ShowUI(mappedArticles, getCountryFlag(Unit)))
 
-        try {
-            emit(MainState.ShowUI(mappedArticles, getCountryFlag(Unit)))
-        } catch (e: Exception) {
-            emitAction(MainAction.ShowError(R.string.error))
-        }
+
+//        try {
+//            emit(MainState.ShowUI(mappedArticles, getCountryFlag(Unit)))
+//        } catch (e: Exception) {
+//            emitAction(MainAction.ShowError(R.string.error))
+//        }
     }
 
     /**‹
