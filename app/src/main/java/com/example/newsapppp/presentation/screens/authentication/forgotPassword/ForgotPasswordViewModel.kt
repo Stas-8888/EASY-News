@@ -5,7 +5,7 @@ import com.example.newsapppp.R
 import com.example.newsapppp.domain.use_case.authentication.ForgotPasswordUseCase
 import com.example.newsapppp.domain.use_case.authentication.validation.ValidateEmailUseCase
 import com.example.newsapppp.domain.model.UserModel
-import com.example.newsapppp.common.extensions.isOffline
+import com.example.newsapppp.presentation.extensions.isOffline
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

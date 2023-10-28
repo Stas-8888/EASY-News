@@ -1,4 +1,4 @@
-package com.example.newsapppp.common.extensions
+package com.example.newsapppp.presentation.extensions
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator

@@ -8,7 +8,7 @@ import com.example.newsapppp.domain.use_case.shared_preferences.GetCountryFlagUs
 import com.example.newsapppp.domain.use_case.shared_preferences.GetSwitchPositionUseCase
 import com.example.newsapppp.domain.use_case.shared_preferences.SaveCountryFlagUseCase
 import com.example.newsapppp.domain.use_case.shared_preferences.SaveSwitchPositionUseCase
-import com.example.newsapppp.common.extensions.isCurrentUserNull
+import com.example.newsapppp.presentation.extensions.isCurrentUserNull
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

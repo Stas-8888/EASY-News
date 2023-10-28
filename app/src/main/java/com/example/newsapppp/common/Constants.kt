@@ -27,6 +27,6 @@ object Constants {
     //RADIUS
     const val RADIUS_30 = 30f
 
-    const val PAGE_SIZE = 10
+    const val PAGE_SIZE = 3
     const val FIRST_PAGE = 1
 }

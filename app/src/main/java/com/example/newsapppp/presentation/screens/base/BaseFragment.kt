@@ -14,9 +14,9 @@ import com.example.newsapppp.common.Constants.SCALE_0F
 import com.example.newsapppp.common.Constants.SCALE_0_1F
 import com.example.newsapppp.common.Constants.SCALE_1000F
 import com.example.newsapppp.common.Constants.SCALE_1F
-import com.example.newsapppp.common.extensions.bumpAnimation
-import com.example.newsapppp.common.extensions.launchWhenCreated
-import com.example.newsapppp.common.extensions.returnToPreviousScreen
+import com.example.newsapppp.presentation.extensions.bumpAnimation
+import com.example.newsapppp.presentation.extensions.launchWhenCreated
+import com.example.newsapppp.presentation.extensions.returnToPreviousScreen
 import kotlinx.coroutines.flow.collectLatest
 
 /**

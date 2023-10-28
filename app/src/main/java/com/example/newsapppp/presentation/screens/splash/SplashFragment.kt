@@ -6,7 +6,7 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.FragmentSplashBinding
-import com.example.newsapppp.common.extensions.navigateDirections
+import com.example.newsapppp.presentation.extensions.navigateDirections
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 

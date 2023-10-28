@@ -18,14 +18,14 @@ import com.example.newsapppp.common.Constants.SCALE_MINUS_100F
 import com.example.newsapppp.common.Constants.ZERO
 import com.example.newsapppp.common.SimpleTabSelectedListener
 import com.example.newsapppp.databinding.FragmentMainBinding
-import com.example.newsapppp.common.extensions.fadeInAnimation
-import com.example.newsapppp.common.extensions.makeGone
-import com.example.newsapppp.common.extensions.makeVisible
-import com.example.newsapppp.common.extensions.navigateDirections
-import com.example.newsapppp.common.extensions.showInternetConnectionDialog
-import com.example.newsapppp.common.extensions.showSnackBar
-import com.example.newsapppp.common.extensions.showWithAnimate
-import com.example.newsapppp.common.extensions.translateAnimation
+import com.example.newsapppp.presentation.extensions.fadeInAnimation
+import com.example.newsapppp.presentation.extensions.makeGone
+import com.example.newsapppp.presentation.extensions.makeVisible
+import com.example.newsapppp.presentation.extensions.navigateDirections
+import com.example.newsapppp.presentation.extensions.showInternetConnectionDialog
+import com.example.newsapppp.presentation.extensions.showSnackBar
+import com.example.newsapppp.presentation.extensions.showWithAnimate
+import com.example.newsapppp.presentation.extensions.translateAnimation
 import com.example.newsapppp.presentation.screens.base.BaseFragment
 import com.example.newsapppp.presentation.screens.main.adapter.ArticlePagerAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -98,6 +98,8 @@ class MainFragment : BaseFragment<MainState, MainAction, FragmentMainBinding, Ma
                 is LoadState.NotLoading -> {
                     progressBar.makeGone()
                     tvCenterText.makeGone()
+                    val itemCount = articleAdapter.itemCount // Получение размера адаптера
+                    println("Размер адаптера: $itemCount")
                 }
             }
         }

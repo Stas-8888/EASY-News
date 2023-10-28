@@ -7,7 +7,7 @@ import com.example.newsapppp.common.Constants.ONE
 import com.example.newsapppp.data.interceptor.ErrorsInterceptorRepository
 import com.example.newsapppp.domain.use_case.articles.remote.FetchedArticlesUseCase
 import com.example.newsapppp.domain.use_case.shared_preferences.GetCountryFlagUseCase
-import com.example.newsapppp.common.extensions.isOffline
+import com.example.newsapppp.presentation.extensions.isOffline
 import com.example.newsapppp.presentation.mapper.ArticleMapper
 import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.screens.base.BaseViewModel

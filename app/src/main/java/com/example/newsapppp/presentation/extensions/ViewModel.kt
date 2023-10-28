@@ -1,6 +1,11 @@
-package com.example.newsapppp.common.extensions
+package com.example.newsapppp.presentation.extensions
 
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.withContext
 
 /**
  * Returns a string representation of the resource identified by the given id using provideResources.
@@ -25,4 +30,17 @@ fun <S, A> BaseViewModel<S, A>.isOffline(): Boolean {
  */
 fun <S, A> BaseViewModel<S, A>.isCurrentUserNull(): Boolean {
     return firebaseAuth.currentUser?.isEmailVerified == null
+}
+
+suspend fun <T> ioThread(action: suspend () -> T): T = withContext(Dispatchers.IO) {
+    return@withContext action()
+}
+
+suspend fun <T> scopedIOThread(action: suspend (scope: CoroutineScope) -> T): T =
+    withContext(Dispatchers.IO) {
+        return@withContext action(this)
+    }
+
+fun <T> MutableStateFlow<T>.readOnly(): StateFlow<T> {
+    return this
 }

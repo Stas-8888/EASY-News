@@ -2,13 +2,13 @@ package com.example.newsapppp.presentation.screens.authentication.signin
 
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
-import com.example.newsapppp.common.extensions.clickAnimation
-import com.example.newsapppp.common.extensions.hideKeyboard
-import com.example.newsapppp.common.extensions.navigateDirections
-import com.example.newsapppp.common.extensions.shakeAnimation
-import com.example.newsapppp.common.extensions.showInternetConnectionDialog
-import com.example.newsapppp.common.extensions.showSnackBar
-import com.example.newsapppp.common.extensions.visibility
+import com.example.newsapppp.presentation.extensions.clickAnimation
+import com.example.newsapppp.presentation.extensions.hideKeyboard
+import com.example.newsapppp.presentation.extensions.navigateDirections
+import com.example.newsapppp.presentation.extensions.shakeAnimation
+import com.example.newsapppp.presentation.extensions.showInternetConnectionDialog
+import com.example.newsapppp.presentation.extensions.showSnackBar
+import com.example.newsapppp.presentation.extensions.visibility
 import com.example.newsapppp.databinding.FragmentSignInBinding
 import com.example.newsapppp.domain.model.UserModel
 import com.example.newsapppp.presentation.screens.base.BaseFragment

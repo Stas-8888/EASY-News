@@ -12,7 +12,7 @@ import com.example.newsapppp.common.Constants.DURATION_300
 import com.example.newsapppp.common.Constants.RADIUS_30
 import com.example.newsapppp.databinding.ItemLayoutBinding
 import com.example.newsapppp.presentation.adapters.ArticleDiffCallback
-import com.example.newsapppp.common.extensions.getReformatDate
+import com.example.newsapppp.presentation.extensions.getReformatDate
 import com.example.newsapppp.presentation.model.Article
 
 /**
@@ -70,6 +70,7 @@ class ArticlePagerAdapter :
             }
         }
     }
+
 
     /**
      * Set a click listener for each Article item in the ViewPager2.

@@ -34,7 +34,7 @@ class FavoriteViewModel @Inject constructor(
     /**
      * Function setup all articles cache in the favorite list.
      */
-    fun setupAllArticles() = viewModelScope.launch {
+    fun showArticles() = viewModelScope.launch {
         articleAllCache(Unit).collect { articles ->
             emit(prepareArticlesData(articles))
         }
