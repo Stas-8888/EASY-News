@@ -30,7 +30,7 @@ fun View.makeVisible() {
  * @param data a boolean indicating whether to show or hide the view
  */
 fun View.visibility(data: Boolean) {
-    visibility = if (data) View.VISIBLE else View.INVISIBLE
+    visibility = if (data) View.VISIBLE else View.GONE
 }
 
 /**

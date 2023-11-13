@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
  */
 class MainActivityViewModel : ViewModel() {
 
-    private val _state = MutableStateFlow<MainActivityState>(MainActivityState.Success)
+    private val _state = MutableStateFlow<MainActivityState>(MainActivityState.BottomNavigationState(false))
     val state = _state.asSharedFlow()
 
     /**
@@ -24,8 +24,8 @@ class MainActivityViewModel : ViewModel() {
         when (destination.id) {
             R.id.favoriteFragment,
             R.id.mainFragment,
-            R.id.searchFragment -> _state.emit(MainActivityState.Success)
-            else -> _state.emit(MainActivityState.Failure)
+            R.id.searchFragment -> _state.emit(MainActivityState.BottomNavigationState(true))
+            else -> _state.emit(MainActivityState.BottomNavigationState(false))
         }
     }
 }

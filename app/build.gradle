@@ -15,7 +15,7 @@ android {
     defaultConfig {
         applicationId "com.example.newsapppp"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -93,7 +93,7 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:2.48.1"
 
     //coil
-    implementation("io.coil-kt:coil:2.3.0")
+    implementation("io.coil-kt:coil:2.5.0")
 
     //Paging
     implementation "androidx.paging:paging-runtime-ktx:3.3.0-alpha02"
@@ -106,7 +106,7 @@ dependencies {
 
     //Mockito
     implementation 'org.mockito.kotlin:mockito-kotlin:4.0.0'
-    implementation 'org.mockito:mockito-core:4.6.1'
+    implementation 'org.mockito:mockito-core:5.4.0'
 
     //Shimmer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
@@ -117,6 +117,6 @@ dependencies {
     // Logger
     implementation 'com.orhanobut:logger:2.2.0'
 
-//    // debugImplementation because LeakCanary should only run in debug builds.
-//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
+    // debugImplementation because LeakCanary should only run in debug builds.
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
 }

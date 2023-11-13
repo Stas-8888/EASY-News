@@ -50,4 +50,9 @@ class SearchFragment :
             is SearchAction.ShowNetworkDialog -> showInternetConnectionDialog(getString(actions.message))
         }
     }
+
+    override fun onDestroyView() {
+        binding.rvSearchNews.adapter = null
+        super.onDestroyView()
+    }
 }

@@ -8,10 +8,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.newsapppp.R
 import com.example.newsapppp.databinding.ActivityMainBinding
-import com.example.newsapppp.presentation.extensions.makeGone
-import com.example.newsapppp.presentation.extensions.makeVisible
-import com.example.newsapppp.presentation.extensions.slideDownAnimation
 import com.example.newsapppp.presentation.extensions.slideUpAnimation
+import com.example.newsapppp.presentation.extensions.visibility
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -40,15 +38,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun observe() = lifecycleScope.launch {
         with(binding) {
-            viewModel.state.collectLatest {
-                when (it) {
-                    is MainActivityState.Success -> {
+            viewModel.state.collectLatest { state ->
+                when (state) {
+                    is MainActivityState.BottomNavigationState -> {
                         bottomNavigationView.slideUpAnimation()
-                        bottomNavigationView.makeVisible()
-                    }
-                    is MainActivityState.Failure -> {
-                        bottomNavigationView.slideDownAnimation()
-                        bottomNavigationView.makeGone()
+                        bottomNavigationView.visibility(state.state)
                     }
                 }
             }

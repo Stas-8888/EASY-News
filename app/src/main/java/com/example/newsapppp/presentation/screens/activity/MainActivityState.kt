@@ -1,6 +1,5 @@
 package com.example.newsapppp.presentation.screens.activity
 
 sealed class MainActivityState {
-    object Success : MainActivityState()
-    object Failure : MainActivityState()
+    data class BottomNavigationState (val state: Boolean): MainActivityState()
 }

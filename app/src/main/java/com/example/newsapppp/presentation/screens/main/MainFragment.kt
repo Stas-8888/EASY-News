@@ -26,8 +26,9 @@ import com.example.newsapppp.presentation.extensions.showInternetConnectionDialo
 import com.example.newsapppp.presentation.extensions.showSnackBar
 import com.example.newsapppp.presentation.extensions.showWithAnimate
 import com.example.newsapppp.presentation.extensions.translateAnimation
+import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.screens.base.BaseFragment
-import com.example.newsapppp.presentation.screens.main.adapter.ArticlePagerAdapter
+import com.example.newsapppp.presentation.screens.main.adapter.ArticlePagingAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,12 +37,12 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainFragment : BaseFragment<MainState, MainAction, FragmentMainBinding, MainViewModel>(
     FragmentMainBinding::inflate
 ) {
-    private val articleAdapter by lazy { ArticlePagerAdapter() }
+    private val adapter: ArticlePagingAdapter by lazy { ArticlePagingAdapter(::onArticleItemClicked) }
     override val viewModel by viewModels<MainViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView(recyclerView = rvNews, baseAdapter = articleAdapter)
+        setupRecyclerView(recyclerView = rvNews, baseAdapter = adapter)
         showBottomNavigationViewOnDrawerClosed(mainScreen)
         viewModel.showInterceptorErrors()
         onScrollRecyclerViewListener()
@@ -66,13 +67,15 @@ class MainFragment : BaseFragment<MainState, MainAction, FragmentMainBinding, Ma
         bottomNavigationView.isVisible = visibility
     }
 
+    private fun onArticleItemClicked(article: Article){
+        viewModel.onArticleItemClicked(article)
+    }
+
     override fun onClickListener() = with(binding) {
         btSettings.setOnClickListener {
             viewModel.onBtSettingsClicked()
         }
-        articleAdapter.setOnItemClickListener {
-            viewModel.onArticleItemClicked(it)
-        }
+
         swipeToRefresh.setOnRefreshListener {
             viewModel.showArticles()
             swipeToRefresh.isRefreshing = false
@@ -84,7 +87,7 @@ class MainFragment : BaseFragment<MainState, MainAction, FragmentMainBinding, Ma
     }
 
     private fun adapterLoadState() = with(binding) {
-        articleAdapter.addLoadStateListener { loadState ->
+        adapter.addLoadStateListener { loadState ->
             when (loadState.refresh) {
                 is LoadState.Error -> {
                     progressBar.makeGone()
@@ -98,7 +101,7 @@ class MainFragment : BaseFragment<MainState, MainAction, FragmentMainBinding, Ma
                 is LoadState.NotLoading -> {
                     progressBar.makeGone()
                     tvCenterText.makeGone()
-                    val itemCount = articleAdapter.itemCount // Получение размера адаптера
+                    val itemCount = adapter.itemCount // Получение размера адаптера
                     println("Размер адаптера: $itemCount")
                 }
             }
@@ -108,7 +111,7 @@ class MainFragment : BaseFragment<MainState, MainAction, FragmentMainBinding, Ma
     override fun observerState(state: MainState) = with(binding) {
         when (state) {
             is MainState.ShowUI -> {
-                articleAdapter.submitData(lifecycle, state.article)
+                adapter.submitData(viewLifecycleOwner.lifecycle, state.article)
                 tvCountry.text = state.countryFlag
             }
 
@@ -153,5 +156,10 @@ class MainFragment : BaseFragment<MainState, MainAction, FragmentMainBinding, Ma
         appName.translateAnimation(SCALE_0F, SCALE_0F, SCALE_MINUS_100F, SCALE_0F, DURATION_100L)
         tvCountry.translateAnimation(SCALE_0F, SCALE_0F, SCALE_100F, SCALE_0F, DURATION_100L)
         btSettings.translateAnimation(SCALE_200F, SCALE_0F, SCALE_0F, SCALE_0F, DURATION_100L)
+    }
+
+    override fun onDestroyView() {
+        binding.rvNews.adapter = null
+        super.onDestroyView()
     }
 }
