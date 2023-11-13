@@ -31,12 +31,11 @@ class ArticlePagingSource(
         return try {
             val currentPage = params.key ?: FIRST_PAGE
             val response = repository.fetchedArticles(currentPage, countryCode.getCountryFlag(), category)
-            val data = response.articles.filter { it.urlToImage != null && it.title != null }
-            val responseData = mutableListOf<ArticleModel>()
-            responseData.addAll(mapper.mapToListArticleRemote(data))
+            val filteredResponse = response.articles.filter { it.urlToImage != null && it.title != null }
+            val data = mapper.mapToListArticleRemote(filteredResponse)
 
             LoadResult.Page(
-                data = responseData,
+                data = data,
                 prevKey = if (currentPage == FIRST_PAGE) null else currentPage.minus(1),
                 nextKey = currentPage.plus(FIRST_PAGE)
             )

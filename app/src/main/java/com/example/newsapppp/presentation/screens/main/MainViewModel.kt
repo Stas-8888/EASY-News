@@ -13,7 +13,7 @@ import com.example.newsapppp.presentation.model.Article
 import com.example.newsapppp.presentation.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -33,7 +33,7 @@ class MainViewModel @Inject constructor(
      */
     fun showArticles(category: String? = null) = when {
         isOffline() -> emitAction(MainAction.ShowNetworkDialog(R.string.internet_disconnected))
-        else -> fetchAndEmitArticles(category ?: "General")
+        else -> fetchArticles(category ?: "General")
     }
 
     /**
@@ -41,17 +41,11 @@ class MainViewModel @Inject constructor(
      * If no tab is provided, fetches articles for the first category.
      * @param category the tab representing the category of news to fetch and display
      */
-    private fun fetchAndEmitArticles(category: String) = viewModelScope.launch {
-        val articles = fetchedArticles(category).cachedIn(viewModelScope).first()
-        val mappedArticles = mapper.mapToPagingArticle(articles)
-        emit(MainState.ShowUI(mappedArticles, getCountryFlag(Unit)))
-
-
-//        try {
-//            emit(MainState.ShowUI(mappedArticles, getCountryFlag(Unit)))
-//        } catch (e: Exception) {
-//            emitAction(MainAction.ShowError(R.string.error))
-//        }
+    private fun fetchArticles(category: String) = viewModelScope.launch {
+        fetchedArticles(category).cachedIn(viewModelScope).collectLatest {
+            val mappedArticles = mapper.mapToPagingArticle(it)
+            emit(MainState.ShowUI(mappedArticles, getCountryFlag(Unit)))
+        }
     }
 
     /**‹

@@ -19,6 +19,7 @@ import com.example.newsapppp.common.Constants.ZERO
 import com.example.newsapppp.common.SimpleTabSelectedListener
 import com.example.newsapppp.databinding.FragmentMainBinding
 import com.example.newsapppp.presentation.extensions.fadeInAnimation
+import com.example.newsapppp.presentation.extensions.launchWhenCreated
 import com.example.newsapppp.presentation.extensions.makeGone
 import com.example.newsapppp.presentation.extensions.makeVisible
 import com.example.newsapppp.presentation.extensions.navigateDirections
@@ -32,6 +33,7 @@ import com.example.newsapppp.presentation.screens.main.adapter.ArticlePagingAdap
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<MainState, MainAction, FragmentMainBinding, MainViewModel>(
@@ -67,7 +69,7 @@ class MainFragment : BaseFragment<MainState, MainAction, FragmentMainBinding, Ma
         bottomNavigationView.isVisible = visibility
     }
 
-    private fun onArticleItemClicked(article: Article){
+    private fun onArticleItemClicked(article: Article) {
         viewModel.onArticleItemClicked(article)
     }
 
@@ -86,21 +88,18 @@ class MainFragment : BaseFragment<MainState, MainAction, FragmentMainBinding, Ma
         }
     }
 
-    private fun adapterLoadState() = with(binding) {
-        adapter.addLoadStateListener { loadState ->
-            when (loadState.refresh) {
-                is LoadState.Error -> {
-                    progressBar.makeGone()
-                }
-
+    private fun adapterLoadState() = launchWhenCreated {
+        adapter.loadStateFlow.collectLatest { loadStates ->
+            when (loadStates.refresh) {
                 is LoadState.Loading -> {
-                    progressBar.makeVisible()
-                    tvCenterText.makeVisible()
+                    binding.progressBar.makeVisible()
+                    binding.tvCenterText.makeVisible()
                 }
 
+                is LoadState.Error -> binding.progressBar.makeGone()
                 is LoadState.NotLoading -> {
-                    progressBar.makeGone()
-                    tvCenterText.makeGone()
+                    binding.progressBar.makeGone()
+                    binding.tvCenterText.makeGone()
                 }
             }
         }
@@ -113,7 +112,7 @@ class MainFragment : BaseFragment<MainState, MainAction, FragmentMainBinding, Ma
                 tvCountry.text = state.countryFlag
             }
 
-            is MainState.BottomVisibility -> fabUp.isVisible = state.state
+            is MainState.BottomVisibility -> fabUp.isVisible = state.isVisible
         }
     }
 

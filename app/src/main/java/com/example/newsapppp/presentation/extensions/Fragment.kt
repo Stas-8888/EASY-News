@@ -50,7 +50,13 @@ fun getReformatDate(dateInString: String?): String {
  * Navigates to the given destination using the Navigation Component.
  * @param where The NavDirections object representing the destination to navigate to.
  */
-fun Fragment.navigateDirections(where: NavDirections) = findNavController().navigate(where)
+fun Fragment.navigateDirections(where: NavDirections) {
+    try {
+        findNavController().navigate(where)
+    } catch (e: IllegalArgumentException) {
+        e.printStackTrace()
+    }
+}
 
 /**
  * Navigates back to the previous screen using the Navigation Component.

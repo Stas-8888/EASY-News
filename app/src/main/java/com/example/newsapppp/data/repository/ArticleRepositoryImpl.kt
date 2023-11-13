@@ -43,6 +43,7 @@ class ArticleRepositoryImpl @Inject constructor(
     override fun fetchedArticles(category: String): Flow<PagingData<ArticleModel>> = Pager(
         PagingConfig(
             pageSize = PAGE_SIZE,
+            prefetchDistance = 2,
             maxSize = PagingConfig.MAX_SIZE_UNBOUNDED,
             jumpThreshold = Int.MIN_VALUE,
             enablePlaceholders = true

@@ -5,5 +5,5 @@ import com.example.newsapppp.presentation.model.Article
 
 sealed class MainState {
     data class ShowUI(val article: PagingData<Article>, val countryFlag: String) : MainState()
-    data class BottomVisibility(val state: Boolean) : MainState()
+    data class BottomVisibility(val isVisible: Boolean) : MainState()
 }
