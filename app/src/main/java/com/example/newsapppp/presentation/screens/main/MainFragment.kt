@@ -101,8 +101,6 @@ class MainFragment : BaseFragment<MainState, MainAction, FragmentMainBinding, Ma
                 is LoadState.NotLoading -> {
                     progressBar.makeGone()
                     tvCenterText.makeGone()
-                    val itemCount = adapter.itemCount // Получение размера адаптера
-                    println("Размер адаптера: $itemCount")
                 }
             }
         }
