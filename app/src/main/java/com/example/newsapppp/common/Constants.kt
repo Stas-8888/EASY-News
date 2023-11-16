@@ -5,7 +5,7 @@ object Constants {
     //DURATIONS
     const val DURATION_100L = 100L
     const val DURATION_800L = 800L
-    const val DURATION_300 = 300
+    const val DURATION_250 = 250
     const val DURATION_SPLASH = 5L
 
     const val ZERO = 0
