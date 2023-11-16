@@ -30,5 +30,5 @@ render.experimental.xml
 *.hprof
 
 # Google Services (e.g. APIs or Firebase)
-google-services.json
+#google-services.json
 
