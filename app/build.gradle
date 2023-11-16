@@ -20,11 +20,8 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        Properties localProperties = new Properties()
-        localProperties.load(project.rootProject.file("local.properties").newDataInputStream())
-
-        buildConfigField "String", "BASE_URL", localProperties['BASE_URL']
-        buildConfigField "String", "API_KEY", localProperties['API_KEY']
+        buildConfigField("String", "BASE_URL", "\"https://newsapi.org/\"")
+        buildConfigField("String", "API_KEY", "\"a458995c42e34cb6bf3b5534f6a137a0\"")
     }
 
     buildTypes {
@@ -118,5 +115,5 @@ dependencies {
     implementation 'com.orhanobut:logger:2.2.0'
 
     // debugImplementation because LeakCanary should only run in debug builds.
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
 }
