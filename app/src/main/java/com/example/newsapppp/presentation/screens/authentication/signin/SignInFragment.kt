@@ -1,5 +1,6 @@
 package com.example.newsapppp.presentation.screens.authentication.signin
 
+import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import com.example.newsapppp.presentation.extensions.clickAnimation
@@ -36,19 +37,22 @@ class SignInFragment :
             )
         }
         btForgotPassword.setOnClickListener {
-            it.hideKeyboard()
+            buttonAnimation(it)
             viewModel.onForgotPasswordButtonClicked()
         }
         btSignUp.setOnClickListener {
-            it.clickAnimation()
-            it.hideKeyboard()
+            buttonAnimation(it)
             viewModel.onSignUpButtonClicked()
         }
         btSkip.setOnClickListener {
-            it.clickAnimation()
-            it.hideKeyboard()
+            buttonAnimation(it)
             viewModel.onSkipButtonClicked()
         }
+    }
+
+    private fun buttonAnimation(view: View) {
+        view.clickAnimation()
+        view.hideKeyboard()
     }
 
     private fun emailText(): String = binding.edLogin.text.toString().trim()
