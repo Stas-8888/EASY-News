@@ -71,4 +71,9 @@ class FavoriteFragment :
                 { articleAdapter.notifyItemChanged(actions.position) })
         }
     }
+
+    override fun onDestroyView() {
+        binding.rvSavedNews.adapter = null
+        super.onDestroyView()
+    }
 }

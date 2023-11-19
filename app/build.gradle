@@ -114,6 +114,6 @@ dependencies {
     // Logger
     implementation 'com.orhanobut:logger:2.2.0'
 
-    // debugImplementation because LeakCanary should only run in debug builds.
-//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
+    //debugImplementation because LeakCanary should only run in debug builds.
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
 }
